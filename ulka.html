@@ -2,171 +2,210 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<!-- Добавили viewport-fit=cover для корректного отображения на iPhone -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>VOGUE: Nastya Edition</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+/* Подключаем шрифты: Playfair для заголовка и Montserrat для тонкого текста */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&family=Playfair+Display:wght@700;900&display=swap');
 
-/* ГЛОБАЛЬНЫЕ НАСТРОЙКИ ДЛЯ ПРЕДОТВРАЩЕНИЯ СКРОЛЛА */
 * {
-  box-sizing: border-box; /* Учитываем отступы в ширине */
+  box-sizing: border-box;
 }
 
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  max-width: 100vw;
-  overflow-x: hidden; /* ЗАПРЕТ ГОРИЗОНТАЛЬНОГО СКРОЛЛА */
+  overflow-x: hidden;
   background: #000000;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Montserrat', sans-serif;
   color: white;
-  -webkit-font-smoothing: antialiased;
 }
 
 /* ===== ОБЛОЖКА ===== */
 .cover {
   position: relative;
   width: 100%;
-  height: 100vh; /* Ровно высота экрана */
+  height: 100vh;
   display: flex;
+  justify-content: center;
   overflow: hidden;
 }
 
 .cover img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Заполняет экран без искажений */
-  display: block;
+  object-fit: cover;
 }
 
+/* ГРАДИЕНТ ДЛЯ ЧИТАЕМОСТИ */
 .cover::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.4) 0%,
-    transparent 50%,
-    rgba(0,0,0,0.8) 100%
-  );
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent 40%, rgba(0,0,0,0.5));
 }
 
-.cover-text {
+/* ГЛАВНЫЙ ЗАГОЛОВОК VOGUE (ОТ КРАЯ ДО КРАЯ) */
+.vogue-title {
   position: absolute;
-  bottom: 10%; /* Опустил чуть ниже, на мобилках так удобнее */
-  left: 20px;
-  right: 20px; /* Чтобы текст не упирался в правый край */
-  z-index: 2;
-}
-
-.cover-text h1 {
-  font-size: clamp(50px, 18vw, 100px); 
-  margin: 0;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  font-weight: 700;
-  line-height: 0.9;
-}
-
-.cover-text p {
-  font-size: 1rem;
-  margin-top: 10px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  opacity: 0.8;
-}
-
-/* ===== КОНТЕНТ ===== */
-section {
-  padding: 60px 20px;
+  top: 5%;
   width: 100%;
-  max-width: 100%; /* Гарантируем, что секция не шире экрана */
-  margin: 0 auto;
-}
-
-h2 {
   text-align: center;
-  font-size: 1.8rem;
-  margin-bottom: 30px;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  color: #ff8fa3;
+  font-family: 'Playfair Display', serif;
+  font-size: 26vw; /* Тянется ровно по ширине экрана */
+  font-weight: 900;
+  letter-spacing: -2px; /* В стиле журналов буквы стоят плотно */
+  margin: 0;
+  line-height: 1;
+  z-index: 10;
+  pointer-events: none;
 }
 
-/* ВИДЕО */
-.video-block {
+/* ПОДЗАГОЛОВОК ПОД VOGUE */
+.edition-text {
+  position: absolute;
+  top: 26%;
+  width: 100%;
+  text-align: center;
+  font-weight: 200;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  font-size: 0.8rem;
+  z-index: 11;
+}
+
+/* БОКОВЫЕ ЗАГОЛОВКИ (ВЫНОСЫ) */
+.cover-features {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 12;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  align-items: center;
+  justify-content: flex-end; /* Сдвигаем к нижней части */
+  padding-bottom: 50px;
+}
+
+.feature {
+  max-width: 180px;
+  margin-bottom: 30px;
+  opacity: 0; /* Скрыты изначально для анимации */
+  transform: translateY(20px);
+  transition: all 1s ease-out;
+}
+
+.feature.left { align-self: flex-start; text-align: left; border-left: 1px solid white; padding-left: 10px; }
+.feature.right { align-self: flex-end; text-align: right; border-right: 1px solid white; padding-right: 10px; }
+
+.feature h3 {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  margin: 0 0 5px 0;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.feature p {
+  font-size: 0.85rem;
+  line-height: 1.2;
+  margin: 0;
+  font-weight: 200;
+}
+
+/* ЭФФЕКТ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ */
+.feature.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== СЕКЦИИ НИЖЕ ===== */
+section.content {
+  padding: 60px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 video {
   width: 100%;
-  max-width: 100%; /* Чтобы видео не вылезало */
-  border-radius: 8px;
-  background: #000;
+  margin-bottom: 20px;
+  border-radius: 4px;
 }
 
-/* АСТРО */
-.astro {
-  text-align: center;
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin-bottom: 40px;
 }
 
-.astro img {
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-  border-radius: 10px;
-}
-
-.fade-in {
-  animation: fadeIn 1.5s ease-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
 </style>
 </head>
 
 <body>
 
-<div class="fade-in">
-  <!-- ОБЛОЖКА -->
-  <section class="cover">
+  <div class="cover">
+    <h1 class="vogue-title">VOGUE</h1>
+    <div class="edition-text">Nastya Edition — Special Birthday Issue</div>
+    
     <img src="1.jpg" alt="Nastya">
-    <div class="cover-text">
-      <h1>VOGUE</h1>
-      <p>Nastya Edition<br>Special Birthday Issue</p>
-    </div>
-  </section>
 
-  <!-- ВИДЕО -->
-  <section class="video-block">
-    <h2>The Movie</h2>
+    <div class="cover-features">
+      <div class="feature left" id="f1">
+        <h3>Career</h3>
+        <p>Великая девушка, покорившая проектировку кинозалов</p>
+      </div>
+
+      <div class="feature right" id="f2">
+        <h3>Top 10</h3>
+        <p>Как оштрафовать вас за неправильную парковку</p>
+      </div>
+
+      <div class="feature left" id="f3">
+        <h3>Gaming</h3>
+        <p>Детка геймер в топах мира. В чем секрет?</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="content">
+    <h2>Special Video</h2>
     <video controls playsinline poster="preview1.jpg">
       <source src="video1.mp4" type="video/mp4">
     </video>
     
-    <video controls playsinline poster="preview2.jpg">
-      <source src="video2.mp4" type="video/mp4">
-    </video>
+    <h2>Compatibility</h2>
+    <img src="astro.png" style="width: 100%; height: auto;" alt="Astro">
   </section>
 
-  <!-- АСТРО -->
-  <section class="astro">
-    <h2>Stars Alignment</h2>
-    <img src="astro.png" alt="Compatibility">
-    <p style="margin-top: 20px; font-style: italic; opacity: 0.7; font-size: 0.9rem;">
-      Твой личный код судьбы.
-    </p>
-  </section>
-</div>
+<script>
+  // Скрипт для появления подписей при скролле
+  window.addEventListener('scroll', () => {
+    const features = document.querySelectorAll('.feature');
+    features.forEach(f => {
+      const position = f.getBoundingClientRect().top;
+      const screenHeight = window.innerHeight;
+      
+      // Если элемент показался в зоне видимости (даже чуть-чуть скролла)
+      if(position < screenHeight * 0.9) {
+        f.classList.add('visible');
+      }
+    });
+  });
+
+  // Запускаем проверку один раз при загрузке
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+        document.querySelector('#f1').classList.add('visible');
+    }, 500); // Первая подпись появится сама через полсекунды
+  });
+</script>
 
 </body>
 </html>
