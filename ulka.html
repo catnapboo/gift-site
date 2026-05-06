@@ -13,39 +13,63 @@ body {
   color: white;
 }
 
-/* ===== ОБЩИЕ СЕКЦИИ ===== */
+/* ===== ОБЛОЖКА ===== */
+.cover {
+  position: relative;
+  width: 100%;
+}
+
+/* ФОТО ВО ВСЮ ШИРИНУ БЕЗ ОБРЕЗКИ */
+.cover img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ТЁМНЫЙ ГРАДИЕНТ ДЛЯ ЧИТАЕМОСТИ ТЕКСТА */
+.cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.4),
+    rgba(0,0,0,0.2),
+    rgba(0,0,0,0.6)
+  );
+}
+
+/* ТЕКСТ ПОВЕРХ ФОТО */
+.cover-text {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  z-index: 2;
+  max-width: 70%;
+}
+
+/* ГЛАВНЫЙ ЗАГОЛОВОК (как VOGUE) */
+.cover-text h1 {
+  font-size: 60px;
+  margin: 0;
+  letter-spacing: 3px;
+}
+
+/* ПОДЗАГОЛОВКИ */
+.cover-text p {
+  font-size: 18px;
+  margin-top: 10px;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* ===== СЕКЦИИ НИЖЕ ===== */
 section {
   padding: 80px 10%;
   box-sizing: border-box;
 }
 
-/* ===== ОБЛОЖКА ===== */
-.cover {
-  background: #000000;
-}
-
-/* фото НЕ фон, а обычный элемент */
-.cover img {
-  width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 10px;
-}
-
-/* текст под фото (журнальный стиль) */
-.cover h1 {
-  margin-top: 20px;
-  font-size: 40px;
-  letter-spacing: 2px;
-}
-
-.cover p {
-  font-size: 18px;
-  opacity: 0.8;
-  margin-top: 10px;
-}
-
-/* ===== ВИДЕО БЛОК ===== */
+/* ВИДЕО */
 .video-block {
   display: flex;
   flex-direction: column;
@@ -58,7 +82,7 @@ video {
   border-radius: 15px;
 }
 
-/* ===== АСТРО ===== */
+/* АСТРО */
 .astro {
   text-align: center;
 }
@@ -79,15 +103,22 @@ video {
 
   <img src="1.jpg">
 
-  <h1>VOGUE GIFT EDITION</h1>
+  <!-- ТЕКСТ ПОВЕРХ -->
+  <div class="cover-text">
 
-  <p>
-    мини-история / подпись / эмоции от друга
-  </p>
+    <h1>VOGUE</h1>
+
+    <p>
+      Nastya Edition<br>
+      Special Birthday Issue<br>
+      From friends with love 💌
+    </p>
+
+  </div>
 
 </section>
 
-<!-- ===== ВИДЕО 1 ===== -->
+<!-- ===== ВИДЕО ===== -->
 <section class="video-block">
 
   <video controls>
