@@ -25,6 +25,7 @@ body, html {
 .magazine-cover {
   position: relative;
   width: 100%;
+  height: 100vh; /* Занимает весь первый экран */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,10 +34,10 @@ body, html {
 
 .main-photo {
   position: absolute;
-  top: 160px;
+  top: 0; /* Прижато к самому верху */
   left: 0;
-  width: 100%;
-  height: 80vh;
+  width: 100%; /* Вписано по бокам */
+  height: 85vh; /* Высота фото */
   object-fit: cover;
   display: block;
   z-index: 1;
@@ -88,12 +89,9 @@ body, html {
 .feature.left { text-align: left; border-left: 1px solid white; padding-left: 15px; margin-right: auto; }
 .feature.right { text-align: right; border-right: 1px solid white; padding-right: 15px; margin-left: auto; }
 
-.feature h3 { font-size: 10px; text-transform: uppercase; letter-spacing: 3px; margin: 0 0 5px 0; font-weight: 300; }
-.feature p { font-size: 16px; font-family: 'Bodoni Moda', serif; font-style: italic; margin: 0; line-height: 1.2; font-weight: 200; }
-
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
-/* СКРОЛЛ ЭФФЕКТЫ */
+/* ЭФФЕКТЫ ДЛЯ ТЕКСТА (НЕ ДЛЯ ФОНА) */
 .scroll-reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -105,15 +103,15 @@ body, html {
   transform: translateY(0);
 }
 
-/* СЕКЦИЯ С ВИДЕО И ФОНОМ 5.JPG */
+/* СЕКЦИЯ С ВИДЕО (ФОН 5.JPG СТАТИЧЕН) */
 .video-background-section {
   position: relative;
-  margin-top: 70vh; 
   width: 100%;
   padding: 80px 20px;
   background-image: url('5.jpg');
   background-size: cover;
   background-position: center;
+  /* Фон статичен, без анимаций появления */
   z-index: 20;
   display: flex;
   flex-direction: column;
@@ -122,14 +120,14 @@ body, html {
 
 video { width: 100%; border-radius: 2px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
 
-/* СЕКЦИЯ ТЕКСТА С ДЛИННЫМ ФОНОМ 6.JPG */
+/* СЕКЦИЯ ТЕКСТА (ФОН 6.JPG СТАТИЧЕН И ФИКСИРОВАН) */
 .astro-section-long {
   position: relative;
   width: 100%;
   background-image: url('6.jpg');
   background-size: cover;
   background-position: top center;
-  background-attachment: fixed; /* Эффект параллакса для длинного фото */
+  background-attachment: fixed; /* Фото стоит, текст едет */
   padding: 100px 20px;
   display: flex;
   flex-direction: column;
@@ -139,11 +137,10 @@ video { width: 100%; border-radius: 2px; box-shadow: 0 20px 40px rgba(0,0,0,0.5)
 .astro-text-container {
   max-width: 600px;
   text-align: left;
-  /* Темная подложка, чтобы текст читался на любом фоне фото 6.jpg */
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7); /* Чуть плотнее для читаемости */
   padding: 40px 30px;
-  backdrop-filter: blur(5px);
-  border-radius: 5px;
+  backdrop-filter: blur(8px);
+  border-radius: 2px;
 }
 
 .astro-block { margin-bottom: 45px; }
@@ -169,16 +166,8 @@ video { width: 100%; border-radius: 2px; box-shadow: 0 20px 40px rgba(0,0,0,0.5)
   margin-top: 60px;
   padding: 40px 25px;
   border: 1px solid rgba(255,255,255,0.4);
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.5);
   text-align: center;
-}
-
-.conclusion-box h3 {
-  font-family: 'Bodoni Moda', serif;
-  font-size: 24px;
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  margin-bottom: 25px;
 }
 
 footer {
@@ -189,7 +178,6 @@ footer {
   background: #000;
   width: 100%;
 }
-
 </style>
 </head>
 <body>
@@ -216,7 +204,6 @@ footer {
     </div>
   </div>
 
-  <!-- Секция с видео на фоне фото 5.jpg -->
   <section class="video-background-section">
     <h2 class="scroll-reveal" style="font-family: 'Bodoni Moda', serif; letter-spacing: 5px; margin-bottom: 40px;">Cinema Art</h2>
     <div class="scroll-reveal" style="width: 100%; max-width: 800px;">
@@ -226,23 +213,22 @@ footer {
     </div>
   </section>
 
-  <!-- Секция с текстом на фоне длинного фото 6.jpg -->
   <section class="astro-section-long">
     <div class="astro-text-container">
       
       <div class="astro-block scroll-reveal">
-        <h4>Заголовок Блока 1</h4>
-        <p>Здесь будет ваш текст натальной карты, который плавно всплывает при скролле прямо поверх длинного фото 6.jpg.</p>
+        <h4>Тайны Вселенной</h4>
+        <p>Здесь располагается ваш текст. Фон (изображение 6) остается неподвижным, создавая эффект глубины при прокрутке.</p>
       </div>
 
       <div class="astro-block scroll-reveal">
-        <h4>Заголовок Блока 2</h4>
-        <p>Текст будет хорошо читаться за счет полупрозрачной темной подложки, сохраняя при этом видимость фонового изображения.</p>
+        <h4>Сила влияния</h4>
+        <p>Текст плавно проявляется, акцентируя внимание на важных деталях вашей натальной карты.</p>
       </div>
 
       <div class="conclusion-box scroll-reveal">
         <h3>Итог страницы</h3>
-        <p>Финальное напутствие или красивая цитата для завершения раздела.</p>
+        <p>Финальный аккорд текущего раздела.</p>
       </div>
 
     </div>
