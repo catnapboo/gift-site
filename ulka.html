@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Подарок 💌</title>
+
+<style>
+
+/* ====== ОБЩИЙ ФОН СТРАНИЦЫ ====== */
+/* здесь задаётся цвет всего сайта */
+body {
+  margin: 0;
+  background: #0a0809; /* ТВОЙ ФОН */
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+/* ====== ОСНОВНОЙ КОНТЕЙНЕР ====== */
+/* это "рабочая зона" где всё лежит */
+.container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ====== ФОТО ====== */
+/*
+  ЭТО ГЛАВНОЕ ИЗОБРАЖЕНИЕ
+  - top / left = положение
+  - width = размер
+*/
+.photo {
+  position: absolute;
+  top: 50px;     /* вверх-вниз */
+  left: 50px;    /* влево-вправо */
+  width: 300px;  /* размер фото */
+  border-radius: 20px; /* скругление */
+  box-shadow: 0 0 40px rgba(0,0,0,0.6);
+}
+
+/* ====== ТЕКСТ (если понадобится) ====== */
+.text {
+  position: absolute;
+  top: 400px;
+  left: 50px;
+  font-size: 20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- ====== ФОТО ====== -->
+  <!--
+    src = путь к картинке
+    images/photo.jpg — пример
+  -->
+  <img class="photo" src="photo.jpg">
+
+  <!-- ====== ТЕКСТ ====== -->
+  <div class="text">
+    Здесь будет текст от друга 💌
+  </div>
+
+</div>
+
+</body>
+</html>
