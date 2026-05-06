@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>VOGUE: Nastya Edition — Issue 2</title>
+<title>Nastya Edition</title>
 
+<!-- Мгновенно скрываем анимированные элементы до полной загрузки -->
 <style>
   .scroll-reveal, .feature { opacity: 0 !important; }
 </style>
@@ -18,7 +19,7 @@ body, html {
   margin: 0;
   padding: 0;
   width: 100%;
-  background: #d2b48c;
+  background: #d2b48c; /* ПЕСОЧНЫЙ ФОН */
   color: #1a1a1a; 
   font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
@@ -45,34 +46,7 @@ body, html {
   display: block;
 }
 
-.vogue-title {
-  position: absolute;
-  top: 40px;
-  width: 100%;
-  font-family: 'Bodoni Moda', serif;
-  font-size: 30vw;
-  font-weight: 400;
-  text-transform: uppercase;
-  line-height: 0.8;
-  letter-spacing: -2px;
-  transform: scaleY(1.4);
-  color: white;
-  text-align: center;
-  z-index: 10;
-  pointer-events: none;
-}
-
-.edition-info {
-  position: absolute;
-  top: 15px;
-  font-weight: 300;
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  font-size: 10px;
-  z-index: 10;
-  color: white;
-}
-
+/* Оверлей для будущих надписей на обложке */
 .features-overlay {
   position: absolute;
   top: 35%; 
@@ -96,6 +70,7 @@ body, html {
 
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
+/* ПЛАВНОЕ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ */
 .scroll-reveal {
   transform: translateY(30px);
   transition: opacity 1.2s ease, transform 1.2s ease;
@@ -178,47 +153,34 @@ video {
   background: rgba(255,255,255,0.1);
 }
 
-.conclusion-box h3 {
-  font-family: 'Bodoni Moda', serif;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  margin-bottom: 20px;
-}
-
 footer {
   text-align: center;
   padding: 50px 20px;
-  color: #555;
-  font-size: 0.8rem;
   background: #d2b48c;
-  letter-spacing: 1px;
 }
 </style>
 </head>
 <body>
 
   <div class="magazine-cover">
-    <div class="edition-info">Nastya Edition — Issue #2</div>
-    <h1 class="vogue-title">VOGUE</h1>
+    <!-- Надписи удалены -->
     
     <div class="main-photo-container">
-      <img src="4.jpg" class="main-photo" alt="Cover Photo">
+      <img src="4.jpg" class="main-photo" alt="">
     </div>
 
     <div class="features-overlay">
       <div class="feature left" id="f1">
-        <h3></h3>
-        <p></p>
+        <!-- Пусто -->
       </div>
       <div class="feature right" id="f2">
-        <h3></h3>
-        <p></p>
+        <!-- Пусто -->
       </div>
     </div>
   </div>
 
   <section class="video-background-section">
-    <h2 class="scroll-reveal" style="font-family: 'Bodoni Moda', serif; color: white; letter-spacing: 5px; margin-bottom: 40px; text-transform: uppercase;"></h2>
+    <!-- Заголовок удален -->
     <video controls playsinline>
       <source src="1в.mp4" type="video/mp4">
     </video>
@@ -227,12 +189,6 @@ footer {
   <section class="astro-section-long">
     <div class="astro-text-container">
       
-      <!-- Пустые блоки для будущего контента -->
-      <div class="astro-block scroll-reveal">
-        <h4></h4>
-        <p></p>
-      </div>
-
       <div class="astro-block scroll-reveal">
         <h4></h4>
         <p></p>
@@ -244,19 +200,24 @@ footer {
       </div>
 
       <div class="conclusion-box scroll-reveal">
-        <h3></h3>
         <p></p>
       </div>
 
     </div>
   </section>
 
-  <footer>Марс говорит, что ты прекрасна</footer>
+  <footer>
+    <!-- Надпись удалена -->
+  </footer>
 
 <script>
   window.addEventListener('load', () => {
-    setTimeout(() => document.getElementById('f1').classList.add('visible'), 300);
-    setTimeout(() => document.getElementById('f2').classList.add('visible'), 700);
+    setTimeout(() => {
+      const f1 = document.getElementById('f1');
+      const f2 = document.getElementById('f2');
+      if(f1) f1.classList.add('visible');
+      if(f2) f2.classList.add('visible');
+    }, 300);
   });
 
   const observerOptions = { threshold: 0.15 };
