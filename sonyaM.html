@@ -6,7 +6,7 @@
 <title>Nastya Edition</title>
 
 <style>
-  .scroll-reveal, .feature, .symphony-text { opacity: 0 !important; }
+  .scroll-reveal, .feature, .word { opacity: 0; }
 </style>
 
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Dancing+Script:wght@700&family=Montserrat:wght@100;300;400&display=swap" rel="stylesheet">
@@ -23,7 +23,6 @@ body, html {
   overflow-x: hidden;
 }
 
-/* ОБЛОЖКА */
 .magazine-cover {
   position: relative;
   width: 100%;
@@ -46,10 +45,10 @@ body, html {
   pointer-events: none;
 }
 
-/* ТЕКСТ С ЭНТЕРОМ И ПРОБЕЛОМ */
+/* ТЕКСТ ПЕСНИ: НИЖЕ И ПОСЛОВНО */
 .symphony-text {
   position: absolute;
-  top: 20%;
+  top: 35%; /* Опустили ниже */
   width: 100%;
   text-align: center;
   z-index: 30;
@@ -57,7 +56,7 @@ body, html {
   font-size: clamp(40px, 10vw, 100px);
   color: #ff4d8d;
   line-height: 1.2;
-  white-space: pre-wrap; /* Позволяет учитывать переносы строк и множественные пробелы */
+  pointer-events: none;
   
   text-shadow: 
     -3px -3px 0 #e1ad01,  
@@ -65,20 +64,24 @@ body, html {
     -3px  3px 0 #e1ad01,
      3px  3px 0 #e1ad01,
      0px  15px 30px rgba(0,0,0,0.3);
-
-  transform: translateY(30px); 
-  transition: opacity 2s ease-in-out, transform 2s cubic-bezier(0.16, 1, 0.3, 1);
-  pointer-events: none;
 }
 
-.symphony-text.show {
-  opacity: 1 !important;
+.word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  margin: 0 8px;
+}
+
+.word.show {
+  opacity: 1;
   transform: translateY(0);
 }
 
 .features-overlay {
   position: absolute;
-  top: 55%; 
+  top: 60%; 
   width: 100%;
   z-index: 15;
   padding: 0 20px;
@@ -97,7 +100,6 @@ body, html {
 
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
-/* ВИДЕО */
 .video-background-section {
   width: 100%;
   padding: 80px 20px;
@@ -115,14 +117,13 @@ video {
   box-shadow: 0 20px 50px rgba(0,0,0,0.3);
 }
 
-/* ВОССТАНОВЛЕННАЯ СЕКЦИЯ 6 (ПАРАЛЛАКС) */
 .astro-section-long {
   position: relative;
   width: 100%;
   background-image: url('6.jpg');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* Статичный фон */
+  background-attachment: fixed;
   padding: 120px 0;
   display: flex;
   flex-direction: column;
@@ -138,8 +139,6 @@ video {
   box-shadow: 0 10px 40px rgba(0,0,0,0.1);
 }
 
-.astro-block { margin-bottom: 60px; }
-
 .scroll-reveal {
   opacity: 0;
   transform: translateY(40px);
@@ -150,13 +149,6 @@ video {
   opacity: 1 !important;
   transform: translateY(0);
 }
-
-.conclusion-box {
-  border: 1px solid #8b7355;
-  padding: 30px;
-  text-align: center;
-}
-
 </style>
 </head>
 <body>
@@ -165,9 +157,11 @@ video {
     <img src="4.jpg" class="main-photo" alt="">
     <img src="7.png" class="overlay-image" alt="">
 
-    <!-- Текст с энтером после of и пробелом между your и symphony -->
-    <div class="symphony-text" id="symphonyText">I just wanna be part of
-your       symphony</div>
+    <div class="symphony-text" id="symphonyText">
+      <!-- Текст разбит на спаны для пословного появления -->
+      <span class="word">I</span> <span class="word">just</span> <span class="word">wanna</span> <span class="word">be</span> <span class="word">part</span> <span class="word">of</span> <br>
+      <span class="word">your</span> <span class="word">symphony</span>
+    </div>
 
     <div class="features-overlay">
       <div class="feature left" id="f1"></div>
@@ -181,31 +175,30 @@ your       symphony</div>
     </video>
   </section>
 
-  <!-- Секция 6 возвращена -->
   <section class="astro-section-long">
     <div class="astro-text-container">
-      <div class="astro-block scroll-reveal">
-        <p></p>
-      </div>
-      <div class="astro-block scroll-reveal">
-        <p></p>
-      </div>
-      <div class="conclusion-box scroll-reveal">
-        <p></p>
-      </div>
+      <div class="astro-block scroll-reveal"></div>
+      <div class="astro-block scroll-reveal"></div>
     </div>
   </section>
 
 <script>
   window.addEventListener('load', () => {
+    // Появление боковых фишек
     setTimeout(() => {
       document.getElementById('f1')?.classList.add('visible');
       document.getElementById('f2')?.classList.add('visible');
     }, 400);
 
+    // Пословное появление текста через 1.5 секунды
     setTimeout(() => {
-      document.getElementById('symphonyText')?.classList.add('show');
-    }, 2000);
+      const words = document.querySelectorAll('.word');
+      words.forEach((word, index) => {
+        setTimeout(() => {
+          word.classList.add('show');
+        }, index * 250); // Скорость появления каждого слова (250мс)
+      });
+    }, 1500);
   });
 
   const observer = new IntersectionObserver((entries) => {
