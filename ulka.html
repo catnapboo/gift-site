@@ -2,11 +2,10 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Gift Page</title>
+<title>Gift Magazine</title>
 
 <style>
 
-/* ===== ОБЩИЙ ФОН САЙТА ===== */
 body {
   margin: 0;
   background: #000000;
@@ -14,53 +13,43 @@ body {
   color: white;
 }
 
-/* ===== ОБЩАЯ СЕКЦИЯ ===== */
+/* ===== ОБЩИЕ СЕКЦИИ ===== */
 section {
-  padding: 60px 10%;
+  padding: 80px 10%;
   box-sizing: border-box;
 }
 
-/* ===== ОБЛОЖКА (ПЕРВЫЙ ЭКРАН) ===== */
+/* ===== ОБЛОЖКА ===== */
 .cover {
-  height: 100vh;
-  position: relative;
+  background: #000000;
 }
 
-/* ===== ФОТО (ВАЖНО) ===== */
-/*
-  ВАЖНО:
-  - 1.jpg должен лежать рядом с ulka.html
-*/
+/* фото НЕ фон, а обычный элемент */
 .cover img {
-  width: 100%;      /* растянуть по ширине экрана */
-  height: auto;     /* сохранить пропорции */
-  display: block;   /* убрать отступ снизу */
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
 }
 
-/* затемнение поверх фото (эффект журнала) */
-.cover::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.25);
-}
-
-/* текст поверх фото */
+/* текст под фото (журнальный стиль) */
 .cover h1 {
-  position: absolute;
-  bottom: 40px;
-  left: 40px;
+  margin-top: 20px;
   font-size: 40px;
-  z-index: 2;
   letter-spacing: 2px;
+}
+
+.cover p {
+  font-size: 18px;
+  opacity: 0.8;
+  margin-top: 10px;
 }
 
 /* ===== ВИДЕО БЛОК ===== */
 .video-block {
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  align-items: center;
+  gap: 40px;
 }
 
 video {
@@ -69,14 +58,7 @@ video {
   border-radius: 15px;
 }
 
-/* ===== ТЕКСТ ===== */
-.text-block {
-  font-size: 18px;
-  line-height: 1.6;
-  opacity: 0.9;
-}
-
-/* ===== АСТРОЛОГИЯ ===== */
+/* ===== АСТРО ===== */
 .astro {
   text-align: center;
 }
@@ -95,15 +77,17 @@ video {
 <!-- ===== ОБЛОЖКА ===== -->
 <section class="cover">
 
-  <!-- ТВОЁ ФОТО -->
   <img src="1.jpg">
 
-  <!-- ТЕКСТ -->
   <h1>VOGUE GIFT EDITION</h1>
+
+  <p>
+    мини-история / подпись / эмоции от друга
+  </p>
 
 </section>
 
-<!-- ===== ВИДЕО ===== -->
+<!-- ===== ВИДЕО 1 ===== -->
 <section class="video-block">
 
   <video controls>
@@ -116,18 +100,13 @@ video {
 
 </section>
 
-<!-- ===== ТЕКСТ ===== -->
-<section class="text-block">
-  <h2>Поздравление</h2>
-  <p>
-    Здесь будет текст от друга, история, эмоции и пожелания.
-  </p>
-</section>
-
-<!-- ===== АСТРО ===== -->
+<!-- ===== НАТАЛЬНАЯ КАРТА ===== -->
 <section class="astro">
+
   <h2>Совместимость</h2>
+
   <img src="astro.png">
+
 </section>
 
 </body>
