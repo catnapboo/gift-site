@@ -6,10 +6,11 @@
 <title>Nastya Edition</title>
 
 <style>
-  .scroll-reveal, .feature { opacity: 0 !important; }
+  .scroll-reveal, .feature, .symphony-text { opacity: 0 !important; }
 </style>
 
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400;0,6..96,700;1,6..96,700&family=Montserrat:wght@100;200;300;400;500&display=swap" rel="stylesheet">
+<!-- Подключаем мягкий рукописный шрифт Lobster -->
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Lobster&family=Montserrat:wght@100;300;400&display=swap" rel="stylesheet">
 
 <style>
 * { box-sizing: border-box; }
@@ -23,7 +24,6 @@ body, html {
   overflow-x: hidden;
 }
 
-/* КОНТЕЙНЕР ОБЛОЖКИ */
 .magazine-cover {
   position: relative;
   width: 100%;
@@ -32,29 +32,52 @@ body, html {
   padding: 0;
 }
 
-/* ФОТО 4 (Фон) */
 .main-photo {
   width: 100%;
   height: auto;
   display: block;
 }
 
-/* ИЗОБРАЖЕНИЕ 7.png (СТРОГО ВВЕРХУ) */
 .overlay-image {
   position: absolute;
   left: 0;
-  top: 0; /* Прижато к самому верху сайта */
-  margin-top: 0;
+  top: 0;
   width: 100%;
   height: auto;
   z-index: 25;
   pointer-events: none;
 }
 
-/* ФИШКИ */
+/* СТИЛИ ДЛЯ ТЕКСТА ПЕСНИ */
+.symphony-text {
+  position: absolute;
+  top: 15%; /* Расположение под 7.png (настрой под высоту картинки) */
+  width: 100%;
+  text-align: center;
+  z-index: 30;
+  font-family: 'Lobster', cursive;
+  font-size: clamp(24px, 6vw, 48px);
+  color: #ff85a2; /* Мягкий розовый/тропический цвет */
+  /* Белая каемочка для читаемости */
+  text-shadow: 
+    -2px -2px 0 #fff,  
+     2px -2px 0 #fff,
+    -2px  2px 0 #fff,
+     2px  2px 0 #fff,
+     0px  4px 10px rgba(0,0,0,0.2);
+  transition: opacity 2s ease-in-out, transform 2s ease-out;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.symphony-text.show {
+  opacity: 1 !important;
+  transform: translateY(0);
+}
+
 .features-overlay {
   position: absolute;
-  top: 40%; 
+  top: 45%; 
   width: 100%;
   z-index: 15;
   padding: 0 20px;
@@ -75,7 +98,6 @@ body, html {
 
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
-/* АНИМАЦИИ */
 .scroll-reveal {
   transform: translateY(30px);
   transition: opacity 1.2s ease, transform 1.2s ease;
@@ -125,7 +147,6 @@ video {
   padding: 60px 40px;
   backdrop-filter: blur(8px);
   border: 1px solid rgba(0,0,0,0.05);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
 }
 </style>
 </head>
@@ -133,9 +154,12 @@ video {
 
   <div class="magazine-cover">
     <img src="4.jpg" class="main-photo" alt="">
-    
-    <!-- Наложенное фото 7.png в самом верху -->
     <img src="7.png" class="overlay-image" alt="">
+
+    <!-- Текст песни -->
+    <div class="symphony-text" id="symphonyText">
+      I just wanna be part of your symphony
+    </div>
 
     <div class="features-overlay">
       <div class="feature left" id="f1">
@@ -161,10 +185,6 @@ video {
         <h4></h4>
         <p></p>
       </div>
-      <div class="astro-block scroll-reveal">
-        <h4></h4>
-        <p></p>
-      </div>
       <div class="conclusion-box scroll-reveal">
         <p></p>
       </div>
@@ -173,26 +193,26 @@ video {
 
 <script>
   window.addEventListener('load', () => {
+    // Появление фишек через 0.3 сек
     setTimeout(() => {
-      const f1 = document.getElementById('f1');
-      const f2 = document.getElementById('f2');
-      if(f1) f1.classList.add('visible');
-      if(f2) f2.classList.add('visible');
+      document.getElementById('f1')?.classList.add('visible');
+      document.getElementById('f2')?.classList.add('visible');
     }, 300);
+
+    // Появление текста песни через 2 секунды (2000 мс)
+    setTimeout(() => {
+      const symphony = document.getElementById('symphonyText');
+      if(symphony) symphony.classList.add('show');
+    }, 2000);
   });
 
-  const observerOptions = { threshold: 0.15 };
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('active');
     });
-  }, observerOptions);
+  }, { threshold: 0.15 });
 
-  document.querySelectorAll('.scroll-reveal').forEach(el => {
-    observer.observe(el);
-  });
+  document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 </script>
 
 </body>
