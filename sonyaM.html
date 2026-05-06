@@ -6,7 +6,7 @@
 <title>Nastya Edition</title>
 
 <style>
-  .scroll-reveal, .feature, .word { opacity: 0; }
+  .scroll-reveal, .feature, .word, .extra-img { opacity: 0; }
 </style>
 
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Dancing+Script:wght@700&family=Montserrat:wght@100;300;400&display=swap" rel="stylesheet">
@@ -76,6 +76,34 @@ body, html {
 .word.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* НОВЫЕ ИЗОБРАЖЕНИЯ 8 и 9 */
+.extra-img {
+  position: absolute;
+  height: auto;
+  z-index: 28;
+  transition: opacity 1.5s ease-in-out, transform 1.5s ease-out;
+  pointer-events: none;
+}
+
+.img-8 {
+  left: 0;
+  top: 45%; /* Ниже текста */
+  width: 35%; /* Можно подправить размер */
+  transform: translateX(-20px);
+}
+
+.img-9 {
+  right: 0;
+  top: 52%; /* Еще чуть ниже */
+  width: 35%;
+  transform: translateX(20px);
+}
+
+.extra-img.visible {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .features-overlay {
@@ -161,6 +189,10 @@ video {
       <span class="word">of</span> <span class="word">your</span> <span class="word">symphony</span>
     </div>
 
+    <!-- Новые картинки -->
+    <img src="8.png" class="extra-img img-8" id="img8" alt="">
+    <img src="9.png" class="extra-img img-9" id="img9" alt="">
+
     <div class="features-overlay">
       <div class="feature left" id="f1"></div>
       <div class="feature right" id="f2"></div>
@@ -182,15 +214,23 @@ video {
 
 <script>
   window.addEventListener('load', () => {
-    // Текст начинает появляться СРАЗУ при загрузке
     const words = document.querySelectorAll('.word');
+    const totalWords = words.length;
+    const wordDelay = 250;
+
+    // Появление слов
     words.forEach((word, index) => {
       setTimeout(() => {
         word.classList.add('show');
-      }, index * 250); 
+      }, index * wordDelay); 
     });
 
-    // Фишки появляются чуть позже для акцента
+    // Появление изображений 8 и 9 ПОСЛЕ последнего слова
+    setTimeout(() => {
+      document.getElementById('img8')?.classList.add('visible');
+      document.getElementById('img9')?.classList.add('visible');
+    }, totalWords * wordDelay + 500); // Задержка: все слова + 0.5 сек
+
     setTimeout(() => {
       document.getElementById('f1')?.classList.add('visible');
       document.getElementById('f2')?.classList.add('visible');
