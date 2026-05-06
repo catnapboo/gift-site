@@ -2,11 +2,11 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Gift Magazine</title>
+<title>Gift Page</title>
 
 <style>
 
-/* ===== БАЗА СТРАНИЦЫ ===== */
+/* ===== ОБЩИЙ ФОН САЙТА ===== */
 body {
   margin: 0;
   background: #000000;
@@ -14,62 +14,64 @@ body {
   color: white;
 }
 
-/* ===== ОБЩИЕ СЕКЦИИ ===== */
+/* ===== ОБЩАЯ СЕКЦИЯ ===== */
 section {
-  padding: 80px 10%;
+  padding: 60px 10%;
   box-sizing: border-box;
 }
 
-/* ===== ОБЛОЖКА (1 ЭКРАН) ===== */
+/* ===== ОБЛОЖКА (ПЕРВЫЙ ЭКРАН) ===== */
 .cover {
-  height: 100vh; /* только первый экран */
+  height: 100vh;
   position: relative;
-  overflow: hidden;
 }
 
-/* фото на обложке */
+/* ===== ФОТО (ВАЖНО) ===== */
+/*
+  ВАЖНО:
+  - 1.jpg должен лежать рядом с ulka.html
+*/
 .cover img {
-  width: 100%;
-  height: auto;
-  overflow: hidden;
+  width: 100%;      /* растянуть по ширине экрана */
+  height: auto;     /* сохранить пропорции */
+  display: block;   /* убрать отступ снизу */
 }
 
-/* затемнение как в журналах */
+/* затемнение поверх фото (эффект журнала) */
 .cover::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.35);
+  background: rgba(0,0,0,0.25);
 }
 
-/* текст поверх обложки */
+/* текст поверх фото */
 .cover h1 {
   position: absolute;
-  bottom: 60px;
-  left: 60px;
-  font-size: 50px;
+  bottom: 40px;
+  left: 40px;
+  font-size: 40px;
   z-index: 2;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
 }
 
 /* ===== ВИДЕО БЛОК ===== */
 .video-block {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 30px;
   align-items: center;
 }
 
 video {
   width: 100%;
   max-width: 800px;
-  border-radius: 20px;
-  box-shadow: 0 0 40px rgba(0,0,0,0.6);
+  border-radius: 15px;
 }
 
-/* ===== ТЕКСТ БЛОК ===== */
+/* ===== ТЕКСТ ===== */
 .text-block {
-  font-size: 20px;
+  font-size: 18px;
   line-height: 1.6;
   opacity: 0.9;
 }
@@ -82,7 +84,7 @@ video {
 .astro img {
   width: 100%;
   max-width: 600px;
-  border-radius: 20px;
+  border-radius: 15px;
 }
 
 </style>
@@ -90,13 +92,18 @@ video {
 
 <body>
 
-<!-- ================= ОБЛОЖКА ================= -->
+<!-- ===== ОБЛОЖКА ===== -->
 <section class="cover">
+
+  <!-- ТВОЁ ФОТО -->
   <img src="1.jpg">
+
+  <!-- ТЕКСТ -->
   <h1>VOGUE GIFT EDITION</h1>
+
 </section>
 
-<!-- ================= ВИДЕО ================= -->
+<!-- ===== ВИДЕО ===== -->
 <section class="video-block">
 
   <video controls>
@@ -109,16 +116,15 @@ video {
 
 </section>
 
-<!-- ================= ТЕКСТ ================= -->
+<!-- ===== ТЕКСТ ===== -->
 <section class="text-block">
-  <h2>Message</h2>
+  <h2>Поздравление</h2>
   <p>
-    Здесь будет текст от друга, поздравления, истории, эмоции.
-    Можно вставлять длинный текст, это уже как журнал.
+    Здесь будет текст от друга, история, эмоции и пожелания.
   </p>
 </section>
 
-<!-- ================= АСТРОЛОГИЯ ================= -->
+<!-- ===== АСТРО ===== -->
 <section class="astro">
   <h2>Совместимость</h2>
   <img src="astro.png">
@@ -126,4 +132,3 @@ video {
 
 </body>
 </html>
-
