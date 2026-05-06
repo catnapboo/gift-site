@@ -2,84 +2,105 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Gift Magazine</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOGUE: Nastya Edition</title>
 
 <style>
+/* Подключаем элегантный шрифт с засечками */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 
 body {
   margin: 0;
   background: #000000;
-  font-family: Georgia, serif;
+  font-family: 'Playfair Display', serif;
   color: white;
+  overflow-x: hidden;
 }
 
 /* ===== ОБЛОЖКА ===== */
 .cover {
   position: relative;
   width: 100%;
+  min-height: 100vh; /* Обложка на весь экран */
+  display: flex;
+  align-items: flex-start;
 }
 
-/* ФОТО ВО ВСЮ ШИРИНУ БЕЗ ОБРЕЗКИ */
 .cover img {
   width: 100%;
-  height: auto;
+  height: 100vh;
+  object-fit: cover; /* Фото заполнит экран, как настоящая обложка */
   display: block;
 }
 
-/* ТЁМНЫЙ ГРАДИЕНТ ДЛЯ ЧИТАЕМОСТИ ТЕКСТА */
+/* ГРАДИЕНТ И ЭФФЕКТ ЖУРНАЛА */
 .cover::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,0.4),
-    rgba(0,0,0,0.2),
-    rgba(0,0,0,0.6)
+    rgba(0,0,0,0.5) 0%,
+    transparent 40%,
+    rgba(0,0,0,0.7) 100%
   );
 }
 
 /* ТЕКСТ ПОВЕРХ ФОТО */
 .cover-text {
   position: absolute;
-  top: 40px;
-  left: 40px;
+  top: 10%;
+  left: 5%;
   z-index: 2;
-  max-width: 70%;
+  border-left: 2px solid rgba(255,255,255,0.3);
+  padding-left: 20px;
 }
 
-/* ГЛАВНЫЙ ЗАГОЛОВОК (как VOGUE) */
 .cover-text h1 {
-  font-size: 60px;
+  font-size: clamp(60px, 15vw, 120px); /* Адаптивный размер */
   margin: 0;
-  letter-spacing: 3px;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1;
 }
 
-/* ПОДЗАГОЛОВКИ */
 .cover-text p {
-  font-size: 18px;
-  margin-top: 10px;
+  font-size: 1.2rem;
+  margin-top: 15px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
   opacity: 0.9;
-  line-height: 1.5;
 }
 
-/* ===== СЕКЦИИ НИЖЕ ===== */
+/* ===== КОНТЕНТ ===== */
 section {
-  padding: 80px 10%;
-  box-sizing: border-box;
+  padding: 60px 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: #ff8fa3; /* Нежный акцент */
 }
 
 /* ВИДЕО */
 .video-block {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 30px;
+  align-items: center;
 }
 
 video {
   width: 100%;
-  max-width: 800px;
-  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
 /* АСТРО */
@@ -89,56 +110,59 @@ video {
 
 .astro img {
   width: 100%;
-  max-width: 600px;
-  border-radius: 15px;
+  filter: grayscale(20%) brightness(90%);
+  transition: 0.5s;
 }
 
+.astro img:hover {
+  filter: grayscale(0%) brightness(100%);
+}
+
+/* Плавная анимация появления */
+.fade-in {
+  animation: fadeIn 2s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 </style>
 </head>
 
 <body>
 
-<!-- ===== ОБЛОЖКА ===== -->
-<section class="cover">
+<div class="fade-in">
+  <!-- ОБЛОЖКА -->
+  <section class="cover">
+    <img src="1.jpg" alt="Nastya">
+    <div class="cover-text">
+      <h1>VOGUE</h1>
+      <p>Nastya Edition<br>Special Birthday Issue</p>
+    </div>
+  </section>
 
-  <img src="1.jpg">
+  <!-- ВИДЕО -->
+  <section class="video-block">
+    <h2>The Movie</h2>
+    <video controls poster="preview1.jpg">
+      <source src="video1.mp4" type="video/mp4">
+    </video>
+    
+    <video controls poster="preview2.jpg">
+      <source src="video2.mp4" type="video/mp4">
+    </video>
+  </section>
 
-  <!-- ТЕКСТ ПОВЕРХ -->
-  <div class="cover-text">
-
-    <h1>VOGUE</h1>
-
-    <p>
-      Nastya Edition<br>
-      Special Birthday Issue<br>
-      From friends with love 💌
+  <!-- АСТРО -->
+  <section class="astro">
+    <h2>Stars Alignment</h2>
+    <img src="astro.png" alt="Compatibility">
+    <p style="margin-top: 20px; font-style: italic; opacity: 0.7;">
+      Меркурий говорит, что ты — легенда.
     </p>
-
-  </div>
-
-</section>
-
-<!-- ===== ВИДЕО ===== -->
-<section class="video-block">
-
-  <video controls>
-    <source src="video1.mp4" type="video/mp4">
-  </video>
-
-  <video controls>
-    <source src="video2.mp4" type="video/mp4">
-  </video>
-
-</section>
-
-<!-- ===== НАТАЛЬНАЯ КАРТА ===== -->
-<section class="astro">
-
-  <h2>Совместимость</h2>
-
-  <img src="astro.png">
-
-</section>
+  </section>
+</div>
 
 </body>
 </html>
