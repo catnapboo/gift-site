@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>VOGUE: Nastya Edition</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Montserrat:wght@100;200;300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400;0,6..96,700;1,6..96,700&family=Montserrat:wght@100;200;300;400&display=swap" rel="stylesheet">
 
 <style>
 * { box-sizing: border-box; }
@@ -104,7 +104,7 @@ body, html {
   transition: opacity 1.5s ease;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Центрируем всё содержимое */
+  align-items: center;
 }
 
 .media-section h2 {
@@ -118,17 +118,46 @@ body, html {
 
 video { width: 100%; border-radius: 2px; margin-bottom: 60px; }
 
-/* СТИЛИ ДЛЯ ИЗОБРАЖЕНИЙ НАТАЛЬНОЙ КАРТЫ */
 .astro-img { 
   width: 100%; 
-  max-width: 600px; /* Чтобы на широких экранах не растягивалось слишком сильно */
+  max-width: 600px; 
   height: auto; 
-  margin-bottom: 20px; /* Отступ между фото */
+  margin-bottom: 20px; 
+}
+
+/* БЛОК ТЕКСТА НАТАЛЬНОЙ КАРТЫ */
+.astro-text-container {
+  max-width: 600px;
+  text-align: left;
+  margin-top: 40px;
+  padding: 0 10px;
+}
+
+.astro-block {
+  margin-bottom: 35px;
+}
+
+.astro-block h4 {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.astro-block p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: #ccc;
+  margin: 0;
 }
 
 footer {
   text-align: center;
-  padding: 40px 20px;
+  padding: 60px 20px 40px 20px;
   color: #666;
   font-size: 0.9rem;
   font-style: italic;
@@ -170,9 +199,40 @@ footer {
     </video>
 
     <h2>Stars Alignment</h2>
-    <!-- ДВА ИЗОБРАЖЕНИЯ ДРУГ ПОД ДРУГОМ -->
     <img src="2.jpg" class="astro-img" alt="Natal Chart 1">
     <img src="3.jpg" class="astro-img" alt="Natal Chart 2">
+
+    <div class="astro-text-container">
+      <div class="astro-block">
+        <h4>Оппозиция Солнце — Меркурий</h4>
+        <p>Этот аспект показывает, что в вашей дружбе может возникать много разных взглядов, мнений и способов восприятия мира. Иногда вам бывает непросто сразу понять друг друга, потому что каждая из вас по-своему смотрит на ситуацию и по-разному выражает свои мысли. Именно это делает ваше общение интересным: вы можете многому учиться друг у друга.</p>
+      </div>
+
+      <div class="astro-block">
+        <h4>Тригон Солнце — Венера</h4>
+        <p>Этот аспект делает ваши отношения очень теплыми, гармоничными и приятными. Между вами легко возникает симпатия, доверие и искреннее желание поддерживать друг друга. Вам приятно проводить время вместе, делиться мыслями, радоваться успехам друг друга и вдохновлять на новое.</p>
+      </div>
+
+      <div class="astro-block">
+        <h4>Квадрат Солнце — Нептун</h4>
+        <p>Этот аспект может иногда создавать недопонимание или ощущение, что одна из вас смотрит на ситуацию слишком реально, а другая — более мечтательно и интуитивно. Важно не строить лишних ожиданий и стараться открыто обсуждать свои чувства и мысли.</p>
+      </div>
+
+      <div class="astro-block">
+        <h4>Соединение Меркурий — Марс</h4>
+        <p>Этот аспект делает ваше общение живым, энергичным и насыщенным. Вы умеете вдохновлять друг друга на действия, быстро обмениваться идеями и вместе находить решения даже в сложных ситуациях. Вместе вы способны хорошо работать в команде.</p>
+      </div>
+
+      <div class="astro-block">
+        <h4>Оппозиция Меркурий — Юпитер</h4>
+        <p>Этот аспект часто проявляется в долгих разговорах, обсуждениях и даже дружеских спорах. У вас может быть разный взгляд на жизнь, но именно такие различия делают ваше общение интересным и развивающим. Вы можете вдохновлять друг друга смотреть на привычные вещи шире и глубже.</p>
+      </div>
+
+      <div class="astro-block">
+        <h4>Квадрат Меркурий — Сатурн</h4>
+        <p>Этот аспект показывает разницу в подходах: одна из вас мыслит легче и свободнее, а другая больше ценит порядок, логику и серьезность. Такая разница помогает вам расти: одна учит смотреть на вещи спокойнее, а другая — легче относиться к жизни.</p>
+      </div>
+    </div>
 
     <footer>Марс говорит, что ты прекрасна</footer>
   </section>
