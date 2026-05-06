@@ -93,15 +93,17 @@ body, html {
 
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
-/* КЛАСС ДЛЯ ПЛАВНОГО ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ */
+/* КЛАСС ДЛЯ ПЛАВНОГО ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ — ИСПРАВЛЕНО (добавлена видимость) */
 .scroll-reveal {
   opacity: 0;
+  visibility: hidden; 
   transform: translateY(30px);
-  transition: opacity 1.2s ease, transform 1.2s ease;
+  transition: opacity 1.2s ease, transform 1.2s ease, visibility 1.2s;
 }
 
 .scroll-reveal.active {
   opacity: 1;
+  visibility: visible;
   transform: translateY(0);
 }
 
@@ -364,7 +366,6 @@ footer {
   </section>
 
 <script>
-  // Появление фич на обложке (Твой старый скрипт)
   let scrolled = false;
   window.addEventListener('scroll', () => {
     if (!scrolled) {
@@ -375,9 +376,8 @@ footer {
     }
   });
 
-  // НОВЫЙ СКРИПТ: Плавное появление всех блоков при скролле
   const observerOptions = {
-    threshold: 0.1 // Процент видимости элемента перед активацией
+    threshold: 0.1 
   };
 
   const observer = new IntersectionObserver((entries) => {
