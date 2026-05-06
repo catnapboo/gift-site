@@ -3,7 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>VOGUE: Nastya Edition</title>
+<title>VOGUE: Nastya Edition — Issue 2</title>
+
+<style>
+  .scroll-reveal, .feature { opacity: 0 !important; }
+</style>
 
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400;0,6..96,700;1,6..96,700&family=Montserrat:wght@100;200;300;400;500&display=swap" rel="stylesheet">
 
@@ -14,8 +18,8 @@ body, html {
   margin: 0;
   padding: 0;
   width: 100%;
-  background: #d2b48c; /* ПЕСОЧНЫЙ ФОН */
-  color: #1a1a1a; /* Темный текст для контраста */
+  background: #d2b48c;
+  color: #1a1a1a; 
   font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
 }
@@ -32,11 +36,11 @@ body, html {
 
 .main-photo-container {
   width: 100%;
-  line-height: 0; /* Убирает микро-отступ под картинкой */
+  line-height: 0;
 }
 
 .main-photo {
-  width: 100%; /* Вписано по бокам */
+  width: 100%;
   height: auto;
   display: block;
 }
@@ -60,7 +64,7 @@ body, html {
 
 .edition-info {
   position: absolute;
-  top: 10px;
+  top: 15px;
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 4px;
@@ -71,7 +75,7 @@ body, html {
 
 .features-overlay {
   position: absolute;
-  top: 30%; 
+  top: 35%; 
   width: 100%;
   z-index: 15;
   padding: 0 20px;
@@ -81,9 +85,8 @@ body, html {
 .feature {
   max-width: 180px;
   margin-bottom: 25px; 
-  opacity: 0;
   transform: translateY(15px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition: opacity 1s ease, transform 1s ease;
   color: white;
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
@@ -93,22 +96,20 @@ body, html {
 
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
-/* ПЛАВНОЕ ПОЯВЛЕНИЕ ТЕКСТА */
 .scroll-reveal {
-  opacity: 0;
   transform: translateY(30px);
   transition: opacity 1.2s ease, transform 1.2s ease;
 }
 
 .scroll-reveal.active {
-  opacity: 1;
+  opacity: 1 !important;
   transform: translateY(0);
 }
 
-/* СЕКЦИЯ С ВИДЕО (БЕЗ ПОЛОС) */
+/* СЕКЦИЯ С ВИДЕО */
 .video-background-section {
   width: 100%;
-  padding: 60px 20px;
+  padding: 80px 20px;
   background-image: url('5.jpg');
   background-size: cover;
   background-position: center;
@@ -120,19 +121,19 @@ body, html {
 video { 
   width: 100%; 
   max-width: 900px;
-  border-radius: 2px; 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+  border-radius: 4px; 
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3); 
 }
 
-/* СЕКЦИЯ ТЕКСТА НА ФОНЕ 6.JPG */
+/* ПАРАЛЛАКС СЕКЦИЯ */
 .astro-section-long {
   position: relative;
   width: 100%;
   background-image: url('6.jpg');
-  background-size: 100% auto; /* Вписано по бокам */
-  background-position: top center;
-  background-attachment: fixed; /* Статичный фон */
-  padding: 100px 0;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding: 120px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -140,44 +141,57 @@ video {
 
 .astro-text-container {
   width: 90%;
-  max-width: 600px;
+  max-width: 650px;
   text-align: left;
-  background: rgba(210, 180, 140, 0.85); /* Песочная подложка с прозрачностью */
-  padding: 50px 30px;
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(0,0,0,0.1);
+  background: rgba(210, 180, 140, 0.9); 
+  padding: 60px 40px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
 }
 
-.astro-block { margin-bottom: 60px; }
+.astro-block { margin-bottom: 70px; }
 
 .astro-block h4 {
   font-family: 'Bodoni Moda', serif;
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #222;
+  font-size: 26px;
+  margin-bottom: 25px;
+  color: #1a1a1a;
+  border-bottom: 1px solid #8b7355;
+  display: inline-block;
+  padding-bottom: 5px;
 }
 
 .astro-block p {
   font-size: 16px;
-  line-height: 1.8;
-  color: #333;
+  line-height: 1.9;
+  color: #2c2c2c;
   margin-bottom: 20px;
+  font-weight: 300;
 }
 
 .conclusion-box {
-  margin-top: 40px;
-  padding: 30px;
-  border-top: 1px solid #8b7355;
+  margin-top: 50px;
+  padding: 40px 20px;
+  border: 1px solid #8b7355;
   text-align: center;
-  font-style: italic;
+  background: rgba(255,255,255,0.1);
+}
+
+.conclusion-box h3 {
+  font-family: 'Bodoni Moda', serif;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
 }
 
 footer {
   text-align: center;
-  padding: 40px 20px;
+  padding: 50px 20px;
   color: #555;
   font-size: 0.8rem;
   background: #d2b48c;
+  letter-spacing: 1px;
 }
 </style>
 </head>
@@ -188,23 +202,23 @@ footer {
     <h1 class="vogue-title">VOGUE</h1>
     
     <div class="main-photo-container">
-      <img src="4.jpg" class="main-photo" alt="Cover">
+      <img src="4.jpg" class="main-photo" alt="Cover Photo">
     </div>
 
     <div class="features-overlay">
       <div class="feature left" id="f1">
-        <h3>Horizon</h3>
-        <p>Бесконечность в каждом взгляде</p>
+        <h3></h3>
+        <p></p>
       </div>
       <div class="feature right" id="f2">
-        <h3>Sands</h3>
-        <p>Тепло пустыни и холод звезд</p>
+        <h3></h3>
+        <p></p>
       </div>
     </div>
   </div>
 
   <section class="video-background-section">
-    <h2 class="scroll-reveal" style="font-family: 'Bodoni Moda', serif; color: white; letter-spacing: 5px; margin-bottom: 30px;">THE MOVIE</h2>
+    <h2 class="scroll-reveal" style="font-family: 'Bodoni Moda', serif; color: white; letter-spacing: 5px; margin-bottom: 40px; text-transform: uppercase;"></h2>
     <video controls playsinline>
       <source src="1в.mp4" type="video/mp4">
     </video>
@@ -213,27 +227,25 @@ footer {
   <section class="astro-section-long">
     <div class="astro-text-container">
       
+      <!-- Пустые блоки для будущего контента -->
       <div class="astro-block scroll-reveal">
-        <h4>Влияние Солнца</h4>
-        <p>Этот блок текста нужен для того, чтобы проверить, как работает скроллинг. Солнце в вашем знаке говорит о невероятной энергии и стремлении к гармонии. Когда вы прокручиваете эту страницу, фотография на фоне остается неподвижной, создавая глубокий визуальный эффект.</p>
-        <p>Ваша харизма притягивает людей, словно пески притягивают тепло уходящего дня. Это сочетание силы и мягкости — ваша главная черта. Продолжайте движение вниз, чтобы увидеть, как текст плавно сменяет друг друга.</p>
+        <h4></h4>
+        <p></p>
       </div>
 
       <div class="astro-block scroll-reveal">
-        <h4>Шепот Меркурия</h4>
-        <p>Меркурий отвечает за общение. Ваши слова имеют вес. В данной версии мы тестируем песочный фон, который должен мягко сочетаться с изображениями. Если текст читается легко, значит мы на верном пути.</p>
-        <p>Здесь мы добавили еще немного текста, чтобы секция стала достаточно длинной для полноценного теста параллакс-эффекта. Наслаждайтесь тем, как буквы плывут по поверхности застывшего кадра.</p>
+        <h4></h4>
+        <p></p>
       </div>
 
       <div class="astro-block scroll-reveal">
-        <h4>Тайна Венеры</h4>
-        <p>Венера приносит эстетику. Каждая деталь этого сайта была создана, чтобы подчеркнуть вашу индивидуальность. Песочные оттенки и классическая типографика VOGUE создают атмосферу вневременной моды.</p>
-        <p>Пусть этот текст послужит напоминанием о том, что красота — в глазах смотрящего, а в вашем случае — в каждом движении по этой странице.</p>
+        <h4></h4>
+        <p></p>
       </div>
 
       <div class="conclusion-box scroll-reveal">
-        <h3>Общая энергия</h3>
-        <p>Вселенная сегодня на вашей стороне. Скроллинг работает плавно, фон стабилен, а стиль безупречен.</p>
+        <h3></h3>
+        <p></p>
       </div>
 
     </div>
@@ -242,16 +254,12 @@ footer {
   <footer>Марс говорит, что ты прекрасна</footer>
 
 <script>
-  let scrolled = false;
-  window.addEventListener('scroll', () => {
-    if (!scrolled) {
-      scrolled = true;
-      setTimeout(() => document.getElementById('f1').classList.add('visible'), 100);
-      setTimeout(() => document.getElementById('f2').classList.add('visible'), 400);
-    }
+  window.addEventListener('load', () => {
+    setTimeout(() => document.getElementById('f1').classList.add('visible'), 300);
+    setTimeout(() => document.getElementById('f2').classList.add('visible'), 700);
   });
 
-  const observerOptions = { threshold: 0.1 };
+  const observerOptions = { threshold: 0.15 };
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
