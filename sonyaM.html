@@ -9,7 +9,7 @@
   .scroll-reveal, .feature, .symphony-text { opacity: 0 !important; }
 </style>
 
-<!-- Подключаем шрифт Dancing Script (элегантный рукописный) -->
+<!-- Используем Dancing Script для мягкого рукописного стиля -->
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Dancing+Script:wght@700&family=Montserrat:wght@100;300;400&display=swap" rel="stylesheet">
 
 <style>
@@ -48,42 +48,41 @@ body, html {
   pointer-events: none;
 }
 
-/* ОБНОВЛЕННЫЙ ТЕКСТ ПЕСНИ */
+/* ТЕКСТ: ПРЯМОЙ, ВЫШЕ И КРУПНЕЕ */
 .symphony-text {
   position: absolute;
-  top: 35%; /* Опустили значительно ниже */
+  top: 20%; /* Подняли выше */
   width: 100%;
   text-align: center;
   z-index: 30;
   font-family: 'Dancing Script', cursive;
-  font-size: clamp(40px, 10vw, 85px); /* Очень крупный размер */
-  color: #ff4d8d; /* Насыщенный розовый */
-  line-height: 1.1;
+  font-size: clamp(50px, 12vw, 110px); /* Еще крупнее */
+  color: #ff4d8d; /* Розовый */
+  line-height: 1.0;
   
-  /* Горчичная каемочка */
+  /* Горчичная каемка */
   text-shadow: 
-    -2px -2px 0 #e1ad01,  
-     2px -2px 0 #e1ad01,
-    -2px  2px 0 #e1ad01,
-     2px  2px 0 #e1ad01,
-     0px  10px 20px rgba(0,0,0,0.2);
+    -3px -3px 0 #e1ad01,  
+     3px -3px 0 #e1ad01,
+    -3px  3px 0 #e1ad01,
+     3px  3px 0 #e1ad01,
+     0px  15px 30px rgba(0,0,0,0.3);
 
-  /* Наклон наискосок слева направо */
-  transform: rotate(-5deg) translateY(50px); 
-  
-  transition: opacity 2.5s ease-in-out, transform 2.5s cubic-bezier(0.22, 1, 0.36, 1);
+  /* Прямое положение с легким смещением вниз для анимации */
+  transform: translateY(30px); 
+  transition: opacity 2s ease-in-out, transform 2s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
-  white-space: pre-line; /* Чтобы работал перенос строк */
+  white-space: pre-line;
 }
 
 .symphony-text.show {
   opacity: 1 !important;
-  transform: rotate(-5deg) translateY(0); /* Сохраняем наклон при появлении */
+  transform: translateY(0); /* Плавный подъем на место */
 }
 
 .features-overlay {
   position: absolute;
-  top: 60%; /* Сдвинул фишки еще ниже, чтобы не мешали тексту */
+  top: 55%; 
   width: 100%;
   z-index: 15;
   padding: 0 20px;
@@ -99,10 +98,10 @@ body, html {
 
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
-/* Остальные секции */
+/* Видео секция */
 .video-background-section {
   width: 100%;
-  padding: 80px 20px;
+  padding: 60px 20px;
   background-image: url('5.jpg');
   background-size: cover;
   background-position: center;
@@ -114,7 +113,8 @@ body, html {
 video { 
   width: 100%; 
   max-width: 900px;
-  border-radius: 4px; 
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
 }
 </style>
 </head>
@@ -124,7 +124,7 @@ video {
     <img src="4.jpg" class="main-photo" alt="">
     <img src="7.png" class="overlay-image" alt="">
 
-    <!-- Текст песни в несколько строк -->
+    <!-- Текст песни: выше, ровно и масштабно -->
     <div class="symphony-text" id="symphonyText">
       I just wanna be
       part of your 
@@ -155,7 +155,7 @@ video {
     setTimeout(() => {
       document.getElementById('f1')?.classList.add('visible');
       document.getElementById('f2')?.classList.add('visible');
-    }, 300);
+    }, 400);
 
     // Появление текста через 2 секунды
     setTimeout(() => {
