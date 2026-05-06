@@ -5,11 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>VOGUE: Nastya Edition</title>
 
-<!-- Шрифты остаются неизменными -->
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400;0,6..96,700;1,6..96,700&family=Montserrat:wght@100;200;300;400;500&display=swap" rel="stylesheet">
 
 <style>
-/* БАЗОВЫЕ СТИЛИ (НЕ МЕНЯЕМ) */
 * { box-sizing: border-box; }
 
 body, html {
@@ -95,7 +93,7 @@ body, html {
 
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
-/* КЛАСС ДЛЯ ПЛАВНОГО ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ */
+/* СКРОЛЛ ЭФФЕКТЫ */
 .scroll-reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -107,47 +105,48 @@ body, html {
   transform: translateY(0);
 }
 
-/* НИЖНИЕ СЕКЦИИ */
-.media-section {
+/* СЕКЦИЯ С ВИДЕО И ФОНОМ 5.JPG */
+.video-background-section {
   position: relative;
-  z-index: 20;
   margin-top: 70vh; 
-  padding: 20px 20px 60px 20px;
-  background: #000;
+  width: 100%;
+  padding: 80px 20px;
+  background-image: url('5.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: 20;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.media-section h2 {
-  font-family: 'Bodoni Moda', serif;
-  font-size: 24px;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  margin-bottom: 40px;
+video { width: 100%; border-radius: 2px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+
+/* СЕКЦИЯ ТЕКСТА С ДЛИННЫМ ФОНОМ 6.JPG */
+.astro-section-long {
+  position: relative;
+  width: 100%;
+  background-image: url('6.jpg');
+  background-size: cover;
+  background-position: top center;
+  background-attachment: fixed; /* Эффект параллакса для длинного фото */
+  padding: 100px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-video { width: 100%; border-radius: 2px; margin-bottom: 60px; }
-
-.astro-img { 
-  width: 100%; 
-  max-width: 600px; 
-  height: auto; 
-  margin-bottom: 20px; 
-}
-
-/* БЛОКИ КОНТЕНТА */
 .astro-text-container {
   max-width: 600px;
   text-align: left;
-  margin-top: 40px;
-  padding: 0 10px;
+  /* Темная подложка, чтобы текст читался на любом фоне фото 6.jpg */
+  background: rgba(0, 0, 0, 0.6);
+  padding: 40px 30px;
+  backdrop-filter: blur(5px);
+  border-radius: 5px;
 }
 
-.astro-block {
-  margin-bottom: 45px;
-}
+.astro-block { margin-bottom: 45px; }
 
 .astro-block h4 {
   font-family: 'Bodoni Moda', serif;
@@ -163,15 +162,14 @@ video { width: 100%; border-radius: 2px; margin-bottom: 60px; }
   font-size: 15px;
   font-weight: 300;
   line-height: 1.7;
-  color: #dddddd;
-  margin-bottom: 15px;
+  color: #ffffff;
 }
 
 .conclusion-box {
   margin-top: 60px;
   padding: 40px 25px;
-  border: 1px solid rgba(255,255,255,0.2);
-  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(0,0,0,0.4);
   text-align: center;
 }
 
@@ -183,84 +181,76 @@ video { width: 100%; border-radius: 2px; margin-bottom: 60px; }
   margin-bottom: 25px;
 }
 
-.conclusion-box p {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.8;
-  font-style: italic;
-  color: #ffffff;
-}
-
 footer {
   text-align: center;
-  padding: 60px 20px 40px 20px;
-  color: #666;
+  padding: 60px 20px;
+  color: #fff;
   font-size: 0.9rem;
-  font-style: italic;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 200;
+  background: #000;
+  width: 100%;
 }
+
 </style>
 </head>
 <body>
 
-  <!-- ОБЛОЖКА: МЕНЯЕМ ТОЛЬКО ТЕКСТ И ИСТОЧНИК ФОТО -->
   <div class="magazine-cover">
     <h1 class="vogue-title">VOGUE</h1>
     <div class="edition-info">Nastya Edition — Special Issue</div>
     
-    <img src="PHOTO_1.jpg" class="main-photo" alt="Cover Photo">
+    <img src="4.jpg" class="main-photo" alt="Cover Photo">
 
     <div class="features-overlay">
       <div class="feature left" id="f1">
-        <h3>Заголовок 1</h3>
-        <p>Краткое описание для левой колонки</p>
+        <h3>Exclusive</h3>
+        <p>Новая глава вашей истории</p>
       </div>
       <div class="feature right" id="f2">
-        <h3>Заголовок 2</h3>
-        <p>Краткое описание для правой колонки</p>
+        <h3>Stars</h3>
+        <p>Когда планеты шепчут правду</p>
       </div>
       <div class="feature left" id="f3">
-        <h3>Заголовок 3</h3>
-        <p>Краткое описание для нижней левой колонки</p>
+        <h3>Style</h3>
+        <p>Эстетика в каждой детали</p>
       </div>
     </div>
   </div>
 
-  <!-- КОНТЕНТНАЯ ЧАСТЬ -->
-  <section class="media-section">
-    <h2 class="scroll-reveal">Название Видео</h2>
-    <div class="scroll-reveal">
+  <!-- Секция с видео на фоне фото 5.jpg -->
+  <section class="video-background-section">
+    <h2 class="scroll-reveal" style="font-family: 'Bodoni Moda', serif; letter-spacing: 5px; margin-bottom: 40px;">Cinema Art</h2>
+    <div class="scroll-reveal" style="width: 100%; max-width: 800px;">
         <video controls playsinline>
-          <source src="VIDEO_FILE.mp4" type="video/mp4">
+          <source src="1в.mp4" type="video/mp4">
         </video>
     </div>
-
-    <h2 class="scroll-reveal">Подзаголовок Фото</h2>
-    <img src="PHOTO_2.jpg" class="astro-img scroll-reveal" alt="Photo 2">
-    <img src="PHOTO_3.jpg" class="astro-img scroll-reveal" alt="Photo 3">
-
-    <div class="astro-text-container">
-      
-      <!-- Дублируй этот блок для каждого нового абзаца -->
-      <div class="astro-block scroll-reveal">
-        <h4>Заголовок Блока</h4>
-        <p>Текст блока, который будет плавно появляться при скролле вниз.</p>
-      </div>
-
-      <!-- Финальный вывод -->
-      <div class="conclusion-box scroll-reveal">
-        <h3>Итог</h3>
-        <p>Красивый курсивный текст в рамке для завершения страницы.</p>
-      </div>
-    </div>
-
-    <footer>Марс говорит, что ты прекрасна</footer>
   </section>
 
+  <!-- Секция с текстом на фоне длинного фото 6.jpg -->
+  <section class="astro-section-long">
+    <div class="astro-text-container">
+      
+      <div class="astro-block scroll-reveal">
+        <h4>Заголовок Блока 1</h4>
+        <p>Здесь будет ваш текст натальной карты, который плавно всплывает при скролле прямо поверх длинного фото 6.jpg.</p>
+      </div>
+
+      <div class="astro-block scroll-reveal">
+        <h4>Заголовок Блока 2</h4>
+        <p>Текст будет хорошо читаться за счет полупрозрачной темной подложки, сохраняя при этом видимость фонового изображения.</p>
+      </div>
+
+      <div class="conclusion-box scroll-reveal">
+        <h3>Итог страницы</h3>
+        <p>Финальное напутствие или красивая цитата для завершения раздела.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>Марс говорит, что ты прекрасна</footer>
+
 <script>
-  // Логика появления титров обложки
   let scrolled = false;
   window.addEventListener('scroll', () => {
     if (!scrolled) {
@@ -271,7 +261,6 @@ footer {
     }
   });
 
-  // Логика плавного появления при скролле для остальных блоков
   const observerOptions = { threshold: 0.1 };
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
