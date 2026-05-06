@@ -31,13 +31,13 @@ body, html {
   background: #000;
 }
 
-/* ФОТО ОПУЩЕНО НИЖЕ */
+/* ФОТО ОПУЩЕНО ЕЩЕ НИЖЕ */
 .main-photo {
   position: absolute;
-  top: 80px; /* ОПУСТИЛИ НИЖЕ (было 0) */
+  top: 120px; /* ОПУСТИЛИ ЕЩЕ НИЖЕ (было 80px) */
   left: 0;
   width: 100%;
-  height: 85vh;
+  height: 80vh;
   object-fit: cover;
   display: block;
   z-index: 1;
@@ -69,10 +69,10 @@ body, html {
   z-index: 10;
 }
 
-/* ПОДЗАГОЛОВКИ */
+/* ПОДЗАГОЛОВКИ ПОДНЯТЫ ВЫШЕ */
 .features-overlay {
   position: absolute;
-  top: 320px; 
+  top: 260px; /* ПОДНЯЛИ ВЫШЕ (было 320px) */
   width: 100%;
   z-index: 15;
   padding: 0 20px;
@@ -95,12 +95,12 @@ body, html {
 
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
-/* НИЖНИЕ СЕКЦИИ ПОДНЯТЫ ВЫШЕ К ФОТО */
+/* НИЖНИЕ СЕКЦИИ ПОДНЯТЫ ВЫШЕ */
 .media-section {
   position: relative;
   z-index: 20;
-  margin-top: 80vh; /* ПОДНЯЛИ ВЫШЕ К ОБЛОЖКЕ (было 90vh) */
-  padding: 40px 20px 80px 20px; /* Уменьшили верхний отступ для "воздуха" */
+  margin-top: 70vh; /* ПОДНЯЛИ ЕЩЕ ВЫШЕ (было 80vh) */
+  padding: 20px 20px 60px 20px;
   background: #000;
   opacity: 0;
   transition: opacity 1.5s ease;
@@ -117,6 +117,17 @@ body, html {
 
 video { width: 100%; border-radius: 2px; margin-bottom: 60px; }
 .astro-img { width: 100%; height: auto; }
+
+/* ФИНАЛЬНАЯ ПОДПИСЬ */
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666; /* СЕРЫЙ ЦВЕТ */
+  font-size: 0.9rem;
+  font-style: italic;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 200;
+}
 
 </style>
 </head>
@@ -152,6 +163,8 @@ video { width: 100%; border-radius: 2px; margin-bottom: 60px; }
 
     <h2>Stars Alignment</h2>
     <img src="astro.png" class="astro-img" alt="Astro">
+
+    <footer>Марс говорит, что ты прекрасна</footer>
   </section>
 
 <script>
