@@ -9,7 +9,6 @@
   .scroll-reveal, .feature, .symphony-text { opacity: 0 !important; }
 </style>
 
-<!-- Используем Dancing Script для мягкого рукописного стиля -->
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Dancing+Script:wght@700&family=Montserrat:wght@100;300;400&display=swap" rel="stylesheet">
 
 <style>
@@ -24,12 +23,11 @@ body, html {
   overflow-x: hidden;
 }
 
+/* ОБЛОЖКА */
 .magazine-cover {
   position: relative;
   width: 100%;
   line-height: 0;
-  margin: 0;
-  padding: 0;
 }
 
 .main-photo {
@@ -48,19 +46,19 @@ body, html {
   pointer-events: none;
 }
 
-/* ТЕКСТ: ПРЯМОЙ, ВЫШЕ И КРУПНЕЕ */
+/* ТЕКСТ С ЭНТЕРОМ И ПРОБЕЛОМ */
 .symphony-text {
   position: absolute;
-  top: 20%; /* Подняли выше */
+  top: 20%;
   width: 100%;
   text-align: center;
   z-index: 30;
   font-family: 'Dancing Script', cursive;
-  font-size: clamp(50px, 12vw, 110px); /* Еще крупнее */
-  color: #ff4d8d; /* Розовый */
-  line-height: 1.0;
+  font-size: clamp(40px, 10vw, 100px);
+  color: #ff4d8d;
+  line-height: 1.2;
+  white-space: pre-wrap; /* Позволяет учитывать переносы строк и множественные пробелы */
   
-  /* Горчичная каемка */
   text-shadow: 
     -3px -3px 0 #e1ad01,  
      3px -3px 0 #e1ad01,
@@ -68,16 +66,14 @@ body, html {
      3px  3px 0 #e1ad01,
      0px  15px 30px rgba(0,0,0,0.3);
 
-  /* Прямое положение с легким смещением вниз для анимации */
   transform: translateY(30px); 
   transition: opacity 2s ease-in-out, transform 2s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
-  white-space: pre-line;
 }
 
 .symphony-text.show {
   opacity: 1 !important;
-  transform: translateY(0); /* Плавный подъем на место */
+  transform: translateY(0);
 }
 
 .features-overlay {
@@ -86,7 +82,6 @@ body, html {
   width: 100%;
   z-index: 15;
   padding: 0 20px;
-  pointer-events: none;
 }
 
 .feature {
@@ -94,28 +89,74 @@ body, html {
   margin-bottom: 25px; 
   color: white;
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  transition: opacity 1s ease, transform 1s ease;
 }
+
+.feature.left { text-align: left; border-left: 1px solid white; padding-left: 15px; margin-right: auto; }
+.feature.right { text-align: right; border-right: 1px solid white; padding-right: 15px; margin-left: auto; }
 
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
-/* Видео секция */
+/* ВИДЕО */
 .video-background-section {
   width: 100%;
-  padding: 60px 20px;
+  padding: 80px 20px;
   background-image: url('5.jpg');
   background-size: cover;
   background-position: center;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
 video { 
   width: 100%; 
   max-width: 900px;
-  border-radius: 12px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+  border-radius: 8px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
 }
+
+/* ВОССТАНОВЛЕННАЯ СЕКЦИЯ 6 (ПАРАЛЛАКС) */
+.astro-section-long {
+  position: relative;
+  width: 100%;
+  background-image: url('6.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Статичный фон */
+  padding: 120px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.astro-text-container {
+  width: 90%;
+  max-width: 650px;
+  background: rgba(210, 180, 140, 0.9); 
+  padding: 60px 40px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+.astro-block { margin-bottom: 60px; }
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.scroll-reveal.active {
+  opacity: 1 !important;
+  transform: translateY(0);
+}
+
+.conclusion-box {
+  border: 1px solid #8b7355;
+  padding: 30px;
+  text-align: center;
+}
+
 </style>
 </head>
 <body>
@@ -124,22 +165,13 @@ video {
     <img src="4.jpg" class="main-photo" alt="">
     <img src="7.png" class="overlay-image" alt="">
 
-    <!-- Текст песни: выше, ровно и масштабно -->
-    <div class="symphony-text" id="symphonyText">
-      I just wanna be
-      part of your 
-      symphony
-    </div>
+    <!-- Текст с энтером после of и пробелом между your и symphony -->
+    <div class="symphony-text" id="symphonyText">I just wanna be part of
+your       symphony</div>
 
     <div class="features-overlay">
-      <div class="feature left" id="f1">
-        <h4></h4>
-        <p></p>
-      </div>
-      <div class="feature right" id="f2">
-        <h4></h4>
-        <p></p>
-      </div>
+      <div class="feature left" id="f1"></div>
+      <div class="feature right" id="f2"></div>
     </div>
   </div>
 
@@ -149,20 +181,40 @@ video {
     </video>
   </section>
 
+  <!-- Секция 6 возвращена -->
+  <section class="astro-section-long">
+    <div class="astro-text-container">
+      <div class="astro-block scroll-reveal">
+        <p></p>
+      </div>
+      <div class="astro-block scroll-reveal">
+        <p></p>
+      </div>
+      <div class="conclusion-box scroll-reveal">
+        <p></p>
+      </div>
+    </div>
+  </section>
+
 <script>
   window.addEventListener('load', () => {
-    // Фишки
     setTimeout(() => {
       document.getElementById('f1')?.classList.add('visible');
       document.getElementById('f2')?.classList.add('visible');
     }, 400);
 
-    // Появление текста через 2 секунды
     setTimeout(() => {
-      const symphony = document.getElementById('symphonyText');
-      if(symphony) symphony.classList.add('show');
+      document.getElementById('symphonyText')?.classList.add('show');
     }, 2000);
   });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('active');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 </script>
 
 </body>
