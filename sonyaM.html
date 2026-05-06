@@ -23,37 +23,37 @@ body, html {
   overflow-x: hidden;
 }
 
-/* ОБЩИЙ КОНТЕЙНЕР ОБЛОЖКИ */
+/* КОНТЕЙНЕР ОБЛОЖКИ */
 .magazine-cover {
-  position: relative; /* База для позиционирования 7.png */
+  position: relative;
   width: 100%;
   line-height: 0;
   margin: 0;
   padding: 0;
 }
 
-/* ФОНОВАЯ ФОТОГРАФИЯ (4.jpg) */
+/* ФОТО 4 (Фон) */
 .main-photo {
   width: 100%;
   height: auto;
   display: block;
 }
 
-/* НАКЛАДЫВАЕМОЕ ИЗОБРАЖЕНИЕ (7.png) */
+/* ИЗОБРАЖЕНИЕ 7.png (Теперь в самом верху) */
 .overlay-image {
   position: absolute;
   left: 0;
-  top: 2cm; /* Смещение на 2 см вниз от верхнего края */
-  width: 100%; /* Растягиваем по ширине, если нужно. Если 7.png меньше, можно заменить на auto или конкретный % */
+  top: 0; /* Поднято вплотную к верхнему краю */
+  width: 100%;
   height: auto;
-  z-index: 20; /* Поверх фото 4 и выше фишек */
-  pointer-events: none; /* Чтобы не мешала кликам, если нужно */
+  z-index: 25; /* Самый высокий приоритет */
+  pointer-events: none;
 }
 
-/* ФИШКИ НА ОБЛОЖКЕ */
+/* ФИШКИ (Features) */
 .features-overlay {
   position: absolute;
-  top: 45%; /* Немного опустил, чтобы не перекрывалось картинкой 7.png */
+  top: 40%; 
   width: 100%;
   z-index: 15;
   padding: 0 20px;
@@ -74,7 +74,7 @@ body, html {
 
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
-/* АНИМАЦИИ ПРИ СКРОЛЛЕ */
+/* СКРОЛЛ-АНИМАЦИИ */
 .scroll-reveal {
   transform: translateY(30px);
   transition: opacity 1.2s ease, transform 1.2s ease;
@@ -85,7 +85,6 @@ body, html {
   transform: translateY(0);
 }
 
-/* СЕКЦИЯ С ВИДЕО */
 .video-background-section {
   width: 100%;
   padding: 80px 20px;
@@ -104,7 +103,6 @@ video {
   box-shadow: 0 20px 50px rgba(0,0,0,0.3); 
 }
 
-/* ПАРАЛЛАКС СЕКЦИЯ */
 .astro-section-long {
   position: relative;
   width: 100%;
@@ -128,27 +126,15 @@ video {
   border: 1px solid rgba(0,0,0,0.05);
   box-shadow: 0 10px 40px rgba(0,0,0,0.1);
 }
-
-.astro-block { margin-bottom: 70px; }
-
-.astro-block h4 {
-  font-family: 'Bodoni Moda', serif;
-  font-size: 26px;
-  margin-bottom: 25px;
-  color: #1a1a1a;
-  border-bottom: 1px solid #8b7355;
-  display: inline-block;
-  padding-bottom: 5px;
-}
 </style>
 </head>
 <body>
 
   <div class="magazine-cover">
-    <!-- Основное фото -->
+    <!-- Фоновое фото -->
     <img src="4.jpg" class="main-photo" alt="">
     
-    <!-- Наложенное фото 7.png -->
+    <!-- Наложенное фото 7.png прижатое к верху -->
     <img src="7.png" class="overlay-image" alt="">
 
     <div class="features-overlay">
@@ -171,21 +157,17 @@ video {
 
   <section class="astro-section-long">
     <div class="astro-text-container">
-      
       <div class="astro-block scroll-reveal">
         <h4></h4>
         <p></p>
       </div>
-
       <div class="astro-block scroll-reveal">
         <h4></h4>
         <p></p>
       </div>
-
       <div class="conclusion-box scroll-reveal">
         <p></p>
       </div>
-
     </div>
   </section>
 
