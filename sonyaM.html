@@ -45,10 +45,9 @@ body, html {
   pointer-events: none;
 }
 
-/* ТЕКСТ ПЕСНИ: ЧУТЬ ВЫШЕ */
 .symphony-text {
   position: absolute;
-  top: 30%; /* Подняли чуть выше */
+  top: 30%; 
   width: 100%;
   text-align: center;
   z-index: 30;
@@ -183,19 +182,19 @@ video {
 
 <script>
   window.addEventListener('load', () => {
+    // Текст начинает появляться СРАЗУ при загрузке
+    const words = document.querySelectorAll('.word');
+    words.forEach((word, index) => {
+      setTimeout(() => {
+        word.classList.add('show');
+      }, index * 250); 
+    });
+
+    // Фишки появляются чуть позже для акцента
     setTimeout(() => {
       document.getElementById('f1')?.classList.add('visible');
       document.getElementById('f2')?.classList.add('visible');
     }, 400);
-
-    setTimeout(() => {
-      const words = document.querySelectorAll('.word');
-      words.forEach((word, index) => {
-        setTimeout(() => {
-          word.classList.add('show');
-        }, index * 250); 
-      });
-    }, 1500);
   });
 
   const observer = new IntersectionObserver((entries) => {
