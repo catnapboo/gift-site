@@ -78,37 +78,41 @@ body, html {
   transform: translateY(0);
 }
 
-/* НОВЫЕ ИЗОБРАЖЕНИЯ 8 и 9 */
+/* ЭФФЕКТ ПОЯВЛЕНИЯ ЦВЕТОВ ПО ДУГЕ */
 .extra-img {
   position: absolute;
   height: auto;
   z-index: 28;
-  transition: opacity 1.5s ease-in-out, transform 1.5s ease-out;
+  /* Используем cubic-bezier для эффекта инерции (амплитуды) */
+  transition: opacity 1.8s ease-out, transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
 }
 
 .img-8 {
   left: 0;
-  top: 45%; /* Ниже текста */
-  width: 35%; /* Можно подправить размер */
-  transform: translateX(-20px);
+  top: 48%; /* Опустили чуть ниже */
+  width: 38%;
+  /* Начальная точка: за левым краем, ниже и под углом */
+  transform: translate(-100%, 50px) rotate(-20deg);
 }
 
 .img-9 {
   right: 0;
-  top: 52%; /* Еще чуть ниже */
-  width: 35%;
-  transform: translateX(20px);
+  top: 55%; /* Опустили чуть ниже */
+  width: 38%;
+  /* Начальная точка: за правым краем, ниже и под другим углом */
+  transform: translate(100%, 50px) rotate(20deg);
 }
 
+/* Конечное положение (встают в нужное место) */
 .extra-img.visible {
   opacity: 1;
-  transform: translateX(0);
+  transform: translate(0, 0) rotate(0deg);
 }
 
 .features-overlay {
   position: absolute;
-  top: 60%; 
+  top: 65%; /* Тоже чуть сдвинули, чтобы не перекрывать цветы */
   width: 100%;
   z-index: 15;
   padding: 0 20px;
@@ -189,7 +193,7 @@ video {
       <span class="word">of</span> <span class="word">your</span> <span class="word">symphony</span>
     </div>
 
-    <!-- Новые картинки -->
+    <!-- Цветы 8 и 9 с дугообразным появлением -->
     <img src="8.png" class="extra-img img-8" id="img8" alt="">
     <img src="9.png" class="extra-img img-9" id="img9" alt="">
 
@@ -225,12 +229,13 @@ video {
       }, index * wordDelay); 
     });
 
-    // Появление изображений 8 и 9 ПОСЛЕ последнего слова
+    // Появление изображений 8 и 9 по дуге сразу после текста
     setTimeout(() => {
       document.getElementById('img8')?.classList.add('visible');
       document.getElementById('img9')?.classList.add('visible');
-    }, totalWords * wordDelay + 500); // Задержка: все слова + 0.5 сек
+    }, totalWords * wordDelay + 300); 
 
+    // Появление боковых плашек
     setTimeout(() => {
       document.getElementById('f1')?.classList.add('visible');
       document.getElementById('f2')?.classList.add('visible');
