@@ -2,49 +2,87 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Подарок 💌</title>
+<title>Gift Magazine</title>
 
 <style>
 
-/* ====== ОБЩИЙ ФОН СТРАНИЦЫ ====== */
-/* здесь задаётся цвет всего сайта */
+/* ===== БАЗА СТРАНИЦЫ ===== */
 body {
   margin: 0;
-  background: #000000; /* ТВОЙ ФОН */
-  font-family: Arial, sans-serif;
+  background: #000000;
+  font-family: Georgia, serif;
   color: white;
 }
 
-/* ====== ОСНОВНОЙ КОНТЕЙНЕР ====== */
-/* это "рабочая зона" где всё лежит */
-.container {
+/* ===== ОБЩИЕ СЕКЦИИ ===== */
+section {
+  padding: 80px 10%;
+  box-sizing: border-box;
+}
+
+/* ===== ОБЛОЖКА (1 ЭКРАН) ===== */
+.cover {
+  height: 100vh; /* только первый экран */
   position: relative;
-  height: 100vh;
-  width: 100%;
   overflow: hidden;
 }
 
-/* ====== ФОТО ====== */
-/*
-  ЭТО ГЛАВНОЕ ИЗОБРАЖЕНИЕ
-  - top / left = положение
-  - width = размер
-*/
-.photo {
-  position: absolute;
-  width: 100%;  /* размер фото */
-  height: 100vh;
+/* фото на обложке */
+.cover img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border-radius: 0px; /* скругление */
+}
+
+/* затемнение как в журналах */
+.cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+}
+
+/* текст поверх обложки */
+.cover h1 {
+  position: absolute;
+  bottom: 60px;
+  left: 60px;
+  font-size: 50px;
+  z-index: 2;
+  letter-spacing: 3px;
+}
+
+/* ===== ВИДЕО БЛОК ===== */
+.video-block {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+}
+
+video {
+  width: 100%;
+  max-width: 800px;
+  border-radius: 20px;
   box-shadow: 0 0 40px rgba(0,0,0,0.6);
 }
 
-/* ====== ТЕКСТ (если понадобится) ====== */
-.text {
-  position: absolute;
-  top: 400px;
-  left: 50px;
+/* ===== ТЕКСТ БЛОК ===== */
+.text-block {
   font-size: 20px;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+/* ===== АСТРОЛОГИЯ ===== */
+.astro {
+  text-align: center;
+}
+
+.astro img {
+  width: 100%;
+  max-width: 600px;
+  border-radius: 20px;
 }
 
 </style>
@@ -52,21 +90,40 @@ body {
 
 <body>
 
-<div class="container">
+<!-- ================= ОБЛОЖКА ================= -->
+<section class="cover">
+  <img src="1.jpg">
+  <h1>VOGUE GIFT EDITION</h1>
+</section>
 
-  <!-- ====== ФОТО ====== -->
-  <!--
-    src = путь к картинке
-    images/photo.jpg — пример
-  -->
-  <img class="photo" src="1.jpg">
+<!-- ================= ВИДЕО ================= -->
+<section class="video-block">
 
-  <!-- ====== ТЕКСТ ====== -->
-  <div class="text">
-    Здесь будет текст от друга 💌
-  </div>
+  <video controls>
+    <source src="video1.mp4" type="video/mp4">
+  </video>
 
-</div>
+  <video controls>
+    <source src="video2.mp4" type="video/mp4">
+  </video>
+
+</section>
+
+<!-- ================= ТЕКСТ ================= -->
+<section class="text-block">
+  <h2>Message</h2>
+  <p>
+    Здесь будет текст от друга, поздравления, истории, эмоции.
+    Можно вставлять длинный текст, это уже как журнал.
+  </p>
+</section>
+
+<!-- ================= АСТРОЛОГИЯ ================= -->
+<section class="astro">
+  <h2>Совместимость</h2>
+  <img src="astro.png">
+</section>
 
 </body>
 </html>
+
