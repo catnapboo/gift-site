@@ -102,6 +102,9 @@ body, html {
   background: #000;
   opacity: 0;
   transition: opacity 1.5s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Центрируем всё содержимое */
 }
 
 .media-section h2 {
@@ -114,7 +117,14 @@ body, html {
 }
 
 video { width: 100%; border-radius: 2px; margin-bottom: 60px; }
-.astro-img { width: 100%; height: auto; }
+
+/* СТИЛИ ДЛЯ ИЗОБРАЖЕНИЙ НАТАЛЬНОЙ КАРТЫ */
+.astro-img { 
+  width: 100%; 
+  max-width: 600px; /* Чтобы на широких экранах не растягивалось слишком сильно */
+  height: auto; 
+  margin-bottom: 20px; /* Отступ между фото */
+}
 
 footer {
   text-align: center;
@@ -154,15 +164,15 @@ footer {
 
   <section class="media-section" id="animatedMedia">
     <h2>Special Movie</h2>
-    <!-- ВИДЕО "1в" УСТАНОВЛЕНО ЗДЕСЬ -->
-    <video controls playsinline poster="preview.jpg">
+    <video controls playsinline>
       <source src="1в.mp4" type="video/mp4">
       <source src="1в.mov" type="video/quicktime">
-      Ваш браузер не поддерживает видео.
     </video>
 
     <h2>Stars Alignment</h2>
-    <img src="astro.png" class="astro-img" alt="Astro">
+    <!-- ДВА ИЗОБРАЖЕНИЯ ДРУГ ПОД ДРУГОМ -->
+    <img src="2.jpg" class="astro-img" alt="Natal Chart 1">
+    <img src="3.jpg" class="astro-img" alt="Natal Chart 2">
 
     <footer>Марс говорит, что ты прекрасна</footer>
   </section>
