@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>VOGUE: Nastya Edition</title>
 
-<!-- Возвращаем Playfair Display для того самого VOGUE -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@100;200;300&family=Bodoni+Moda:ital,wght@1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Montserrat:wght@100;200;300&display=swap" rel="stylesheet">
 
 <style>
 * { box-sizing: border-box; }
@@ -19,95 +18,84 @@ body, html {
   color: white;
   font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* ОБЛОЖКА */
+/* ОБЛОЖКА БЕЗ АНИМАЦИЙ ДЛЯ СКОРОСТИ */
 .magazine-cover {
   position: relative;
   width: 100%;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
-}
-
-/* ФОТО */
-.main-photo {
-  position: absolute;
-  top: 150px; /* Опустили фото еще ниже */
-  width: 100%;
-  height: 80vh;
-  object-fit: cover;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 2s ease-in-out;
-}
-
-/* ШАПКА VOGUE */
-.header-group {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-  margin-top: 80px; /* Опустили надпись VOGUE ниже */
-  opacity: 0;
-  transition: all 1s ease-out;
+  background: #000;
 }
 
 .vogue-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 28vw;
-  font-weight: 900;
+  font-family: 'Bodoni Moda', serif;
+  font-size: 32vw;
+  font-weight: 400;
   text-transform: uppercase;
-  margin: 0;
+  margin: 60px 0 0 0;
   line-height: 0.8;
-  letter-spacing: -5px;
-  transform: scaleY(1.3); /* Вытягивание как в предыдущем удачном варианте */
+  letter-spacing: -2px;
+  transform: scaleY(1.4); /* Ультра-высокий и тонкий */
+  color: white;
+  text-align: center;
 }
 
 .edition-info {
   font-weight: 100;
   text-transform: uppercase;
-  letter-spacing: 8px;
+  letter-spacing: 6px;
   font-size: 10px;
   margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.main-photo {
+  width: 100%;
+  height: 85vh;
+  object-fit: cover;
+  display: block;
 }
 
 /* ПОДЗАГОЛОВКИ НА ФОТО */
 .features-overlay {
-  position: relative;
-  z-index: 15;
+  position: absolute;
+  top: 40vh; /* Подняли выше на фото */
   width: 100%;
-  margin-top: 25vh; /* Чтобы текст лег поверх центра фото */
+  z-index: 10;
   padding: 0 20px;
-  pointer-events: none;
 }
 
 .feature {
   max-width: 220px;
-  margin-bottom: 100px;
+  margin-bottom: 30vh; /* Расстояние для появления при скролле */
   opacity: 0;
-  transform: translateY(40px);
-  transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .feature.left { text-align: left; border-left: 1px solid white; padding-left: 15px; margin-right: auto; }
 .feature.right { text-align: right; border-right: 1px solid white; padding-right: 15px; margin-left: auto; }
 
-.feature h3 { font-size: 10px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 5px; font-weight: 300; }
+.feature h3 { font-size: 10px; text-transform: uppercase; letter-spacing: 3px; margin: 0 0 5px 0; font-weight: 300; }
 .feature p { font-size: 18px; font-family: 'Bodoni Moda', serif; font-style: italic; margin: 0; line-height: 1.2; font-weight: 200; }
 
-/* НИЖНИЕ СЕКЦИИ */
+/* КЛАСС ПОЯВЛЕНИЯ */
+.visible { opacity: 1 !important; transform: translateY(0) !important; }
+
+/* НИЖНИЕ СЕКЦИИ С ПЛАВНЫМ ПОЯВЛЕНИЕМ */
 .media-section {
-  padding: 100px 20px;
+  padding: 80px 20px;
   background: #000;
   opacity: 0;
-  transform: translateY(50px);
-  transition: all 1.2s ease-out;
+  transition: opacity 1.5s ease;
 }
 
 .media-section h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Bodoni Moda', serif;
   font-size: 24px;
   text-align: center;
   text-transform: uppercase;
@@ -115,68 +103,60 @@ body, html {
   margin-bottom: 40px;
 }
 
-video { width: 100%; border-radius: 4px; margin-bottom: 60px; }
-.astro-img { width: 100%; height: auto; border-radius: 4px; }
+video { width: 100%; border-radius: 2px; margin-bottom: 60px; }
+.astro-img { width: 100%; height: auto; }
 
-/* КЛАССЫ АНИМАЦИИ */
-.appear { opacity: 1 !important; transform: translateY(0) !important; }
 </style>
 </head>
 <body>
 
   <div class="magazine-cover">
-    <div class="header-group" id="mainHeader">
-      <h1 class="vogue-title">VOGUE</h1>
-      <div class="edition-info">Nastya Edition — Special Issue</div>
-    </div>
+    <h1 class="vogue-title">VOGUE</h1>
+    <div class="edition-info">Nastya Edition — Special Issue</div>
     
-    <img src="1.jpg" class="main-photo" id="bgPhoto">
+    <img src="1.jpg" class="main-photo" alt="Cover Photo">
 
     <div class="features-overlay">
-      <div class="feature left" id="feat1">
+      <div class="feature left">
         <h3>Career</h3>
         <p>Великая девушка, покорившая проектировку кинозалов</p>
       </div>
-      <div class="feature right" id="feat2">
+      <div class="feature right">
         <h3>Top 10</h3>
         <p>Как оштрафовать вас за неправильную парковку</p>
       </div>
-      <div class="feature left" id="feat3">
+      <div class="feature left">
         <h3>Gaming</h3>
         <p>Детка геймер в топах мира. В чем секрет?</p>
       </div>
     </div>
   </div>
 
-  <section class="media-section" id="bottomSection">
+  <section class="media-section" id="animatedMedia">
     <h2>Special Movie</h2>
     <video controls playsinline>
       <source src="video1.mp4" type="video/mp4">
     </video>
 
     <h2>Stars Alignment</h2>
-    <img src="astro.png" class="astro-img">
+    <img src="astro.png" class="astro-img" alt="Astro">
   </section>
 
 <script>
-  // 1. Моментальное появление обложки
-  window.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('mainHeader').classList.add('appear');
-    document.getElementById('bgPhoto').style.opacity = '1';
-  });
+  // Используем нативный IntersectionObserver — он самый легкий для мобилок
+  const observerOptions = { threshold: 0.1 };
 
-  // 2. Появление контента при скролле
-  const observer = new IntersectionObserver((entries) => {
+  const scrollObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('appear');
+        entry.target.classList.add('visible');
       }
     });
-  }, { threshold: 0.15 });
+  }, observerOptions);
 
-  // Применяем наблюдатель ко всем важным элементам
+  // Наблюдаем за подзаголовками и нижним блоком
   document.querySelectorAll('.feature, .media-section').forEach(el => {
-    observer.observe(el);
+    scrollObserver.observe(el);
   });
 </script>
 
