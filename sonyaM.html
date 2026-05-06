@@ -14,64 +14,64 @@ body, html {
   margin: 0;
   padding: 0;
   width: 100%;
-  background: #000000;
-  color: white;
+  background: #d2b48c; /* ПЕСОЧНЫЙ ФОН */
+  color: #1a1a1a; /* Темный текст для контраста */
   font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
 }
 
 /* ОБЛОЖКА */
 .magazine-cover {
   position: relative;
   width: 100%;
-  height: 100vh; /* Занимает весь первый экран */
+  background: #d2b48c;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #000;
+}
+
+.main-photo-container {
+  width: 100%;
+  line-height: 0; /* Убирает микро-отступ под картинкой */
 }
 
 .main-photo {
-  position: absolute;
-  top: 0; /* Прижато к самому верху */
-  left: 0;
   width: 100%; /* Вписано по бокам */
-  height: 85vh; /* Высота фото */
-  object-fit: cover;
+  height: auto;
   display: block;
-  z-index: 1;
 }
 
 .vogue-title {
-  position: relative;
+  position: absolute;
+  top: 40px;
+  width: 100%;
   font-family: 'Bodoni Moda', serif;
-  font-size: 32vw;
+  font-size: 30vw;
   font-weight: 400;
   text-transform: uppercase;
-  margin: 40px 0 0 0;
   line-height: 0.8;
   letter-spacing: -2px;
   transform: scaleY(1.4);
   color: white;
   text-align: center;
   z-index: 10;
+  pointer-events: none;
 }
 
 .edition-info {
-  position: relative;
-  font-weight: 100;
+  position: absolute;
+  top: 10px;
+  font-weight: 300;
   text-transform: uppercase;
-  letter-spacing: 6px;
+  letter-spacing: 4px;
   font-size: 10px;
-  margin-top: 45px;
-  margin-bottom: 30px;
   z-index: 10;
+  color: white;
 }
 
 .features-overlay {
   position: absolute;
-  top: 260px; 
+  top: 30%; 
   width: 100%;
   z-index: 15;
   padding: 0 20px;
@@ -79,11 +79,13 @@ body, html {
 }
 
 .feature {
-  max-width: 200px;
+  max-width: 180px;
   margin-bottom: 25px; 
   opacity: 0;
   transform: translateY(15px);
   transition: opacity 0.8s ease, transform 0.8s ease;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .feature.left { text-align: left; border-left: 1px solid white; padding-left: 15px; margin-right: auto; }
@@ -91,7 +93,7 @@ body, html {
 
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
-/* ЭФФЕКТЫ ДЛЯ ТЕКСТА (НЕ ДЛЯ ФОНА) */
+/* ПЛАВНОЕ ПОЯВЛЕНИЕ ТЕКСТА */
 .scroll-reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -103,132 +105,135 @@ body, html {
   transform: translateY(0);
 }
 
-/* СЕКЦИЯ С ВИДЕО (ФОН 5.JPG СТАТИЧЕН) */
+/* СЕКЦИЯ С ВИДЕО (БЕЗ ПОЛОС) */
 .video-background-section {
-  position: relative;
   width: 100%;
-  padding: 80px 20px;
+  padding: 60px 20px;
   background-image: url('5.jpg');
   background-size: cover;
   background-position: center;
-  /* Фон статичен, без анимаций появления */
-  z-index: 20;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-video { width: 100%; border-radius: 2px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+video { 
+  width: 100%; 
+  max-width: 900px;
+  border-radius: 2px; 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2); 
+}
 
-/* СЕКЦИЯ ТЕКСТА (ФОН 6.JPG СТАТИЧЕН И ФИКСИРОВАН) */
+/* СЕКЦИЯ ТЕКСТА НА ФОНЕ 6.JPG */
 .astro-section-long {
   position: relative;
   width: 100%;
   background-image: url('6.jpg');
-  background-size: cover;
+  background-size: 100% auto; /* Вписано по бокам */
   background-position: top center;
-  background-attachment: fixed; /* Фото стоит, текст едет */
-  padding: 100px 20px;
+  background-attachment: fixed; /* Статичный фон */
+  padding: 100px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .astro-text-container {
+  width: 90%;
   max-width: 600px;
   text-align: left;
-  background: rgba(0, 0, 0, 0.7); /* Чуть плотнее для читаемости */
-  padding: 40px 30px;
-  backdrop-filter: blur(8px);
-  border-radius: 2px;
+  background: rgba(210, 180, 140, 0.85); /* Песочная подложка с прозрачностью */
+  padding: 50px 30px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(0,0,0,0.1);
 }
 
-.astro-block { margin-bottom: 45px; }
+.astro-block { margin-bottom: 60px; }
 
 .astro-block h4 {
   font-family: 'Bodoni Moda', serif;
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 15px;
-  color: #fff;
-  letter-spacing: 1px;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #222;
 }
 
 .astro-block p {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 15px;
-  font-weight: 300;
-  line-height: 1.7;
-  color: #ffffff;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 20px;
 }
 
 .conclusion-box {
-  margin-top: 60px;
-  padding: 40px 25px;
-  border: 1px solid rgba(255,255,255,0.4);
-  background: rgba(0,0,0,0.5);
+  margin-top: 40px;
+  padding: 30px;
+  border-top: 1px solid #8b7355;
   text-align: center;
+  font-style: italic;
 }
 
 footer {
   text-align: center;
-  padding: 60px 20px;
-  color: #fff;
-  font-size: 0.9rem;
-  background: #000;
-  width: 100%;
+  padding: 40px 20px;
+  color: #555;
+  font-size: 0.8rem;
+  background: #d2b48c;
 }
 </style>
 </head>
 <body>
 
   <div class="magazine-cover">
+    <div class="edition-info">Nastya Edition — Issue #2</div>
     <h1 class="vogue-title">VOGUE</h1>
-    <div class="edition-info">Nastya Edition — Special Issue</div>
     
-    <img src="4.jpg" class="main-photo" alt="Cover Photo">
+    <div class="main-photo-container">
+      <img src="4.jpg" class="main-photo" alt="Cover">
+    </div>
 
     <div class="features-overlay">
       <div class="feature left" id="f1">
-        <h3>Exclusive</h3>
-        <p>Новая глава вашей истории</p>
+        <h3>Horizon</h3>
+        <p>Бесконечность в каждом взгляде</p>
       </div>
       <div class="feature right" id="f2">
-        <h3>Stars</h3>
-        <p>Когда планеты шепчут правду</p>
-      </div>
-      <div class="feature left" id="f3">
-        <h3>Style</h3>
-        <p>Эстетика в каждой детали</p>
+        <h3>Sands</h3>
+        <p>Тепло пустыни и холод звезд</p>
       </div>
     </div>
   </div>
 
   <section class="video-background-section">
-    <h2 class="scroll-reveal" style="font-family: 'Bodoni Moda', serif; letter-spacing: 5px; margin-bottom: 40px;">Cinema Art</h2>
-    <div class="scroll-reveal" style="width: 100%; max-width: 800px;">
-        <video controls playsinline>
-          <source src="1в.mp4" type="video/mp4">
-        </video>
-    </div>
+    <h2 class="scroll-reveal" style="font-family: 'Bodoni Moda', serif; color: white; letter-spacing: 5px; margin-bottom: 30px;">THE MOVIE</h2>
+    <video controls playsinline>
+      <source src="1в.mp4" type="video/mp4">
+    </video>
   </section>
 
   <section class="astro-section-long">
     <div class="astro-text-container">
       
       <div class="astro-block scroll-reveal">
-        <h4>Тайны Вселенной</h4>
-        <p>Здесь располагается ваш текст. Фон (изображение 6) остается неподвижным, создавая эффект глубины при прокрутке.</p>
+        <h4>Влияние Солнца</h4>
+        <p>Этот блок текста нужен для того, чтобы проверить, как работает скроллинг. Солнце в вашем знаке говорит о невероятной энергии и стремлении к гармонии. Когда вы прокручиваете эту страницу, фотография на фоне остается неподвижной, создавая глубокий визуальный эффект.</p>
+        <p>Ваша харизма притягивает людей, словно пески притягивают тепло уходящего дня. Это сочетание силы и мягкости — ваша главная черта. Продолжайте движение вниз, чтобы увидеть, как текст плавно сменяет друг друга.</p>
       </div>
 
       <div class="astro-block scroll-reveal">
-        <h4>Сила влияния</h4>
-        <p>Текст плавно проявляется, акцентируя внимание на важных деталях вашей натальной карты.</p>
+        <h4>Шепот Меркурия</h4>
+        <p>Меркурий отвечает за общение. Ваши слова имеют вес. В данной версии мы тестируем песочный фон, который должен мягко сочетаться с изображениями. Если текст читается легко, значит мы на верном пути.</p>
+        <p>Здесь мы добавили еще немного текста, чтобы секция стала достаточно длинной для полноценного теста параллакс-эффекта. Наслаждайтесь тем, как буквы плывут по поверхности застывшего кадра.</p>
+      </div>
+
+      <div class="astro-block scroll-reveal">
+        <h4>Тайна Венеры</h4>
+        <p>Венера приносит эстетику. Каждая деталь этого сайта была создана, чтобы подчеркнуть вашу индивидуальность. Песочные оттенки и классическая типографика VOGUE создают атмосферу вневременной моды.</p>
+        <p>Пусть этот текст послужит напоминанием о том, что красота — в глазах смотрящего, а в вашем случае — в каждом движении по этой странице.</p>
       </div>
 
       <div class="conclusion-box scroll-reveal">
-        <h3>Итог страницы</h3>
-        <p>Финальный аккорд текущего раздела.</p>
+        <h3>Общая энергия</h3>
+        <p>Вселенная сегодня на вашей стороне. Скроллинг работает плавно, фон стабилен, а стиль безупречен.</p>
       </div>
 
     </div>
@@ -243,7 +248,6 @@ footer {
       scrolled = true;
       setTimeout(() => document.getElementById('f1').classList.add('visible'), 100);
       setTimeout(() => document.getElementById('f2').classList.add('visible'), 400);
-      setTimeout(() => document.getElementById('f3').classList.add('visible'), 700);
     }
   });
 
