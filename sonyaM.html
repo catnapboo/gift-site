@@ -39,18 +39,19 @@ body, html {
   display: block;
 }
 
-/* ИЗОБРАЖЕНИЕ 7.png (Теперь в самом верху) */
+/* ИЗОБРАЖЕНИЕ 7.png (Сдвинуто максимально вверх) */
 .overlay-image {
   position: absolute;
   left: 0;
-  top: 0; /* Поднято вплотную к верхнему краю */
+  /* Используем отрицательный отступ, чтобы убрать возможные пустые поля в самом PNG */
+  top: -1cm; 
   width: 100%;
   height: auto;
-  z-index: 25; /* Самый высокий приоритет */
+  z-index: 25;
   pointer-events: none;
 }
 
-/* ФИШКИ (Features) */
+/* ФИШКИ */
 .features-overlay {
   position: absolute;
   top: 40%; 
@@ -74,7 +75,6 @@ body, html {
 
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
-/* СКРОЛЛ-АНИМАЦИИ */
 .scroll-reveal {
   transform: translateY(30px);
   transition: opacity 1.2s ease, transform 1.2s ease;
@@ -131,10 +131,9 @@ video {
 <body>
 
   <div class="magazine-cover">
-    <!-- Фоновое фото -->
     <img src="4.jpg" class="main-photo" alt="">
     
-    <!-- Наложенное фото 7.png прижатое к верху -->
+    <!-- Наложенное фото 7.png -->
     <img src="7.png" class="overlay-image" alt="">
 
     <div class="features-overlay">
