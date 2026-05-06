@@ -39,11 +39,12 @@ body, html {
   display: block;
 }
 
-/* ИЗОБРАЖЕНИЕ 7.png (Минимальный отступ) */
+/* ИЗОБРАЖЕНИЕ 7.png (СТРОГО ВВЕРХУ) */
 .overlay-image {
   position: absolute;
   left: 0;
-  top: 5px; /* Уменьшено до 5 пикселей */
+  top: 0; /* Прижато к самому верху сайта */
+  margin-top: 0;
   width: 100%;
   height: auto;
   z-index: 25;
@@ -133,6 +134,7 @@ video {
   <div class="magazine-cover">
     <img src="4.jpg" class="main-photo" alt="">
     
+    <!-- Наложенное фото 7.png в самом верху -->
     <img src="7.png" class="overlay-image" alt="">
 
     <div class="features-overlay">
