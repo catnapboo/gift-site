@@ -23,48 +23,37 @@ body, html {
   overflow-x: hidden;
 }
 
-/* НОВОЕ ИЗОБРАЖЕНИЕ 7.JPG */
-.top-image-container {
+/* ОБЩИЙ КОНТЕЙНЕР ОБЛОЖКИ */
+.magazine-cover {
+  position: relative; /* База для позиционирования 7.png */
   width: 100%;
   line-height: 0;
-  /* Отступ 2 см от верхнего края сайта */
-  margin-top: 2cm; 
-  display: flex;
-  justify-content: center;
-}
-
-.top-image {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-/* ОБЛОЖКА (4.JPG) */
-.magazine-cover {
-  position: relative;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin: 0;
   padding: 0;
 }
 
-.main-photo-container {
-  width: 100%;
-  line-height: 0;
-}
-
+/* ФОНОВАЯ ФОТОГРАФИЯ (4.jpg) */
 .main-photo {
   width: 100%;
   height: auto;
   display: block;
 }
 
-/* ОСТАЛЬНЫЕ СТИЛИ */
+/* НАКЛАДЫВАЕМОЕ ИЗОБРАЖЕНИЕ (7.png) */
+.overlay-image {
+  position: absolute;
+  left: 0;
+  top: 2cm; /* Смещение на 2 см вниз от верхнего края */
+  width: 100%; /* Растягиваем по ширине, если нужно. Если 7.png меньше, можно заменить на auto или конкретный % */
+  height: auto;
+  z-index: 20; /* Поверх фото 4 и выше фишек */
+  pointer-events: none; /* Чтобы не мешала кликам, если нужно */
+}
+
+/* ФИШКИ НА ОБЛОЖКЕ */
 .features-overlay {
   position: absolute;
-  top: 35%; 
+  top: 45%; /* Немного опустил, чтобы не перекрывалось картинкой 7.png */
   width: 100%;
   z-index: 15;
   padding: 0 20px;
@@ -85,6 +74,7 @@ body, html {
 
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
+/* АНИМАЦИИ ПРИ СКРОЛЛЕ */
 .scroll-reveal {
   transform: translateY(30px);
   transition: opacity 1.2s ease, transform 1.2s ease;
@@ -95,6 +85,7 @@ body, html {
   transform: translateY(0);
 }
 
+/* СЕКЦИЯ С ВИДЕО */
 .video-background-section {
   width: 100%;
   padding: 80px 20px;
@@ -113,6 +104,7 @@ video {
   box-shadow: 0 20px 50px rgba(0,0,0,0.3); 
 }
 
+/* ПАРАЛЛАКС СЕКЦИЯ */
 .astro-section-long {
   position: relative;
   width: 100%;
@@ -148,35 +140,16 @@ video {
   display: inline-block;
   padding-bottom: 5px;
 }
-
-.astro-block p {
-  font-size: 16px;
-  line-height: 1.9;
-  color: #2c2c2c;
-  margin-bottom: 20px;
-  font-weight: 300;
-}
-
-.conclusion-box {
-  margin-top: 50px;
-  padding: 40px 20px;
-  border: 1px solid #8b7355;
-  text-align: center;
-  background: rgba(255,255,255,0.1);
-}
 </style>
 </head>
 <body>
 
-  <!-- Новая верхняя картинка -->
-  <div class="top-image-container">
-    <img src="7.jpg" class="top-image" alt="">
-  </div>
-
   <div class="magazine-cover">
-    <div class="main-photo-container">
-      <img src="4.jpg" class="main-photo" alt="">
-    </div>
+    <!-- Основное фото -->
+    <img src="4.jpg" class="main-photo" alt="">
+    
+    <!-- Наложенное фото 7.png -->
+    <img src="7.png" class="overlay-image" alt="">
 
     <div class="features-overlay">
       <div class="feature left" id="f1">
