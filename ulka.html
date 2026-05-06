@@ -2,194 +2,179 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>VOGUE: Nastya Edition</title>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+<!-- Подключаем Bodoni Moda (идеален для Vogue) и Montserrat -->
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Montserrat:wght@100;200;300&display=swap" rel="stylesheet">
 
+<style>
 * { box-sizing: border-box; }
 
-html, body {
+body, html {
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-x: hidden;
-  background: #0a0809;
-  font-family: 'Montserrat', sans-serif;
+  background: #000000;
   color: white;
-  scroll-behavior: smooth;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: hidden; /* Никакого бокового скролла */
 }
 
-/* ===== ОБЛОЖКА ===== */
-.cover {
+/* ОБЛОЖКА */
+.magazine-cover {
   position: relative;
   width: 100%;
-  height: 110vh; /* Чуть выше экрана, чтобы был запас для скролла */
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #000000;
+  padding-bottom: 50px;
 }
 
-/* ГЛАВНЫЙ ЗАГОЛОВОК VOGUE (ВЫТЯНУТЫЙ) */
+/* ВЫТЯНУТЫЙ ТОНКИЙ VOGUE */
 .vogue-title {
-  position: fixed; /* Заголовок остается на месте какое-то время */
-  top: 2%;
-  width: 100%;
-  text-align: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 28vw;
+  font-family: 'Bodoni Moda', serif;
+  font-size: 32vw;
   font-weight: 400;
-  letter-spacing: 2px;
-  margin: 0;
-  line-height: 1;
-  z-index: 10;
-  /* Вытягиваем шрифт по вертикали */
-  transform: scaleY(1.3);
   text-transform: uppercase;
-  pointer-events: none;
+  margin: 20px 0 0 0;
+  line-height: 0.8;
+  letter-spacing: -2px;
+  transform: scaleY(1.4); /* Еще сильнее вытягиваем */
+  color: white;
+  text-align: center;
 }
 
-.edition-text {
-  position: absolute;
-  top: 22%;
-  width: 100%;
-  text-align: center;
+.edition-info {
   font-weight: 100;
   text-transform: uppercase;
-  letter-spacing: 10px;
-  font-size: 0.7rem;
-  z-index: 11;
+  letter-spacing: 6px;
+  font-size: 10px;
+  margin-top: 40px;
+  margin-bottom: 20px;
   opacity: 0.8;
 }
 
-/* ФОТО (СМЕЩЕНО НИЖЕ) */
-.cover img {
-  width: 100%;
-  height: 85vh;
-  object-fit: cover;
-  margin-top: 25vh; /* Опускаем фото ниже заголовка */
-  z-index: 5;
+/* ГЛАВНОЕ ФОТО */
+.main-photo {
+  width: 90%; /* Небольшие поля по бокам для стиля */
+  height: auto;
+  border-radius: 2px;
+  margin-bottom: 40px;
 }
 
-/* БОКОВЫЕ ЗАГОЛОВКИ */
-.cover-features {
-  position: absolute;
+/* ЗАГОЛОВКИ-ВЫНОСЫ */
+.article-preview {
   width: 100%;
-  top: 35vh; /* Поднимаем область с заголовками выше */
-  z-index: 12;
-  padding: 0 20px;
-}
-
-.feature {
-  max-width: 200px;
-  margin-bottom: 60vh; /* Огромный отступ, чтобы они появлялись по очереди при скролле */
+  padding: 0 25px;
+  margin-bottom: 120px; /* Расстояние между заголовками для эффекта появления */
   opacity: 0;
   transform: translateY(30px);
-  transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: all 1s ease-out;
 }
 
-.feature.left { float: left; text-align: left; border-left: 1px solid rgba(255,255,255,0.4); padding-left: 10px; clear: both; }
-.feature.right { float: right; text-align: right; border-right: 1px solid rgba(255,255,255,0.4); padding-right: 10px; clear: both; }
-
-.feature h3 {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  margin: 0 0 8px 0;
-  letter-spacing: 2px;
-  font-weight: 300;
-  color: #ccc;
-}
-
-.feature p {
-  font-size: 0.9rem;
-  line-height: 1.3;
-  margin: 0;
-  font-weight: 200;
-}
-
-.feature.visible {
+.article-preview.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ===== СЕКЦИИ НИЖЕ ===== */
-.content {
-  position: relative;
-  z-index: 20;
-  background: #0a0809;
-  padding: 50px 20px;
-  margin-top: -10vh; /* Нахлест на фото */
+.left { text-align: left; border-left: 1px solid white; padding-left: 15px; margin-right: auto; max-width: 70%; }
+.right { text-align: right; border-right: 1px solid white; padding-right: 15px; margin-left: auto; max-width: 70%; }
+
+.article-preview h3 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+  font-weight: 300;
+}
+
+.article-preview p {
+  font-size: 18px;
+  line-height: 1.3;
+  margin: 0;
+  font-weight: 200;
+  font-family: 'Bodoni Moda', serif;
+  font-style: italic;
+}
+
+/* КОНТЕНТ НИЖЕ */
+.media-section {
+  padding: 40px 20px;
+  background: #000;
+}
+
+.media-section h2 {
+  font-family: 'Bodoni Moda', serif;
+  font-size: 24px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  margin-bottom: 30px;
 }
 
 video {
   width: 100%;
-  margin-bottom: 40px;
-  border-radius: 2px;
+  margin-bottom: 30px;
+  outline: none;
 }
 
-h2 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.2rem;
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  text-align: center;
-  margin-bottom: 30px;
+.astro-img {
+  width: 100%;
+  height: auto;
 }
 </style>
 </head>
-
 <body>
 
-  <h1 class="vogue-title">VOGUE</h1>
-  
-  <div class="cover">
-    <div class="edition-text">Nastya Edition — Special Issue</div>
-    <img src="1.jpg" alt="Nastya">
+  <div class="magazine-cover">
+    <h1 class="vogue-title">VOGUE</h1>
+    <div class="edition-info">Nastya Edition — Special Birthday Issue</div>
+    
+    <img src="1.jpg" class="main-photo" alt="Cover Photo">
 
-    <div class="cover-features">
-      <div class="feature left" style="margin-top: 10vh;">
-        <h3>Career</h3>
-        <p>Великая девушка, покорившая проектировку кинозалов</p>
-      </div>
+    <!-- Заголовок 1 -->
+    <div class="article-preview left">
+      <h3>Career</h3>
+      <p>Великая девушка, покорившая проектировку кинозалов</p>
+    </div>
 
-      <div class="feature right">
-        <h3>Top 10</h3>
-        <p>Как оштрафовать вас за неправильную парковку</p>
-      </div>
+    <!-- Заголовок 2 -->
+    <div class="article-preview right">
+      <h3>Top 10</h3>
+      <p>Как оштрафовать вас за неправильную парковку</p>
+    </div>
 
-      <div class="feature left">
-        <h3>Gaming</h3>
-        <p>Детка геймер занимает позиции в топах. В чем секрет?</p>
-      </div>
+    <!-- Заголовок 3 -->
+    <div class="article-preview left">
+      <h3>Gaming</h3>
+      <p>Детка геймер занимает лидирующие позиции. В чем секрет?</p>
     </div>
   </div>
 
-  <section class="content">
-    <h2>Special Video</h2>
-    <video controls playsinline poster="preview1.jpg">
+  <section class="media-section">
+    <h2>Special Movie</h2>
+    <video controls playsinline>
       <source src="video1.mp4" type="video/mp4">
     </video>
-    
-    <h2>Compatibility</h2>
-    <img src="astro.png" style="width: 100%; height: auto; border-radius: 5px;">
+
+    <h2>Stars Alignment</h2>
+    <img src="astro.png" class="astro-img" alt="Astro">
   </section>
 
 <script>
-  const observerOptions = {
-    threshold: 0.2 // Появляется, когда 20% элемента в зоне видимости
-  };
-
+  // Функция для появления элементов при скролле
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
       }
     });
-  }, observerOptions);
+  }, { threshold: 0.1 });
 
-  document.querySelectorAll('.feature').forEach(el => observer.observe(el));
+  document.querySelectorAll('.article-preview').forEach(block => {
+    observer.observe(block);
+  });
 </script>
 
 </body>
