@@ -6,170 +6,162 @@
 <title>VOGUE: Nastya Edition</title>
 
 <style>
-/* Подключаем шрифты: Playfair для заголовка и Montserrat для тонкого текста */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400&family=Playfair+Display:wght@700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
   overflow-x: hidden;
-  background: #000000;
+  background: #0a0809;
   font-family: 'Montserrat', sans-serif;
   color: white;
+  scroll-behavior: smooth;
 }
 
 /* ===== ОБЛОЖКА ===== */
 .cover {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 110vh; /* Чуть выше экрана, чтобы был запас для скролла */
   display: flex;
-  justify-content: center;
-  overflow: hidden;
+  flex-direction: column;
+  align-items: center;
+  background: #000000;
 }
 
-.cover img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* ГРАДИЕНТ ДЛЯ ЧИТАЕМОСТИ */
-.cover::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent 40%, rgba(0,0,0,0.5));
-}
-
-/* ГЛАВНЫЙ ЗАГОЛОВОК VOGUE (ОТ КРАЯ ДО КРАЯ) */
+/* ГЛАВНЫЙ ЗАГОЛОВОК VOGUE (ВЫТЯНУТЫЙ) */
 .vogue-title {
-  position: absolute;
-  top: 5%;
+  position: fixed; /* Заголовок остается на месте какое-то время */
+  top: 2%;
   width: 100%;
   text-align: center;
   font-family: 'Playfair Display', serif;
-  font-size: 26vw; /* Тянется ровно по ширине экрана */
-  font-weight: 900;
-  letter-spacing: -2px; /* В стиле журналов буквы стоят плотно */
+  font-size: 28vw;
+  font-weight: 400;
+  letter-spacing: 2px;
   margin: 0;
   line-height: 1;
   z-index: 10;
+  /* Вытягиваем шрифт по вертикали */
+  transform: scaleY(1.3);
+  text-transform: uppercase;
   pointer-events: none;
 }
 
-/* ПОДЗАГОЛОВОК ПОД VOGUE */
 .edition-text {
   position: absolute;
-  top: 26%;
+  top: 22%;
   width: 100%;
   text-align: center;
-  font-weight: 200;
+  font-weight: 100;
   text-transform: uppercase;
-  letter-spacing: 8px;
-  font-size: 0.8rem;
+  letter-spacing: 10px;
+  font-size: 0.7rem;
   z-index: 11;
+  opacity: 0.8;
 }
 
-/* БОКОВЫЕ ЗАГОЛОВКИ (ВЫНОСЫ) */
+/* ФОТО (СМЕЩЕНО НИЖЕ) */
+.cover img {
+  width: 100%;
+  height: 85vh;
+  object-fit: cover;
+  margin-top: 25vh; /* Опускаем фото ниже заголовка */
+  z-index: 5;
+}
+
+/* БОКОВЫЕ ЗАГОЛОВКИ */
 .cover-features {
   position: absolute;
   width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
+  top: 35vh; /* Поднимаем область с заголовками выше */
   z-index: 12;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end; /* Сдвигаем к нижней части */
-  padding-bottom: 50px;
+  padding: 0 20px;
 }
 
 .feature {
-  max-width: 180px;
-  margin-bottom: 30px;
-  opacity: 0; /* Скрыты изначально для анимации */
-  transform: translateY(20px);
-  transition: all 1s ease-out;
+  max-width: 200px;
+  margin-bottom: 60vh; /* Огромный отступ, чтобы они появлялись по очереди при скролле */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.feature.left { align-self: flex-start; text-align: left; border-left: 1px solid white; padding-left: 10px; }
-.feature.right { align-self: flex-end; text-align: right; border-right: 1px solid white; padding-right: 10px; }
+.feature.left { float: left; text-align: left; border-left: 1px solid rgba(255,255,255,0.4); padding-left: 10px; clear: both; }
+.feature.right { float: right; text-align: right; border-right: 1px solid rgba(255,255,255,0.4); padding-right: 10px; clear: both; }
 
 .feature h3 {
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   text-transform: uppercase;
-  margin: 0 0 5px 0;
-  font-weight: 400;
-  letter-spacing: 1px;
+  margin: 0 0 8px 0;
+  letter-spacing: 2px;
+  font-weight: 300;
+  color: #ccc;
 }
 
 .feature p {
-  font-size: 0.85rem;
-  line-height: 1.2;
+  font-size: 0.9rem;
+  line-height: 1.3;
   margin: 0;
   font-weight: 200;
 }
 
-/* ЭФФЕКТ ПОЯВЛЕНИЯ ПРИ СКРОЛЛЕ */
 .feature.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* ===== СЕКЦИИ НИЖЕ ===== */
-section.content {
-  padding: 60px 20px;
-  max-width: 600px;
-  margin: 0 auto;
-  text-align: center;
+.content {
+  position: relative;
+  z-index: 20;
+  background: #0a0809;
+  padding: 50px 20px;
+  margin-top: -10vh; /* Нахлест на фото */
 }
 
 video {
   width: 100%;
-  margin-bottom: 20px;
-  border-radius: 4px;
+  margin-bottom: 40px;
+  border-radius: 2px;
 }
 
 h2 {
   font-family: 'Playfair Display', serif;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   text-transform: uppercase;
-  letter-spacing: 4px;
-  margin-bottom: 40px;
+  letter-spacing: 5px;
+  text-align: center;
+  margin-bottom: 30px;
 }
-
 </style>
 </head>
 
 <body>
 
+  <h1 class="vogue-title">VOGUE</h1>
+  
   <div class="cover">
-    <h1 class="vogue-title">VOGUE</h1>
-    <div class="edition-text">Nastya Edition — Special Birthday Issue</div>
-    
+    <div class="edition-text">Nastya Edition — Special Issue</div>
     <img src="1.jpg" alt="Nastya">
 
     <div class="cover-features">
-      <div class="feature left" id="f1">
+      <div class="feature left" style="margin-top: 10vh;">
         <h3>Career</h3>
         <p>Великая девушка, покорившая проектировку кинозалов</p>
       </div>
 
-      <div class="feature right" id="f2">
+      <div class="feature right">
         <h3>Top 10</h3>
         <p>Как оштрафовать вас за неправильную парковку</p>
       </div>
 
-      <div class="feature left" id="f3">
+      <div class="feature left">
         <h3>Gaming</h3>
-        <p>Детка геймер в топах мира. В чем секрет?</p>
+        <p>Детка геймер занимает позиции в топах. В чем секрет?</p>
       </div>
     </div>
   </div>
@@ -181,30 +173,23 @@ h2 {
     </video>
     
     <h2>Compatibility</h2>
-    <img src="astro.png" style="width: 100%; height: auto;" alt="Astro">
+    <img src="astro.png" style="width: 100%; height: auto; border-radius: 5px;">
   </section>
 
 <script>
-  // Скрипт для появления подписей при скролле
-  window.addEventListener('scroll', () => {
-    const features = document.querySelectorAll('.feature');
-    features.forEach(f => {
-      const position = f.getBoundingClientRect().top;
-      const screenHeight = window.innerHeight;
-      
-      // Если элемент показался в зоне видимости (даже чуть-чуть скролла)
-      if(position < screenHeight * 0.9) {
-        f.classList.add('visible');
+  const observerOptions = {
+    threshold: 0.2 // Появляется, когда 20% элемента в зоне видимости
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
       }
     });
-  });
+  }, observerOptions);
 
-  // Запускаем проверку один раз при загрузке
-  document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(() => {
-        document.querySelector('#f1').classList.add('visible');
-    }, 500); // Первая подпись появится сама через полсекунды
-  });
+  document.querySelectorAll('.feature').forEach(el => observer.observe(el));
 </script>
 
 </body>
