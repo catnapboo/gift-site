@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Nastya Edition</title>
+
+<style>
+
+/* базовые настройки */
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  background: #0e0e0e;
+  color: white;
+}
+
+/* ОБЩИЕ СЕКЦИИ */
+section {
+  min-height: 100vh;
+  padding: 60px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ОБЛОЖКА */
+.cover {
+  background-image: url("cover.jpg");
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  position: relative;
+}
+
+.cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+}
+
+.cover h1 {
+  position: relative;
+  font-size: 60px;
+  letter-spacing: 4px;
+  z-index: 1;
+}
+
+/* ВИДЕО */
+.videos {
+  background: #111;
+  gap: 30px;
+  align-items: center;
+}
+
+video {
+  width: 90%;
+  max-width: 700px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255,255,255,0.1);
+}
+
+/* АСТРОЛОГИЯ */
+.astro {
+  background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
+  text-align: center;
+}
+
+.astro h2 {
+  font-size: 40px;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+.astro img {
+  width: 80%;
+  max-width: 500px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(255,255,255,0.08);
+}
+
+/* лёгкий эффект прокрутки */
+html {
+  scroll-behavior: smooth;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ОБЛОЖКА -->
+<section class="cover">
+  <h1>NASTYA EDITION</h1>
+</section>
+
+<!-- ВИДЕО 1 -->
+<section class="videos">
+  <video controls>
+    <source src="video1.mp4" type="video/mp4">
+  </video>
+
+  <video controls>
+    <source src="video2.mp4" type="video/mp4">
+  </video>
+</section>
+
+<!-- НАТАЛЬНАЯ КАРТА -->
+<section class="astro">
+  <h2>СОВМЕСТИМОСТЬ</h2>
+  <img src="astro.png">
+</section>
+
+</body>
+</html>
