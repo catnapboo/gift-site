@@ -9,8 +9,8 @@
   .scroll-reveal, .feature, .symphony-text { opacity: 0 !important; }
 </style>
 
-<!-- Подключаем мягкий рукописный шрифт Lobster -->
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Lobster&family=Montserrat:wght@100;300;400&display=swap" rel="stylesheet">
+<!-- Подключаем шрифт Dancing Script (элегантный рукописный) -->
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Dancing+Script:wght@700&family=Montserrat:wght@100;300;400&display=swap" rel="stylesheet">
 
 <style>
 * { box-sizing: border-box; }
@@ -48,36 +48,42 @@ body, html {
   pointer-events: none;
 }
 
-/* СТИЛИ ДЛЯ ТЕКСТА ПЕСНИ */
+/* ОБНОВЛЕННЫЙ ТЕКСТ ПЕСНИ */
 .symphony-text {
   position: absolute;
-  top: 15%; /* Расположение под 7.png (настрой под высоту картинки) */
+  top: 35%; /* Опустили значительно ниже */
   width: 100%;
   text-align: center;
   z-index: 30;
-  font-family: 'Lobster', cursive;
-  font-size: clamp(24px, 6vw, 48px);
-  color: #ff85a2; /* Мягкий розовый/тропический цвет */
-  /* Белая каемочка для читаемости */
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(40px, 10vw, 85px); /* Очень крупный размер */
+  color: #ff4d8d; /* Насыщенный розовый */
+  line-height: 1.1;
+  
+  /* Горчичная каемочка */
   text-shadow: 
-    -2px -2px 0 #fff,  
-     2px -2px 0 #fff,
-    -2px  2px 0 #fff,
-     2px  2px 0 #fff,
-     0px  4px 10px rgba(0,0,0,0.2);
-  transition: opacity 2s ease-in-out, transform 2s ease-out;
-  transform: translateY(10px);
+    -2px -2px 0 #e1ad01,  
+     2px -2px 0 #e1ad01,
+    -2px  2px 0 #e1ad01,
+     2px  2px 0 #e1ad01,
+     0px  10px 20px rgba(0,0,0,0.2);
+
+  /* Наклон наискосок слева направо */
+  transform: rotate(-5deg) translateY(50px); 
+  
+  transition: opacity 2.5s ease-in-out, transform 2.5s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
+  white-space: pre-line; /* Чтобы работал перенос строк */
 }
 
 .symphony-text.show {
   opacity: 1 !important;
-  transform: translateY(0);
+  transform: rotate(-5deg) translateY(0); /* Сохраняем наклон при появлении */
 }
 
 .features-overlay {
   position: absolute;
-  top: 45%; 
+  top: 60%; /* Сдвинул фишки еще ниже, чтобы не мешали тексту */
   width: 100%;
   z-index: 15;
   padding: 0 20px;
@@ -87,27 +93,13 @@ body, html {
 .feature {
   max-width: 180px;
   margin-bottom: 25px; 
-  transform: translateY(15px);
-  transition: opacity 1s ease, transform 1s ease;
   color: white;
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
-.feature.left { text-align: left; border-left: 1px solid white; padding-left: 15px; margin-right: auto; }
-.feature.right { text-align: right; border-right: 1px solid white; padding-right: 15px; margin-left: auto; }
-
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
-.scroll-reveal {
-  transform: translateY(30px);
-  transition: opacity 1.2s ease, transform 1.2s ease;
-}
-
-.scroll-reveal.active {
-  opacity: 1 !important;
-  transform: translateY(0);
-}
-
+/* Остальные секции */
 .video-background-section {
   width: 100%;
   padding: 80px 20px;
@@ -123,30 +115,6 @@ video {
   width: 100%; 
   max-width: 900px;
   border-radius: 4px; 
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3); 
-}
-
-.astro-section-long {
-  position: relative;
-  width: 100%;
-  background-image: url('6.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  padding: 120px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.astro-text-container {
-  width: 90%;
-  max-width: 650px;
-  text-align: left;
-  background: rgba(210, 180, 140, 0.9); 
-  padding: 60px 40px;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(0,0,0,0.05);
 }
 </style>
 </head>
@@ -156,9 +124,11 @@ video {
     <img src="4.jpg" class="main-photo" alt="">
     <img src="7.png" class="overlay-image" alt="">
 
-    <!-- Текст песни -->
+    <!-- Текст песни в несколько строк -->
     <div class="symphony-text" id="symphonyText">
-      I just wanna be part of your symphony
+      I just wanna be
+      part of your 
+      symphony
     </div>
 
     <div class="features-overlay">
@@ -179,40 +149,20 @@ video {
     </video>
   </section>
 
-  <section class="astro-section-long">
-    <div class="astro-text-container">
-      <div class="astro-block scroll-reveal">
-        <h4></h4>
-        <p></p>
-      </div>
-      <div class="conclusion-box scroll-reveal">
-        <p></p>
-      </div>
-    </div>
-  </section>
-
 <script>
   window.addEventListener('load', () => {
-    // Появление фишек через 0.3 сек
+    // Фишки
     setTimeout(() => {
       document.getElementById('f1')?.classList.add('visible');
       document.getElementById('f2')?.classList.add('visible');
     }, 300);
 
-    // Появление текста песни через 2 секунды (2000 мс)
+    // Появление текста через 2 секунды
     setTimeout(() => {
       const symphony = document.getElementById('symphonyText');
       if(symphony) symphony.classList.add('show');
     }, 2000);
   });
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('active');
-    });
-  }, { threshold: 0.15 });
-
-  document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 </script>
 
 </body>
