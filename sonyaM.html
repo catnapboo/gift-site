@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Nastya Edition</title>
 
-<!-- Мгновенно скрываем анимированные элементы до полной загрузки -->
 <style>
   .scroll-reveal, .feature { opacity: 0 !important; }
 </style>
@@ -19,34 +18,37 @@ body, html {
   margin: 0;
   padding: 0;
   width: 100%;
-  background: #d2b48c; /* ПЕСОЧНЫЙ ФОН */
-  color: #1a1a1a; 
+  /* Цвет фона оставляем для подстраховки при загрузке, но он будет перекрыт */
+  background: #d2b48c; 
   font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
 }
 
-/* ОБЛОЖКА */
+/* ОБЛОЖКА БЕЗ ОТСТУПОВ */
 .magazine-cover {
   position: relative;
   width: 100%;
-  background: #d2b48c;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0;
+  padding: 0;
 }
 
 .main-photo-container {
   width: 100%;
   line-height: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .main-photo {
   width: 100%;
   height: auto;
   display: block;
+  margin: 0;
 }
 
-/* Оверлей для будущих надписей на обложке */
 .features-overlay {
   position: absolute;
   top: 35%; 
@@ -70,7 +72,6 @@ body, html {
 
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
-/* ПЛАВНОЕ ПОЯВЛЕНИЕ ПРИ СКРОЛЛЕ */
 .scroll-reveal {
   transform: translateY(30px);
   transition: opacity 1.2s ease, transform 1.2s ease;
@@ -100,7 +101,7 @@ video {
   box-shadow: 0 20px 50px rgba(0,0,0,0.3); 
 }
 
-/* ПАРАЛЛАКС СЕКЦИЯ */
+/* ПАРАЛЛАКС СЕКЦИЯ (6.jpg) */
 .astro-section-long {
   position: relative;
   width: 100%;
@@ -112,6 +113,7 @@ video {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 0; /* Убираем любой отступ снизу */
 }
 
 .astro-text-container {
@@ -153,34 +155,29 @@ video {
   background: rgba(255,255,255,0.1);
 }
 
-footer {
-  text-align: center;
-  padding: 50px 20px;
-  background: #d2b48c;
-}
+/* ФУТЕР УДАЛЕН, ЧТОБЫ КАРТИНКА БЫЛА В САМОМ НИЗУ */
 </style>
 </head>
 <body>
 
   <div class="magazine-cover">
-    <!-- Надписи удалены -->
-    
     <div class="main-photo-container">
       <img src="4.jpg" class="main-photo" alt="">
     </div>
 
     <div class="features-overlay">
       <div class="feature left" id="f1">
-        <!-- Пусто -->
+        <h4></h4>
+        <p></p>
       </div>
       <div class="feature right" id="f2">
-        <!-- Пусто -->
+        <h4></h4>
+        <p></p>
       </div>
     </div>
   </div>
 
   <section class="video-background-section">
-    <!-- Заголовок удален -->
     <video controls playsinline>
       <source src="1в.mp4" type="video/mp4">
     </video>
@@ -205,10 +202,6 @@ footer {
 
     </div>
   </section>
-
-  <footer>
-    <!-- Надпись удалена -->
-  </footer>
 
 <script>
   window.addEventListener('load', () => {
