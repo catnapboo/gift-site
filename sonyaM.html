@@ -45,10 +45,10 @@ body, html {
   pointer-events: none;
 }
 
-/* ТЕКСТ ПЕСНИ: НИЖЕ И ПОСЛОВНО */
+/* ТЕКСТ ПЕСНИ: ЧУТЬ ВЫШЕ */
 .symphony-text {
   position: absolute;
-  top: 35%; /* Опустили ниже */
+  top: 30%; /* Подняли чуть выше */
   width: 100%;
   text-align: center;
   z-index: 30;
@@ -158,9 +158,8 @@ video {
     <img src="7.png" class="overlay-image" alt="">
 
     <div class="symphony-text" id="symphonyText">
-      <!-- Текст разбит на спаны для пословного появления -->
-      <span class="word">I</span> <span class="word">just</span> <span class="word">wanna</span> <span class="word">be</span> <span class="word">part</span> <span class="word">of</span> <br>
-      <span class="word">your</span> <span class="word">symphony</span>
+      <span class="word">I</span> <span class="word">just</span> <span class="word">wanna</span> <span class="word">be</span> <span class="word">part</span><br>
+      <span class="word">of</span> <span class="word">your</span> <span class="word">symphony</span>
     </div>
 
     <div class="features-overlay">
@@ -184,19 +183,17 @@ video {
 
 <script>
   window.addEventListener('load', () => {
-    // Появление боковых фишек
     setTimeout(() => {
       document.getElementById('f1')?.classList.add('visible');
       document.getElementById('f2')?.classList.add('visible');
     }, 400);
 
-    // Пословное появление текста через 1.5 секунды
     setTimeout(() => {
       const words = document.querySelectorAll('.word');
       words.forEach((word, index) => {
         setTimeout(() => {
           word.classList.add('show');
-        }, index * 250); // Скорость появления каждого слова (250мс)
+        }, index * 250); 
       });
     }, 1500);
   });
