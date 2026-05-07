@@ -134,7 +134,31 @@ body, html {
   justify-content: center;
 }
 
-video { width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+video { width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); background: #000; }
+
+/* СЕКЦИЯ С РЫБАМИ */
+.fish-tank {
+  width: 100%;
+  height: 300px;
+  position: relative;
+  overflow: hidden; /* Чтобы рыбы не создавали горизонтальный скролл */
+  background: transparent;
+  display: flex;
+  align-items: center;
+}
+
+.fish-img {
+  position: absolute;
+  left: -50%; /* Спрятаны за левым краем */
+  width: 300px; /* Размер рыб */
+  height: auto;
+  transition: transform 8s linear; /* Плавное движение через весь экран */
+  will-change: transform;
+}
+
+.fish-img.swim {
+  transform: translateX(250vw); /* Уплывают далеко вправо */
+}
 
 .astro-section-long {
   position: relative;
@@ -194,11 +218,16 @@ video { width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 20px 50
   </div>
 
   <section class="video-background-section">
-    <!-- Обновленный тег video с фиксами и новым путем -->
-    <video controls playsinline muted preload="auto">
+    <video controls playsinline muted preload="auto" poster="5.jpg">
+      <source src="2b.webm" type="video/webm">
       <source src="2b.mp4" type="video/mp4">
     </video>
   </section>
+
+  <!-- Блок с рыбами -->
+  <div class="fish-tank" id="fishSection">
+    <img src="13.png" class="fish-img" id="fishy" alt="">
+  </div>
 
   <section class="astro-section-long">
     <div class="astro-text-container">
@@ -233,6 +262,7 @@ video { width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 20px 50
     }, 400);
   });
 
+  // Логика наклона и движения рыб
   window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const rotation = Math.sin(scrolled / 60) * 30; 
@@ -241,6 +271,23 @@ video { width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 20px 50
       img.style.transform = `rotate(${rotation}deg)`;
     });
   });
+
+  // Следим за появлением блока с рыбами
+  const fishObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Если блок в поле зрения, ждем 3 секунды и запускаем рыб
+        setTimeout(() => {
+          document.getElementById('fishy').classList.add('swim');
+        }, 3000);
+        // Отключаем наблюдение после активации
+        fishObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const fishSection = document.getElementById('fishSection');
+  if(fishSection) fishObserver.observe(fishSection);
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
