@@ -6,7 +6,7 @@
 <title>Nastya Edition</title>
 
 <style>
-  .scroll-reveal, .feature, .word, .extra-img { opacity: 0; }
+  .scroll-reveal, .feature, .word, .extra-img, .row-img-container { opacity: 0; }
 </style>
 
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Dancing+Script:wght@700&family=Montserrat:wght@100;300;400&display=swap" rel="stylesheet">
@@ -56,13 +56,7 @@ body, html {
   color: #ff4d8d;
   line-height: 1.2;
   pointer-events: none;
-  
-  text-shadow: 
-    -3px -3px 0 #e1ad01,  
-     3px -3px 0 #e1ad01,
-    -3px  3px 0 #e1ad01,
-     3px  3px 0 #e1ad01,
-     0px  15px 30px rgba(0,0,0,0.3);
+  text-shadow: -3px -3px 0 #e1ad01, 3px -3px 0 #e1ad01, -3px 3px 0 #e1ad01, 3px 3px 0 #e1ad01, 0px 15px 30px rgba(0,0,0,0.3);
 }
 
 .word {
@@ -73,46 +67,44 @@ body, html {
   margin: 0 8px;
 }
 
-.word.show {
-  opacity: 1;
-  transform: translateY(0);
-}
+.word.show { opacity: 1; transform: translateY(0); }
 
-/* ЭФФЕКТ ПОЯВЛЕНИЯ ЦВЕТОВ ПО ДУГЕ */
 .extra-img {
   position: absolute;
   height: auto;
   z-index: 28;
-  /* Используем cubic-bezier для эффекта инерции (амплитуды) */
   transition: opacity 1.8s ease-out, transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
 }
 
-.img-8 {
+.img-8 { left: 0; top: 48%; width: 38%; transform: translate(-100%, 50px) rotate(-20deg); }
+.img-9 { right: 0; top: 55%; width: 38%; transform: translate(100%, 50px) rotate(20deg); }
+.extra-img.visible { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+
+/* РЯД ИЗОБРАЖЕНИЙ 10, 11, 12 */
+.row-img-container {
+  position: absolute;
+  top: 75%; /* Ниже конечной точки цветов */
   left: 0;
-  top: 48%; /* Опустили чуть ниже */
-  width: 38%;
-  /* Начальная точка: за левым краем, ниже и под углом */
-  transform: translate(-100%, 50px) rotate(-20deg);
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 5%;
+  z-index: 29;
+  transition: opacity 1.5s ease-in-out;
 }
 
-.img-9 {
-  right: 0;
-  top: 55%; /* Опустили чуть ниже */
-  width: 38%;
-  /* Начальная точка: за правым краем, ниже и под другим углом */
-  transform: translate(100%, 50px) rotate(20deg);
-}
-
-/* Конечное положение (встают в нужное место) */
-.extra-img.visible {
-  opacity: 1;
-  transform: translate(0, 0) rotate(0deg);
+.row-item {
+  width: 30%;
+  height: auto;
+  transition: transform 0.1s linear; /* Плавный наклон при скролле */
+  will-change: transform;
 }
 
 .features-overlay {
   position: absolute;
-  top: 65%; /* Тоже чуть сдвинули, чтобы не перекрывать цветы */
+  top: 90%; 
   width: 100%;
   z-index: 15;
   padding: 0 20px;
@@ -128,7 +120,6 @@ body, html {
 
 .feature.left { text-align: left; border-left: 1px solid white; padding-left: 15px; margin-right: auto; }
 .feature.right { text-align: right; border-right: 1px solid white; padding-right: 15px; margin-left: auto; }
-
 .visible { opacity: 1 !important; transform: translateY(0) !important; }
 
 .video-background-section {
@@ -141,12 +132,7 @@ body, html {
   justify-content: center;
 }
 
-video { 
-  width: 100%; 
-  max-width: 900px;
-  border-radius: 8px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-}
+video { width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
 
 .astro-section-long {
   position: relative;
@@ -176,10 +162,7 @@ video {
   transition: opacity 1.2s ease, transform 1.2s ease;
 }
 
-.scroll-reveal.active {
-  opacity: 1 !important;
-  transform: translateY(0);
-}
+.scroll-reveal.active { opacity: 1 !important; transform: translateY(0); }
 </style>
 </head>
 <body>
@@ -193,9 +176,15 @@ video {
       <span class="word">of</span> <span class="word">your</span> <span class="word">symphony</span>
     </div>
 
-    <!-- Цветы 8 и 9 с дугообразным появлением -->
     <img src="8.png" class="extra-img img-8" id="img8" alt="">
     <img src="9.png" class="extra-img img-9" id="img9" alt="">
+
+    <!-- Контейнер для 10, 11, 12 -->
+    <div class="row-img-container" id="rowImgs">
+      <img src="10.png" class="row-item" alt="">
+      <img src="11.png" class="row-item" alt="">
+      <img src="12.png" class="row-item" alt="">
+    </div>
 
     <div class="features-overlay">
       <div class="feature left" id="f1"></div>
@@ -222,24 +211,37 @@ video {
     const totalWords = words.length;
     const wordDelay = 250;
 
-    // Появление слов
     words.forEach((word, index) => {
-      setTimeout(() => {
-        word.classList.add('show');
-      }, index * wordDelay); 
+      setTimeout(() => { word.classList.add('show'); }, index * wordDelay); 
     });
 
-    // Появление изображений 8 и 9 по дуге сразу после текста
+    // Появление цветов
     setTimeout(() => {
       document.getElementById('img8')?.classList.add('visible');
       document.getElementById('img9')?.classList.add('visible');
+      
+      // Появление ряда 10, 11, 12 через 2 секунды после цветов
+      setTimeout(() => {
+        document.getElementById('rowImgs').style.opacity = "1";
+      }, 2000);
+
     }, totalWords * wordDelay + 300); 
 
-    // Появление боковых плашек
     setTimeout(() => {
       document.getElementById('f1')?.classList.add('visible');
       document.getElementById('f2')?.classList.add('visible');
     }, 400);
+  });
+
+  // Логика наклона при скролле
+  window.addEventListener('scroll', () => {
+    const scrolled = window.pageYOffset;
+    // Используем синус для цикличного наклона влево-вправо на 30 градусов
+    const rotation = Math.sin(scrolled / 100) * 30; 
+    
+    document.querySelectorAll('.row-item').forEach(img => {
+      img.style.transform = `rotate(${rotation}deg)`;
+    });
   });
 
   const observer = new IntersectionObserver((entries) => {
