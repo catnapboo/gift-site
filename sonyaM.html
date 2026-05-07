@@ -84,13 +84,13 @@ body, html {
 /* РЯД ИЗОБРАЖЕНИЙ 10, 11, 12 */
 .row-img-container {
   position: absolute;
-  top: 82%; /* Опустили чуть ниже */
+  top: 82%; 
   left: 0;
   width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 0 5%;
+  padding: 0 2%; /* Уменьшил паддинг, чтобы влезли более крупные фото */
   z-index: 29;
   transition: opacity 1.5s ease-in-out;
 }
@@ -101,10 +101,10 @@ body, html {
   will-change: transform;
 }
 
-/* Настройка размеров: 11 и 12 побольше */
-.row-item:nth-child(1) { width: 25%; } /* 10.png */
-.row-item:nth-child(2) { width: 32%; } /* 11.png */
-.row-item:nth-child(3) { width: 32%; } /* 12.png */
+/* УВЕЛИЧЕННЫЕ РАЗМЕРЫ */
+.row-item:nth-child(1) { width: 32%; } /* 10.png */
+.row-item:nth-child(2) { width: 40%; } /* 11.png */
+.row-item:nth-child(3) { width: 40%; } /* 12.png */
 
 .features-overlay {
   position: absolute;
@@ -236,7 +236,6 @@ video { width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 20px 50
 
   window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
-    // Увеличил скорость: теперь делитель 60 вместо 100 (чем меньше число, тем быстрее наклон)
     const rotation = Math.sin(scrolled / 60) * 30; 
     
     document.querySelectorAll('.row-item').forEach(img => {
