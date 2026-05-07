@@ -83,7 +83,7 @@ body, html {
 
 .row-img-container {
   position: absolute;
-  top: 82%; 
+  top: 78%; /* Поднял выше, чтобы открыть доступ к видео */
   left: 0;
   width: 100%;
   display: flex;
@@ -92,12 +92,14 @@ body, html {
   padding: 0 2%;
   z-index: 29;
   transition: opacity 1.5s ease-in-out;
+  pointer-events: none; /* Пропускает клики сквозь картинки к видео */
 }
 
 .row-item {
   height: auto;
   transition: transform 0.05s linear; 
   will-change: transform;
+  pointer-events: auto; /* Возвращает возможность взаимодействия с самими картинками, если нужно */
 }
 
 .row-item:nth-child(1) { width: 32%; }
@@ -132,16 +134,17 @@ body, html {
   background-position: center;
   display: flex;
   justify-content: center;
+  position: relative;
+  z-index: 10; /* Видео остается под картинками, но доступно для кликов */
 }
 
 video { width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); background: #000; }
 
-/* СЕКЦИЯ С РЫБАМИ */
 .fish-tank {
   width: 100%;
   height: 300px;
   position: relative;
-  overflow: hidden; /* Чтобы рыбы не создавали горизонтальный скролл */
+  overflow: hidden;
   background: transparent;
   display: flex;
   align-items: center;
@@ -149,16 +152,14 @@ video { width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 20px 50
 
 .fish-img {
   position: absolute;
-  left: -50%; /* Спрятаны за левым краем */
-  width: 300px; /* Размер рыб */
+  left: -50%;
+  width: 300px;
   height: auto;
-  transition: transform 8s linear; /* Плавное движение через весь экран */
+  transition: transform 8s linear;
   will-change: transform;
 }
 
-.fish-img.swim {
-  transform: translateX(250vw); /* Уплывают далеко вправо */
-}
+.fish-img.swim { transform: translateX(250vw); }
 
 .astro-section-long {
   position: relative;
@@ -218,13 +219,12 @@ video { width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 20px 50
   </div>
 
   <section class="video-background-section">
-    <video controls playsinline muted preload="auto" poster="5.jpg">
+    <video controls playsinline muted preload="auto" poster="5.jpg" id="mainVideo">
       <source src="2b.webm" type="video/webm">
       <source src="2b.mp4" type="video/mp4">
     </video>
   </section>
 
-  <!-- Блок с рыбами -->
   <div class="fish-tank" id="fishSection">
     <img src="13.png" class="fish-img" id="fishy" alt="">
   </div>
@@ -262,7 +262,6 @@ video { width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 20px 50
     }, 400);
   });
 
-  // Логика наклона и движения рыб
   window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const rotation = Math.sin(scrolled / 60) * 30; 
@@ -272,15 +271,12 @@ video { width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 20px 50
     });
   });
 
-  // Следим за появлением блока с рыбами
   const fishObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Если блок в поле зрения, ждем 3 секунды и запускаем рыб
         setTimeout(() => {
           document.getElementById('fishy').classList.add('swim');
         }, 3000);
-        // Отключаем наблюдение после активации
         fishObserver.unobserve(entry.target);
       }
     });
