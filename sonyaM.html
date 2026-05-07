@@ -154,12 +154,13 @@ video {
   background: transparent;
 }
 
+/* ИСПРАВЛЕННЫЙ БЛОК РЫБ: БОЛЬШЕ ВЫСОТА, ЧТОБЫ НЕ ОБРЕЗАЛО */
 .fish-tank-overlay {
   position: absolute;
-  bottom: -100px; 
+  bottom: -200px; /* Смещаем ниже видео */
   left: 0;
   width: 100%;
-  height: 200px;
+  height: 350px; /* Увеличено пространство для маневров */
   pointer-events: none;
   z-index: 100;
   overflow: hidden;
@@ -167,19 +168,17 @@ video {
 
 .fish-img {
   position: absolute;
-  width: 180px; 
+  width: 200px; 
   height: auto;
-  /* Плавный переход для движения и для scaleX */
-  transition: transform 6s cubic-bezier(0.45, 0.05, 0.55, 0.95);
-  will-change: transform;
-  top: 50px;
+  opacity: 0; /* Скрыты по умолчанию */
+  transition: transform 4s linear, left 4s linear, opacity 0.3s; /* Скорость 4с */
+  will-change: transform, left;
+  top: 100px; /* Центрируем внутри увеличенного блока */
 }
 
-/* Стартовые позиции вынесены в JS для цикла */
-
 @keyframes wave {
-  from { margin-top: -15px; }
-  to { margin-top: 15px; }
+  from { margin-top: -30px; }
+  to { margin-top: 30px; }
 }
 
 .astro-section-long {
@@ -275,10 +274,7 @@ video {
       
       setTimeout(() => {
         document.getElementById('rowImgs').style.opacity = "1";
-        
-        // ЗАПУСК ЦИКЛА РЫБ через 4 секунды после появления 10,11,12
-        setTimeout(startFishCycle, 4000);
-
+        setTimeout(startFishCycle, 4000); 
       }, 1000); 
 
     }, totalWords * wordDelay + 300); 
@@ -289,50 +285,49 @@ video {
     }, 400);
   });
 
-  // ЛОГИКА ЦИКЛИЧНОГО ДВИЖЕНИЯ РЫБ
   function startFishCycle() {
     const fish = document.getElementById('fishy');
     let toRight = true;
 
-    // Включаем анимацию волны навсегда
     fish.style.animation = "wave 2s ease-in-out infinite alternate";
 
     function move() {
+      fish.style.opacity = "0"; // Скрываем перед телепортацией
+      
       if (toRight) {
-        // Плывем слева направо
         fish.style.transition = "none";
-        fish.style.left = "-200px";
+        fish.style.left = "-300px"; // Дальше за край
         fish.style.transform = "scaleX(1)"; 
         
         setTimeout(() => {
-          fish.style.transition = "transform 6s linear, left 6s linear";
-          fish.style.left = "100vw";
-          fish.style.transform = "scaleX(1) translateX(200px)";
+          fish.style.opacity = "1";
+          fish.style.transition = "transform 4s linear, left 4s linear";
+          fish.style.left = "110vw";
+          fish.style.transform = "scaleX(1)";
         }, 50);
       } else {
-        // Плывем справа налево (отзеркалено)
         fish.style.transition = "none";
-        fish.style.left = "100vw";
+        fish.style.left = "110vw"; 
         fish.style.transform = "scaleX(-1)"; 
         
         setTimeout(() => {
-          fish.style.transition = "transform 6s linear, left 6s linear";
-          fish.style.left = "-200px";
-          fish.style.transform = "scaleX(-1) translateX(200px)";
+          fish.style.opacity = "1";
+          fish.style.transition = "transform 4s linear, left 4s linear";
+          fish.style.left = "-300px";
+          fish.style.transform = "scaleX(-1)";
         }, 50);
       }
       
       toRight = !toRight;
     }
 
-    move(); // Первый запуск
-    setInterval(move, 7000); // Повтор каждые 7 секунд
+    move(); 
+    setInterval(move, 7000); 
   }
 
   window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const rotation = Math.sin(scrolled / 60) * 30; 
-    
     document.querySelectorAll('.row-item').forEach(img => {
       img.style.transform = `rotate(${rotation}deg)`;
     });
