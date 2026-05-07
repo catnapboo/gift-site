@@ -84,7 +84,7 @@ body, html {
 /* РЯД ИЗОБРАЖЕНИЙ 10, 11, 12 */
 .row-img-container {
   position: absolute;
-  top: 75%; /* Ниже конечной точки цветов */
+  top: 82%; /* Опустили чуть ниже */
   left: 0;
   width: 100%;
   display: flex;
@@ -96,15 +96,19 @@ body, html {
 }
 
 .row-item {
-  width: 30%;
   height: auto;
-  transition: transform 0.1s linear; /* Плавный наклон при скролле */
+  transition: transform 0.05s linear; 
   will-change: transform;
 }
 
+/* Настройка размеров: 11 и 12 побольше */
+.row-item:nth-child(1) { width: 25%; } /* 10.png */
+.row-item:nth-child(2) { width: 32%; } /* 11.png */
+.row-item:nth-child(3) { width: 32%; } /* 12.png */
+
 .features-overlay {
   position: absolute;
-  top: 90%; 
+  top: 92%; 
   width: 100%;
   z-index: 15;
   padding: 0 20px;
@@ -179,7 +183,6 @@ video { width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 20px 50
     <img src="8.png" class="extra-img img-8" id="img8" alt="">
     <img src="9.png" class="extra-img img-9" id="img9" alt="">
 
-    <!-- Контейнер для 10, 11, 12 -->
     <div class="row-img-container" id="rowImgs">
       <img src="10.png" class="row-item" alt="">
       <img src="11.png" class="row-item" alt="">
@@ -215,12 +218,10 @@ video { width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 20px 50
       setTimeout(() => { word.classList.add('show'); }, index * wordDelay); 
     });
 
-    // Появление цветов
     setTimeout(() => {
       document.getElementById('img8')?.classList.add('visible');
       document.getElementById('img9')?.classList.add('visible');
       
-      // Появление ряда 10, 11, 12 через 2 секунды после цветов
       setTimeout(() => {
         document.getElementById('rowImgs').style.opacity = "1";
       }, 2000);
@@ -233,11 +234,10 @@ video { width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 20px 50
     }, 400);
   });
 
-  // Логика наклона при скролле
   window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
-    // Используем синус для цикличного наклона влево-вправо на 30 градусов
-    const rotation = Math.sin(scrolled / 100) * 30; 
+    // Увеличил скорость: теперь делитель 60 вместо 100 (чем меньше число, тем быстрее наклон)
+    const rotation = Math.sin(scrolled / 60) * 30; 
     
     document.querySelectorAll('.row-item').forEach(img => {
       img.style.transform = `rotate(${rotation}deg)`;
