@@ -154,10 +154,9 @@ video {
   background: transparent;
 }
 
-/* РЫБЫ ПОВЕРХ СТЫКА БЕЗ ПРОПУСКА */
 .fish-tank-overlay {
   position: absolute;
-  bottom: -100px; /* Позиционируем относительно видео-секции, чтобы не было дырок */
+  bottom: -100px; 
   left: 0;
   width: 100%;
   height: 200px;
@@ -175,7 +174,6 @@ video {
   will-change: transform;
 }
 
-/* Прямое движение с легкой волной */
 .fish-img.swim {
   transform: translate(250vw, 20px); 
   animation: wave 2s ease-in-out infinite alternate;
@@ -273,13 +271,16 @@ video {
       setTimeout(() => { word.classList.add('show'); }, index * wordDelay); 
     });
 
+    // ПОСЛЕДОВАТЕЛЬНОЕ ПОЯВЛЕНИЕ
     setTimeout(() => {
+      // 1. Сначала 8 и 9
       document.getElementById('img8')?.classList.add('visible');
       document.getElementById('img9')?.classList.add('visible');
       
+      // 2. Через 1 секунду (1000мс) после 8 и 9 появляются 10, 11, 12
       setTimeout(() => {
         document.getElementById('rowImgs').style.opacity = "1";
-      }, 2000);
+      }, 1000); 
 
     }, totalWords * wordDelay + 300); 
 
