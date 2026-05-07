@@ -9,7 +9,8 @@
   .scroll-reveal, .feature, .word, .extra-img, .row-img-container { opacity: 0; }
 </style>
 
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Dancing+Script:wght@700&family=Montserrat:wght@100;300;400&display=swap" rel="stylesheet">
+<!-- Подключение шрифтов: добавлена Fascinate -->
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Dancing+Script:wght@700&family=Montserrat:wght@100;300;400&family=Fascinate&display=swap" rel="stylesheet">
 
 <style>
 * { box-sizing: border-box; }
@@ -193,11 +194,20 @@ video {
   align-items: center;
 }
 
+/* Новый стиль для заглавия натальной карты */
+.astro-title {
+  font-family: 'Fascinate', cursive;
+  font-size: clamp(30px, 8vw, 70px);
+  color: #ff4d8d;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: -2px -2px 0 #e1ad01, 2px -2px 0 #e1ad01, -2px 2px 0 #e1ad01, 2px 2px 0 #e1ad01;
+  z-index: 20;
+}
+
 .astro-text-container {
   width: 90%;
-  /* Сузили блок: max-width c 650px до 550px */
   max-width: 550px;
-  /* Сделали более прозрачным: alpha c 0.9 до 0.7 */
   background: rgba(210, 180, 140, 0.7); 
   padding: 60px 40px;
   backdrop-filter: blur(8px);
@@ -209,7 +219,6 @@ video {
 
 .astro-card-img {
   width: 100%;
-  /* Сузили изображения внутри блока: max-width c 500px до 420px */
   max-width: 420px;
   height: auto;
   margin-bottom: 30px;
@@ -265,6 +274,9 @@ video {
   </section>
 
   <section class="astro-section-long">
+    <!-- Надпись Fascinate над песочным блоком -->
+    <h2 class="astro-title scroll-reveal">natal chart</h2>
+
     <div class="astro-text-container">
       <img src="14.png" class="astro-card-img scroll-reveal" alt="">
       <img src="15.png" class="astro-card-img scroll-reveal" alt="">
