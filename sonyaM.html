@@ -195,8 +195,10 @@ video {
 
 .astro-text-container {
   width: 90%;
-  max-width: 650px;
-  background: rgba(210, 180, 140, 0.9); 
+  /* Сузили блок: max-width c 650px до 550px */
+  max-width: 550px;
+  /* Сделали более прозрачным: alpha c 0.9 до 0.7 */
+  background: rgba(210, 180, 140, 0.7); 
   padding: 60px 40px;
   backdrop-filter: blur(8px);
   box-shadow: 0 10px 40px rgba(0,0,0,0.1);
@@ -205,10 +207,10 @@ video {
   align-items: center;
 }
 
-/* Стили для новых изображений в натальной карте */
 .astro-card-img {
   width: 100%;
-  max-width: 500px;
+  /* Сузили изображения внутри блока: max-width c 500px до 420px */
+  max-width: 420px;
   height: auto;
   margin-bottom: 30px;
   display: block;
@@ -264,11 +266,9 @@ video {
 
   <section class="astro-section-long">
     <div class="astro-text-container">
-      <!-- Новые изображения 14 и 15 -->
       <img src="14.png" class="astro-card-img scroll-reveal" alt="">
       <img src="15.png" class="astro-card-img scroll-reveal" alt="">
       
-      <!-- Место для будущего текста -->
       <div class="astro-block scroll-reveal"></div>
       <div class="astro-block scroll-reveal"></div>
     </div>
