@@ -81,7 +81,6 @@ body, html {
 .img-9 { right: 0; top: 55%; width: 38%; transform: translate(100%, 50px) rotate(20deg); }
 .extra-img.visible { opacity: 1; transform: translate(0, 0) rotate(0deg); }
 
-/* РЯД ИЗОБРАЖЕНИЙ 10, 11, 12 */
 .row-img-container {
   position: absolute;
   top: 82%; 
@@ -90,7 +89,7 @@ body, html {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 0 2%; /* Уменьшил паддинг, чтобы влезли более крупные фото */
+  padding: 0 2%;
   z-index: 29;
   transition: opacity 1.5s ease-in-out;
 }
@@ -101,10 +100,14 @@ body, html {
   will-change: transform;
 }
 
-/* УВЕЛИЧЕННЫЕ РАЗМЕРЫ */
 .row-item:nth-child(1) { width: 32%; } /* 10.png */
 .row-item:nth-child(2) { width: 40%; } /* 11.png */
-.row-item:nth-child(3) { width: 40%; } /* 12.png */
+
+/* СДВИГАЕМ 12 ЛЕВЕЕ */
+.row-item:nth-child(3) { 
+  width: 40%; 
+  margin-left: -5%; /* Регулируйте это значение, чтобы сдвинуть сильнее или слабее */
+} 
 
 .features-overlay {
   position: absolute;
