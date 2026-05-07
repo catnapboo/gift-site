@@ -167,17 +167,15 @@ video {
 
 .fish-img {
   position: absolute;
-  left: -150%; 
   width: 180px; 
   height: auto;
-  transition: transform 5.5s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+  /* Плавный переход для движения и для scaleX */
+  transition: transform 6s cubic-bezier(0.45, 0.05, 0.55, 0.95);
   will-change: transform;
+  top: 50px;
 }
 
-.fish-img.swim {
-  transform: translate(250vw, 20px); 
-  animation: wave 2s ease-in-out infinite alternate;
-}
+/* Стартовые позиции вынесены в JS для цикла */
 
 @keyframes wave {
   from { margin-top: -15px; }
@@ -249,7 +247,7 @@ video {
       </video>
     </div>
 
-    <div class="fish-tank-overlay" id="fishSection">
+    <div class="fish-tank-overlay">
       <img src="13.png" class="fish-img" id="fishy" alt="">
     </div>
   </section>
@@ -271,15 +269,16 @@ video {
       setTimeout(() => { word.classList.add('show'); }, index * wordDelay); 
     });
 
-    // ПОСЛЕДОВАТЕЛЬНОЕ ПОЯВЛЕНИЕ
     setTimeout(() => {
-      // 1. Сначала 8 и 9
       document.getElementById('img8')?.classList.add('visible');
       document.getElementById('img9')?.classList.add('visible');
       
-      // 2. Через 1 секунду (1000мс) после 8 и 9 появляются 10, 11, 12
       setTimeout(() => {
         document.getElementById('rowImgs').style.opacity = "1";
+        
+        // ЗАПУСК ЦИКЛА РЫБ через 4 секунды после появления 10,11,12
+        setTimeout(startFishCycle, 4000);
+
       }, 1000); 
 
     }, totalWords * wordDelay + 300); 
@@ -290,6 +289,46 @@ video {
     }, 400);
   });
 
+  // ЛОГИКА ЦИКЛИЧНОГО ДВИЖЕНИЯ РЫБ
+  function startFishCycle() {
+    const fish = document.getElementById('fishy');
+    let toRight = true;
+
+    // Включаем анимацию волны навсегда
+    fish.style.animation = "wave 2s ease-in-out infinite alternate";
+
+    function move() {
+      if (toRight) {
+        // Плывем слева направо
+        fish.style.transition = "none";
+        fish.style.left = "-200px";
+        fish.style.transform = "scaleX(1)"; 
+        
+        setTimeout(() => {
+          fish.style.transition = "transform 6s linear, left 6s linear";
+          fish.style.left = "100vw";
+          fish.style.transform = "scaleX(1) translateX(200px)";
+        }, 50);
+      } else {
+        // Плывем справа налево (отзеркалено)
+        fish.style.transition = "none";
+        fish.style.left = "100vw";
+        fish.style.transform = "scaleX(-1)"; 
+        
+        setTimeout(() => {
+          fish.style.transition = "transform 6s linear, left 6s linear";
+          fish.style.left = "-200px";
+          fish.style.transform = "scaleX(-1) translateX(200px)";
+        }, 50);
+      }
+      
+      toRight = !toRight;
+    }
+
+    move(); // Первый запуск
+    setInterval(move, 7000); // Повтор каждые 7 секунд
+  }
+
   window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const rotation = Math.sin(scrolled / 60) * 30; 
@@ -298,20 +337,6 @@ video {
       img.style.transform = `rotate(${rotation}deg)`;
     });
   });
-
-  const fishObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        setTimeout(() => {
-          document.getElementById('fishy').classList.add('swim');
-        }, 3000);
-        fishObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
-
-  const fishSection = document.getElementById('fishSection');
-  if(fishSection) fishObserver.observe(fishSection);
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
