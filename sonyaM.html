@@ -100,14 +100,9 @@ body, html {
   will-change: transform;
 }
 
-.row-item:nth-child(1) { width: 32%; } /* 10.png */
-.row-item:nth-child(2) { width: 40%; } /* 11.png */
-
-/* СДВИГАЕМ 12 ЛЕВЕЕ */
-.row-item:nth-child(3) { 
-  width: 40%; 
-  margin-left: -5%; /* Регулируйте это значение, чтобы сдвинуть сильнее или слабее */
-} 
+.row-item:nth-child(1) { width: 32%; }
+.row-item:nth-child(2) { width: 40%; }
+.row-item:nth-child(3) { width: 40%; margin-left: -5%; } 
 
 .features-overlay {
   position: absolute;
@@ -200,7 +195,8 @@ video { width: 100%; max-width: 900px; border-radius: 8px; box-shadow: 0 20px 50
 
   <section class="video-background-section">
     <video controls playsinline>
-      <source src="1в.mp4" type="video/mp4">
+      <!-- Заменено на 2в.mp4 -->
+      <source src="2в.mp4" type="video/mp4">
     </video>
   </section>
 
