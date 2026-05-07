@@ -154,10 +154,9 @@ video {
   background: transparent;
 }
 
-/* БЛОК РЫБ: ПОДНЯТ ВЫШЕ ЗА СЧЕТ ИЗМЕНЕНИЯ BOTTOM */
 .fish-tank-overlay {
   position: absolute;
-  bottom: -150px; /* Было -200px, подняли на 50px */
+  bottom: -150px; 
   left: 0;
   width: 100%;
   height: 350px; 
@@ -201,6 +200,18 @@ video {
   padding: 60px 40px;
   backdrop-filter: blur(8px);
   box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Стили для новых изображений в натальной карте */
+.astro-card-img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  margin-bottom: 30px;
+  display: block;
 }
 
 .scroll-reveal {
@@ -253,6 +264,11 @@ video {
 
   <section class="astro-section-long">
     <div class="astro-text-container">
+      <!-- Новые изображения 14 и 15 -->
+      <img src="14.png" class="astro-card-img scroll-reveal" alt="">
+      <img src="15.png" class="astro-card-img scroll-reveal" alt="">
+      
+      <!-- Место для будущего текста -->
       <div class="astro-block scroll-reveal"></div>
       <div class="astro-block scroll-reveal"></div>
     </div>
