@@ -97,8 +97,7 @@ body, html {
 
 .row-item {
   height: auto;
-  /* Добавлена плавность для наклона */
-  transition: transform 0.2s ease-out; 
+  /* Убрали transition, чтобы вернуть мгновенную плавность без лагов */
   will-change: transform;
   pointer-events: auto;
 }
@@ -208,7 +207,6 @@ video {
 .astro-text-container {
   width: 90%;
   max-width: 550px;
-  /* Изменен цвет на более чистый песочный/золотистый */
   background: rgba(235, 195, 120, 0.7); 
   padding: 60px 40px;
   backdrop-filter: blur(10px);
@@ -353,20 +351,13 @@ video {
     setInterval(move, 7000); 
   }
 
-  // Оптимизированный наклон 10, 11, 12 через requestAnimationFrame
-  let ticking = false;
+  // Возвращаем классическую плавную анимацию наклона
   window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        const scrolled = window.pageYOffset;
-        const rotation = Math.sin(scrolled / 100) * 25; 
-        document.querySelectorAll('.row-item').forEach(img => {
-          img.style.transform = `rotate(${rotation}deg)`;
-        });
-        ticking = false;
-      });
-      ticking = true;
-    }
+    const scrolled = window.pageYOffset;
+    const rotation = Math.sin(scrolled / 60) * 30; 
+    document.querySelectorAll('.row-item').forEach(img => {
+      img.style.transform = `rotate(${rotation}deg)`;
+    });
   });
 
   const observer = new IntersectionObserver((entries) => {
