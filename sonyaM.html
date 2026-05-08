@@ -9,7 +9,6 @@
   .scroll-reveal, .feature, .word, .extra-img, .row-img-container { opacity: 0; }
 </style>
 
-<!-- Подключение шрифтов, включая Caveat -->
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Dancing+Script:wght@700&family=Montserrat:wght@100;300;400&family=Fascinate&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -180,17 +179,23 @@ video {
   to { margin-top: 30px; }
 }
 
+/* ИСПРАВЛЕННЫЙ БЛОК ФОНА */
 .astro-section-long {
   position: relative;
   width: 100%;
-  background-image: url('6.jpg'); 
+  background-color: #ebc378; /* Цвет-подложка на случай загрузки */
+  background-image: url('6.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
+  background-attachment: scroll; /* Важно для четкости на мобильных */
+  image-rendering: -webkit-optimize-contrast; /* Для Safari */
+  image-rendering: high-quality;
   padding: 40px 0 120px 0; 
   display: flex;
   flex-direction: column;
   align-items: center;
+  z-index: 5;
 }
 
 .astro-title {
@@ -207,14 +212,14 @@ video {
 .astro-text-container {
   width: 90%;
   max-width: 600px;
-  background: rgba(235, 195, 120, 0.75); 
+  background: rgba(235, 195, 120, 0.85); /* Чуть выше непрозрачность для стабильности */
   padding: 40px 25px;
-  backdrop-filter: blur(10px);
   box-shadow: 0 10px 40px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Caveat', cursive; /* Шрифт Caveat */
+  font-family: 'Caveat', cursive;
+  /* Убран backdrop-filter, который мог "мылить" подлежащий фон */
 }
 
 .astro-card-img {
@@ -231,7 +236,7 @@ video {
 }
 
 .astro-aspect-name {
-  font-size: 24px; /* Чуть увеличил для Caveat */
+  font-size: 24px; 
   color: #ff4d8d; 
   margin-bottom: 8px;
   display: block;
@@ -239,7 +244,7 @@ video {
 }
 
 .astro-aspect-desc {
-  font-size: 19px; /* Оптимальный размер для Caveat */
+  font-size: 19px; 
   line-height: 1.2; 
   color: #fffde7; 
   text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
