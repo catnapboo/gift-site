@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Dancing+Script:wght@700&family=Montserrat:wght@100;300;400&family=Fascinate&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
-* { box-sizing: border-box; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 body, html {
   margin: 0;
@@ -21,12 +21,14 @@ body, html {
   background: #d2b48c; 
   font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 .magazine-cover {
   position: relative;
   width: 100%;
   line-height: 0;
+  transform: translateZ(0); /* Оптимизация слоя */
 }
 
 .main-photo {
@@ -65,6 +67,7 @@ body, html {
   transform: translateY(15px);
   transition: opacity 0.5s ease-out, transform 0.5s ease-out;
   margin: 0 8px;
+  will-change: transform, opacity;
 }
 
 .word.show { opacity: 1; transform: translateY(0); }
@@ -75,6 +78,7 @@ body, html {
   z-index: 28;
   transition: opacity 1.8s ease-out, transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
+  will-change: transform, opacity;
 }
 
 .img-8 { left: 0; top: 48%; width: 38%; transform: translate(-100%, 50px) rotate(-20deg); }
@@ -99,7 +103,7 @@ body, html {
   height: auto;
   will-change: transform;
   pointer-events: auto;
-  transform: translateZ(0);
+  transform: translate3d(0,0,0); /* Принудительное GPU */
 }
 
 .row-item:nth-child(1) { width: 32%; }
@@ -120,6 +124,7 @@ body, html {
   color: white;
   text-shadow: 0 2px 4px rgba(0,0,0,0.3);
   transition: opacity 1s ease, transform 1s ease;
+  will-change: transform, opacity;
 }
 
 .feature.left { text-align: left; border-left: 1px solid white; padding-left: 15px; margin-right: auto; }
@@ -152,6 +157,7 @@ video {
   border-radius: 8px; 
   box-shadow: 0 20px 50px rgba(0,0,0,0.3); 
   background: transparent;
+  transform: translateZ(0);
 }
 
 .fish-tank-overlay {
@@ -181,7 +187,7 @@ video {
   background-image: url('6.jpg');
   background-repeat: repeat; 
   background-size: 100% auto;
-  padding: 40px 0 120px 0; 
+  padding: 40px 0 100px 0; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -202,14 +208,15 @@ video {
 .astro-text-container {
   width: 90%;
   max-width: 600px;
-  background: rgba(245, 222, 179, 0.8); /* ЧУТЬ ПЕСОЧНЕЕ (Wheat) */
+  background: rgba(245, 222, 179, 0.85); /* Песочный (Wheat) */
   padding: 40px 25px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: 'Caveat', cursive;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(4px);
+  transform: translateZ(0);
 }
 
 .astro-card-img {
@@ -245,20 +252,22 @@ video {
   border-top: 1px dashed #ff4d8d;
 }
 
-/* СТИЛЬ ДЛЯ ПОДПИСИ ОХАНА */
-.ohana-caption {
+/* ПОДПИСЬ В САМОМ НИЗУ СТРАНИЦЫ */
+.ohana-footer {
   font-family: 'Caveat', cursive;
-  font-size: 22px;
+  font-size: 28px;
   color: #3e2723;
-  margin-top: 20px;
+  margin-top: 50px; /* Отступ от песочного блока */
   text-align: center;
-  opacity: 0.8;
+  width: 100%;
+  z-index: 20;
 }
 
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1.2s ease, transform 1.2s ease;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: transform, opacity;
 }
 
 .scroll-reveal.active { opacity: 1 !important; transform: translateY(0); }
@@ -371,7 +380,7 @@ video {
 
       <div class="astro-content-block scroll-reveal">
         <span class="astro-aspect-name">Тригон Сатурн — Уран</span>
-        <p class="astro-aspect-desc">Этот аспект хорошо подходит для крепкой дружбы и надежного сотрудничества. Вы удачно сочетаете практичность и нестандартное мышление: одна помогает сохранять порядок, стабильность и последовательность, а другая приносит свежие идеи, вдохновение и новый взгляд на привычные вещи. <br><br> Вместе вы можете быть отличной командой в учебе, работе, творчестве и любых проектах, где важно не только придумать что-то новое, но и довести это до результата. Вы поддерживаете друг друга в развитии и помогаете раскрывать сильные стороны. <br><br> Также этот аспект часто дает активную социальную жизнь, общих друзей и ощущения, что рядом человек, с которым можно не только весело проводить время, но и строить что-то действительно важное.</p>
+        <p class="astro-aspect-desc">Этот аспект хорошо подходит для крепкой дружбы и надежного сотрудничества. Вы удачно сочетаете практичность и нестандартное мышление: одна помогает сохранять порядок, стабильность и последовательность, а другая приносит свежие идеи, вдохновение и новый взгляд на привычные вещи. <br><br> Вместе вы можете быть отличной командой в учебе, работе, творчестве и любых проектах, где важно не только придумать что-то новое, но и довести это до результата. Вы поддерживаете друг друга в развитии и помогаете раскрывать сильные стороны. <br><br> Также этот аспект часто дает активную социальную жизнь, общих друзей и ощущение, что рядом человек, с которым можно не только весело проводить время, но и строить что-то действительно важное.</p>
       </div>
 
       <div class="astro-content-block scroll-reveal">
@@ -398,10 +407,10 @@ video {
         <span class="astro-aspect-name">Общий вывод по совместимости</span>
         <p class="astro-aspect-desc">Ваша совместимость больше похожа на крепкую, насыщенную и осознанную дружбу, в которой есть и легкость, и глубина. Между вами много аспектов, связанных с поддержкой, взаимным развитием, интеллектуальной близостью и настоящим доверием. <br><br> Вы способны вдохновлять друг друга, помогать в важных решениях, поддерживать в сложные периоды и вместе двигаться вперед. Несмотря на некоторые различия в характерах и взглядах, именно они делают вашу связь живой и настоящей, а не поверхностной. <br><br> Это дружба, в которой есть потенциал для долгих и стабильных отношений — с уважением, искренностью и ощущением, что рядом человек, который действительно понимает и принимает тебя.</p>
       </div>
-      
-      <!-- ПОДПИСЬ ОХАНА -->
-      <div class="ohana-caption scroll-reveal">Охана — значит семья</div>
     </div>
+
+    <!-- ПОДПИСЬ В САМОМ НИЗУ СТРАНИЦЫ -->
+    <div class="ohana-footer scroll-reveal">Охана — значит семья</div>
   </section>
 
 <script>
@@ -416,7 +425,8 @@ video {
       document.getElementById('img8')?.classList.add('visible');
       document.getElementById('img9')?.classList.add('visible');
       setTimeout(() => {
-        document.getElementById('rowImgs').style.opacity = "1";
+        const row = document.getElementById('rowImgs');
+        if(row) row.style.opacity = "1";
         setTimeout(startFishCycle, 4000); 
       }, 1000); 
     }, (words.length * wordDelay) + 300); 
@@ -429,15 +439,15 @@ video {
 
   function startFishCycle() {
     const fish = document.getElementById('fishy');
+    if(!fish) return;
     let toRight = true;
-    fish.style.animation = "wave 2s ease-in-out infinite alternate";
 
     function move() {
       fish.style.opacity = "0"; 
       if (toRight) {
         fish.style.transition = "none";
         fish.style.left = "-300px"; 
-        fish.style.transform = "scaleX(1)"; 
+        fish.style.transform = "scaleX(1) translateZ(0)"; 
         setTimeout(() => {
           fish.style.opacity = "1";
           fish.style.transition = "transform 4s linear, left 4s linear";
@@ -446,7 +456,7 @@ video {
       } else {
         fish.style.transition = "none";
         fish.style.left = "110vw"; 
-        fish.style.transform = "scaleX(-1)"; 
+        fish.style.transform = "scaleX(-1) translateZ(0)"; 
         setTimeout(() => {
           fish.style.opacity = "1";
           fish.style.transition = "transform 4s linear, left 4s linear";
@@ -456,35 +466,42 @@ video {
       toRight = !toRight;
     }
     move(); 
-    setInterval(move, 7000); 
+    setInterval(move, 7500); 
   }
 
-  let lastKnownScrollPosition = 0;
+  // ОПТИМИЗИРОВАННЫЙ СКРОЛЛ
   let ticking = false;
+  const items = document.querySelectorAll('.row-item');
 
   function updateCocktailRotation(scrollPos) {
-    const rotation = Math.sin(scrollPos / 50) * 10; 
-    document.querySelectorAll('.row-item').forEach(img => {
+    const rotation = Math.sin(scrollPos / 60) * 10; 
+    items.forEach(img => {
       img.style.transform = `translate3d(0,0,0) rotate(${rotation}deg)`;
     });
   }
 
+  // Используем пассивный слушатель для плавности скролла
   window.addEventListener('scroll', () => {
-    lastKnownScrollPosition = window.scrollY;
     if (!ticking) {
       window.requestAnimationFrame(() => {
-        updateCocktailRotation(lastKnownScrollPosition);
+        updateCocktailRotation(window.scrollY);
         ticking = false;
       });
       ticking = true;
     }
-  });
+  }, { passive: true });
 
+  // Оптимизированный наблюдатель появления
+  const observerOptions = { threshold: 0.05, rootMargin: "0px 0px -50px 0px" };
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('active');
+      if (entry.isIntersecting) {
+        entry.target.classList.add('active');
+        observer.unobserve(entry.target); // Оптимизация: перестаем следить после показа
+      }
     });
-  }, { threshold: 0.1 });
+  }, observerOptions);
+  
   document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 </script>
 
