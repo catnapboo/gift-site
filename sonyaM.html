@@ -85,8 +85,9 @@ body, html {
 .img-9 { right: 0; top: 55%; width: 38%; transform: translate(100%, 50px) rotate(20deg); }
 .extra-img.visible { opacity: 1; transform: translate(0, 0) rotate(0deg); }
 
+/* ИСПРАВЛЕННЫЙ БЛОК КОКТЕЙЛЕЙ */
 .row-img-container {
-  position: absolute;
+  position: absolute; /* Оставляем в потоке обложки, но завышаем индекс */
   top: 78%; 
   left: 0;
   width: 100%;
@@ -94,10 +95,9 @@ body, html {
   justify-content: space-around;
   align-items: center;
   padding: 0 2%;
-  z-index: 9999; /* МАКСИМАЛЬНЫЙ УРОВЕНЬ */
+  z-index: 99999; /* Самый высокий приоритет */
   transition: opacity 1.5s ease-in-out;
   pointer-events: none;
-  transform: translateZ(9999px); /* ФОРСИРОВКА СЛОЯ */
 }
 
 .row-item {
@@ -226,9 +226,9 @@ video {
   position: absolute;
   width: clamp(80px, 20vw, 150px);
   height: auto;
-  z-index: 20; /* Поверх фона */
+  z-index: 20;
   pointer-events: none;
-  display: block !important; /* ПРИНУДИТЕЛЬНО ВИДНЫ */
+  display: block !important;
 }
 
 .side-16 { left: -120px; top: 10%; }
