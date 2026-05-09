@@ -16,13 +16,114 @@
       min-height: 100vh;
     }
 
-    img {
+    /* Обёртка верхнего блока */
+    .top {
+      position: relative;
+    }
+
+    /* 19.png — базовый слой */
+    .img-base {
       display: block;
       width: 100%;
+    }
+
+    /* Контейнер для двух летящих картинок — поверх 19.png */
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    /* Общие стили для 20 и 21 */
+    .fly {
+      position: absolute;
+      top: 0;
+      width: 50%;
+      opacity: 0;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    /* 20.png летит слева */
+    .fly-left {
+      left: 0;
+      transform: translateX(-60px);
+      animation-name: flyLeft;
+      animation-duration: 1s;
+      animation-timing-function: ease-out;
+      animation-delay: 0.2s;
+      animation-fill-mode: forwards;
+    }
+
+    /* 21.png летит справа */
+    .fly-right {
+      right: 0;
+      transform: translateX(60px);
+      animation-name: flyRight;
+      animation-duration: 1s;
+      animation-timing-function: ease-out;
+      animation-delay: 0.2s;
+      animation-fill-mode: forwards;
+    }
+
+    .fly img {
+      display: block;
+      width: 100%;
+    }
+
+    /* 19.png появляется чуть позже */
+    .img-base {
+      opacity: 0;
+      animation: fadeIn 0.8s ease forwards;
+      animation-delay: 0.8s;
+    }
+
+    @keyframes flyLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-80px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes flyRight {
+      from {
+        opacity: 0;
+        transform: translateX(80px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <img src="19.png" alt="" />
+
+  <div class="top">
+    <!-- Базовый слой: 19.png -->
+    <img class="img-base" src="19.png" alt="" />
+
+    <!-- Верхний слой: 20 и 21 летят навстречу -->
+    <div class="overlay">
+      <div class="fly fly-left">
+        <img src="20.png" alt="" />
+      </div>
+      <div class="fly fly-right">
+        <img src="21.png" alt="" />
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
