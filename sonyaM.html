@@ -134,7 +134,7 @@ body, html {
 
 .video-background-section {
   width: 100%;
-  padding: 80px 20px 40px 20px; 
+  padding: 80px 20px 0 20px; /* Убран нижний отступ */
   background-image: url('5.jpg');
   background-size: cover;
   background-position: center;
@@ -161,16 +161,16 @@ video {
   transform: translateZ(0);
 }
 
-/* ОГРАНИЧЕННАЯ ЗОНА ДЛЯ РЫБ МЕЖДУ БЛОКАМИ */
+/* ИСПРАВЛЕННЫЙ КОНТЕЙНЕР РЫБ (БЕЗ ПРОПУСКОВ) */
 .fish-tank-overlay {
   position: relative;
   width: 100%;
-  height: 200px; /* Фиксированная высота диапазона движения */
-  margin-top: -60px; /* Наложение на низ видео */
-  margin-bottom: -60px; /* Наложение на верх натальной карты */
+  height: 140px; /* Уменьшена высота, чтобы рыбы не обрезались и не создавали дыру */
+  margin: 0; /* Убраны маргины, чтобы состыковать фоны */
   pointer-events: none;
   z-index: 999999; 
   overflow: hidden;
+  background: transparent;
 }
 
 .fish-img {
@@ -179,7 +179,6 @@ video {
   height: auto;
   opacity: 0; 
   will-change: transform, left, top;
-  top: 50px; 
 }
 
 .astro-section-long {
@@ -188,7 +187,7 @@ video {
   background-image: url('6.jpg');
   background-repeat: repeat; 
   background-size: 100% auto;
-  padding: 80px 0 100px 0; 
+  padding: 0 0 100px 0; /* Убран верхний отступ для стыковки */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -196,274 +195,4 @@ video {
 }
 
 .astro-title {
-  font-family: 'Fascinate', cursive;
-  font-size: clamp(45px, 12vw, 95px); 
-  color: #ff4d8d;
-  text-align: center;
-  margin-top: -20px; 
-  margin-bottom: 30px;
-  text-shadow: -3px -3px 0 #e1ad01, 3px -3px 0 #e1ad01, -3px 3px 0 #e1ad01, 3px 3px 0 #e1ad01;
-  z-index: 20;
-}
-
-.astro-text-container {
-  width: 90%;
-  max-width: 600px;
-  background: rgba(245, 222, 179, 0.85); 
-  padding: 40px 25px;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'Caveat', cursive;
-  backdrop-filter: blur(4px);
-  transform: translateZ(0);
-  position: relative;
-  z-index: 10;
-}
-
-.astro-side-img {
-  position: absolute;
-  width: clamp(80px, 20vw, 150px);
-  height: auto;
-  z-index: 20;
-  pointer-events: none;
-  display: block !important;
-}
-
-.side-16 { left: -120px; top: 10%; }
-.side-17 { right: -120px; top: 40%; }
-.side-18 { left: -120px; top: 70%; }
-
-@media (max-width: 850px) {
-  .side-16 { left: -30px; top: 5%; width: 80px; }
-  .side-17 { right: -30px; top: 35%; width: 80px; }
-  .side-18 { left: -30px; top: 65%; width: 80px; }
-}
-
-.astro-card-img {
-  width: 100%;
-  max-width: 420px;
-  height: auto;
-  margin-bottom: 30px;
-  display: block;
-}
-
-.astro-content-block {
-  margin-bottom: 25px;
-  text-align: center;
-}
-
-.astro-aspect-name {
-  font-size: 24px; 
-  color: #ff4d8d; 
-  margin-bottom: 8px;
-  display: block;
-  font-weight: bold;
-}
-
-.astro-aspect-desc {
-  font-size: 19px; 
-  line-height: 1.2; 
-  color: #3e2723;
-}
-
-.astro-conclusion {
-  margin-top: 15px;
-  padding-top: 25px;
-  border-top: 1px dashed #ff4d8d;
-}
-
-.ohana-footer {
-  font-family: 'Caveat', cursive;
-  font-size: 28px;
-  color: #3e2723;
-  margin-top: 50px; 
-  text-align: center;
-  width: 100%;
-  z-index: 20;
-}
-
-.scroll-reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-  will-change: transform, opacity;
-}
-
-.scroll-reveal.active { opacity: 1 !important; transform: translateY(0); }
-</style>
-</head>
-<body>
-
-  <div class="magazine-cover">
-    <img src="4.jpg" class="main-photo" alt="">
-    <img src="7.png" class="overlay-image" alt="">
-
-    <div class="symphony-text" id="symphonyText">
-      <span class="word">I</span> <span class="word">just</span> <span class="word">wanna</span> <span class="word">be</span> <span class="word">part</span><br>
-      <span class="word">of</span> <span class="word">your</span> <span class="word">symphony</span>
-    </div>
-
-    <img src="8.png" class="extra-img img-8" id="img8" alt="">
-    <img src="9.png" class="extra-img img-9" id="img9" alt="">
-
-    <div class="row-img-container" id="rowImgs">
-      <img src="10.png" class="row-item" alt="">
-      <img src="11.png" class="row-item" alt="">
-      <img src="12.png" class="row-item" alt="">
-    </div>
-
-    <div class="features-overlay">
-      <div class="feature left" id="f1"></div>
-      <div class="feature right" id="f2"></div>
-    </div>
-  </div>
-
-  <section class="video-background-section">
-    <div class="video-container">
-      <video controls playsinline muted preload="auto" id="mainVideo">
-        <source src="2b.webm" type="video/webm">
-        <source src="2b.mp4" type="video/mp4">
-      </video>
-    </div>
-  </section>
-
-  <!-- РЫБЫ ТЕПЕРЬ СТРОГО МЕЖДУ ВИДЕО И КАРТОЙ -->
-  <div class="fish-tank-overlay">
-    <img src="13.png" class="fish-img" id="fishy" alt="">
-  </div>
-
-  <section class="astro-section-long">
-    <h2 class="astro-title scroll-reveal">natal chart</h2>
-    
-    <div class="astro-text-container">
-      <img src="16.png" class="astro-side-img side-16 scroll-reveal" alt="">
-      <img src="17.png" class="astro-side-img side-17 scroll-reveal" alt="">
-      <img src="18.png" class="astro-side-img side-18 scroll-reveal" alt="">
-
-      <img src="14.png" class="astro-card-img scroll-reveal" alt="">
-      <img src="15.png" class="astro-card-img scroll-reveal" alt="">
-      
-      <div class="astro-content-block scroll-reveal">
-        <span class="astro-aspect-name">Секстиль Солнце — Сатурн</span>
-        <p class="astro-aspect-desc">Этот аспект говорит о крепкой и надежной дружбе, в которой много взаимного уважения, поддержки и чувства ответственности друг за друга. Вы хорошо дополняете друг друга: одна помогает сохранять порядок, стабильность и уверенность, а другая вдохновляет на развитие, новые идеи и более смелое самовыражение. <br><br> Такая дружба особенно хорошо проявляется в совместных делах, учебе, работе и любых проектах, где важны организованность и доверие. Вы умеете поддерживать друг друга не только эмоционально, но и в реальных жизненных задачах. <br><br> Между вами может быть ощущение надежности и спокойствия — именно той дружбы, которая проходит проверку временем.</p>
-      </div>
-
-      <!-- Остальные блоки контента без изменений -->
-      <div class="astro-content-block scroll-reveal">
-        <span class="astro-aspect-name">Оппозиция Меркурий — Венера</span>
-        <p class="astro-aspect-desc">Этот аспект показывает, что вам важно учиться понимать не только слова, но и чувства друг друга. Одна из вас может больше опираться на логику и рациональность, а другая — на эмоции, настроение и внутренние ощущения. <br><br> Иногда из-за этого возникают недопонимания: кому-то может казаться, что другая слишком серьезная и сдержанная, а другой — что не хватает практичности и ясности. Но именно через такие различия вы учитесь искать баланс и лучше слышать друг друга. <br><br> Главное здесь — честный разговор, уважение к разным способа выражать заботу и умение находить компромиссы.</p>
-      </div>
-
-      <!-- ... (все блоки астро-контента сохранены) ... -->
-
-      <div class="astro-content-block scroll-reveal astro-conclusion">
-        <span class="astro-aspect-name">Общий вывод по совместимости</span>
-        <p class="astro-aspect-desc">Ваша совместимость больше похожа на крепкую, насыщенную и осознанную дружбу, в которой есть и легкость, и глубина. Между вами много аспектов, связанных с поддержкой, взаимным развитием, интеллектуальной близостью и настоящим доверием. <br><br> Вы способны вдохновлять друг друга, помогать в важных решениях, поддерживать в сложные периоды и вместе двигаться вперед. Несмотря на некоторые различия в характерах и взглядах, именно они делают вашу связь живой и настоящей, а не поверхностной. <br><br> Это дружба, в которой есть потенциал для долгих и стабильных отношений — с уважением, искренностью и ощущением, что рядом человек, который действительно понимает и принимает тебя.</p>
-      </div>
-    </div>
-
-    <div class="ohana-footer scroll-reveal">Охана — значит семья</div>
-  </section>
-
-<script>
-  window.addEventListener('load', () => {
-    const words = document.querySelectorAll('.word');
-    const wordDelay = 250;
-    words.forEach((word, index) => {
-      setTimeout(() => { word.classList.add('show'); }, index * wordDelay); 
-    });
-
-    setTimeout(() => {
-      document.getElementById('img8')?.classList.add('visible');
-      document.getElementById('img9')?.classList.add('visible');
-      setTimeout(() => {
-        const row = document.getElementById('rowImgs');
-        if(row) row.style.opacity = "1";
-        setTimeout(startFishCycle, 1000); 
-      }, 500); 
-    }, (words.length * wordDelay) + 300); 
-
-    setTimeout(() => {
-      document.getElementById('f1')?.classList.add('visible');
-      document.getElementById('f2')?.classList.add('visible');
-    }, 400);
-  });
-
-  function startFishCycle() {
-    const fish = document.getElementById('fishy');
-    if(!fish) return;
-    let toRight = true;
-    const speed = 2500; // Немного быстрее для динамики
-
-    function move() {
-      fish.style.opacity = "0"; 
-      const containerHeight = 200; 
-
-      if (toRight) {
-        fish.style.transition = "none";
-        fish.style.left = "-300px"; 
-        fish.style.top = "100px";
-        fish.style.transform = "scaleX(1) translateZ(0)"; 
-        
-        setTimeout(() => {
-          fish.style.opacity = "1";
-          fish.style.transition = `left ${speed}ms linear, top ${speed}ms ease-in-out, opacity 0.3s`;
-          fish.style.left = "110%";
-          fish.style.top = "20px"; // Волна вверх
-        }, 50);
-      } else {
-        fish.style.transition = "none";
-        fish.style.left = "110%"; 
-        fish.style.top = "20px";
-        fish.style.transform = "scaleX(-1) translateZ(0)"; 
-        
-        setTimeout(() => {
-          fish.style.opacity = "1";
-          fish.style.transition = `left ${speed}ms linear, top ${speed}ms ease-in-out, opacity 0.3s`;
-          fish.style.left = "-300px";
-          fish.style.top = "100px"; // Волна вниз
-        }, 50);
-      }
-      toRight = !toRight;
-    }
-    move(); 
-    setInterval(move, speed + 1000); 
-  }
-
-  let ticking = false;
-  const items = document.querySelectorAll('.row-item');
-
-  function updateCocktailRotation(scrollPos) {
-    const rotation = Math.sin(scrollPos / 60) * 10; 
-    items.forEach(img => {
-      img.style.transform = `translate3d(0,0,0) rotate(${rotation}deg)`;
-    });
-  }
-
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        updateCocktailRotation(window.scrollY);
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
-
-  const observerOptions = { threshold: 0.05, rootMargin: "0px 0px -50px 0px" };
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-        observer.unobserve(entry.target); 
-      }
-    });
-  }, observerOptions);
-  
-  document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
-</script>
-
-</body>
-</html>
+  font-family: 'Fascinate', cursive
