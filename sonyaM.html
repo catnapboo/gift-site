@@ -134,7 +134,7 @@ body, html {
 
 .video-background-section {
   width: 100%;
-  padding: 80px 20px 0 20px; /* Убран нижний отступ */
+  padding: 80px 20px; 
   background-image: url('5.jpg');
   background-size: cover;
   background-position: center;
@@ -161,16 +161,16 @@ video {
   transform: translateZ(0);
 }
 
-/* ИСПРАВЛЕННЫЙ КОНТЕЙНЕР РЫБ (БЕЗ ПРОПУСКОВ) */
+/* РЫБЫ ПОВЕРХ ВСЕХ СЛОЕВ */
 .fish-tank-overlay {
-  position: relative;
+  position: fixed; /* Фиксируем, чтобы плыли поверх всего экрана */
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 140px; /* Уменьшена высота, чтобы рыбы не обрезались и не создавали дыру */
-  margin: 0; /* Убраны маргины, чтобы состыковать фоны */
+  height: 100%; 
   pointer-events: none;
-  z-index: 999999; 
+  z-index: 999999; /* Выше коктейлей и всего остального */
   overflow: hidden;
-  background: transparent;
 }
 
 .fish-img {
@@ -179,19 +179,21 @@ video {
   height: auto;
   opacity: 0; 
   will-change: transform, left, top;
+  top: 50%; /* Центрируем по вертикали для начала волны */
 }
 
+/* ФОН 6 ОПУЩЕН ВНИЗ */
 .astro-section-long {
   position: relative;
   width: 100%;
   background-image: url('6.jpg');
   background-repeat: repeat; 
   background-size: 100% auto;
-  padding: 0 0 100px 0; /* Убран верхний отступ для стыковки */
+  padding: 40px 0 100px 0; 
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 1; 
+  z-index: 1; /* Самый низкий приоритет среди контентных блоков */
 }
 
 .astro-title {
@@ -199,7 +201,7 @@ video {
   font-size: clamp(45px, 12vw, 95px); 
   color: #ff4d8d;
   text-align: center;
-  margin-top: 20px; /* Добавлен небольшой маргин вместо паддинга */
+  margin-top: -20px; 
   margin-bottom: 30px;
   text-shadow: -3px -3px 0 #e1ad01, 3px -3px 0 #e1ad01, -3px 3px 0 #e1ad01, 3px 3px 0 #e1ad01;
   z-index: 20;
@@ -319,6 +321,11 @@ video {
     </div>
   </div>
 
+  <!-- Рыбы вынесены в корень для z-index -->
+  <div class="fish-tank-overlay">
+    <img src="13.png" class="fish-img" id="fishy" alt="">
+  </div>
+
   <section class="video-background-section">
     <div class="video-container">
       <video controls playsinline muted preload="auto" id="mainVideo">
@@ -327,10 +334,6 @@ video {
       </video>
     </div>
   </section>
-
-  <div class="fish-tank-overlay">
-    <img src="13.png" class="fish-img" id="fishy" alt="">
-  </div>
 
   <section class="astro-section-long">
     <h2 class="astro-title scroll-reveal">natal chart</h2>
@@ -451,7 +454,7 @@ video {
       setTimeout(() => {
         const row = document.getElementById('rowImgs');
         if(row) row.style.opacity = "1";
-        setTimeout(startFishCycle, 500); 
+        setTimeout(startFishCycle, 1000); 
       }, 500); 
     }, (words.length * wordDelay) + 300); 
 
@@ -461,46 +464,47 @@ video {
     }, 400);
   });
 
-  /* ИСПРАВЛЕННЫЙ ЦИКЛ РЫБ: МЕНЬШЕ ВОЛНА + МЕНЬШЕ СКОРОСТЬ */
+  /* ИСПРАВЛЕННЫЙ ЦИКЛ РЫБ: ВОЛНА + СКОРОСТЬ + ПОВЕРХ СЛОЕВ */
   function startFishCycle() {
     const fish = document.getElementById('fishy');
     if(!fish) return;
     let toRight = true;
-    const speed = 3500; // Скорость чуть меньше (3.5 сек)
+    const speed = 3000; // Быстрее (3 сек вместо 4)
 
     function move() {
       fish.style.opacity = "0"; 
-      
+      const startY = window.innerHeight / 2; // Базовая высота - центр экрана
+
       if (toRight) {
         fish.style.transition = "none";
         fish.style.left = "-300px"; 
-        fish.style.top = "80px"; // Начальная позиция выше
+        fish.style.top = startY + "px";
         fish.style.transform = "scaleX(1) translateZ(0)"; 
         
         setTimeout(() => {
           fish.style.opacity = "1";
-          // Уменьшенная амплитуда (только 30px разницы)
+          // Анимация волны через transition (дуга за счет изменения top)
           fish.style.transition = `left ${speed}ms linear, top ${speed}ms ease-in-out, opacity 0.3s`;
-          fish.style.left = "110%";
-          fish.style.top = "50px"; 
+          fish.style.left = "110vw";
+          fish.style.top = (startY - 150) + "px"; // Плывет вверх по дуге
         }, 50);
       } else {
         fish.style.transition = "none";
-        fish.style.left = "110%"; 
-        fish.style.top = "50px";
+        fish.style.left = "110vw"; 
+        fish.style.top = (startY - 150) + "px";
         fish.style.transform = "scaleX(-1) translateZ(0)"; 
         
         setTimeout(() => {
           fish.style.opacity = "1";
           fish.style.transition = `left ${speed}ms linear, top ${speed}ms ease-in-out, opacity 0.3s`;
           fish.style.left = "-300px";
-          fish.style.top = "80px"; 
+          fish.style.top = startY + "px"; // Возвращается вниз по дуге
         }, 50);
       }
       toRight = !toRight;
     }
     move(); 
-    setInterval(move, speed + 1000); 
+    setInterval(move, 15000); // Интервал изменен на 15 секунд
   }
 
   let ticking = false;
