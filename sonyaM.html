@@ -28,7 +28,7 @@ body, html {
   position: relative;
   width: 100%;
   line-height: 0;
-  transform: translateZ(0); /* Оптимизация слоя */
+  transform: translateZ(0);
 }
 
 .main-photo {
@@ -103,7 +103,7 @@ body, html {
   height: auto;
   will-change: transform;
   pointer-events: auto;
-  transform: translate3d(0,0,0); /* Принудительное GPU */
+  transform: translate3d(0,0,0);
 }
 
 .row-item:nth-child(1) { width: 32%; }
@@ -208,7 +208,7 @@ video {
 .astro-text-container {
   width: 90%;
   max-width: 600px;
-  background: rgba(245, 222, 179, 0.85); /* Песочный (Wheat) */
+  background: rgba(245, 222, 179, 0.85); 
   padding: 40px 25px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.1);
   display: flex;
@@ -217,6 +217,26 @@ video {
   font-family: 'Caveat', cursive;
   backdrop-filter: blur(4px);
   transform: translateZ(0);
+  position: relative;
+  z-index: 10;
+}
+
+/* НОВЫЕ СТИЛИ ДЛЯ БОКОВЫХ ИЗОБРАЖЕНИЙ */
+.astro-side-img {
+  position: absolute;
+  width: clamp(80px, 15vw, 150px);
+  height: auto;
+  z-index: 1; /* Под текстом или рядом */
+  pointer-events: none;
+  display: block;
+}
+
+.side-16 { left: -160px; top: 15%; }
+.side-17 { right: -160px; top: 45%; }
+.side-18 { left: -160px; top: 75%; }
+
+@media (max-width: 1000px) {
+  .astro-side-img { display: none; } /* Скрываем, если не влезают по бокам */
 }
 
 .astro-card-img {
@@ -252,12 +272,11 @@ video {
   border-top: 1px dashed #ff4d8d;
 }
 
-/* ПОДПИСЬ В САМОМ НИЗУ СТРАНИЦЫ */
 .ohana-footer {
   font-family: 'Caveat', cursive;
   font-size: 28px;
   color: #3e2723;
-  margin-top: 50px; /* Отступ от песочного блока */
+  margin-top: 50px; 
   text-align: center;
   width: 100%;
   z-index: 20;
@@ -314,7 +333,13 @@ video {
 
   <section class="astro-section-long">
     <h2 class="astro-title scroll-reveal">natal chart</h2>
+    
     <div class="astro-text-container">
+      <!-- БОКОВЫЕ КАРТИНКИ -->
+      <img src="16.png" class="astro-side-img side-16 scroll-reveal" alt="">
+      <img src="17.png" class="astro-side-img side-17 scroll-reveal" alt="">
+      <img src="18.png" class="astro-side-img side-18 scroll-reveal" alt="">
+
       <img src="14.png" class="astro-card-img scroll-reveal" alt="">
       <img src="15.png" class="astro-card-img scroll-reveal" alt="">
       
@@ -409,7 +434,6 @@ video {
       </div>
     </div>
 
-    <!-- ПОДПИСЬ В САМОМ НИЗУ СТРАНИЦЫ -->
     <div class="ohana-footer scroll-reveal">Охана — значит семья</div>
   </section>
 
@@ -469,7 +493,6 @@ video {
     setInterval(move, 7500); 
   }
 
-  // ОПТИМИЗИРОВАННЫЙ СКРОЛЛ
   let ticking = false;
   const items = document.querySelectorAll('.row-item');
 
@@ -480,7 +503,6 @@ video {
     });
   }
 
-  // Используем пассивный слушатель для плавности скролла
   window.addEventListener('scroll', () => {
     if (!ticking) {
       window.requestAnimationFrame(() => {
@@ -491,13 +513,12 @@ video {
     }
   }, { passive: true });
 
-  // Оптимизированный наблюдатель появления
   const observerOptions = { threshold: 0.05, rootMargin: "0px 0px -50px 0px" };
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('active');
-        observer.unobserve(entry.target); // Оптимизация: перестаем следить после показа
+        observer.unobserve(entry.target); 
       }
     });
   }, observerOptions);
