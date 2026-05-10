@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Birth of Venus Intro v18</title>
+    <title>Birth of Venus Intro v19</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -97,33 +97,31 @@
             transition: opacity 1.5s ease-in-out;
         }
 
-        /* ИЗМЕНЕНИЯ: Изображения 24 (Увеличено в 5 раз: 15% * 5 = 75%) */
+        /* Изображения 24: Уменьшены на 40%, z-index назад, прижаты к верху */
         .side-24 {
             position: absolute;
-            top: 100px;
-            width: 75%; 
-            max-width: 500px; /* Соответственно увеличено */
+            top: 0; /* Упираются в верх */
+            width: 45%; /* Уменьшено (было 75%) */
+            max-width: 300px; 
             height: auto;
-            z-index: 14;
+            z-index: 1; /* Самый дальний слой */
             opacity: 0;
             transition: opacity 1.5s ease-in-out;
         }
-        /* Меняем местами и зеркальность */
-        #img24-left { left: 0; transform: scaleX(-1); } /* Теперь левое зеркальное */
-        #img24-right { right: 0; transform: scaleX(1); }  /* Теперь правое прямое */
+        #img24-left { left: 0; transform: scaleX(-1); }
+        #img24-right { right: 0; transform: scaleX(1); }
 
-        /* ИЗМЕНЕНИЯ: Изображения 25 (Увеличено в 5 раз) */
+        /* Изображения 25: Уменьшены на 40%, под 24, z-index назад */
         .side-25 {
             position: absolute;
-            top: 220px;
-            width: 75%;
-            max-width: 500px;
+            top: 100px; /* Сдвинуты под 24 */
+            width: 45%;
+            max-width: 300px;
             height: auto;
-            z-index: 14;
+            z-index: 1; 
             opacity: 0;
             transition: opacity 1.5s ease-in-out;
         }
-        /* Меняем местами и зеркальность */
         #img25-left { left: 0; transform: scaleX(-1); }
         #img25-right { right: 0; transform: scaleX(1); }
 
@@ -185,7 +183,6 @@
     <div id="main-stage">
         <img src="22.png" id="img22">
         
-        <!-- ID остались те же, но свойства в CSS поменяли их положение -->
         <img src="24.png" id="img24-left" class="side-24">
         <img src="24.png" id="img24-right" class="side-24">
         
