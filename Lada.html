@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Sotvorenie Animation v4</title>
+    <title>Sotvorenie Animation v5</title>
     <style>
         body, html {
             margin: 0;
@@ -23,11 +23,11 @@
             align-items: center;
         }
 
-        /* Изображения 20 и 21 (Сотворение Адама) — Сделаны КРУПНЕЕ */
+        /* Изображения 20 и 21 (Сотворение Адама) */
         .hand-img {
             position: absolute;
-            width: 120%; /* Увеличено со 100% */
-            max-width: 700px; /* Увеличен лимит для десктопа */
+            width: 120%; 
+            max-width: 700px;
             height: auto;
             opacity: 0;
             z-index: 10;
@@ -36,16 +36,16 @@
             transition: transform 3s cubic-bezier(0.16, 1, 0.3, 1), opacity 2s ease-out;
         }
 
-        /* Левая рука (20) — Финальное положение ближе к центру */
+        /* Левая рука (20) */
         #img20 {
-            right: 48%; /* Сдвинуто ближе к центру (было 50%) */
+            right: 48%; 
             transform: translate(-40%, 20%) scale(0.9);
             transform-origin: right center;
         }
 
-        /* Правая рука (21) — Финальное положение ближе к центру */
+        /* Правая рука (21) */
         #img21 {
-            left: 48%; /* Сдвинуто ближе к центру (было 50%) */
+            left: 48%; 
             transform: translate(40%, -20%) scale(0.9);
             transform-origin: left center;
         }
@@ -55,12 +55,12 @@
             transform: translate(0, 0) scale(1) !important;
         }
 
-        /* Изображение 19 — Сделано ВЫШЕ */
+        /* Изображение 19 — Смещено чуть ниже */
         #img19 {
             position: absolute;
             left: 0;
             width: 100%; 
-            top: 80px;  /* Было 200px — теперь значительно выше */
+            top: 130px;  /* Было 80px — теперь чуть ниже, как ты и просил */
             height: auto;
             opacity: 0;
             z-index: 5;
