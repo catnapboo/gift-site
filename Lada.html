@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Birth of Venus Intro v23</title>
+    <title>Birth of Venus Intro v24</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -272,26 +272,24 @@
                     mainStage.classList.add('main-visible');
                     
                     setTimeout(() => {
-                        // 1. Появление 22
                         img22.classList.add('fade-in');
 
                         setTimeout(() => {
-                            // 2. ОДНОВРЕМЕННЫЙ вылет 24 и 25 по дугам
+                            // Одновременный вылет 24 и 25
                             i24l.classList.add('animate-24-l');
                             i24r.classList.add('animate-24-r');
                             i25l.classList.add('animate-25-l');
                             i25r.classList.add('animate-25-r');
 
-                            // 3. Руки начинают появляться за 1 сек до конца полета 24/25
-                            // Длительность полета 2.5с. 2.5 - 1.0 = 1.5с ожидания.
+                            // Руки появляются за 1 сек до конца полета (через 1.5с)
                             setTimeout(() => {
                                 img20.classList.add('active-sides');
                                 img21.classList.add('active-sides');
                                 
-                                // Появление фона через 2.2с после рук (как в v22)
+                                // ИЗМЕНЕНИЕ: Фон появляется еще раньше (через 1.5с вместо 2.2с)
                                 setTimeout(() => {
                                     img19.style.opacity = "1";
-                                }, 2200); 
+                                }, 1500); 
 
                             }, 1500); 
 
