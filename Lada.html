@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Birth of Venus Intro v20</title>
+    <title>Birth of Venus Intro v21</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -123,22 +123,19 @@
             pointer-events: none;
         }
 
-        /* Анимация для 24-лево (сверху-слева дугой) */
+        /* Анимации для дугового вылета */
         @keyframes arcInTopLeft {
             0% { opacity: 0; transform: translate(-100%, -100%) rotate(-20deg) scaleX(-1); }
             100% { opacity: 1; transform: translate(0, 0) rotate(0deg) scaleX(-1); }
         }
-        /* Анимация для 24-право (сверху-справа дугой) */
         @keyframes arcInTopRight {
             0% { opacity: 0; transform: translate(100%, -100%) rotate(20deg) scaleX(1); }
             100% { opacity: 1; transform: translate(0, 0) rotate(0deg) scaleX(1); }
         }
-        /* Анимация для 25-лево (снизу-слева дугой) */
         @keyframes arcInBottomLeft {
             0% { opacity: 0; transform: translate(-100%, 100%) rotate(20deg) scaleX(-1); }
             100% { opacity: 1; transform: translate(0, 0) rotate(0deg) scaleX(-1); }
         }
-        /* Анимация для 25-право (снизу-справа дугой) */
         @keyframes arcInBottomRight {
             0% { opacity: 0; transform: translate(100%, 100%) rotate(-20deg) scaleX(1); }
             100% { opacity: 1; transform: translate(0, 0) rotate(0deg) scaleX(1); }
@@ -292,6 +289,7 @@
                                 i25l.classList.add('animate-25-l');
                                 i25r.classList.add('animate-25-r');
 
+                                // --- ИЗМЕНЕНИЕ ЗДЕСЬ: Ускорили старт анимации фона ---
                                 setTimeout(() => {
                                     // 4. Появление рук и фона
                                     img20.classList.add('active-sides');
@@ -299,7 +297,7 @@
                                     setTimeout(() => {
                                         img19.style.opacity = "1";
                                     }, 2800); 
-                                }, 1500);
+                                }, 500); // Уменьшили задержку до 500мс (было 1500мс)
 
                             }, 1500);
                         }, 1500);
