@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Birth of Venus Intro v10</title>
+    <title>Birth of Venus Intro v11</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -33,7 +33,6 @@
             background-color: #5773aa;
         }
 
-        /* Изображение 22.png */
         #img22 {
             position: absolute;
             top: 40px;
@@ -41,17 +40,14 @@
             max-width: 200px; 
             height: auto;
             z-index: 2001;
-            /* Изменение: Изначально скрыто для плавного появления */
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 1s ease-in-out; /* Время проявления картинки */
         }
 
-        /* Класс для показа изображения */
         #img22.visible {
             opacity: 1;
         }
 
-        /* Стили для текста */
         .story-text {
             font-family: 'Great Vibes', cursive;
             font-size: 26px; 
@@ -62,11 +58,10 @@
             margin-top: 60px;
         }
 
-        /* Стиль для плавного появления слова */
         .word-fade {
             opacity: 0;
             display: inline-block;
-            transition: opacity 0.8s ease-in-out; /* Изменение: Чуть быстрее проявление */
+            transition: opacity 0.8s ease-in-out; 
             margin-right: 6px;
         }
 
@@ -144,15 +139,14 @@
 <body id="body-trigger">
 
     <div id="intro-stage">
-        <!-- Ссылка на файл для предварительного просмотра -->
         <img src="22.png" id="img22" alt="Venus Logo">
         <div id="typewriter-text" class="story-text"></div>
     </div>
 
     <div id="main-stage">
-        <img src="20.png" id="img20" class="hand-img" alt="Adam Hand Left">
-        <img src="21.png" id="img21" class="hand-img" alt="God Hand Right">
-        <img src="19.png" id="img19" alt="Background Element">
+        <img src="20.png" id="img20" class="hand-img">
+        <img src="21.png" id="img21" class="hand-img">
+        <img src="19.png" id="img19">
     </div>
 
     <script>
@@ -169,10 +163,8 @@
 
         let textIsFinished = false;
 
-        // Функция плавного появления по словам
         function fadeWords(text, element, speed) {
             const words = text.split(' ');
-            
             words.forEach(word => {
                 const span = document.createElement('span');
                 span.innerText = word;
@@ -196,31 +188,28 @@
             showNext();
         }
 
-        // --- Изменения в тайминге появления ---
         window.addEventListener('load', () => {
-            // 1. Небольшая задержка перед всем интро (1 секунда)
+            // 1. Сначала ждем секунду перед стартом появления логотипа
             setTimeout(() => {
-                // А. Плавно показываем изображение 22
                 img22.classList.add('visible');
 
-                // Б. Начинаем плавное появление текста (чуть быстрее: 180мс на слово вместо 250мс)
-                // fadeWords(текст, элемент, скорость проявления следующего слова в мс)
-                fadeWords(textToType, typewriterElement, 180); 
-            }, 1000); // Общая начальная задержка
+                // 2. Ждем еще 1.1 секунду (пока доиграет transition картинки) 
+                // и только потом запускаем текст
+                setTimeout(() => {
+                    fadeWords(textToType, typewriterElement, 180); 
+                }, 1100); 
+
+            }, 1000); 
         });
 
-        // Обработка Тапа по экрану (без изменений)
         bodyTrigger.addEventListener('click', () => {
             if (textIsFinished) {
                 introStage.classList.add('intro-hidden');
-
                 setTimeout(() => {
                     mainStage.classList.add('main-visible');
-
                     setTimeout(() => {
                         img20.classList.add('active-sides');
                         img21.classList.add('active-sides');
-
                         setTimeout(() => {
                             img19.style.opacity = "1";
                         }, 2800); 
