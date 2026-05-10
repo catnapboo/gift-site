@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Birth of Venus Intro</title>
+    <title>Birth of Venus Intro v10</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -33,23 +33,31 @@
             background-color: #5773aa;
         }
 
-        /* Изображение 22.png (уменьшено в два раза) */
+        /* Изображение 22.png */
         #img22 {
             position: absolute;
             top: 40px;
-            width: 40%; /* Было 80%, стало 40% */
-            max-width: 200px; /* Было 400, стало 200 */
+            width: 40%; 
+            max-width: 200px; 
             height: auto;
             z-index: 2001;
+            /* Изменение: Изначально скрыто для плавного появления */
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
         }
 
-        /* Стили для текста (меньше размер и интервал) */
+        /* Класс для показа изображения */
+        #img22.visible {
+            opacity: 1;
+        }
+
+        /* Стили для текста */
         .story-text {
             font-family: 'Great Vibes', cursive;
-            font-size: 26px; /* Чуть меньше */
+            font-size: 26px; 
             color: #F5EDD1; 
             text-align: center;
-            line-height: 1.2; /* Интервал между строк меньше */
+            line-height: 1.2; 
             max-width: 85%;
             margin-top: 60px;
         }
@@ -58,7 +66,7 @@
         .word-fade {
             opacity: 0;
             display: inline-block;
-            transition: opacity 1.2s ease-in-out; /* Плавное "проявление" */
+            transition: opacity 0.8s ease-in-out; /* Изменение: Чуть быстрее проявление */
             margin-right: 6px;
         }
 
@@ -71,7 +79,7 @@
             pointer-events: none;
         }
 
-        /* --- Старые стили для основной анимации (20, 21, 19) --- */
+        /* --- Стили для основной анимации (без изменений) --- */
         #main-stage {
             position: relative;
             width: 100%;
@@ -136,14 +144,15 @@
 <body id="body-trigger">
 
     <div id="intro-stage">
-        <img src="22.png" id="img22">
+        <!-- Ссылка на файл для предварительного просмотра -->
+        <img src="22.png" id="img22" alt="Venus Logo">
         <div id="typewriter-text" class="story-text"></div>
     </div>
 
     <div id="main-stage">
-        <img src="20.png" id="img20" class="hand-img">
-        <img src="21.png" id="img21" class="hand-img">
-        <img src="19.png" id="img19">
+        <img src="20.png" id="img20" class="hand-img" alt="Adam Hand Left">
+        <img src="21.png" id="img21" class="hand-img" alt="God Hand Right">
+        <img src="19.png" id="img19" alt="Background Element">
     </div>
 
     <script>
@@ -152,6 +161,7 @@
         const introStage = document.getElementById('intro-stage');
         const mainStage = document.getElementById('main-stage');
         const bodyTrigger = document.getElementById('body-trigger');
+        const img22 = document.getElementById('img22');
 
         const img19 = document.getElementById('img19');
         const img20 = document.getElementById('img20');
@@ -160,16 +170,14 @@
         let textIsFinished = false;
 
         // Функция плавного появления по словам
-        function fadeWords(text, element, speed = 200) {
+        function fadeWords(text, element, speed) {
             const words = text.split(' ');
             
-            // Создаем span для каждого слова
             words.forEach(word => {
                 const span = document.createElement('span');
                 span.innerText = word;
                 span.className = 'word-fade';
                 element.appendChild(span);
-                // Добавляем пробел после слова
                 element.appendChild(document.createTextNode(' '));
             });
 
@@ -188,10 +196,20 @@
             showNext();
         }
 
+        // --- Изменения в тайминге появления ---
         window.addEventListener('load', () => {
-            fadeWords(textToType, typewriterElement, 250); // Скорость появления слов
+            // 1. Небольшая задержка перед всем интро (1 секунда)
+            setTimeout(() => {
+                // А. Плавно показываем изображение 22
+                img22.classList.add('visible');
+
+                // Б. Начинаем плавное появление текста (чуть быстрее: 180мс на слово вместо 250мс)
+                // fadeWords(текст, элемент, скорость проявления следующего слова в мс)
+                fadeWords(textToType, typewriterElement, 180); 
+            }, 1000); // Общая начальная задержка
         });
 
+        // Обработка Тапа по экрану (без изменений)
         bodyTrigger.addEventListener('click', () => {
             if (textIsFinished) {
                 introStage.classList.add('intro-hidden');
