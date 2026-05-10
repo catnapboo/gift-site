@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Sotvorenie Animation v8</title>
+    <title>Sotvorenie Animation v9</title>
     <style>
         body, html {
             margin: 0;
@@ -23,28 +23,28 @@
             align-items: center;
         }
 
-        /* Общие стили для 20 и 21: Подняты ЕЩЕ ЧУТЬ ВЫШЕ */
+        /* Общие стили для 20 и 21 */
         .hand-img {
             position: absolute;
             height: auto;
             opacity: 0;
             z-index: 10;
-            margin-top: -140px; /* Было -120px, теперь подняты еще чуть выше */
+            margin-top: -140px; 
             pointer-events: none;
             will-change: transform, opacity;
             transition: transform 3s cubic-bezier(0.16, 1, 0.3, 1), opacity 2s ease-out;
         }
 
-        /* Изображение 20 (Левая рука): ЕЩЕ на 10% МЕНЬШЕ */
+        /* Изображение 20 (Левая рука) */
         #img20 {
             right: 48%; 
-            width: 56.7%; /* Предыдущий width был 63%. 63% * 0.9 = 56.7% */
-            max-width: 283.5px; /* Предыдущий max-width был 315px. 315px * 0.9 = 283.5px */
+            width: 56.7%; 
+            max-width: 283.5px; 
             transform: translate(-40%, 20%) scale(0.9);
             transform-origin: right center;
         }
 
-        /* Изображение 21 (Правая рука): Размер без изменений (72% / 360px) */
+        /* Изображение 21 (Правая рука) */
         #img21 {
             left: 48%; 
             width: 72%; 
@@ -58,7 +58,7 @@
             transform: translate(0, 0) scale(1) !important;
         }
 
-        /* Изображение 19 — Без изменений */
+        /* Изображение 19 */
         #img19 {
             position: absolute;
             left: 0;
@@ -68,7 +68,7 @@
             opacity: 0;
             z-index: 5;
             will-change: opacity;
-            transition: opacity 3s ease-in-out;
+            transition: opacity 2s ease-in-out; /* Немного ускорил саму анимацию проявления */
         }
     </style>
 </head>
@@ -86,13 +86,17 @@
             const img20 = document.getElementById('img20');
             const img21 = document.getElementById('img21');
 
+            // 1. Запуск рук
             setTimeout(() => {
                 img20.classList.add('active-sides');
                 img21.classList.add('active-sides');
 
+                // 2. Появление изображения 19
+                // Установил 2800ms (чуть раньше завершения 3-секундной анимации рук),
+                // чтобы переход выглядел динамичнее и без пауз.
                 setTimeout(() => {
                     img19.style.opacity = "1";
-                }, 3000); 
+                }, 2800); 
             }, 500);
         });
     </script>
