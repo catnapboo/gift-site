@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Sotvorenie Animation</title>
+    <title>Sotvorenie Animation v3</title>
     <style>
         body, html {
             margin: 0;
@@ -11,63 +11,56 @@
             width: 100%;
             height: 100%;
             background-color: #5773aa;
-            overflow: hidden; /* Скрываем скролл, так как это стартовая сцена */
+            overflow-x: hidden;
         }
 
-        /* Контейнер для центрирования Бога и Адама */
-        .creation-stage {
+        .container {
             position: relative;
             width: 100%;
             height: 100vh;
             display: flex;
-            justify-content: center; /* Центрирование по горизонтали */
-            align-items: center;    /* Центрирование по вертикали */
-            z-index: 10;
+            justify-content: center;
+            align-items: center;
         }
 
+        /* Изображения 20 и 21 (Сотворение Адама) */
         .hand-img {
             position: absolute;
-            width: 90%; /* Размер стал еще меньше, под телефон */
-            max-width: 500px; /* Ограничение для больших экранов */
+            width: 90%; 
+            max-width: 500px;
             height: auto;
             opacity: 0;
+            z-index: 10;
             pointer-events: none;
             will-change: transform, opacity;
-            /*cubic-bezier для красивого замедления в конце*/
             transition: transform 3s cubic-bezier(0.16, 1, 0.3, 1), opacity 2s ease-out;
         }
 
-        /* 20 (Адам/Лево): Идет слева-снизу. 
-           Точка трансформации - правый край (пальцы) */
+        /* Левая рука (20): снизу-слева в центр */
         #img20 {
-            right: 50%; /* Упираем правый край в центр */
+            right: 50%; /* Пальцы упираются в центр */
             transform: translate(-50%, 30%) scale(0.8);
             transform-origin: right center;
         }
 
-        /* 21 (Бог/Право): Идет справа-сверху. 
-           Точка трансформации - левый край (пальцы) */
+        /* Правая рука (21): сверху-справа в центр */
         #img21 {
-            left: 50%; /* Упираем левый край в центр */
+            left: 50%; /* Пальцы упираются в центр */
             transform: translate(50%, -30%) scale(0.8);
             transform-origin: left center;
         }
 
-        /* Класс запуска, соприкасающий пальцы в 0, 0 */
         .active-sides {
             opacity: 1 !important;
             transform: translate(0, 0) scale(1) !important;
         }
 
-        /* Изображение 19: Прижато к низу экрана */
+        /* Изображение 19 (как в предыдущем коде) */
         #img19 {
             position: absolute;
-            bottom: 0; /* Низ изображения на уровне окончания страницы */
-            left: 50%;
-            /* Делаем очень большим, чтобы касалось краев */
-            width: 300%; 
-            max-width: 1200px; /* Ограничение */
-            transform: translateX(-50%); /* Центрирование */
+            left: 0;
+            width: 100%; /* Касается краев по бокам */
+            top: 200px;  /* Опущено ниже от верхнего края */
             height: auto;
             opacity: 0;
             z-index: 5;
@@ -78,14 +71,14 @@
 </head>
 <body>
 
-    <!-- Сцена "Сотворения" -->
-    <div class="creation-stage">
-        <img src="20.png" id="img20" class="hand-img" alt="Адам">
-        <img src="21.png" id="img21" class="hand-img" alt="Бог">
+    <div class="container">
+        <!-- Руки соприкасаются здесь -->
+        <img src="20.png" id="img20" class="hand-img">
+        <img src="21.png" id="img21" class="hand-img">
+        
+        <!-- Фоновое изображение 19 -->
+        <img src="19.png" id="img19">
     </div>
-
-    <!-- Нижнее фоновое изображение -->
-    <img src="19.png" id="img19" alt="Фон">
 
     <script>
         window.addEventListener('load', () => {
@@ -93,15 +86,15 @@
             const img20 = document.getElementById('img20');
             const img21 = document.getElementById('img21');
 
-            // 1. Небольшая пауза и запуск движения рук
+            // 1. Запуск движения рук (20 и 21)
             setTimeout(() => {
                 img20.classList.add('active-sides');
                 img21.classList.add('active-sides');
 
-                // 2. Появление фона (19) после соприкосновения пальцев
+                // 2. После соприкосновения (через 3 сек) плавно проявляем 19.png
                 setTimeout(() => {
                     img19.style.opacity = "1";
-                }, 3000); // Задержка равна времени движения рук
+                }, 3000); 
             }, 500);
         });
     </script>
