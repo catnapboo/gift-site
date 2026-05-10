@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Birth of Venus Intro v13</title>
+    <title>Birth of Venus Intro v14</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -17,7 +17,7 @@
             cursor: pointer;
         }
 
-        /* --- Стили для Интро --- */
+        /* --- ЭТАП 1: ИНТРО (22 и текст) --- */
         #intro-stage {
             position: fixed;
             top: 0;
@@ -33,8 +33,7 @@
             background-color: #5773aa;
         }
 
-        /* Общие стили для логотипов 22 и 23 */
-        .logo-img {
+        #img22 {
             position: absolute;
             top: 40px;
             width: 40%; 
@@ -45,7 +44,7 @@
             transition: opacity 1s ease-in-out;
         }
 
-        .logo-img.visible {
+        #img22.visible {
             opacity: 1;
         }
 
@@ -76,7 +75,7 @@
             pointer-events: none;
         }
 
-        /* --- Стили для основной анимации (20, 21, 19) --- */
+        /* --- ЭТАП 2: ОСНОВНАЯ СЦЕНА (23, 20, 21, 19) --- */
         #main-stage {
             position: relative;
             width: 100%;
@@ -91,6 +90,17 @@
 
         .main-visible {
             opacity: 1 !important;
+        }
+
+        /* Изображение 23 теперь здесь */
+        #img23 {
+            position: absolute;
+            top: 40px;
+            width: 40%; 
+            max-width: 200px; 
+            height: auto;
+            z-index: 12;
+            opacity: 1; /* Оно появится вместе с main-stage */
         }
 
         .hand-img {
@@ -140,13 +150,15 @@
 </head>
 <body id="body-trigger">
 
+    <!-- Интро: только 22 и текст -->
     <div id="intro-stage">
-        <img src="22.png" id="img22" class="logo-img" alt="Logo 22">
-        <img src="23.png" id="img23" class="logo-img" alt="Logo 23">
+        <img src="22.png" id="img22" alt="Logo 22">
         <div id="typewriter-text" class="story-text"></div>
     </div>
 
+    <!-- Основная сцена: 23 появляется сразу при активации этого блока -->
     <div id="main-stage">
+        <img src="23.png" id="img23" alt="Logo 23">
         <img src="20.png" id="img20" class="hand-img">
         <img src="21.png" id="img21" class="hand-img">
         <img src="19.png" id="img19">
@@ -160,7 +172,6 @@
         const bodyTrigger = document.getElementById('body-trigger');
         
         const img22 = document.getElementById('img22');
-        const img23 = document.getElementById('img23');
         const img19 = document.getElementById('img19');
         const img20 = document.getElementById('img20');
         const img21 = document.getElementById('img21');
@@ -193,39 +204,32 @@
         }
 
         window.addEventListener('load', () => {
-            // 1. Появление 22.png
             setTimeout(() => {
                 img22.classList.add('visible');
-
-                // 2. После того как 22 появилось, ждем и запускаем текст
                 setTimeout(() => {
                     fadeWords(textToType, typewriterElement, 180); 
                 }, 1100); 
-
             }, 1000); 
         });
 
         bodyTrigger.addEventListener('click', () => {
             if (textIsFinished) {
-                // Плавная замена 22 на 23
-                img22.classList.remove('visible');
-                img23.classList.add('visible');
+                // 1. Скрываем интро (22 и текст)
+                introStage.classList.add('intro-hidden');
 
-                // Даем время на смену картинок, затем скрываем интро и запускаем основную анимацию
+                // 2. Показываем основную сцену (где уже есть 23) и запускаем анимации рук
                 setTimeout(() => {
-                    introStage.classList.add('intro-hidden');
+                    mainStage.classList.add('main-visible');
                     
                     setTimeout(() => {
-                        mainStage.classList.add('main-visible');
+                        img20.classList.add('active-sides');
+                        img21.classList.add('active-sides');
+                        
                         setTimeout(() => {
-                            img20.classList.add('active-sides');
-                            img21.classList.add('active-sides');
-                            setTimeout(() => {
-                                img19.style.opacity = "1";
-                            }, 2800); 
-                        }, 500);
-                    }, 1500); 
-                }, 1500); // Задержка, чтобы увидеть 23.png перед исчезновением текста
+                            img19.style.opacity = "1";
+                        }, 2800); 
+                    }, 500);
+                }, 1500); 
             }
         });
     </script>
