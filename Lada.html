@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Sotvorenie Animation v5</title>
+    <title>Sotvorenie Animation v6</title>
     <style>
         body, html {
             margin: 0;
@@ -23,14 +23,15 @@
             align-items: center;
         }
 
-        /* Изображения 20 и 21 (Сотворение Адама) */
+        /* Изображения 20 и 21 — Сделаны МЕНЬШЕ и подняты ВЫШЕ */
         .hand-img {
             position: absolute;
-            width: 120%; 
-            max-width: 700px;
+            width: 90%; /* Уменьшено со 120% */
+            max-width: 450px; /* Уменьшен лимит */
             height: auto;
             opacity: 0;
             z-index: 10;
+            margin-top: -50px; /* Поднимает изображения выше центральной оси */
             pointer-events: none;
             will-change: transform, opacity;
             transition: transform 3s cubic-bezier(0.16, 1, 0.3, 1), opacity 2s ease-out;
@@ -55,12 +56,12 @@
             transform: translate(0, 0) scale(1) !important;
         }
 
-        /* Изображение 19 — Смещено чуть ниже */
+        /* Изображение 19 — Без изменений */
         #img19 {
             position: absolute;
             left: 0;
             width: 100%; 
-            top: 130px;  /* Было 80px — теперь чуть ниже, как ты и просил */
+            top: 130px; 
             height: auto;
             opacity: 0;
             z-index: 5;
