@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Sotvorenie Animation v9</title>
+    <title>Birth of Venus Intro</title>
+    <!-- Подключаем шрифты: Great Vibes для интро и Montserrat (если нужен для остального) -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin: 0;
@@ -12,15 +14,71 @@
             height: 100%;
             background-color: #5773aa;
             overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;
+            /* Чтобы тап по всему экрану срабатывал */
+            cursor: pointer;
         }
 
-        .container {
+        /* --- Стили для Интро (Текст и 22.png) --- */
+        #intro-stage {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000; /* Самый верхний слой */
+            transition: opacity 1.5s ease-in-out; /* Для плавного исчезновения */
+            background-color: #5773aa; /* Фон интро такой же */
+        }
+
+        /* Изображение 22.png в самом верху интро */
+        #img22 {
+            position: absolute;
+            top: 20px;
+            width: 80%;
+            max-width: 400px;
+            height: auto;
+            z-index: 2001;
+        }
+
+        /* Стили для печатного текста */
+        .story-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 32px; /* Размер шрифта */
+            color: #F5EDD1; /* Бежевый цвет (папирус) */
+            text-align: center;
+            line-height: 1.5;
+            max-width: 80%; /* Ограничение ширины текста */
+            margin-top: 100px; /* Отступ от картинки 22 */
+        }
+
+        /* Класс для плавного исчезновения всего интро */
+        .intro-hidden {
+            opacity: 0 !important;
+            pointer-events: none; /* Чтобы больше не ловил клики */
+        }
+
+
+        /* --- Старые стили для основной анимации (20, 21, 19) --- */
+        /* По умолчанию скрыто, пока не исчезнет интро */
+        #main-stage {
             position: relative;
             width: 100%;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            z-index: 10;
+            opacity: 0; /* Изначально скрыт */
+            transition: opacity 1.5s ease-in-out; /* Плавное появление */
+        }
+
+        .main-visible {
+            opacity: 1 !important;
         }
 
         /* Общие стили для 20 и 21 */
@@ -28,7 +86,7 @@
             position: absolute;
             height: auto;
             opacity: 0;
-            z-index: 10;
+            z-index: 11;
             margin-top: -140px; 
             pointer-events: none;
             will-change: transform, opacity;
@@ -68,36 +126,93 @@
             opacity: 0;
             z-index: 5;
             will-change: opacity;
-            transition: opacity 2s ease-in-out; /* Немного ускорил саму анимацию проявления */
+            transition: opacity 2s ease-in-out; 
         }
     </style>
 </head>
-<body>
+<body id="body-trigger">
 
-    <div class="container">
+    <!-- --- ЭТАП 1: ИНТРО (Текст и 22.png) --- -->
+    <div id="intro-stage">
+        <img src="22.png" id="img22" alt="">
+        <div id="typewriter-text" class="story-text"></div>
+    </div>
+
+
+    <!-- --- ЭТАП 2: ОСНОВНАЯ СЦЕНА (Сотворение и Фон 19) --- -->
+    <div id="main-stage">
         <img src="20.png" id="img20" class="hand-img">
         <img src="21.png" id="img21" class="hand-img">
         <img src="19.png" id="img19">
     </div>
 
     <script>
+        // Текст для интро
+        const textToType = "Когда титан оскопил своего отца, его кровь пролилась в море и смешалась с солёной водой. Волны вспенились, поднялась белоснежная пена, и из этой морской пены явилась миру прекрасная девушка";
+        const typewriterElement = document.getElementById('typewriter-text');
+        const introStage = document.getElementById('intro-stage');
+        const mainStage = document.getElementById('main-stage');
+        const bodyTrigger = document.getElementById('body-trigger');
+
+        const img19 = document.getElementById('img19');
+        const img20 = document.getElementById('img20');
+        const img21 = document.getElementById('img21');
+
+        let textIsFinished = false; // Флаг завершения печати
+
+        // Функция печати текста по словам
+        function typeWords(text, element, speed = 250) {
+            const words = text.split(' ');
+            let currentWordIndex = 0;
+
+            function typeNextWord() {
+                if (currentWordIndex < words.length) {
+                    element.innerHTML += words[currentWordIndex] + ' ';
+                    currentWordIndex++;
+                    setTimeout(typeNextWord, speed); // Задержка между словами
+                } else {
+                    textIsFinished = true; // Текст полностью напечатан
+                }
+            }
+            typeNextWord();
+        }
+
+        // --- Запуск при загрузке ---
         window.addEventListener('load', () => {
-            const img19 = document.getElementById('img19');
-            const img20 = document.getElementById('img20');
-            const img21 = document.getElementById('img21');
+            // 1. Начинаем печатать текст по словам
+            typeWords(textToType, typewriterElement, 300); // 300мс на слово
+        });
 
-            // 1. Запуск рук
-            setTimeout(() => {
-                img20.classList.add('active-sides');
-                img21.classList.add('active-sides');
+        // --- Обработка Тапа по экрану ---
+        bodyTrigger.addEventListener('click', () => {
+            // Если текст полностью появился
+            if (textIsFinished) {
+                // 1. Плавно скрываем интро (Текст и 22)
+                introStage.classList.add('intro-hidden');
 
-                // 2. Появление изображения 19
-                // Установил 2800ms (чуть раньше завершения 3-секундной анимации рук),
-                // чтобы переход выглядел динамичнее и без пауз.
+                // 2. После исчезновения интро (через 1.5 сек) запускаем старую анимацию
                 setTimeout(() => {
-                    img19.style.opacity = "1";
-                }, 2800); 
-            }, 500);
+                    // А. Показываем контейнер основной сцены
+                    mainStage.classList.add('main-visible');
+
+                    // Б. Запускаем "Руки" (20 и 21)
+                    setTimeout(() => {
+                        img20.classList.add('active-sides');
+                        img21.classList.add('active-sides');
+
+                        // В. Появление изображения 19 (как и было)
+                        setTimeout(() => {
+                            img19.style.opacity = "1";
+                        }, 2800); 
+                    }, 500); // Небольшая задержка перед руками
+                    
+                    // Удаляем интро из DOM, чтобы не мешало (опционально)
+                    setTimeout(() => {
+                        introStage.remove();
+                    }, 1500);
+
+                }, 1500); 
+            }
         });
     </script>
 </body>
