@@ -1,118 +1,211 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Журнал</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Nastya Edition</title>
 
-    body {
-      background-color: #5773aa;
-      min-height: 100vh;
-    }
+<style>
+  /* Основной фон страницы теперь #5773aa */
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: #5773aa; 
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
 
-    .top {
-      position: relative;
-    }
+  /* Стили для новых изображений 19, 20, 21 */
+  .top-animation-container {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Занимает весь экран при старте */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+    z-index: 100;
+  }
 
-    /* 19.png — базовый слой, опущен ниже */
-    .img-base {
-      display: block;
-      width: 100%;
-      margin-top: 80px;
-      opacity: 0;
-      animation: gentleFade 2.4s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
-      animation-delay: 1.2s;
-    }
+  .img-center-19 {
+    position: absolute;
+    top: 50px; /* Небольшой отступ от верха */
+    width: 80%; /* Можно отрегулировать размер */
+    max-width: 600px;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+    z-index: 102;
+  }
 
-    /* Контейнер для 20 и 21 поверх */
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      pointer-events: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
+  .img-side {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: auto;
+    opacity: 0;
+    z-index: 101;
+    transition: transform 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 2s ease-out;
+  }
 
-    /* 20.png — слева, чуть раньше и чуть медленнее */
-    .fly-left {
-      width: 55%;
-      opacity: 0;
-      animation: flyLeft 1.8s cubic-bezier(0.16, 0.8, 0.4, 1) forwards;
-      animation-delay: 0.1s;
-    }
+  /* 20.png появляется слева-снизу и идет по диагонали в центр-верх */
+  #img20 {
+    left: 0;
+    transform: translate(-50%, 50%);
+  }
 
-    /* 21.png — справа, едва позже и чуть быстрее */
-    .fly-right {
-      width: 55%;
-      opacity: 0;
-      animation: flyRight 1.55s cubic-bezier(0.2, 0.75, 0.4, 1) forwards;
-      animation-delay: 0.28s;
-    }
+  /* 21.png появляется справа-сверху и идет по диагонали в центр-верх */
+  #img21 {
+    right: 0;
+    transform: translate(50%, -50%);
+  }
 
-    .fly-left img,
-    .fly-right img {
-      display: block;
-      width: 100%;
-    }
+  /* Класс для запуска анимации встречи в центре */
+  .sides-active {
+    opacity: 1 !important;
+    transform: translate(0, 0) !important;
+  }
 
-    @keyframes flyLeft {
-      from {
-        opacity: 0;
-        transform: translateX(-90px);
-      }
-      60% {
-        opacity: 1;
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
+  /* Остальные стили из предыдущей версии */
+  .scroll-reveal, .feature, .word, .extra-img, .row-img-container { opacity: 0; }
+  
+  /* Подключаем шрифты */
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Dancing+Script:wght@700&family=Montserrat:wght@100;300;400&family=Fascinate&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
 
-    @keyframes flyRight {
-      from {
-        opacity: 0;
-        transform: translateX(90px);
-      }
-      60% {
-        opacity: 1;
-      }
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @keyframes gentleFade {
-      0%   { opacity: 0; transform: translateY(10px); }
-      40%  { opacity: 0.15; }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+  /* ... (Стили из вашего кода оставлены без изменений) ... */
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  .magazine-cover { position: relative; width: 100%; line-height: 0; transform: translateZ(0); z-index: 20; }
+  .main-photo { width: 100%; height: auto; display: block; }
+  .overlay-image { position: absolute; left: 0; top: 0; width: 100%; height: auto; z-index: 25; pointer-events: none; }
+  .symphony-text { position: absolute; top: 30%; width: 100%; text-align: center; z-index: 30; font-family: 'Dancing Script', cursive; font-size: clamp(40px, 10vw, 100px); color: #ff4d8d; line-height: 1.2; pointer-events: none; text-shadow: -3px -3px 0 #e1ad01, 3px -3px 0 #e1ad01, -3px 3px 0 #e1ad01, 3px 3px 0 #e1ad01, 0px 15px 30px rgba(0,0,0,0.3); }
+  .word { display: inline-block; opacity: 0; transform: translateY(15px); transition: opacity 0.5s ease-out, transform 0.5s ease-out; margin: 0 8px; will-change: transform, opacity; }
+  .word.show { opacity: 1; transform: translateY(0); }
+  .extra-img { position: absolute; height: auto; z-index: 28; transition: opacity 1.8s ease-out, transform 1.8s cubic-bezier(0.22, 1, 0.36, 1); pointer-events: none; will-change: transform, opacity; }
+  .img-8 { left: 0; top: 48%; width: 38%; transform: translate(-100%, 50px) rotate(-20deg); }
+  .img-9 { right: 0; top: 55%; width: 38%; transform: translate(100%, 50px) rotate(20deg); }
+  .extra-img.visible { opacity: 1; transform: translate(0, 0) rotate(0deg); }
+  .row-img-container { position: absolute; top: 78%; left: 0; width: 100%; display: flex; justify-content: space-around; align-items: center; padding: 0 2%; z-index: 99; transition: opacity 1.5s ease-in-out; pointer-events: none; }
+  .row-item { height: auto; will-change: transform; pointer-events: auto; transform: translate3d(0,0,0); width: 32%; }
+  .features-overlay { position: absolute; top: 92%; width: 100%; z-index: 15; padding: 0 20px; }
+  .feature { max-width: 180px; margin-bottom: 25px; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.3); transition: opacity 1s ease, transform 1s ease; will-change: transform, opacity; }
+  .feature.left { text-align: left; border-left: 1px solid white; padding-left: 15px; margin-right: auto; }
+  .feature.right { text-align: right; border-right: 1px solid white; padding-right: 15px; margin-left: auto; }
+  .visible { opacity: 1 !important; transform: translateY(0) !important; }
+  .fish-tank-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 999999; overflow: hidden; }
+  .fish-img { position: absolute; width: 200px; height: auto; opacity: 0; will-change: transform, left, top; top: 50%; }
+</style>
 </head>
 <body>
 
-  <div class="top">
-    <img class="img-base" src="19.png" alt="" />
+  <!-- Новый блок с анимацией в самом верху -->
+  <div class="top-animation-container">
+    <img src="20.png" id="img20" class="img-side" alt="">
+    <img src="21.png" id="img21" class="img-side" alt="">
+    <img src="19.png" id="img19" class="img-center-19" alt="">
+  </div>
 
-    <div class="overlay">
-      <div class="fly-left">
-        <img src="20.png" alt="" />
-      </div>
-      <div class="fly-right">
-        <img src="21.png" alt="" />
-      </div>
+  <div class="magazine-cover">
+    <img src="4.jpg" class="main-photo" alt="">
+    <img src="7.png" class="overlay-image" alt="">
+
+    <div class="symphony-text" id="symphonyText">
+      <span class="word">I</span> <span class="word">just</span> <span class="word">wanna</span> <span class="word">be</span> <span class="word">part</span><br>
+      <span class="word">of</span> <span class="word">your</span> <span class="word">symphony</span>
+    </div>
+
+    <img src="8.png" class="extra-img img-8" id="img8" alt="">
+    <img src="9.png" class="extra-img img-9" id="img9" alt="">
+
+    <div class="row-img-container" id="rowImgs">
+      <img src="10.png" class="row-item" alt="">
+      <img src="11.png" class="row-item" alt="">
+      <img src="12.png" class="row-item" alt="">
+    </div>
+
+    <div class="features-overlay">
+      <div class="feature left" id="f1"></div>
+      <div class="feature right" id="f2"></div>
     </div>
   </div>
 
+  <div class="fish-tank-overlay">
+    <img src="13.png" class="fish-img" id="fishy" alt="">
+  </div>
+
+  <!-- Весь остальной ваш контент (видео, натальные карты) идет ниже -->
+
+<script>
+  window.addEventListener('load', () => {
+    const img19 = document.getElementById('img19');
+    const img20 = document.getElementById('img20');
+    const img21 = document.getElementById('img21');
+
+    // 1. Сначала запускаем 20 и 21
+    setTimeout(() => {
+      img20.classList.add('sides-active');
+      img21.classList.add('sides-active');
+
+      // 2. После того как они сошлись (через 2.5 сек), проявляем 19.png
+      setTimeout(() => {
+        img19.style.opacity = "1";
+      }, 2500);
+    }, 500);
+
+    // Запуск анимации текста и рыб из старого кода
+    const words = document.querySelectorAll('.word');
+    const wordDelay = 250;
+    words.forEach((word, index) => {
+      setTimeout(() => { word.classList.add('show'); }, index * wordDelay + 3500); // Задержка, чтобы пошло после верхних картинок
+    });
+
+    // ... остальной JS код из предыдущей версии (startFishCycle, scroll и т.д.) ...
+    setTimeout(() => {
+        document.getElementById('img8')?.classList.add('visible');
+        document.getElementById('img9')?.classList.add('visible');
+        setTimeout(() => {
+            const row = document.getElementById('rowImgs');
+            if(row) row.style.opacity = "1";
+            startFishCycle();
+        }, 500);
+    }, (words.length * wordDelay) + 3800);
+
+    function startFishCycle() {
+        const fish = document.getElementById('fishy');
+        if(!fish) return;
+        let toRight = true;
+        function move() {
+            fish.style.opacity = "0"; 
+            const startY = window.innerHeight / 2;
+            if (toRight) {
+                fish.style.transition = "none";
+                fish.style.left = "-300px"; 
+                fish.style.top = startY + "px";
+                fish.style.transform = "scaleX(1)"; 
+                setTimeout(() => {
+                    fish.style.opacity = "1";
+                    fish.style.transition = "left 3000ms linear, top 3000ms ease-in-out, opacity 0.3s";
+                    fish.style.left = "110vw";
+                    fish.style.top = (startY - 150) + "px";
+                }, 50);
+            } else {
+                fish.style.transition = "none";
+                fish.style.left = "110vw"; 
+                fish.style.top = (startY - 150) + "px";
+                fish.style.transform = "scaleX(-1)"; 
+                setTimeout(() => {
+                    fish.style.opacity = "1";
+                    fish.style.transition = "left 3000ms linear, top 3000ms ease-in-out, opacity 0.3s";
+                    fish.style.left = "-300px";
+                    fish.style.top = startY + "px";
+                }, 50);
+            }
+            toRight = !toRight;
+        }
+        move();
+        setInterval(move, 15000);
+    }
+  });
+</script>
 </body>
 </html>
