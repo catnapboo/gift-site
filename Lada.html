@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Birth of Venus Intro</title>
-    <!-- Подключаем шрифты: Great Vibes для интро и Montserrat (если нужен для остального) -->
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -15,11 +14,10 @@
             background-color: #5773aa;
             overflow-x: hidden;
             font-family: 'Montserrat', sans-serif;
-            /* Чтобы тап по всему экрану срабатывал */
             cursor: pointer;
         }
 
-        /* --- Стили для Интро (Текст и 22.png) --- */
+        /* --- Стили для Интро --- */
         #intro-stage {
             position: fixed;
             top: 0;
@@ -30,41 +28,50 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 2000; /* Самый верхний слой */
-            transition: opacity 1.5s ease-in-out; /* Для плавного исчезновения */
-            background-color: #5773aa; /* Фон интро такой же */
+            z-index: 2000;
+            transition: opacity 1.5s ease-in-out;
+            background-color: #5773aa;
         }
 
-        /* Изображение 22.png в самом верху интро */
+        /* Изображение 22.png (уменьшено в два раза) */
         #img22 {
             position: absolute;
-            top: 20px;
-            width: 80%;
-            max-width: 400px;
+            top: 40px;
+            width: 40%; /* Было 80%, стало 40% */
+            max-width: 200px; /* Было 400, стало 200 */
             height: auto;
             z-index: 2001;
         }
 
-        /* Стили для печатного текста */
+        /* Стили для текста (меньше размер и интервал) */
         .story-text {
             font-family: 'Great Vibes', cursive;
-            font-size: 32px; /* Размер шрифта */
-            color: #F5EDD1; /* Бежевый цвет (папирус) */
+            font-size: 26px; /* Чуть меньше */
+            color: #F5EDD1; 
             text-align: center;
-            line-height: 1.5;
-            max-width: 80%; /* Ограничение ширины текста */
-            margin-top: 100px; /* Отступ от картинки 22 */
+            line-height: 1.2; /* Интервал между строк меньше */
+            max-width: 85%;
+            margin-top: 60px;
         }
 
-        /* Класс для плавного исчезновения всего интро */
+        /* Стиль для плавного появления слова */
+        .word-fade {
+            opacity: 0;
+            display: inline-block;
+            transition: opacity 1.2s ease-in-out; /* Плавное "проявление" */
+            margin-right: 6px;
+        }
+
+        .word-fade.visible {
+            opacity: 1;
+        }
+
         .intro-hidden {
             opacity: 0 !important;
-            pointer-events: none; /* Чтобы больше не ловил клики */
+            pointer-events: none;
         }
 
-
         /* --- Старые стили для основной анимации (20, 21, 19) --- */
-        /* По умолчанию скрыто, пока не исчезнет интро */
         #main-stage {
             position: relative;
             width: 100%;
@@ -73,15 +80,14 @@
             justify-content: center;
             align-items: center;
             z-index: 10;
-            opacity: 0; /* Изначально скрыт */
-            transition: opacity 1.5s ease-in-out; /* Плавное появление */
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
         }
 
         .main-visible {
             opacity: 1 !important;
         }
 
-        /* Общие стили для 20 и 21 */
         .hand-img {
             position: absolute;
             height: auto;
@@ -93,7 +99,6 @@
             transition: transform 3s cubic-bezier(0.16, 1, 0.3, 1), opacity 2s ease-out;
         }
 
-        /* Изображение 20 (Левая рука) */
         #img20 {
             right: 48%; 
             width: 56.7%; 
@@ -102,7 +107,6 @@
             transform-origin: right center;
         }
 
-        /* Изображение 21 (Правая рука) */
         #img21 {
             left: 48%; 
             width: 72%; 
@@ -116,7 +120,6 @@
             transform: translate(0, 0) scale(1) !important;
         }
 
-        /* Изображение 19 */
         #img19 {
             position: absolute;
             left: 0;
@@ -132,14 +135,11 @@
 </head>
 <body id="body-trigger">
 
-    <!-- --- ЭТАП 1: ИНТРО (Текст и 22.png) --- -->
     <div id="intro-stage">
-        <img src="22.png" id="img22" alt="">
+        <img src="22.png" id="img22">
         <div id="typewriter-text" class="story-text"></div>
     </div>
 
-
-    <!-- --- ЭТАП 2: ОСНОВНАЯ СЦЕНА (Сотворение и Фон 19) --- -->
     <div id="main-stage">
         <img src="20.png" id="img20" class="hand-img">
         <img src="21.png" id="img21" class="hand-img">
@@ -147,7 +147,6 @@
     </div>
 
     <script>
-        // Текст для интро
         const textToType = "Когда титан оскопил своего отца, его кровь пролилась в море и смешалась с солёной водой. Волны вспенились, поднялась белоснежная пена, и из этой морской пены явилась миру прекрасная девушка";
         const typewriterElement = document.getElementById('typewriter-text');
         const introStage = document.getElementById('intro-stage');
@@ -158,59 +157,56 @@
         const img20 = document.getElementById('img20');
         const img21 = document.getElementById('img21');
 
-        let textIsFinished = false; // Флаг завершения печати
+        let textIsFinished = false;
 
-        // Функция печати текста по словам
-        function typeWords(text, element, speed = 250) {
+        // Функция плавного появления по словам
+        function fadeWords(text, element, speed = 200) {
             const words = text.split(' ');
-            let currentWordIndex = 0;
+            
+            // Создаем span для каждого слова
+            words.forEach(word => {
+                const span = document.createElement('span');
+                span.innerText = word;
+                span.className = 'word-fade';
+                element.appendChild(span);
+                // Добавляем пробел после слова
+                element.appendChild(document.createTextNode(' '));
+            });
 
-            function typeNextWord() {
-                if (currentWordIndex < words.length) {
-                    element.innerHTML += words[currentWordIndex] + ' ';
-                    currentWordIndex++;
-                    setTimeout(typeNextWord, speed); // Задержка между словами
+            const spans = element.querySelectorAll('.word-fade');
+            let index = 0;
+
+            function showNext() {
+                if (index < spans.length) {
+                    spans[index].classList.add('visible');
+                    index++;
+                    setTimeout(showNext, speed);
                 } else {
-                    textIsFinished = true; // Текст полностью напечатан
+                    textIsFinished = true;
                 }
             }
-            typeNextWord();
+            showNext();
         }
 
-        // --- Запуск при загрузке ---
         window.addEventListener('load', () => {
-            // 1. Начинаем печатать текст по словам
-            typeWords(textToType, typewriterElement, 300); // 300мс на слово
+            fadeWords(textToType, typewriterElement, 250); // Скорость появления слов
         });
 
-        // --- Обработка Тапа по экрану ---
         bodyTrigger.addEventListener('click', () => {
-            // Если текст полностью появился
             if (textIsFinished) {
-                // 1. Плавно скрываем интро (Текст и 22)
                 introStage.classList.add('intro-hidden');
 
-                // 2. После исчезновения интро (через 1.5 сек) запускаем старую анимацию
                 setTimeout(() => {
-                    // А. Показываем контейнер основной сцены
                     mainStage.classList.add('main-visible');
 
-                    // Б. Запускаем "Руки" (20 и 21)
                     setTimeout(() => {
                         img20.classList.add('active-sides');
                         img21.classList.add('active-sides');
 
-                        // В. Появление изображения 19 (как и было)
                         setTimeout(() => {
                             img19.style.opacity = "1";
                         }, 2800); 
-                    }, 500); // Небольшая задержка перед руками
-                    
-                    // Удаляем интро из DOM, чтобы не мешало (опционально)
-                    setTimeout(() => {
-                        introStage.remove();
-                    }, 1500);
-
+                    }, 500);
                 }, 1500); 
             }
         });
