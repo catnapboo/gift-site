@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Sotvorenie Animation v3</title>
+    <title>Sotvorenie Animation v4</title>
     <style>
         body, html {
             margin: 0;
@@ -23,11 +23,11 @@
             align-items: center;
         }
 
-        /* Изображения 20 и 21 (Сотворение Адама) */
+        /* Изображения 20 и 21 (Сотворение Адама) — Сделаны КРУПНЕЕ */
         .hand-img {
             position: absolute;
-            width: 90%; 
-            max-width: 500px;
+            width: 120%; /* Увеличено со 100% */
+            max-width: 700px; /* Увеличен лимит для десктопа */
             height: auto;
             opacity: 0;
             z-index: 10;
@@ -36,17 +36,17 @@
             transition: transform 3s cubic-bezier(0.16, 1, 0.3, 1), opacity 2s ease-out;
         }
 
-        /* Левая рука (20): снизу-слева в центр */
+        /* Левая рука (20) — Финальное положение ближе к центру */
         #img20 {
-            right: 50%; /* Пальцы упираются в центр */
-            transform: translate(-50%, 30%) scale(0.8);
+            right: 48%; /* Сдвинуто ближе к центру (было 50%) */
+            transform: translate(-40%, 20%) scale(0.9);
             transform-origin: right center;
         }
 
-        /* Правая рука (21): сверху-справа в центр */
+        /* Правая рука (21) — Финальное положение ближе к центру */
         #img21 {
-            left: 50%; /* Пальцы упираются в центр */
-            transform: translate(50%, -30%) scale(0.8);
+            left: 48%; /* Сдвинуто ближе к центру (было 50%) */
+            transform: translate(40%, -20%) scale(0.9);
             transform-origin: left center;
         }
 
@@ -55,12 +55,12 @@
             transform: translate(0, 0) scale(1) !important;
         }
 
-        /* Изображение 19 (как в предыдущем коде) */
+        /* Изображение 19 — Сделано ВЫШЕ */
         #img19 {
             position: absolute;
             left: 0;
-            width: 100%; /* Касается краев по бокам */
-            top: 200px;  /* Опущено ниже от верхнего края */
+            width: 100%; 
+            top: 80px;  /* Было 200px — теперь значительно выше */
             height: auto;
             opacity: 0;
             z-index: 5;
@@ -72,11 +72,8 @@
 <body>
 
     <div class="container">
-        <!-- Руки соприкасаются здесь -->
         <img src="20.png" id="img20" class="hand-img">
         <img src="21.png" id="img21" class="hand-img">
-        
-        <!-- Фоновое изображение 19 -->
         <img src="19.png" id="img19">
     </div>
 
@@ -86,12 +83,10 @@
             const img20 = document.getElementById('img20');
             const img21 = document.getElementById('img21');
 
-            // 1. Запуск движения рук (20 и 21)
             setTimeout(() => {
                 img20.classList.add('active-sides');
                 img21.classList.add('active-sides');
 
-                // 2. После соприкосновения (через 3 сек) плавно проявляем 19.png
                 setTimeout(() => {
                     img19.style.opacity = "1";
                 }, 3000); 
