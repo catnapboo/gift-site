@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animation Stage</title>
+    <title>Animation Stage v2</title>
     <style>
         body, html {
             margin: 0;
@@ -20,11 +20,11 @@
             height: 100vh;
         }
 
-        /* Изображения 20 и 21 (увеличены в 6 раз) */
+        /* Изображения 20 и 21 (уменьшены в 2 раза относительно прошлого варианта) */
         .side-img {
             position: absolute;
             top: 0;
-            width: 300%; /* Увеличение масштаба */
+            width: 150%; 
             height: auto;
             opacity: 0;
             z-index: 10;
@@ -35,13 +35,13 @@
         /* 20: снизу-слева в центр */
         #img20 {
             left: 0;
-            transform: translate(-50%, 50%);
+            transform: translate(-40%, 40%);
         }
 
         /* 21: сверху-справа в центр */
         #img21 {
             right: 0;
-            transform: translate(50%, -50%);
+            transform: translate(40%, -40%);
         }
 
         .active-sides {
@@ -49,12 +49,13 @@
             transform: translate(0, 0) !important;
         }
 
-        /* Изображение 19 (на всю ширину, опущено ниже) */
+        /* Изображение 19 (сделано больше и опущено) */
         #img19 {
             position: absolute;
             left: 0;
-            width: 100%; /* Касается краев по бокам */
-            top: 200px;  /* Опущено ниже */
+            width: 100%;
+            top: 250px; /* Опущено чуть ниже */
+            transform: scale(1.2); /* Увеличено */
             height: auto;
             opacity: 0;
             z-index: 5;
@@ -76,12 +77,12 @@
             const img20 = document.getElementById('img20');
             const img21 = document.getElementById('img21');
 
-            // 1. Запуск 20 и 21 (встреча в центре)
+            // 1. Запуск движения 20 и 21
             setTimeout(() => {
                 img20.classList.add('active-sides');
                 img21.classList.add('active-sides');
 
-                // 2. Появление 19 после завершения движения боковых картинок
+                // 2. Появление 19 после завершения движения боковых
                 setTimeout(() => {
                     img19.style.opacity = "1";
                 }, 2500); 
