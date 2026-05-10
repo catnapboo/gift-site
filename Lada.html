@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Birth of Venus Intro v11</title>
+    <title>Birth of Venus Intro v12</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -41,7 +41,7 @@
             height: auto;
             z-index: 2001;
             opacity: 0;
-            transition: opacity 1s ease-in-out; /* Время проявления картинки */
+            transition: opacity 1s ease-in-out;
         }
 
         #img22.visible {
@@ -58,11 +58,14 @@
             margin-top: 60px;
         }
 
+        /* ИЗМЕНЕНИЕ: Сделали появление значительно мягче */
         .word-fade {
             opacity: 0;
             display: inline-block;
-            transition: opacity 0.8s ease-in-out; 
+            /* Увеличено время появления до 1.2s и добавлена мягкая кривая */
+            transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1); 
             margin-right: 6px;
+            will-change: opacity; /* Подсказка браузеру для плавной анимации */
         }
 
         .word-fade.visible {
@@ -189,13 +192,11 @@
         }
 
         window.addEventListener('load', () => {
-            // 1. Сначала ждем секунду перед стартом появления логотипа
             setTimeout(() => {
                 img22.classList.add('visible');
 
-                // 2. Ждем еще 1.1 секунду (пока доиграет transition картинки) 
-                // и только потом запускаем текст
                 setTimeout(() => {
+                    // Скорость 180мс оставлена, но само проявление слова теперь длиннее и мягче
                     fadeWords(textToType, typewriterElement, 180); 
                 }, 1100); 
 
