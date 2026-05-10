@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Birth of Venus Intro v21</title>
+    <title>Birth of Venus Intro v22</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -99,7 +99,6 @@
 
         /* --- АНИМАЦИЯ ПО ДУГЕ --- */
         
-        /* 24: Вылет сверху по дуге */
         .side-24 {
             position: absolute;
             top: 0;
@@ -111,10 +110,9 @@
             pointer-events: none;
         }
 
-        /* 25: Вылет снизу по дуге и позиция ниже */
         .side-25 {
             position: absolute;
-            top: 250px; /* Опустили ниже (было 100px) */
+            top: 250px; 
             width: 45%;
             max-width: 300px;
             height: auto;
@@ -123,7 +121,6 @@
             pointer-events: none;
         }
 
-        /* Анимации для дугового вылета */
         @keyframes arcInTopLeft {
             0% { opacity: 0; transform: translate(-100%, -100%) rotate(-20deg) scaleX(-1); }
             100% { opacity: 1; transform: translate(0, 0) rotate(0deg) scaleX(-1); }
@@ -141,7 +138,6 @@
             100% { opacity: 1; transform: translate(0, 0) rotate(0deg) scaleX(1); }
         }
 
-        /* Классы для запуска анимации */
         .animate-24-l { animation: arcInTopLeft 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
         .animate-24-r { animation: arcInTopRight 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
         .animate-25-l { animation: arcInBottomLeft 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
@@ -289,15 +285,17 @@
                                 i25l.classList.add('animate-25-l');
                                 i25r.classList.add('animate-25-r');
 
-                                // --- ИЗМЕНЕНИЕ ЗДЕСЬ: Ускорили старт анимации фона ---
                                 setTimeout(() => {
                                     // 4. Появление рук и фона
                                     img20.classList.add('active-sides');
                                     img21.classList.add('active-sides');
+                                    
+                                    // --- ИЗМЕНЕНИЕ ЗДЕСЬ: Фон начинает появляться раньше ---
                                     setTimeout(() => {
                                         img19.style.opacity = "1";
-                                    }, 2800); 
-                                }, 500); // Уменьшили задержку до 500мс (было 1500мс)
+                                    }, 2200); // Уменьшено задержку с 2800 до 2200мс
+
+                                }, 500); 
 
                             }, 1500);
                         }, 1500);
