@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Birth of Venus Intro v16</title>
+    <title>Birth of Venus Intro v17</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -33,21 +33,18 @@
             background-color: #5773aa;
         }
 
-        /* Изображение 23 (Интро): сделано чуть меньше */
         #img23 {
             position: absolute;
             top: 40px;
-            width: 30%; /* Было 40% */
-            max-width: 160px; /* Было 200px */
+            width: 30%; 
+            max-width: 160px; 
             height: auto;
             z-index: 2001;
             opacity: 0;
             transition: opacity 1s ease-in-out;
         }
 
-        #img23.visible {
-            opacity: 1;
-        }
+        #img23.visible { opacity: 1; }
 
         .story-text {
             font-family: 'Great Vibes', cursive;
@@ -67,16 +64,14 @@
             will-change: opacity;
         }
 
-        .word-fade.visible {
-            opacity: 1;
-        }
+        .word-fade.visible { opacity: 1; }
 
         .intro-hidden {
             opacity: 0 !important;
             pointer-events: none;
         }
 
-        /* --- ЭТАП 2: ОСНОВНАЯ СЦЕНА (22, 20, 21, 19) --- */
+        /* --- ЭТАП 2: ОСНОВНАЯ СЦЕНА --- */
         #main-stage {
             position: relative;
             width: 100%;
@@ -89,20 +84,47 @@
             transition: opacity 1.5s ease-in-out;
         }
 
-        .main-visible {
-            opacity: 1 !important;
-        }
+        .main-visible { opacity: 1 !important; }
 
-        /* Изображение 22 (Финал): без изменений */
+        /* Изображение 22 (Центральный логотип) */
         #img22 {
             position: absolute;
             top: 40px;
             width: 40%; 
             max-width: 200px; 
             height: auto;
-            z-index: 12;
-            opacity: 1; 
+            z-index: 15;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
         }
+
+        /* Изображения 24 (По краям) */
+        .side-24 {
+            position: absolute;
+            top: 100px; /* Регулируйте высоту по вкусу */
+            width: 15%; /* Компактный размер для краев */
+            max-width: 100px;
+            height: auto;
+            z-index: 14;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        #img24-left { left: 0; }
+        #img24-right { right: 0; transform: scaleX(-1); /* Зеркально */ }
+
+        /* Изображения 25 (Под 24) */
+        .side-25 {
+            position: absolute;
+            top: 220px; /* Ниже чем 24 */
+            width: 15%;
+            max-width: 100px;
+            height: auto;
+            z-index: 14;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        #img25-left { left: 0; }
+        #img25-right { right: 0; transform: scaleX(-1); /* Зеркально */ }
 
         .hand-img {
             position: absolute;
@@ -147,17 +169,30 @@
             will-change: opacity;
             transition: opacity 2s ease-in-out; 
         }
+
+        /* Служебный класс для проявления */
+        .fade-in { opacity: 1 !important; }
+
     </style>
 </head>
 <body id="body-trigger">
 
     <div id="intro-stage">
-        <img src="23.png" id="img23" alt="Logo 23">
+        <img src="23.png" id="img23">
         <div id="typewriter-text" class="story-text"></div>
     </div>
 
     <div id="main-stage">
-        <img src="22.png" id="img22" alt="Logo 22">
+        <!-- Новые элементы сцены -->
+        <img src="22.png" id="img22">
+        
+        <img src="24.png" id="img24-left" class="side-24">
+        <img src="24.png" id="img24-right" class="side-24">
+        
+        <img src="25.png" id="img25-left" class="side-25">
+        <img src="25.png" id="img25-right" class="side-25">
+
+        <!-- Руки и фон -->
         <img src="20.png" id="img20" class="hand-img">
         <img src="21.png" id="img21" class="hand-img">
         <img src="19.png" id="img19">
@@ -171,6 +206,10 @@
         const bodyTrigger = document.getElementById('body-trigger');
         
         const img23 = document.getElementById('img23');
+        const img22 = document.getElementById('img22');
+        const sides24 = document.querySelectorAll('.side-24');
+        const sides25 = document.querySelectorAll('.side-25');
+
         const img19 = document.getElementById('img19');
         const img20 = document.getElementById('img20');
         const img21 = document.getElementById('img21');
@@ -186,18 +225,14 @@
                 element.appendChild(span);
                 element.appendChild(document.createTextNode(' '));
             });
-
             const spans = element.querySelectorAll('.word-fade');
             let index = 0;
-
             function showNext() {
                 if (index < spans.length) {
                     spans[index].classList.add('visible');
                     index++;
                     setTimeout(showNext, speed);
-                } else {
-                    textIsFinished = true;
-                }
+                } else { textIsFinished = true; }
             }
             showNext();
         }
@@ -218,13 +253,31 @@
                 setTimeout(() => {
                     mainStage.classList.add('main-visible');
                     
+                    // ПОСЛЕДОВАТЕЛЬНОСТЬ ПОЯВЛЕНИЯ:
+                    
+                    // 1. Появление 22
                     setTimeout(() => {
-                        img20.classList.add('active-sides');
-                        img21.classList.add('active-sides');
-                        
+                        img22.classList.add('fade-in');
+
+                        // 2. Появление 24 (через 1.5 сек после 22)
                         setTimeout(() => {
-                            img19.style.opacity = "1";
-                        }, 2800); 
+                            sides24.forEach(el => el.classList.add('fade-in'));
+
+                            // 3. Появление 25 (через 1.5 сек после 24)
+                            setTimeout(() => {
+                                sides25.forEach(el => el.classList.add('fade-in'));
+
+                                // 4. Появление рук 20, 21 и фона 19
+                                setTimeout(() => {
+                                    img20.classList.add('active-sides');
+                                    img21.classList.add('active-sides');
+                                    setTimeout(() => {
+                                        img19.style.opacity = "1";
+                                    }, 2800); 
+                                }, 1000);
+
+                            }, 1500);
+                        }, 1500);
                     }, 500);
                 }, 1500); 
             }
