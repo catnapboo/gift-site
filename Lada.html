@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Birth of Venus Intro v27</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&family=Amarante&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin: 0;
@@ -199,6 +199,51 @@
             transition: opacity 2s ease-in-out; 
         }
 
+        /* --- НОВЫЙ БЛОК: ФОН 27 И ПРЯМОУГОЛЬНИК --- */
+        #footer-container {
+            position: absolute;
+            left: 0;
+            top: 760px; /* Совпадает с началом img26 */
+            width: 100%;
+            min-height: 400px;
+            z-index: 3; /* Ниже чем img26 (z-index 4) */
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #img27-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        #rect-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #e8ddb7;
+            opacity: 0.7; /* Полупрозрачность */
+            z-index: 2;
+        }
+
+        #natal-text {
+            position: relative;
+            z-index: 3;
+            font-family: 'Amarante', serif;
+            font-size: 32px;
+            color: #333;
+            margin-top: 40px; /* Отступ от верха изображения 27 */
+        }
+
         .fade-in { opacity: 1 !important; }
 
     </style>
@@ -223,6 +268,13 @@
         <img src="21.png" id="img21" class="hand-img">
         <img src="19.png" id="img19">
         <img src="26.png" id="img26">
+
+        <!-- Контейнер с фоном 27 и текстом -->
+        <div id="footer-container">
+            <img src="27.jpg" id="img27-bg">
+            <div id="rect-overlay"></div>
+            <div id="natal-text">Natal chart</div>
+        </div>
     </div>
 
     <script>
@@ -244,57 +296,43 @@
         const img26 = document.getElementById('img26');
         const img20 = document.getElementById('img20');
         const img21 = document.getElementById('img21');
+        const footerContainer = document.getElementById('footer-container');
 
         let textIsFinished = false;
 
-        // ПОЛНОСТЬЮ ПЕРЕПИСАННЫЙ БЛОК ПОЯВЛЕНИЯ ТЕКСТА
         function fadeWords(text, element, speed) {
             const words = text.split(' ');
             const spans = [];
 
-            // Предварительно создаем все элементы
             words.forEach((word, index) => {
                 const span = document.createElement('span');
                 span.innerText = word;
                 span.className = 'word-fade';
-                
-                // Настройки для первого слова (1с анимация, принудительный 0)
                 if (index === 0) {
                     span.style.transitionDuration = "1000ms";
                     span.style.opacity = "0";
                 }
-                
                 element.appendChild(span);
                 element.appendChild(document.createTextNode(' '));
                 spans.push(span);
             });
 
             let currentIdx = 0;
-
             function triggerNext() {
                 if (currentIdx >= spans.length) {
                     textIsFinished = true;
                     return;
                 }
-
                 const currentSpan = spans[currentIdx];
-                
-                // Используем requestAnimationFrame для гарантии мягкого старта
                 requestAnimationFrame(() => {
                     requestAnimationFrame(() => {
                         currentSpan.classList.add('visible');
                     });
                 });
-
                 currentIdx++;
-
-                // Логика задержек
-                let delay = speed;
-                if (currentIdx === 1) delay = 500; // Второе слово через 0.5с после начала первого
-
+                let delay = (currentIdx === 1) ? 500 : speed;
                 setTimeout(triggerNext, delay);
             }
-
             triggerNext();
         }
 
@@ -330,6 +368,7 @@
                                 setTimeout(() => {
                                     img19.style.opacity = "1";
                                     img26.style.opacity = "1";
+                                    footerContainer.style.opacity = "1"; // Появляется вместе с img26
                                 }, 1500); 
 
                             }, 1500); 
