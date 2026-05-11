@@ -254,9 +254,9 @@
                 span.innerText = word;
                 span.className = 'word-fade';
                 
-                // Индивидуальная длительность для первого слова
+                // 1. Длительность анимации первого слова в 1 сек
                 if (index === 0) {
-                    span.style.transitionDuration = "0.5s";
+                    span.style.transitionDuration = "1s";
                 }
                 
                 element.appendChild(span);
@@ -268,7 +268,10 @@
                 if (index < spans.length) {
                     spans[index].classList.add('visible');
                     index++;
-                    setTimeout(showNext, speed);
+                    
+                    // 2. Начало текста (второе слово) через 0.5с после начала первого
+                    let currentSpeed = (index === 1) ? 500 : speed;
+                    setTimeout(showNext, currentSpeed);
                 } else { textIsFinished = true; }
             }
             showNext();
