@@ -254,9 +254,9 @@
                 span.innerText = word;
                 span.className = 'word-fade';
                 
-                // Настройка плавности для первого слова
+                // Индивидуальная длительность для первого слова
                 if (index === 0) {
-                    span.style.transitionDuration = "3s";
+                    span.style.transitionDuration = "0.5s";
                 }
                 
                 element.appendChild(span);
@@ -266,14 +266,9 @@
             let index = 0;
             function showNext() {
                 if (index < spans.length) {
-                    // Небольшая доп. задержка перед запуском первого слова для мягкости
-                    let currentDelay = (index === 0) ? 500 : speed;
-                    
-                    setTimeout(() => {
-                        spans[index].classList.add('visible');
-                        index++;
-                        showNext();
-                    }, currentDelay);
+                    spans[index].classList.add('visible');
+                    index++;
+                    setTimeout(showNext, speed);
                 } else { textIsFinished = true; }
             }
             showNext();
