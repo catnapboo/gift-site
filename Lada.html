@@ -199,12 +199,11 @@
             transition: opacity 2s ease-in-out; 
         }
 
-        /* --- НОВОЕ ИЗОБРАЖЕНИЕ 27 --- */
         #img27 {
             position: absolute;
             left: 0;
             width: 100%;
-            top: 760px; /* Пока привязано к той же точке, что и 26 */
+            top: 1500px; /* ЗНАЧИТЕЛЬНО НИЖЕ */
             height: auto;
             opacity: 0;
             z-index: 3;
@@ -236,7 +235,7 @@
         <img src="21.png" id="img21" class="hand-img">
         <img src="19.png" id="img19">
         <img src="26.png" id="img26">
-        <img src="27.jpg" id="img27"> <!-- Добавлено сюда -->
+        <img src="27.jpg" id="img27">
     </div>
 
     <script>
@@ -255,7 +254,7 @@
 
         const img19 = document.getElementById('img19');
         const img26 = document.getElementById('img26');
-        const img27 = document.getElementById('img27'); // Добавлена переменная
+        const img27 = document.getElementById('img27');
         const img20 = document.getElementById('img20');
         const img21 = document.getElementById('img21');
 
@@ -328,7 +327,7 @@
                                 setTimeout(() => {
                                     img19.style.opacity = "1";
                                     img26.style.opacity = "1";
-                                    img27.style.opacity = "1"; // Появляется вместе с 26
+                                    img27.style.opacity = "1";
                                 }, 1500); 
 
                             }, 1500); 
