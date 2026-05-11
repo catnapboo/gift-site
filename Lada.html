@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Birth of Venus Intro v24</title>
+    <title>Birth of Venus Intro v25</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -98,7 +98,6 @@
         }
 
         /* --- АНИМАЦИЯ ПО ДУГЕ --- */
-        
         .side-24 {
             position: absolute;
             top: 0;
@@ -176,17 +175,19 @@
             transform: translate(0, 0) scale(1) !important;
         }
 
-        #img19 {
+        #img19, #img26 {
             position: absolute;
             left: 0;
             width: 100%; 
             top: 130px; 
             height: auto;
             opacity: 0;
-            z-index: 5;
             will-change: opacity;
             transition: opacity 2s ease-in-out; 
         }
+
+        #img19 { z-index: 5; }
+        #img26 { z-index: 4; } /* Слой под изображением 19 */
 
         .fade-in { opacity: 1 !important; }
 
@@ -211,6 +212,7 @@
         <img src="20.png" id="img20" class="hand-img">
         <img src="21.png" id="img21" class="hand-img">
         <img src="19.png" id="img19">
+        <img src="26.png" id="img26">
     </div>
 
     <script>
@@ -229,6 +231,7 @@
         const i25r = document.getElementById('img25-right');
 
         const img19 = document.getElementById('img19');
+        const img26 = document.getElementById('img26');
         const img20 = document.getElementById('img20');
         const img21 = document.getElementById('img21');
 
@@ -275,20 +278,18 @@
                         img22.classList.add('fade-in');
 
                         setTimeout(() => {
-                            // Одновременный вылет 24 и 25
                             i24l.classList.add('animate-24-l');
                             i24r.classList.add('animate-24-r');
                             i25l.classList.add('animate-25-l');
                             i25r.classList.add('animate-25-r');
 
-                            // Руки появляются за 1 сек до конца полета (через 1.5с)
                             setTimeout(() => {
                                 img20.classList.add('active-sides');
                                 img21.classList.add('active-sides');
                                 
-                                // ИЗМЕНЕНИЕ: Фон появляется еще раньше (через 1.5с вместо 2.2с)
                                 setTimeout(() => {
                                     img19.style.opacity = "1";
+                                    img26.style.opacity = "1"; // Появляется вместе с 19
                                 }, 1500); 
 
                             }, 1500); 
