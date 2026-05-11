@@ -17,6 +17,7 @@
             cursor: pointer;
         }
 
+        /* --- ЭТАП 1: ИНТРО --- */
         #intro-stage {
             position: fixed;
             top: 0;
@@ -70,6 +71,7 @@
             pointer-events: none;
         }
 
+        /* --- ЭТАП 2: ОСНОВНАЯ СЦЕНА --- */
         #main-stage {
             position: relative;
             width: 100%;
@@ -95,6 +97,7 @@
             transition: opacity 1.5s ease-in-out;
         }
 
+        /* --- АНИМАЦИЯ ПО ДУГЕ --- */
         .side-24 {
             position: absolute;
             top: 0;
@@ -139,6 +142,7 @@
         .animate-25-l { animation: arcInBottomLeft 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
         .animate-25-r { animation: arcInBottomRight 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
+        /* --- ОСТАЛЬНЫЕ ЭЛЕМЕНТЫ --- */
         .hand-img {
             position: absolute;
             height: auto;
@@ -179,6 +183,7 @@
             height: auto;
             opacity: 0;
             z-index: 5;
+            will-change: opacity;
             transition: opacity 2s ease-in-out; 
         }
 
@@ -190,51 +195,21 @@
             height: auto;
             opacity: 0;
             z-index: 4;
+            will-change: opacity;
             transition: opacity 2s ease-in-out; 
         }
 
-        /* --- ОБНОВЛЕННЫЙ БЛОК: НАТАЛЬНЫЙ КОНТЕЙНЕР --- */
-        #natal-container {
-            position: relative; /* Чтобы шел в потоке после контента */
-            margin-top: 760px;   /* Совпадаем с началом img26 */
-            left: 0;
-            width: 100%;
-            height: auto;
-            min-height: 500px;
-            z-index: 3;
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #bg-27 {
-            width: 100%;
-            height: auto;
-            display: block; /* Убирает лишние отступы снизу */
-            z-index: 1;
-        }
-
-        #text-overlay {
+        /* --- НОВОЕ ИЗОБРАЖЕНИЕ 27 --- */
+        #img27 {
             position: absolute;
-            top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background-color: #e8ddb7;
-            opacity: 0.6;
-            z-index: 2;
-        }
-
-        #natal-title {
-            position: absolute; /* Чтобы текст был ПОВЕРХ фона 27 */
+            top: 760px; /* Пока привязано к той же точке, что и 26 */
+            height: auto;
+            opacity: 0;
             z-index: 3;
-            font-family: 'Amarante', serif;
-            font-size: 38px;
-            color: #4a4a4a;
-            top: 120px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            will-change: opacity;
+            transition: opacity 2s ease-in-out;
         }
 
         .fade-in { opacity: 1 !important; }
@@ -261,12 +236,7 @@
         <img src="21.png" id="img21" class="hand-img">
         <img src="19.png" id="img19">
         <img src="26.png" id="img26">
-
-        <div id="natal-container">
-            <img src="27.jpg" id="bg-27">
-            <div id="text-overlay"></div>
-            <div id="natal-title">Natal chart</div>
-        </div>
+        <img src="27.jpg" id="img27"> <!-- Добавлено сюда -->
     </div>
 
     <script>
@@ -285,7 +255,7 @@
 
         const img19 = document.getElementById('img19');
         const img26 = document.getElementById('img26');
-        const natalContainer = document.getElementById('natal-container');
+        const img27 = document.getElementById('img27'); // Добавлена переменная
         const img20 = document.getElementById('img20');
         const img21 = document.getElementById('img21');
 
@@ -358,7 +328,7 @@
                                 setTimeout(() => {
                                     img19.style.opacity = "1";
                                     img26.style.opacity = "1";
-                                    natalContainer.style.opacity = "1";
+                                    img27.style.opacity = "1"; // Появляется вместе с 26
                                 }, 1500); 
 
                             }, 1500); 
