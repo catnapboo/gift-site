@@ -191,7 +191,7 @@
             position: absolute;
             left: 0;
             width: 100%; 
-            top: 760px; /* Значительно опустили (было 550px) */
+            top: 760px; 
             height: auto;
             opacity: 0;
             z-index: 4;
@@ -249,10 +249,16 @@
 
         function fadeWords(text, element, speed) {
             const words = text.split(' ');
-            words.forEach(word => {
+            words.forEach((word, index) => {
                 const span = document.createElement('span');
                 span.innerText = word;
                 span.className = 'word-fade';
+                
+                // Настройка плавности для первого слова
+                if (index === 0) {
+                    span.style.transitionDuration = "3s";
+                }
+                
                 element.appendChild(span);
                 element.appendChild(document.createTextNode(' '));
             });
@@ -260,9 +266,14 @@
             let index = 0;
             function showNext() {
                 if (index < spans.length) {
-                    spans[index].classList.add('visible');
-                    index++;
-                    setTimeout(showNext, speed);
+                    // Небольшая доп. задержка перед запуском первого слова для мягкости
+                    let currentDelay = (index === 0) ? 500 : speed;
+                    
+                    setTimeout(() => {
+                        spans[index].classList.add('visible');
+                        index++;
+                        showNext();
+                    }, currentDelay);
                 } else { textIsFinished = true; }
             }
             showNext();
