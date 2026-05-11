@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Birth of Venus Intro v27</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    <title>Birth of Venus Intro v28</title>
+    <!-- Добавлен шрифт Amarante -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&family=Amarante&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
-            height: 100%;
+            height: auto; /* Изменено на auto для прокрутки вниз */
             background-color: #5773aa;
             overflow-x: hidden;
             font-family: 'Montserrat', sans-serif;
@@ -75,10 +76,9 @@
         #main-stage {
             position: relative;
             width: 100%;
-            height: 100vh;
+            height: 2000px; /* Увеличена высота для размещения всех блоков */
             display: flex;
             justify-content: center;
-            align-items: center;
             z-index: 10;
             opacity: 0;
             transition: opacity 1.5s ease-in-out;
@@ -91,112 +91,81 @@
             top: 40px;
             width: 40%; 
             max-width: 200px; 
-            height: auto;
             z-index: 15;
             opacity: 0;
             transition: opacity 1.5s ease-in-out;
         }
 
-        /* --- АНИМАЦИЯ ПО ДУГЕ --- */
-        .side-24 {
-            position: absolute;
-            top: 0;
-            width: 45%;
-            max-width: 300px;
-            height: auto;
-            z-index: 1;
-            opacity: 0;
-            pointer-events: none;
-        }
+        .side-24 { position: absolute; top: 0; width: 45%; max-width: 300px; z-index: 1; opacity: 0; }
+        .side-25 { position: absolute; top: 250px; width: 45%; max-width: 300px; z-index: 1; opacity: 0; }
 
-        .side-25 {
-            position: absolute;
-            top: 250px; 
-            width: 45%;
-            max-width: 300px;
-            height: auto;
-            z-index: 1;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        @keyframes arcInTopLeft {
-            0% { opacity: 0; transform: translate(-100%, -100%) rotate(-20deg) scaleX(-1); }
-            100% { opacity: 1; transform: translate(0, 0) rotate(0deg) scaleX(-1); }
-        }
-        @keyframes arcInTopRight {
-            0% { opacity: 0; transform: translate(100%, -100%) rotate(20deg) scaleX(1); }
-            100% { opacity: 1; transform: translate(0, 0) rotate(0deg) scaleX(1); }
-        }
-        @keyframes arcInBottomLeft {
-            0% { opacity: 0; transform: translate(-100%, 100%) rotate(20deg) scaleX(-1); }
-            100% { opacity: 1; transform: translate(0, 0) rotate(0deg) scaleX(-1); }
-        }
-        @keyframes arcInBottomRight {
-            0% { opacity: 0; transform: translate(100%, 100%) rotate(-20deg) scaleX(1); }
-            100% { opacity: 1; transform: translate(0, 0) rotate(0deg) scaleX(1); }
-        }
+        @keyframes arcInTopLeft { 0% { opacity: 0; transform: translate(-100%, -100%) rotate(-20deg) scaleX(-1); } 100% { opacity: 1; transform: translate(0, 0) rotate(0deg) scaleX(-1); } }
+        @keyframes arcInTopRight { 0% { opacity: 0; transform: translate(100%, -100%) rotate(20deg) scaleX(1); } 100% { opacity: 1; transform: translate(0, 0) rotate(0deg) scaleX(1); } }
+        @keyframes arcInBottomLeft { 0% { opacity: 0; transform: translate(-100%, 100%) rotate(20deg) scaleX(-1); } 100% { opacity: 1; transform: translate(0, 0) rotate(0deg) scaleX(-1); } }
+        @keyframes arcInBottomRight { 0% { opacity: 0; transform: translate(100%, 100%) rotate(-20deg) scaleX(1); } 100% { opacity: 1; transform: translate(0, 0) rotate(0deg) scaleX(1); } }
 
         .animate-24-l { animation: arcInTopLeft 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
         .animate-24-r { animation: arcInTopRight 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
         .animate-25-l { animation: arcInBottomLeft 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
         .animate-25-r { animation: arcInBottomRight 2.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
-        /* --- ОСТАЛЬНЫЕ ЭЛЕМЕНТЫ --- */
-        .hand-img {
-            position: absolute;
-            height: auto;
-            opacity: 0;
-            z-index: 11;
-            margin-top: -140px; 
-            pointer-events: none;
-            will-change: transform, opacity;
-            transition: transform 3s cubic-bezier(0.16, 1, 0.3, 1), opacity 2s ease-out;
-        }
+        .hand-img { position: absolute; opacity: 0; z-index: 11; margin-top: -140px; transition: transform 3s cubic-bezier(0.16, 1, 0.3, 1), opacity 2s ease-out; }
+        #img20 { right: 48%; width: 56.7%; max-width: 283.5px; transform: translate(-40%, 20%) scale(0.9); transform-origin: right center; }
+        #img21 { left: 48%; width: 72%; max-width: 360px; transform: translate(40%, -20%) scale(0.9); transform-origin: left center; }
+        .active-sides { opacity: 1 !important; transform: translate(0, 0) scale(1) !important; }
 
-        #img20 {
-            right: 48%; 
-            width: 56.7%; 
-            max-width: 283.5px; 
-            transform: translate(-40%, 20%) scale(0.9);
-            transform-origin: right center;
-        }
+        #img19 { position: absolute; left: 0; width: 100%; top: 130px; opacity: 0; z-index: 5; transition: opacity 2s ease-in-out; }
 
-        #img21 {
-            left: 48%; 
-            width: 72%; 
-            max-width: 360px; 
-            transform: translate(40%, -20%) scale(0.9);
-            transform-origin: left center;
-        }
-
-        .active-sides {
-            opacity: 1 !important;
-            transform: translate(0, 0) scale(1) !important;
-        }
-
-        #img19 {
-            position: absolute;
-            left: 0;
-            width: 100%; 
-            top: 130px; 
-            height: auto;
-            opacity: 0;
-            z-index: 5;
-            will-change: opacity;
-            transition: opacity 2s ease-in-out; 
-        }
-
+        /* Изображение 26 */
         #img26 {
             position: absolute;
             left: 0;
             width: 100%; 
-            top: 760px; /* Значительно опустили (было 550px) */
-            height: auto;
+            top: 850px; /* Регулируйте высоту здесь */
             opacity: 0;
             z-index: 4;
-            will-change: opacity;
             transition: opacity 2s ease-in-out; 
+        }
+
+        /* --- БЛОК НАТАЛЬНОЙ КАРТЫ --- */
+        #natal-container {
+            position: absolute;
+            top: 1300px; /* Начало блока натальной карты */
+            left: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            z-index: 20;
+        }
+
+        #img27 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+        }
+
+        #natal-title {
+            font-family: 'Amarante', serif;
+            font-size: 40px;
+            color: #F5EDD1;
+            z-index: 10;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        #natal-rect {
+            width: 90%;
+            max-width: 600px;
+            min-height: 500px; /* Высота под будущий контент */
+            background-color: #e8ddb7;
+            z-index: 5;
+            border-radius: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
         .fade-in { opacity: 1 !important; }
@@ -223,6 +192,13 @@
         <img src="21.png" id="img21" class="hand-img">
         <img src="19.png" id="img19">
         <img src="26.png" id="img26">
+
+        <!-- Блок Натальной карты -->
+        <div id="natal-container">
+            <img src="27.jpg" id="img27">
+            <div id="natal-title">Natal chart</div>
+            <div id="natal-rect"></div>
+        </div>
     </div>
 
     <script>
@@ -234,25 +210,28 @@
         
         const img23 = document.getElementById('img23');
         const img22 = document.getElementById('img22');
-        
         const i24l = document.getElementById('img24-left');
         const i24r = document.getElementById('img24-right');
         const i25l = document.getElementById('img25-left');
         const i25r = document.getElementById('img25-right');
-
         const img19 = document.getElementById('img19');
         const img26 = document.getElementById('img26');
         const img20 = document.getElementById('img20');
         const img21 = document.getElementById('img21');
+        const natalContainer = document.getElementById('natal-container');
 
         let textIsFinished = false;
 
         function fadeWords(text, element, speed) {
             const words = text.split(' ');
-            words.forEach(word => {
+            words.forEach((word, index) => {
                 const span = document.createElement('span');
                 span.innerText = word;
                 span.className = 'word-fade';
+                // Делаем ПЕРВОЕ СЛОВО еще более плавным (увеличиваем время перехода)
+                if (index === 0) {
+                    span.style.transitionDuration = "3s";
+                }
                 element.appendChild(span);
                 element.appendChild(document.createTextNode(' '));
             });
@@ -298,8 +277,10 @@
                                 img21.classList.add('active-sides');
                                 
                                 setTimeout(() => {
-                                    img19.style.opacity = "1";
-                                    img26.style.opacity = "1";
+                                    img19.classList.add('fade-in');
+                                    img26.classList.add('fade-in');
+                                    // Появляется блок натальной карты вместе с нижними изображениями
+                                    natalContainer.classList.add('fade-in');
                                 }, 1500); 
 
                             }, 1500); 
