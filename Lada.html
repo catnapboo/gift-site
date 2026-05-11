@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Birth of Venus Intro v25</title>
+    <title>Birth of Venus Intro v26</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -175,19 +175,30 @@
             transform: translate(0, 0) scale(1) !important;
         }
 
-        #img19, #img26 {
+        #img19 {
             position: absolute;
             left: 0;
             width: 100%; 
             top: 130px; 
             height: auto;
             opacity: 0;
+            z-index: 5;
             will-change: opacity;
             transition: opacity 2s ease-in-out; 
         }
 
-        #img19 { z-index: 5; }
-        #img26 { z-index: 4; } /* Слой под изображением 19 */
+        /* 26 теперь привязан к нижней границе 19 через JS или фиксированный отступ */
+        #img26 {
+            position: absolute;
+            left: 0;
+            width: 100%; 
+            top: 550px; /* Сдвинули вниз, чтобы не было наслоения */
+            height: auto;
+            opacity: 0;
+            z-index: 4;
+            will-change: opacity;
+            transition: opacity 2s ease-in-out; 
+        }
 
         .fade-in { opacity: 1 !important; }
 
@@ -289,7 +300,10 @@
                                 
                                 setTimeout(() => {
                                     img19.style.opacity = "1";
-                                    img26.style.opacity = "1"; // Появляется вместе с 19
+                                    
+                                    // Динамически вычисляем позицию 26 после того, как 19 начало проявляться
+                                    // (или используем фиксированный top в CSS, если высота предсказуема)
+                                    img26.style.opacity = "1";
                                 }, 1500); 
 
                             }, 1500); 
