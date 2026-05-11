@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Birth of Venus Intro v26</title>
+    <title>Birth of Venus Intro v27</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@400&display=swap" rel="stylesheet">
     <style>
         body, html {
@@ -187,12 +187,11 @@
             transition: opacity 2s ease-in-out; 
         }
 
-        /* 26 теперь привязан к нижней границе 19 через JS или фиксированный отступ */
         #img26 {
             position: absolute;
             left: 0;
             width: 100%; 
-            top: 550px; /* Сдвинули вниз, чтобы не было наслоения */
+            top: 850px; /* Значительно опустили (было 550px) */
             height: auto;
             opacity: 0;
             z-index: 4;
@@ -300,9 +299,6 @@
                                 
                                 setTimeout(() => {
                                     img19.style.opacity = "1";
-                                    
-                                    // Динамически вычисляем позицию 26 после того, как 19 начало проявляться
-                                    // (или используем фиксированный top в CSS, если высота предсказуема)
                                     img26.style.opacity = "1";
                                 }, 1500); 
 
