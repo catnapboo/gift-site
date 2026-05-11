@@ -64,7 +64,7 @@
             will-change: opacity;
         }
 
-        .word-fade.visible { opacity: 1; }
+        .word-fade.visible { opacity: 1 !important; }
 
         .intro-hidden {
             opacity: 0 !important;
@@ -247,34 +247,55 @@
 
         let textIsFinished = false;
 
+        // ПОЛНОСТЬЮ ПЕРЕПИСАННЫЙ БЛОК ПОЯВЛЕНИЯ ТЕКСТА
         function fadeWords(text, element, speed) {
             const words = text.split(' ');
+            const spans = [];
+
+            // Предварительно создаем все элементы
             words.forEach((word, index) => {
                 const span = document.createElement('span');
                 span.innerText = word;
                 span.className = 'word-fade';
                 
-                // 1. Длительность анимации первого слова в 1 сек
+                // Настройки для первого слова (1с анимация, принудительный 0)
                 if (index === 0) {
-                    span.style.transitionDuration = "1s";
+                    span.style.transitionDuration = "1000ms";
+                    span.style.opacity = "0";
                 }
                 
                 element.appendChild(span);
                 element.appendChild(document.createTextNode(' '));
+                spans.push(span);
             });
-            const spans = element.querySelectorAll('.word-fade');
-            let index = 0;
-            function showNext() {
-                if (index < spans.length) {
-                    spans[index].classList.add('visible');
-                    index++;
-                    
-                    // 2. Начало текста (второе слово) через 0.5с после начала первого
-                    let currentSpeed = (index === 1) ? 500 : speed;
-                    setTimeout(showNext, currentSpeed);
-                } else { textIsFinished = true; }
+
+            let currentIdx = 0;
+
+            function triggerNext() {
+                if (currentIdx >= spans.length) {
+                    textIsFinished = true;
+                    return;
+                }
+
+                const currentSpan = spans[currentIdx];
+                
+                // Используем requestAnimationFrame для гарантии мягкого старта
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        currentSpan.classList.add('visible');
+                    });
+                });
+
+                currentIdx++;
+
+                // Логика задержек
+                let delay = speed;
+                if (currentIdx === 1) delay = 500; // Второе слово через 0.5с после начала первого
+
+                setTimeout(triggerNext, delay);
             }
-            showNext();
+
+            triggerNext();
         }
 
         window.addEventListener('load', () => {
