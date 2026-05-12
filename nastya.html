@@ -36,7 +36,7 @@
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 100; /* Снег на 100 слое */
+      z-index: 100; /* Снег на уровне 100 */
       clip-path: inset(0 0 0 0); 
       mask-image: linear-gradient(to bottom, black 0%, black 100vh, transparent 100vh);
       -webkit-mask-image: linear-gradient(to bottom, black 0%, black 100vh, transparent 100vh);
@@ -55,7 +55,7 @@
       z-index: 2;
     }
 
-    /* КОНТЕЙНЕР АССЕТОВ ВЫШЕ СНЕГА */
+    /* КОНТЕЙНЕР ДЛЯ 40 И 41 — ТЕПЕРЬ ВЫШЕ СНЕГА */
     .wrapper-assets {
       position: absolute;
       top: 45%;
@@ -66,7 +66,7 @@
       flex-direction: column;
       align-items: center;
       pointer-events: none;
-      z-index: 150; /* Гарантированно выше снега (100) */
+      z-index: 200; /* Поднимаем выше снега (100) */
     }
 
     .row {
@@ -79,18 +79,18 @@
       opacity: 0;
     }
 
-    /* ИЗОБРАЖЕНИЕ 40: УВЕЛИЧЕНО В 2 РАЗА */
+    /* ИЗОБРАЖЕНИЕ 40: В 2 РАЗА БОЛЬШЕ */
     .asset-40 {
-      width: 240%; /* Значительное увеличение */
-      margin-bottom: -200px;
+      width: 240%; 
+      margin-bottom: -150px;
     }
     .asset-40.left { transform: scaleX(-1) translateX(35%); }
     .asset-40.right { transform: translateX(35%); }
 
-    /* ИЗОБРАЖЕНИЕ 41: УВЕЛИЧЕНО В 2 РАЗА И НИЖЕ */
+    /* ИЗОБРАЖЕНИЕ 41: В 2 РАЗА БОЛЬШЕ И ПОДНЯТО ВЫШЕ */
     .asset-41 {
-      width: 220%; /* Значительное увеличение */
-      margin-top: 250px; /* Сдвиг вниз */
+      width: 220%;
+      margin-top: -50px; /* Уменьшил отступ, чтобы поднять выше */
     }
     .asset-41.left { transform: scaleX(-1) translateX(30%); }
     .asset-41.right { transform: translateX(30%); }
@@ -106,7 +106,7 @@
       left: -10%;
       margin-top: -550px;
       opacity: 0;
-      z-index: 200; /* Самый верхний слой */
+      z-index: 210; /* Еще выше всего остального */
     }
     .section-36 img {
       width: 100%;
