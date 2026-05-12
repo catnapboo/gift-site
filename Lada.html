@@ -204,7 +204,7 @@
             position: absolute;
             left: 0;
             width: 100%;
-            top: 1250px; /* Позиция под изображением 26 */
+            top: 950px; /* Поднято на 300px относительно 1250px */
             text-align: center;
             font-family: 'Amarante', serif;
             font-size: 32px;
@@ -219,7 +219,7 @@
             position: absolute;
             left: 0;
             width: 100%;
-            top: 1000px; 
+            top: 1000px; /* Обновленное значение высоты */
             height: auto;
             opacity: 0;
             z-index: 3;
@@ -252,7 +252,7 @@
         <img src="19.png" id="img19">
         <img src="26.png" id="img26">
         
-        <div id="natal-label">Natal chart</div> <!-- Новая надпись -->
+        <div id="natal-label">Natal chart</div>
 
         <img src="27.jpg" id="img27">
     </div>
@@ -280,7 +280,6 @@
 
         let textIsFinished = false;
 
-        // Логика появления надписи при скролле
         const observerOptions = {
             threshold: 0.5 
         };
