@@ -168,7 +168,7 @@
             left: 48%; 
             width: 72%; 
             max-width: 360px; 
-            margin-top: -200px; /* Позиция поднята до -200 */
+            margin-top: -200px; 
             transform: translate(40%, -20%) scale(0.9);
             transform-origin: left center;
         }
@@ -235,13 +235,25 @@
             margin: 20px auto;
             width: 85%;
             padding: 30px;
-            padding-top: 300px; 
+            padding-top: 250px; /* Скорректировано под новые изображения */
             border-radius: 10px;
             font-family: 'Amarante', serif;
             color: #403a38;
             font-size: 18px;
             line-height: 1.6;
             text-align: justify;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Стили для новых изображений 28 и 29 */
+        .extra-img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            margin-bottom: 20px;
+            display: block;
         }
 
         .fade-in { opacity: 1 !important; }
@@ -273,7 +285,13 @@
 
         <div id="natal-container">
             <div class="text-box">
-                Здесь будет ваш текст. Прямоугольник начинается одновременно с фоном 27, сама картинка 27 поднята еще выше, а этот текст опущен ниже относительно надписи Natal Chart за счет внутренних отступов.
+                <!-- Новые изображения 28 и 29 -->
+                <img src="28.png" class="extra-img">
+                <img src="29.png" class="extra-img">
+                
+                <div style="width: 100%;">
+                    Здесь будет ваш основной текст. Изображения 28 и 29 добавлены выше, 29 находится под 28. Все остальное сохранено без изменений.
+                </div>
             </div>
         </div>
     </div>
@@ -333,7 +351,6 @@
                 currentIdx++;
                 setTimeout(triggerNext, speed);
             }
-            // Пофиксили резкое появление первого слова за счет микро-задержки
             setTimeout(triggerNext, 50); 
         }
 
