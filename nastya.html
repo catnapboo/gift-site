@@ -14,6 +14,22 @@
             overflow: hidden; 
         }
 
+        /* Новый фон 34.jpg */
+        .background-final {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('34.jpg') no-repeat center top;
+            background-size: cover;
+            opacity: 0;
+            /* Появляется через 3 секунды (задержка), длится 1 секунду */
+            animation: fade-in-bg 1s ease-in forwards;
+            animation-delay: 3s;
+            z-index: 1;
+        }
+
         .snowflake {
             position: absolute;
             width: 800px; 
@@ -21,13 +37,17 @@
             pointer-events: none;
             left: 50%;
             top: 0;
-            /* Совмещаем основное падение и покачивание */
+            z-index: 2; /* Поверх фона */
             animation: 
                 fall-down 3s linear forwards,
                 sway 0.8s ease-in-out infinite alternate;
         }
 
-        /* Анимация движения вниз */
+        @keyframes fade-in-bg {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         @keyframes fall-down {
             0% {
                 top: -800px;
@@ -45,7 +65,6 @@
             }
         }
 
-        /* Анимация покачивания влево-вправо */
         @keyframes sway {
             0% {
                 margin-left: -50px;
@@ -60,6 +79,10 @@
 </head>
 <body>
 
+    <!-- Слой с финальным фоном -->
+    <div class="background-final"></div>
+
+    <!-- Падающая снежинка -->
     <img src="38.png" alt="" class="snowflake">
 
 </body>
