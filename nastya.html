@@ -13,6 +13,7 @@
 
     html, body {
       width: 100%;
+      height: 100%;
       background-color: #b9dcfa;
       overflow-x: hidden;
     }
@@ -24,18 +25,18 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      opacity: 0;
+      opacity: 0; /* Изначально скрыт */
       position: relative;
     }
 
     #snowCanvas {
-      position: absolute;
+      position: fixed; /* Снег зафиксирован относительно экрана */
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 1;
+      z-index: 100; /* Снег поверх всего */
     }
 
     .section-35 {
@@ -48,7 +49,6 @@
       background-repeat: repeat-x;
       background-size: contain;
       opacity: 0;
-      z-index: 2;
     }
 
     .wrapper-assets {
@@ -111,12 +111,13 @@
       opacity: 0;
     }
 
-    #bg34.fade-in {
-      animation: fadeIn 0.5s ease-in forwards;
-    }
-
+    /* Анимации появления */
     .fade-in {
       animation: fadeIn 1.5s ease-in-out forwards;
+    }
+
+    #bg34.fade-in {
+      animation: fadeIn 0.8s ease-in forwards;
     }
 
     @keyframes fadeIn {
@@ -127,9 +128,9 @@
 </head>
 <body>
 
-  <div class="bg-section" id="bg34">
-    <canvas id="snowCanvas"></canvas>
+  <canvas id="snowCanvas"></canvas>
 
+  <div class="bg-section" id="bg34">
     <div class="section-35" id="section35"></div>
     
     <div class="wrapper-assets">
@@ -161,14 +162,15 @@
   </div>
 
   <script>
+    // 1. СНЕГ ЗАПУСКАЕТСЯ СРАЗУ (Оптимизированная версия)
     const canvas = document.getElementById('snowCanvas');
     const ctx = canvas.getContext('2d');
 
     let width, height, snowflakes = [];
 
     function initSnow() {
-      width = canvas.width = canvas.offsetWidth;
-      height = canvas.height = canvas.offsetHeight;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
       snowflakes = [];
       for (let i = 0; i < 150; i++) {
         snowflakes.push({
@@ -183,7 +185,7 @@
 
     function drawSnow() {
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = "white";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
       ctx.beginPath();
       for (let flake of snowflakes) {
         ctx.moveTo(flake.x, flake.y);
@@ -191,41 +193,40 @@
       }
       ctx.fill();
       updateSnow();
+      requestAnimationFrame(drawSnow);
     }
 
     function updateSnow() {
       for (let flake of snowflakes) {
         flake.y += flake.speed;
         flake.x += flake.wind;
-
         if (flake.y > height) {
           flake.y = -10;
           flake.x = Math.random() * width;
         }
-        if (flake.x > width) {
-          flake.x = 0;
-        }
+        if (flake.x > width) flake.x = 0;
       }
-      requestAnimationFrame(drawSnow);
     }
 
     window.addEventListener('resize', initSnow);
-    
-    // Снег запускается сразу
     initSnow();
     drawSnow();
 
-    // Остальные анимации по прежнему графику
+    // 2. ЦЕПОЧКА ПОЯВЛЕНИЯ ПОСЛЕ 3 СЕКУНД
     setTimeout(() => {
-      document.getElementById('bg34').classList.add('fade-in');
+      // Появление фона 34 и ленты 35 одновременно
+      const bg34 = document.getElementById('bg34');
+      bg34.classList.add('fade-in');
       document.getElementById('section35').classList.add('fade-in');
 
+      // Все последующие анимации отталкиваются от этого момента (+1.5с)
       setTimeout(() => {
         document.getElementById('asset40-left').classList.add('fade-in');
         document.getElementById('asset40-right').classList.add('fade-in');
         document.getElementById('asset41-left').classList.add('fade-in');
         document.getElementById('asset41-right').classList.add('fade-in');
         
+        // Еще через 1.5с
         setTimeout(() => {
           document.querySelector('#section39 img').classList.add('fade-in');
           document.getElementById('section36').classList.add('fade-in');
@@ -233,7 +234,7 @@
         
       }, 1500);
 
-    }, 3000);
+    }, 3000); // 3 секунды задержки перед началом появления фона 34
   </script>
 
 </body>
