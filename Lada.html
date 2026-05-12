@@ -215,38 +215,6 @@
             pointer-events: none;
         }
 
-        /* --- ИЗОБРАЖЕНИЯ 30 (МЕНЬШЕ И К КРАЯМ) --- */
-        .side-30 {
-            position: fixed;
-            top: 50%;
-            width: 80px; /* Сильно уменьшено */
-            height: auto;
-            z-index: 100;
-            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-            pointer-events: none;
-            opacity: 0;
-        }
-
-        #img30-left {
-            left: -100px; /* Глубже за край */
-            transform: translateY(-50%) scaleX(-1);
-        }
-
-        #img30-right {
-            right: -100px; /* Глубже за край */
-            transform: translateY(-50%);
-        }
-
-        #img30-left.active {
-            left: 5px; /* Совсем рядом с краем */
-            opacity: 1;
-        }
-
-        #img30-right.active {
-            right: 5px; /* Совсем рядом с краем */
-            opacity: 1;
-        }
-
         #natal-container {
             position: absolute;
             top: 900px; 
@@ -260,6 +228,25 @@
             background-position: center -400px; 
             z-index: 3;
             opacity: 1; 
+        }
+
+        /* Стили для статических 30.png */
+        .img30-static {
+            position: absolute;
+            top: -40px; /* Чуть выше надписи Natal Chart */
+            width: 120px;
+            height: auto;
+            z-index: 13;
+            pointer-events: none;
+        }
+
+        #img30-left-static {
+            left: 0;
+            transform: scaleX(-1);
+        }
+
+        #img30-right-static {
+            right: 0;
         }
 
         .text-box {
@@ -327,9 +314,6 @@
         <div id="typewriter-text" class="story-text"></div>
     </div>
 
-    <img src="30.png" id="img30-left" class="side-30">
-    <img src="30.png" id="img30-right" class="side-30">
-
     <div id="main-stage">
         <img src="22.png" id="img22">
         
@@ -347,6 +331,10 @@
         <div id="natal-label">Natal chart</div>
 
         <div id="natal-container">
+            <!-- Статичные изображения 30.png -->
+            <img src="30.png" id="img30-left-static" class="img30-static">
+            <img src="30.png" id="img30-right-static" class="img30-static">
+
             <div class="text-box">
                 <img src="28.png" id="img28-asset" class="extra-img">
                 <img src="29.png" class="extra-img">
@@ -368,7 +356,7 @@
 
                 <div class="reveal"><h3>Тригон Меркурий — Венера</h3></div>
                 <div class="reveal"><p>Этот аспект делает ваше общение очень приятным, теплым и гармоничным. Между вами легко возникает взаимная симпатия, чувство комфорта и умение понимать друг друга не только логически, но и эмоционально.</p></div>
-                <div class="reveal"><p>Вас могут объединять творчество, эстетика, искусство, общие интересы и легкость в совместном общении. Вы умеете поддерживать друг друга, смотреть на многие вещи проще и с юмором, что делает дружбу особенно легкой и приятной.</p></div>
+                <div class="reveal"><p>Вас могут объединять творчество, эстетика, искусство, общие интересов и легкость в совместном общении. Вы умеете поддерживать друг друга, смотреть на многие вещи проще и с юмором, что делает дружбу особенно легкой и приятной.</p></div>
                 <div class="reveal"><p>Такой аспект помогает создавать очень красивую, спокойную и вдохновляющую дружескую связь, в которой много душевного тепла.</p></div>
 
                 <div class="reveal"><h3>Квадрат Меркурий — Нептун</h3></div>
@@ -402,7 +390,7 @@
                 <div class="reveal"><p>Но в положительном проявлении этот аспект помогает вам объединять практичность и интуицию: одна помогает действовать увереннее, а другая — чувствовать глубже и видеть ситуацию шире. Такая дружба часто строится на внутреннем доверии и взаимной поддержке.</p></div>
 
                 <div class="reveal"><h3>Оппозиция Юпитер — Нептун</h3></div>
-                <div class="reveal"><p>Этот аспект показывает, что в дружбе могут возникать разные взгляды на мечты, ожидания и жизненные идеалы. Одна из вас может быть более практичной и стремиться к конкретным результатам, а другая — больше доверять вдохновению, интуиции и внутренним ощущениям.</p></div>
+                <div class="reveal"><p>Этот аспект показывает, что в дружбе могут возникать разные взгляды на мечты, ожидания и жизненные идеалы. Одна из вас может быть более практичной и стремиться к конкретным результатам, а другая — больше доверять вдохновению, интуиции и внутреннему ощущению ситуации.</p></div>
                 <div class="reveal"><p>Иногда из-за этого появляются завышенные ожидания, недопонимания или разница в восприятии одних и тех же ситуаций. Важно сохранять честность и не строить лишних иллюзий друг о друге.</p></div>
                 <div class="reveal"><p>При хорошем взаимопонимании этот аспект помогает соединять мечты с реальностью: одна вдохновляет, а другая помогает воплощать идеи в жизнь.</p></div>
 
@@ -452,8 +440,6 @@
         const natalLabel = document.getElementById('natal-label');
         const img20 = document.getElementById('img20');
         const img21 = document.getElementById('img21');
-        const img30L = document.getElementById('img30-left');
-        const img30R = document.getElementById('img30-right');
 
         let textIsFinished = false;
 
@@ -466,26 +452,6 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-        // Логика появления и исчезновения 30.png при скролле
-        const natalTopObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Когда natal-label касается верха — показываем
-                    img30L.classList.add('active');
-                    img30R.classList.add('active');
-                } else {
-                    // Когда уходит из зоны (возвращаемся обратно) — скрываем
-                    img30L.classList.remove('active');
-                    img30R.classList.remove('active');
-                }
-            });
-        }, { 
-            rootMargin: "-0% 0% -100% 0%", 
-            threshold: 0 
-        });
-
-        natalTopObserver.observe(natalLabel);
 
         const observerOptions = { threshold: 0.2 };
         const labelObserver = new IntersectionObserver((entries) => {
