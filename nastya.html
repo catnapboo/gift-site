@@ -16,31 +16,34 @@
 
         .snowflake {
             position: absolute;
-            /* Еще более крупный размер изображения */
             width: 800px; 
             height: auto;
             pointer-events: none;
-            /* Начальная точка глубоко за пределами верхнего левого угла */
+            /* Начальная позиция за левым верхним углом */
             top: -900px;
             left: -900px;
-            /* Анимация проигрывается один раз и замирает в конце (forwards) */
-            animation: simple-flow 5s linear forwards;
+            /* Анимация проигрывается один раз по дуге */
+            animation: arc-flow 5s ease-in-out forwards;
         }
 
-        @keyframes simple-flow {
+        @keyframes arc-flow {
             0% {
                 transform: translate(0, 0) rotate(0deg);
                 opacity: 0;
             }
-            10% {
+            15% {
                 opacity: 1;
             }
-            90% {
+            /* Центральная точка дуги: смещение в центр с прогибом */
+            50% {
+                transform: translate(60vw, 10vh) rotate(45deg);
+            }
+            85% {
                 opacity: 1;
             }
             100% {
-                /* Улет далеко за нижний правый край */
-                transform: translate(180vw, 180vh) rotate(90deg);
+                /* Улет в нижний правый угол */
+                transform: translate(180vw, 180vh) rotate(120deg);
                 opacity: 0;
             }
         }
