@@ -19,31 +19,28 @@
             width: 800px; 
             height: auto;
             pointer-events: none;
-            /* Начальная позиция за левым верхним углом */
-            top: -900px;
-            left: -900px;
-            /* Скорость уменьшена (время увеличено до 8 секунд) */
-            animation: arc-flow-high 8s ease-in-out forwards;
+            /* Центрируем по горизонтали и прячем за верхний край */
+            left: 50%;
+            top: 0;
+            transform: translate(-50%, -100%);
+            /* Анимация падения вниз один раз */
+            animation: fall-down 7s linear forwards;
         }
 
-        @keyframes arc-flow-high {
+        @keyframes fall-down {
             0% {
-                transform: translate(0, 0) rotate(0deg);
+                transform: translate(-50%, -100%);
                 opacity: 0;
             }
-            15% {
+            10% {
                 opacity: 1;
             }
-            /* Пролет через центр */
-            50% {
-                transform: translate(60vw, 5vh) rotate(30deg);
-            }
-            85% {
+            90% {
                 opacity: 1;
             }
             100% {
-                /* Конечная точка выше — улет за правую сторону экрана, а не в самый низ */
-                transform: translate(180vw, 30vh) rotate(80deg);
+                /* Уходит вниз за пределы экрана */
+                transform: translate(-50%, 110vh);
                 opacity: 0;
             }
         }
