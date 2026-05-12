@@ -14,7 +14,7 @@
             overflow: hidden; 
         }
 
-        /* Новый фон 34.jpg */
+        /* Финальный фон */
         .background-final {
             position: absolute;
             top: 0;
@@ -24,7 +24,7 @@
             background: url('34.jpg') no-repeat center top;
             background-size: cover;
             opacity: 0;
-            /* Появляется через 3 секунды (задержка), длится 1 секунду */
+            /* Появление за 1 сек после того, как 38-е упадет (через 3 сек) */
             animation: fade-in-bg 1s ease-in forwards;
             animation-delay: 3s;
             z-index: 1;
@@ -36,11 +36,12 @@
             height: auto;
             pointer-events: none;
             left: 50%;
-            top: 0;
-            z-index: 2; /* Поверх фона */
-            animation: 
-                fall-down 3s linear forwards,
-                sway 0.8s ease-in-out infinite alternate;
+            /* Стартовая позиция над экраном */
+            top: -900px; 
+            transform: translateX(-50%);
+            z-index: 2;
+            /* Простое падение вниз за 3 секунды */
+            animation: simple-fall 3s linear forwards;
         }
 
         @keyframes fade-in-bg {
@@ -48,9 +49,9 @@
             to { opacity: 1; }
         }
 
-        @keyframes fall-down {
+        @keyframes simple-fall {
             0% {
-                top: -800px;
+                top: -900px;
                 opacity: 0;
             }
             10% {
@@ -60,29 +61,17 @@
                 opacity: 1;
             }
             100% {
+                /* Конечная точка внизу за экраном */
                 top: 110vh;
                 opacity: 0;
-            }
-        }
-
-        @keyframes sway {
-            0% {
-                margin-left: -50px;
-                transform: translateX(-50%) rotate(-5deg);
-            }
-            100% {
-                margin-left: 50px;
-                transform: translateX(-50%) rotate(5deg);
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Слой с финальным фоном -->
     <div class="background-final"></div>
 
-    <!-- Падающая снежинка -->
     <img src="38.png" alt="" class="snowflake">
 
 </body>
