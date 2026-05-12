@@ -28,14 +28,13 @@
       position: relative;
     }
 
-    /* Холст для снега */
     #snowCanvas {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none; /* Чтобы снег не мешал кликам */
+      pointer-events: none;
       z-index: 1;
     }
 
@@ -75,18 +74,20 @@
       opacity: 0;
     }
 
+    /* Изображения 40: увеличены до 110% */
     .asset-40 {
-      width: 90%; 
-      margin-bottom: -50px;
+      width: 110%; 
+      margin-bottom: -80px; /* Сильнее притягиваем нижний ряд из-за размера */
     }
-    .asset-40.left { transform: scaleX(-1) translateX(25%); }
-    .asset-40.right { transform: translateX(25%); }
+    .asset-40.left { transform: scaleX(-1) translateX(30%); }
+    .asset-40.right { transform: translateX(30%); }
 
+    /* Изображения 41: увеличены до 95% */
     .asset-41 {
-      width: 75%;
+      width: 95%;
     }
-    .asset-41.left { transform: scaleX(-1) translateX(20%); }
-    .asset-41.right { transform: translateX(20%); }
+    .asset-41.left { transform: scaleX(-1) translateX(25%); }
+    .asset-41.right { transform: translateX(25%); }
 
     .asset-img img {
       display: block;
@@ -154,7 +155,6 @@
 <body>
 
   <div class="bg-section" id="bg34">
-    <!-- Снег будет рисоваться здесь -->
     <canvas id="snowCanvas"></canvas>
 
     <div class="section-35" id="section35"></div>
@@ -190,7 +190,6 @@
   <img class="flying-image" src="38.png" alt="flying image" />
 
   <script>
-    // Логика снега
     const canvas = document.getElementById('snowCanvas');
     const ctx = canvas.getContext('2d');
 
@@ -204,9 +203,9 @@
         snowflakes.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          radius: Math.random() * 3 + 1, // Разный размер
-          speed: Math.random() * 1 + 0.5, // Медленно
-          wind: Math.random() * 0.5 + 0.2 // Легкая диагональ
+          radius: Math.random() * 3 + 1,
+          speed: Math.random() * 1 + 0.5,
+          wind: Math.random() * 0.5 + 0.2
         });
       }
     }
@@ -228,7 +227,6 @@
         flake.y += flake.speed;
         flake.x += flake.wind;
 
-        // Если ушел за пределы — возвращаем наверх
         if (flake.y > height) {
           flake.y = -10;
           flake.x = Math.random() * width;
@@ -244,7 +242,6 @@
     initSnow();
     drawSnow();
 
-    // Логика появления элементов
     setTimeout(() => {
       document.getElementById('bg34').classList.add('fade-in');
       document.getElementById('section35').classList.add('fade-in');
