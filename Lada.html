@@ -215,35 +215,35 @@
             pointer-events: none;
         }
 
-        /* --- ИЗОБРАЖЕНИЯ 30 --- */
+        /* --- ИЗОБРАЖЕНИЯ 30 (МЕНЬШЕ И К КРАЯМ) --- */
         .side-30 {
             position: fixed;
             top: 50%;
-            transform: translateY(-50%);
-            width: 200px; /* Настройте ширину под ваш макет */
+            width: 80px; /* Сильно уменьшено */
             height: auto;
             z-index: 100;
-            transition: all 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
             pointer-events: none;
             opacity: 0;
         }
 
         #img30-left {
-            left: -250px; /* Спрятано за краем */
-            transform: translateY(-50%) scaleX(-1); /* Зеркальное */
+            left: -100px; /* Глубже за край */
+            transform: translateY(-50%) scaleX(-1);
         }
 
         #img30-right {
-            right: -250px; /* Спрятано за краем */
+            right: -100px; /* Глубже за край */
+            transform: translateY(-50%);
         }
 
         #img30-left.active {
-            left: 0;
+            left: 5px; /* Совсем рядом с краем */
             opacity: 1;
         }
 
         #img30-right.active {
-            right: 0;
+            right: 5px; /* Совсем рядом с краем */
             opacity: 1;
         }
 
@@ -327,7 +327,6 @@
         <div id="typewriter-text" class="story-text"></div>
     </div>
 
-    <!-- Новые зеркальные изображения -->
     <img src="30.png" id="img30-left" class="side-30">
     <img src="30.png" id="img30-right" class="side-30">
 
@@ -458,7 +457,6 @@
 
         let textIsFinished = false;
 
-        // Observer для плавного появления текста и 30.png
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -469,17 +467,21 @@
 
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-        // Отдельный Observer для 30.png, срабатывающий при касании верха
+        // Логика появления и исчезновения 30.png при скролле
         const natalTopObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                // Если верх natal-label касается верха экрана
                 if (entry.isIntersecting) {
+                    // Когда natal-label касается верха — показываем
                     img30L.classList.add('active');
                     img30R.classList.add('active');
+                } else {
+                    // Когда уходит из зоны (возвращаемся обратно) — скрываем
+                    img30L.classList.remove('active');
+                    img30R.classList.remove('active');
                 }
             });
         }, { 
-            rootMargin: "-0% 0% -100% 0%", // Триггер срабатывает, когда элемент заходит в самую верхнюю линию вьюпорта
+            rootMargin: "-0% 0% -100% 0%", 
             threshold: 0 
         });
 
