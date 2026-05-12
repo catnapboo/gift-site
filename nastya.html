@@ -28,53 +28,61 @@
       position: relative;
     }
 
-    /* 35 — теперь это повторяющаяся полоса */
     .section-35 {
       position: absolute;
       top: 0;
-      left: -10%; /* Выход за левый край */
-      width: 120%; /* Растягиваем больше ширины экрана, чтобы заходило за оба края */
-      height: 250px; /* Высота подбирается исходя из того, что картинка в 2 раза меньше оригинала */
+      left: -10%;
+      width: 120%;
+      height: 250px;
       background-image: url('35.png');
-      background-repeat: repeat-x; /* Повтор по горизонтали */
-      background-size: contain; /* Картинка уменьшается, чтобы вписаться в высоту */
+      background-repeat: repeat-x;
+      background-size: contain;
       opacity: 0;
     }
 
-    .wrapper-40 {
+    /* Контейнер для 40 и 41 */
+    .wrapper-assets {
       position: absolute;
       top: 50%;
       left: 0;
       width: 100%;
       transform: translateY(-50%);
       display: flex;
-      justify-content: space-between;
+      flex-direction: column; /* Располагаем 40 и 41 друг под другом */
+      align-items: center;
       pointer-events: none;
       z-index: 5;
     }
 
-    /* Изображение 40 увеличено до 75% ширины */
-    .section-40 {
-      width: 75%; 
+    .row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .asset-img {
+      width: 75%;
       opacity: 0;
     }
 
-    .section-40.left {
-      transform: scaleX(-1) translateX(20%); /* Увеличен заступ за левый край */
-    }
+    /* Специфика для 40 (зеркальность) */
+    .asset-40.left { transform: scaleX(-1) translateX(20%); }
+    .asset-40.right { transform: translateX(20%); }
 
-    .section-40.right {
-      transform: translateX(20%); /* Увеличен заступ за правый край */
-    }
+    /* Специфика для 41 (без зеркальности, просто сдвиг за край) */
+    .asset-41.left { transform: translateX(-20%); }
+    .asset-41.right { transform: translateX(20%); }
 
-    .section-40 img {
+    .asset-img img {
       display: block;
       width: 100%;
     }
 
+    /* 36 теперь значительно выше */
     .section-36 {
       position: relative;
       width: 100%;
+      margin-top: -350px; /* Отрицательный отступ поднимает блок вверх */
       opacity: 0;
       z-index: 10;
     }
@@ -131,15 +139,26 @@
 <body>
 
   <div class="bg-section" id="bg34">
-    <!-- Повторяющаяся лента 35 -->
     <div class="section-35" id="section35"></div>
     
-    <div class="wrapper-40">
-      <div class="section-40 left" id="section40-left">
-        <img src="40.png" alt="image 40" />
+    <div class="wrapper-assets">
+      <!-- Ряд с 40 -->
+      <div class="row">
+        <div class="asset-img asset-40 left" id="asset40-left">
+          <img src="40.png" alt="image 40" />
+        </div>
+        <div class="asset-img asset-40 right" id="asset40-right">
+          <img src="40.png" alt="image 40" />
+        </div>
       </div>
-      <div class="section-40 right" id="section40-right">
-        <img src="40.png" alt="image 40" />
+      <!-- Ряд с 41 (ниже 40) -->
+      <div class="row">
+        <div class="asset-img asset-41 left" id="asset41-left">
+          <img src="41.png" alt="image 41" />
+        </div>
+        <div class="asset-img asset-41 right" id="asset41-right">
+          <img src="41.png" alt="image 41" />
+        </div>
       </div>
     </div>
   </div>
@@ -160,8 +179,11 @@
       document.getElementById('section35').classList.add('fade-in');
 
       setTimeout(() => {
-        document.getElementById('section40-left').classList.add('fade-in');
-        document.getElementById('section40-right').classList.add('fade-in');
+        // Появление 40 и 41 одновременно
+        document.getElementById('asset40-left').classList.add('fade-in');
+        document.getElementById('asset40-right').classList.add('fade-in');
+        document.getElementById('asset41-left').classList.add('fade-in');
+        document.getElementById('asset41-right').classList.add('fade-in');
         
         setTimeout(() => {
           document.querySelector('#section39 img').classList.add('fade-in');
