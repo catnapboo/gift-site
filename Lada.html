@@ -75,7 +75,7 @@
         #main-stage {
             position: relative;
             width: 100%;
-            height: auto; /* Позволяем контенту растягиваться */
+            height: auto; 
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -149,7 +149,7 @@
             height: auto;
             opacity: 0;
             z-index: 11;
-            top: 50vh; /* Привязка к центру экрана */
+            top: 50vh; 
             margin-top: -140px; 
             pointer-events: none;
             will-change: transform, opacity;
@@ -205,7 +205,7 @@
             position: absolute;
             left: 0;
             width: 100%;
-            top: 1050px;
+            top: 950px; /* Приподняли надпись */
             text-align: center;
             font-family: 'Amarante', serif;
             font-size: 32px;
@@ -216,10 +216,9 @@
             pointer-events: none;
         }
 
-        /* --- НОВЫЙ КОНТЕЙНЕР ДЛЯ ТЕКСТА С ФОНОМ 27 --- */
         #natal-container {
             position: absolute;
-            top: 1100px; /* Сразу под надписью */
+            top: 1000px; /* Приподняли начало фона 27 значительно выше */
             left: 0;
             width: 100%;
             min-height: 500px;
@@ -233,7 +232,7 @@
         }
 
         .text-box {
-            background-color: rgba(201, 196, 167, 0.7); /* hex #c9c4a7 с прозрачностью 0.7 */
+            background-color: rgba(201, 196, 167, 0.7); 
             margin: 20px auto;
             width: 85%;
             padding: 30px;
@@ -274,7 +273,6 @@
 
         <div id="natal-container">
             <div class="text-box">
-                <!-- Сюда можно будет вставить длинный текст -->
                 Здесь будет ваш текст. Прямоугольник имеет цвет #c9c4a7 и является полупрозрачным, сквозь него виден повторяющийся фон из изображения 27.jpg.
             </div>
         </div>
