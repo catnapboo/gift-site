@@ -22,11 +22,11 @@
             /* Начальная позиция за левым верхним углом */
             top: -900px;
             left: -900px;
-            /* Анимация проигрывается один раз по дуге */
-            animation: arc-flow 5s ease-in-out forwards;
+            /* Скорость уменьшена (время увеличено до 8 секунд) */
+            animation: arc-flow-high 8s ease-in-out forwards;
         }
 
-        @keyframes arc-flow {
+        @keyframes arc-flow-high {
             0% {
                 transform: translate(0, 0) rotate(0deg);
                 opacity: 0;
@@ -34,16 +34,16 @@
             15% {
                 opacity: 1;
             }
-            /* Центральная точка дуги: смещение в центр с прогибом */
+            /* Пролет через центр */
             50% {
-                transform: translate(60vw, 10vh) rotate(45deg);
+                transform: translate(60vw, 5vh) rotate(30deg);
             }
             85% {
                 opacity: 1;
             }
             100% {
-                /* Улет в нижний правый угол */
-                transform: translate(180vw, 180vh) rotate(120deg);
+                /* Конечная точка выше — улет за правую сторону экрана, а не в самый низ */
+                transform: translate(180vw, 30vh) rotate(80deg);
                 opacity: 0;
             }
         }
