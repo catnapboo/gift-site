@@ -16,40 +16,31 @@
 
         .snowflake {
             position: absolute;
-            /* Изображение увеличено в 5 раз (с 100px до 500px) */
-            width: 500px; 
+            /* Еще более крупный размер изображения */
+            width: 800px; 
             height: auto;
             pointer-events: none;
-            top: -600px;
-            left: -600px;
-            /* forwards сохраняет конечное состояние (невидимость), а 1 — проигрывает один раз */
-            animation: wind-flow 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
+            /* Начальная точка глубоко за пределами верхнего левого угла */
+            top: -900px;
+            left: -900px;
+            /* Анимация проигрывается один раз и замирает в конце (forwards) */
+            animation: simple-flow 5s linear forwards;
         }
 
-        @keyframes wind-flow {
+        @keyframes simple-flow {
             0% {
                 transform: translate(0, 0) rotate(0deg);
                 opacity: 0;
             }
-            5% {
+            10% {
                 opacity: 1;
             }
-            /* Траектория с "петлей" */
-            35% {
-                transform: translate(40vw, 30vh) rotate(100deg);
-            }
-            50% {
-                transform: translate(55vw, 25vh) rotate(240deg);
-            }
-            65% {
-                transform: translate(45vw, 50vh) rotate(380deg);
-            }
-            /* Улет за край экрана */
-            95% {
+            90% {
                 opacity: 1;
             }
             100% {
-                transform: translate(150vw, 150vh) rotate(600deg);
+                /* Улет далеко за нижний правый край */
+                transform: translate(180vw, 180vh) rotate(90deg);
                 opacity: 0;
             }
         }
