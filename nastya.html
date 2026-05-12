@@ -19,17 +19,18 @@
             width: 800px; 
             height: auto;
             pointer-events: none;
-            /* Центрируем по горизонтали и прячем за верхний край */
             left: 50%;
             top: 0;
-            transform: translate(-50%, -100%);
-            /* Скорость увеличена: время полета теперь 3 секунды */
-            animation: fall-down 3s linear forwards;
+            /* Совмещаем основное падение и покачивание */
+            animation: 
+                fall-down 3s linear forwards,
+                sway 0.8s ease-in-out infinite alternate;
         }
 
+        /* Анимация движения вниз */
         @keyframes fall-down {
             0% {
-                transform: translate(-50%, -100%);
+                top: -800px;
                 opacity: 0;
             }
             10% {
@@ -39,9 +40,20 @@
                 opacity: 1;
             }
             100% {
-                /* Уходит вниз за пределы экрана */
-                transform: translate(-50%, 110vh);
+                top: 110vh;
                 opacity: 0;
+            }
+        }
+
+        /* Анимация покачивания влево-вправо */
+        @keyframes sway {
+            0% {
+                margin-left: -50px;
+                transform: translateX(-50%) rotate(-5deg);
+            }
+            100% {
+                margin-left: 50px;
+                transform: translateX(-50%) rotate(5deg);
             }
         }
     </style>
