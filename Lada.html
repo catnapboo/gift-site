@@ -168,7 +168,7 @@
             left: 48%; 
             width: 72%; 
             max-width: 360px; 
-            margin-top: -200px; /* ПОДНЯЛИ ВЫШЕ */
+            margin-top: -180px; 
             transform: translate(40%, -20%) scale(0.9);
             transform-origin: left center;
         }
@@ -196,17 +196,15 @@
             width: 100%; 
             top: 760px; 
             height: auto;
-            opacity: 0;
+            opacity: 1; /* Появляется сразу */
             z-index: 4;
-            will-change: opacity;
-            transition: opacity 2s ease-in-out; 
         }
 
         #natal-label {
             position: absolute;
             left: 0;
             width: 100%;
-            top: 1000px; /* ОПУСТИЛИ ПОД ИЗОБРАЖЕНИЕ 26 */
+            top: 1100px; /* Фиксированное положение */
             text-align: center;
             font-family: 'Amarante', serif;
             font-size: 32px;
@@ -219,7 +217,7 @@
 
         #natal-container {
             position: absolute;
-            top: 1280px; 
+            top: 1080px; /* Поднято на 200px (было 1280px) */
             left: 0;
             width: 100%;
             min-height: 500px;
@@ -227,10 +225,9 @@
             background-image: url('27.jpg');
             background-repeat: repeat-y;
             background-size: 100% auto;
-            background-position: center -500px; /* ПОДНЯЛИ ТОЛЬКО ИЗОБРАЖЕНИЕ 27 ВНУТРИ */
+            background-position: center -200px;
             z-index: 3;
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
+            opacity: 1; /* Появляется сразу */
         }
 
         .text-box {
@@ -295,9 +292,7 @@
         const i25r = document.getElementById('img25-right');
 
         const img19 = document.getElementById('img19');
-        const img26 = document.getElementById('img26');
         const natalLabel = document.getElementById('natal-label');
-        const natalContainer = document.getElementById('natal-container');
         const img20 = document.getElementById('img20');
         const img21 = document.getElementById('img21');
 
@@ -309,13 +304,11 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     if (entry.target.id === 'natal-label') natalLabel.classList.add('fade-in');
-                    if (entry.target.id === 'natal-container') natalContainer.classList.add('fade-in');
                 }
             });
         }, observerOptions);
 
         observer.observe(natalLabel);
-        observer.observe(natalContainer);
 
         function fadeWords(text, element, speed) {
             const words = text.split(' ');
@@ -373,7 +366,6 @@
                                 
                                 setTimeout(() => {
                                     img19.style.opacity = "1";
-                                    img26.style.opacity = "1";
                                 }, 1500); 
 
                             }, 1500); 
