@@ -168,7 +168,7 @@
             left: 48%; 
             width: 72%; 
             max-width: 360px; 
-            margin-top: -180px; 
+            margin-top: -200px; /* Позиция поднята до -200 */
             transform: translate(40%, -20%) scale(0.9);
             transform-origin: left center;
         }
@@ -204,7 +204,7 @@
             position: absolute;
             left: 0;
             width: 100%;
-            top: 1100px; /* Оставляем на том же месте */
+            top: 1100px; 
             text-align: center;
             font-family: 'Amarante', serif;
             font-size: 32px;
@@ -217,7 +217,7 @@
 
         #natal-container {
             position: absolute;
-            top: 900px; /* Поднимаем весь прямоугольник выше */
+            top: 900px; 
             left: 0;
             width: 100%;
             min-height: 500px;
@@ -225,7 +225,7 @@
             background-image: url('27.jpg');
             background-repeat: repeat-y;
             background-size: 100% auto;
-            background-position: center -400px; /* Поднимаем фон 27 еще выше внутри */
+            background-position: center -400px; 
             z-index: 3;
             opacity: 1; 
         }
@@ -235,7 +235,7 @@
             margin: 20px auto;
             width: 85%;
             padding: 30px;
-            padding-top: 300px; /* Опускаем текст внутри блока значительно ниже надписи */
+            padding-top: 300px; 
             border-radius: 10px;
             font-family: 'Amarante', serif;
             color: #403a38;
@@ -314,7 +314,7 @@
         function fadeWords(text, element, speed) {
             const words = text.split(' ');
             const spans = [];
-            words.forEach((word, index) => {
+            words.forEach((word) => {
                 const span = document.createElement('span');
                 span.innerText = word;
                 span.className = 'word-fade';
@@ -333,7 +333,8 @@
                 currentIdx++;
                 setTimeout(triggerNext, speed);
             }
-            triggerNext();
+            // Пофиксили резкое появление первого слова за счет микро-задержки
+            setTimeout(triggerNext, 50); 
         }
 
         window.addEventListener('load', () => {
