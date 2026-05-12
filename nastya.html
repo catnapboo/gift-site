@@ -72,26 +72,28 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
+      max-width: 1200px; /* Ограничитель для удобства позиционирования в px */
     }
 
     .asset-img {
       opacity: 0;
     }
 
+    /* РАЗМЕР В PX ДЛЯ ИЗОБРАЖЕНИЯ 40 */
     .asset-40 {
-      width: 240%; 
-      margin-bottom: -150px;
+      width: 600px; /* Меняй это значение для размера */
+      margin-bottom: -100px;
     }
-    .asset-40.left { transform: scaleX(-1) translateX(35%); }
-    .asset-40.right { transform: translateX(35%); }
+    .asset-40.left { transform: scaleX(-1) translateX(10%); }
+    .asset-40.right { transform: translateX(10%); }
 
-    /* ОПУСТИЛ НИЖЕ через увеличение margin-top */
+    /* РАЗМЕР В PX ДЛЯ ИЗОБРАЖЕНИЯ 41 И ПОЗИЦИЯ */
     .asset-41 {
-      width: 220%;
-      margin-top: 150px; 
+      width: 550px; /* Меняй это значение для размера */
+      margin-top: 50px; /* Уменьшил, чтобы поднять выше */
     }
-    .asset-41.left { transform: scaleX(-1) translateX(30%); }
-    .asset-41.right { transform: translateX(30%); }
+    .asset-41.left { transform: scaleX(-1) translateX(5%); }
+    .asset-41.right { transform: translateX(5%); }
 
     .asset-img img {
       display: block;
