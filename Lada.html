@@ -215,6 +215,38 @@
             pointer-events: none;
         }
 
+        /* --- ИЗОБРАЖЕНИЯ 30 --- */
+        .side-30 {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 200px; /* Настройте ширину под ваш макет */
+            height: auto;
+            z-index: 100;
+            transition: all 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        #img30-left {
+            left: -250px; /* Спрятано за краем */
+            transform: translateY(-50%) scaleX(-1); /* Зеркальное */
+        }
+
+        #img30-right {
+            right: -250px; /* Спрятано за краем */
+        }
+
+        #img30-left.active {
+            left: 0;
+            opacity: 1;
+        }
+
+        #img30-right.active {
+            right: 0;
+            opacity: 1;
+        }
+
         #natal-container {
             position: absolute;
             top: 900px; 
@@ -232,10 +264,10 @@
 
         .text-box {
             background-color: rgba(201, 196, 167, 0.7); 
-            margin: 0; /* Убрали внешние отступы */
-            width: 100%; /* Растянули на всю ширину */
+            margin: 0;
+            width: 100%; 
             box-sizing: border-box;
-            padding: 40px 15%; /* Большие боковые отступы внутри */
+            padding: 40px 15%; 
             padding-top: 250px; 
             font-family: 'Oranienbaum', serif;
             color: #403a38;
@@ -260,7 +292,6 @@
             width: 100%;
         }
 
-        /* Плавное появление блоков */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -295,6 +326,10 @@
         <img src="23.png" id="img23">
         <div id="typewriter-text" class="story-text"></div>
     </div>
+
+    <!-- Новые зеркальные изображения -->
+    <img src="30.png" id="img30-left" class="side-30">
+    <img src="30.png" id="img30-right" class="side-30">
 
     <div id="main-stage">
         <img src="22.png" id="img22">
@@ -418,10 +453,12 @@
         const natalLabel = document.getElementById('natal-label');
         const img20 = document.getElementById('img20');
         const img21 = document.getElementById('img21');
+        const img30L = document.getElementById('img30-left');
+        const img30R = document.getElementById('img30-right');
 
         let textIsFinished = false;
 
-        // Observer для плавного появления текста
+        // Observer для плавного появления текста и 30.png
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -431,6 +468,22 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Отдельный Observer для 30.png, срабатывающий при касании верха
+        const natalTopObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // Если верх natal-label касается верха экрана
+                if (entry.isIntersecting) {
+                    img30L.classList.add('active');
+                    img30R.classList.add('active');
+                }
+            });
+        }, { 
+            rootMargin: "-0% 0% -100% 0%", // Триггер срабатывает, когда элемент заходит в самую верхнюю линию вьюпорта
+            threshold: 0 
+        });
+
+        natalTopObserver.observe(natalLabel);
 
         const observerOptions = { threshold: 0.2 };
         const labelObserver = new IntersectionObserver((entries) => {
