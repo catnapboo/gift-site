@@ -199,11 +199,27 @@
             transition: opacity 2s ease-in-out; 
         }
 
+        /* --- НАДПИСЬ NATAL CHART --- */
+        #natal-label {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            top: 1250px; /* Позиция под изображением 26 */
+            text-align: center;
+            font-family: 'Amarante', serif;
+            font-size: 32px;
+            color: #403a38;
+            opacity: 0;
+            z-index: 10;
+            transition: opacity 2s ease-in-out;
+            pointer-events: none;
+        }
+
         #img27 {
             position: absolute;
             left: 0;
             width: 100%;
-            top: 900px; /* ЗНАЧИТЕЛЬНО НИЖЕ */
+            top: 1500px; 
             height: auto;
             opacity: 0;
             z-index: 3;
@@ -235,6 +251,9 @@
         <img src="21.png" id="img21" class="hand-img">
         <img src="19.png" id="img19">
         <img src="26.png" id="img26">
+        
+        <div id="natal-label">Natal chart</div> <!-- Новая надпись -->
+
         <img src="27.jpg" id="img27">
     </div>
 
@@ -255,10 +274,26 @@
         const img19 = document.getElementById('img19');
         const img26 = document.getElementById('img26');
         const img27 = document.getElementById('img27');
+        const natalLabel = document.getElementById('natal-label');
         const img20 = document.getElementById('img20');
         const img21 = document.getElementById('img21');
 
         let textIsFinished = false;
+
+        // Логика появления надписи при скролле
+        const observerOptions = {
+            threshold: 0.5 
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    natalLabel.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        observer.observe(natalLabel);
 
         function fadeWords(text, element, speed) {
             const words = text.split(' ');
