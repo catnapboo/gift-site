@@ -150,7 +150,6 @@
             opacity: 0;
             z-index: 11;
             top: 50vh; 
-            margin-top: -140px; 
             pointer-events: none;
             will-change: transform, opacity;
             transition: transform 3s cubic-bezier(0.16, 1, 0.3, 1), opacity 2s ease-out;
@@ -160,6 +159,7 @@
             right: 48%; 
             width: 56.7%; 
             max-width: 283.5px; 
+            margin-top: -140px; 
             transform: translate(-40%, 20%) scale(0.9);
             transform-origin: right center;
         }
@@ -168,6 +168,7 @@
             left: 48%; 
             width: 72%; 
             max-width: 360px; 
+            margin-top: -180px; /* ПОДНЯЛИ ВЫШЕ */
             transform: translate(40%, -20%) scale(0.9);
             transform-origin: left center;
         }
@@ -205,7 +206,7 @@
             position: absolute;
             left: 0;
             width: 100%;
-            top: 950px; /* Приподняли надпись */
+            top: 1200px; /* ОПУСТИЛИ ПОД ИЗОБРАЖЕНИЕ 26 */
             text-align: center;
             font-family: 'Amarante', serif;
             font-size: 32px;
@@ -218,7 +219,7 @@
 
         #natal-container {
             position: absolute;
-            top: 1000px; /* Приподняли начало фона 27 значительно выше */
+            top: 1280px; 
             left: 0;
             width: 100%;
             min-height: 500px;
@@ -226,6 +227,7 @@
             background-image: url('27.jpg');
             background-repeat: repeat-y;
             background-size: 100% auto;
+            background-position: center -200px; /* ПОДНЯЛИ ТОЛЬКО ИЗОБРАЖЕНИЕ 27 ВНУТРИ */
             z-index: 3;
             opacity: 0;
             transition: opacity 2s ease-in-out;
