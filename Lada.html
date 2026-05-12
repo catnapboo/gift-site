@@ -247,10 +247,9 @@
             align-items: center;
         }
 
-        /* Настройки для 28 и 29 */
         .extra-img {
             width: auto;
-            max-width: 80%; /* Сделали чуть больше */
+            max-width: 80%; 
             height: auto;
             margin-bottom: 25px;
             display: block;
@@ -258,7 +257,7 @@
         }
 
         #img28-asset {
-            max-height: 250px; /* Принудительно ограничиваем высоту для 28 */
+            max-height: 375px; /* Увеличено в 1.5 раза (было 250px) */
         }
 
         .fade-in { opacity: 1 !important; }
@@ -290,12 +289,11 @@
 
         <div id="natal-container">
             <div class="text-box">
-                <!-- Применили ID для 28 для точечного контроля высоты -->
                 <img src="28.png" id="img28-asset" class="extra-img">
                 <img src="29.png" class="extra-img">
                 
                 <div style="width: 100%;">
-                    Здесь будет ваш текст. Изображение 28 теперь имеет ограничение по высоте и не деформируется, а 28 и 29 стали немного крупнее.
+                    Здесь будет ваш текст. Изображение 28 теперь в 1.5 раза крупнее по высоте, все остальные настройки сохранены.
                 </div>
             </div>
         </div>
