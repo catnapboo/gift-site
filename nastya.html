@@ -23,7 +23,6 @@
             background: url('34.jpg') no-repeat center top;
             background-size: cover;
             opacity: 0;
-            /* Появление через 3 секунды */
             animation: fadeInBg 1s ease-in forwards;
             animation-delay: 3s;
             z-index: 1;
@@ -32,18 +31,19 @@
         /* Изображение 38.png (пролет) */
         #falling-image {
             position: absolute;
-            width: 800px;
+            /* Увеличил размер */
+            width: 1500px; 
             left: 50%;
             transform: translateX(-50%);
-            top: -900px;
+            /* Скорректировал стартовую позицию под новый размер */
+            top: -1600px;
             z-index: 2;
-            /* Полет сверху вниз за 3 секунды */
             animation: drop 3s linear forwards;
         }
 
         @keyframes drop {
             0% {
-                top: -900px;
+                top: -1600px;
                 opacity: 1;
             }
             100% {
