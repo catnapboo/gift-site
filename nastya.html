@@ -14,7 +14,6 @@
             overflow: hidden; 
         }
 
-        /* Финальный фон */
         .background-final {
             position: absolute;
             top: 0;
@@ -24,7 +23,7 @@
             background: url('34.jpg') no-repeat center top;
             background-size: cover;
             opacity: 0;
-            /* Появление за 1 сек ровно после исчезновения снежинки (через 3 сек) */
+            /* Появляется ровно через 3 секунды, когда 38 исчезнет */
             animation: fade-in-bg 1s ease-in forwards;
             animation-delay: 3s;
             z-index: 1;
@@ -36,32 +35,27 @@
             height: auto;
             pointer-events: none;
             left: 50%;
-            top: -900px; 
+            /* Фиксируем центр по X, чтобы не дергалось */
             transform: translateX(-50%);
             z-index: 2;
-            /* Чистое вертикальное падение за 3 секунды */
-            animation: pure-fall 3s linear forwards;
+            /* Прямое падение: от -100% высоты до 110% высоты экрана */
+            animation: simple-fall 3s linear forwards;
         }
 
         @keyframes fade-in-bg {
-            from { opacity: 0; }
             to { opacity: 1; }
         }
 
-        @keyframes pure-fall {
+        @keyframes simple-fall {
             0% {
-                top: -900px;
-                opacity: 0;
-            }
-            10% {
+                top: -900px; /* Начало за экраном */
                 opacity: 1;
             }
-            90% {
+            95% {
                 opacity: 1;
             }
             100% {
-                /* Уход вниз за край и полное исчезновение */
-                top: 100vh;
+                top: 110vh; /* Конец за экраном */
                 opacity: 0;
             }
         }
