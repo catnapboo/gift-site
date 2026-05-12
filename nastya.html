@@ -11,18 +11,19 @@
             width: 100%;
             height: 100%;
             background-color: #b9dcfa;
-            overflow: hidden; /* Чтобы не появлялись полосы прокрутки при вылете снежинки */
+            overflow: hidden; 
         }
 
         .snowflake {
             position: absolute;
-            width: 100px; /* Можно подправить размер */
+            /* Изображение увеличено в 5 раз (с 100px до 500px) */
+            width: 500px; 
             height: auto;
             pointer-events: none;
-            /* Начальная позиция: за левым верхним краем */
-            top: -150px;
-            left: -150px;
-            animation: wind-flow 6s linear infinite;
+            top: -600px;
+            left: -600px;
+            /* forwards сохраняет конечное состояние (невидимость), а 1 — проигрывает один раз */
+            animation: wind-flow 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
         }
 
         @keyframes wind-flow {
@@ -30,23 +31,26 @@
                 transform: translate(0, 0) rotate(0deg);
                 opacity: 0;
             }
-            10% {
+            5% {
                 opacity: 1;
             }
-            /* Движение к центру и начало "неровного" круга */
-            40% {
-                transform: translate(45vw, 40vh) rotate(140deg);
+            /* Траектория с "петлей" */
+            35% {
+                transform: translate(40vw, 30vh) rotate(100deg);
             }
             50% {
-                transform: translate(55vw, 35vh) rotate(280deg);
+                transform: translate(55vw, 25vh) rotate(240deg);
             }
-            60% {
-                transform: translate(50vw, 55vh) rotate(420deg);
+            65% {
+                transform: translate(45vw, 50vh) rotate(380deg);
             }
-            /* Улет в нижний правый угол */
-            100% {
-                transform: translate(120vw, 120vh) rotate(720deg);
+            /* Улет за край экрана */
+            95% {
                 opacity: 1;
+            }
+            100% {
+                transform: translate(150vw, 150vh) rotate(600deg);
+                opacity: 0;
             }
         }
     </style>
