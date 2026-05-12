@@ -28,19 +28,19 @@
       position: relative;
     }
 
+    /* 35 — теперь это повторяющаяся полоса */
     .section-35 {
       position: absolute;
       top: 0;
-      left: 0;
-      width: 100%;
+      left: -10%; /* Выход за левый край */
+      width: 120%; /* Растягиваем больше ширины экрана, чтобы заходило за оба края */
+      height: 250px; /* Высота подбирается исходя из того, что картинка в 2 раза меньше оригинала */
+      background-image: url('35.png');
+      background-repeat: repeat-x; /* Повтор по горизонтали */
+      background-size: contain; /* Картинка уменьшается, чтобы вписаться в высоту */
       opacity: 0;
     }
-    .section-35 img {
-      width: 100%;
-      display: block;
-    }
 
-    /* Контейнер для центрирования 40-х изображений по вертикали */
     .wrapper-40 {
       position: absolute;
       top: 50%;
@@ -53,19 +53,18 @@
       z-index: 5;
     }
 
+    /* Изображение 40 увеличено до 75% ширины */
     .section-40 {
-      width: 55%;
+      width: 75%; 
       opacity: 0;
     }
 
-    /* Левое изображение: чуть заходит за край, зеркальное */
     .section-40.left {
-      transform: scaleX(-1) translateX(10%); /* scaleX(-1) отражает, translateX сдвигает за край */
+      transform: scaleX(-1) translateX(20%); /* Увеличен заступ за левый край */
     }
 
-    /* Правое изображение: обычное (зеркальное по отношению к левому), у правого края */
     .section-40.right {
-      transform: translateX(10%);
+      transform: translateX(20%); /* Увеличен заступ за правый край */
     }
 
     .section-40 img {
@@ -132,11 +131,9 @@
 <body>
 
   <div class="bg-section" id="bg34">
-    <div class="section-35" id="section35">
-      <img src="35.png" alt="image 35" />
-    </div>
+    <!-- Повторяющаяся лента 35 -->
+    <div class="section-35" id="section35"></div>
     
-    <!-- Обертка для двух 40-х изображений -->
     <div class="wrapper-40">
       <div class="section-40 left" id="section40-left">
         <img src="40.png" alt="image 40" />
@@ -159,16 +156,13 @@
 
   <script>
     setTimeout(() => {
-      // 1. Появляются 34 и 35
       document.getElementById('bg34').classList.add('fade-in');
       document.getElementById('section35').classList.add('fade-in');
 
-      // 2. Спустя 1.5с (после появления 35) появляются изображения 40
       setTimeout(() => {
         document.getElementById('section40-left').classList.add('fade-in');
         document.getElementById('section40-right').classList.add('fade-in');
         
-        // 3. Еще через 1.5с появляются 36 и 39
         setTimeout(() => {
           document.querySelector('#section39 img').classList.add('fade-in');
           document.getElementById('section36').classList.add('fade-in');
