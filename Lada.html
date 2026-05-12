@@ -237,4 +237,145 @@
             padding: 30px;
             padding-top: 300px; /* Опускаем текст внутри блока значительно ниже надписи */
             border-radius: 10px;
-            font-family: 'Amarante', serif
+            font-family: 'Amarante', serif;
+            color: #403a38;
+            font-size: 18px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .fade-in { opacity: 1 !important; }
+
+    </style>
+</head>
+<body id="body-trigger">
+
+    <div id="intro-stage">
+        <img src="23.png" id="img23">
+        <div id="typewriter-text" class="story-text"></div>
+    </div>
+
+    <div id="main-stage">
+        <img src="22.png" id="img22">
+        
+        <img src="24.png" id="img24-left" class="side-24" style="left:0;">
+        <img src="24.png" id="img24-right" class="side-24" style="right:0;">
+        
+        <img src="25.png" id="img25-left" class="side-25" style="left:0;">
+        <img src="25.png" id="img25-right" class="side-25" style="right:0;">
+
+        <img src="20.png" id="img20" class="hand-img">
+        <img src="21.png" id="img21" class="hand-img">
+        <img src="19.png" id="img19">
+        <img src="26.png" id="img26">
+        
+        <div id="natal-label">Natal chart</div>
+
+        <div id="natal-container">
+            <div class="text-box">
+                Здесь будет ваш текст. Прямоугольник начинается одновременно с фоном 27, сама картинка 27 поднята еще выше, а этот текст опущен ниже относительно надписи Natal Chart за счет внутренних отступов.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const textToType = "Когда титан оскопил своего отца, его кровь пролилась в море и смешалась с солёной водой. Волны вспенились, поднялась белоснежная пена, и из этой морской пены явилась миру прекрасная девушка";
+        const typewriterElement = document.getElementById('typewriter-text');
+        const introStage = document.getElementById('intro-stage');
+        const mainStage = document.getElementById('main-stage');
+        const bodyTrigger = document.getElementById('body-trigger');
+        
+        const img23 = document.getElementById('img23');
+        const img22 = document.getElementById('img22');
+        const i24l = document.getElementById('img24-left');
+        const i24r = document.getElementById('img24-right');
+        const i25l = document.getElementById('img25-left');
+        const i25r = document.getElementById('img25-right');
+
+        const img19 = document.getElementById('img19');
+        const natalLabel = document.getElementById('natal-label');
+        const img20 = document.getElementById('img20');
+        const img21 = document.getElementById('img21');
+
+        let textIsFinished = false;
+
+        const observerOptions = { threshold: 0.2 };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.id === 'natal-label') natalLabel.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        observer.observe(natalLabel);
+
+        function fadeWords(text, element, speed) {
+            const words = text.split(' ');
+            const spans = [];
+            words.forEach((word, index) => {
+                const span = document.createElement('span');
+                span.innerText = word;
+                span.className = 'word-fade';
+                element.appendChild(span);
+                element.appendChild(document.createTextNode(' '));
+                spans.push(span);
+            });
+
+            let currentIdx = 0;
+            function triggerNext() {
+                if (currentIdx >= spans.length) {
+                    textIsFinished = true;
+                    return;
+                }
+                spans[currentIdx].classList.add('visible');
+                currentIdx++;
+                setTimeout(triggerNext, speed);
+            }
+            triggerNext();
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                img23.classList.add('visible');
+                setTimeout(() => {
+                    fadeWords(textToType, typewriterElement, 180); 
+                }, 1100); 
+            }, 1000); 
+        });
+
+        bodyTrigger.addEventListener('click', () => {
+            if (textIsFinished) {
+                introStage.classList.add('intro-hidden');
+
+                setTimeout(() => {
+                    mainStage.classList.add('main-visible');
+                    
+                    setTimeout(() => {
+                        img22.classList.add('fade-in');
+
+                        setTimeout(() => {
+                            i24l.classList.add('animate-24-l');
+                            i24r.classList.add('animate-24-r');
+                            i25l.classList.add('animate-25-l');
+                            i25r.classList.add('animate-25-r');
+
+                            setTimeout(() => {
+                                img20.classList.add('active-sides');
+                                img21.classList.add('active-sides');
+                                
+                                setTimeout(() => {
+                                    img19.style.opacity = "1";
+                                }, 1500); 
+
+                            }, 1500); 
+
+                        }, 1500);
+                    }, 500);
+                }, 1500); 
+            }
+        });
+    </script>
+</body>
+</html>
