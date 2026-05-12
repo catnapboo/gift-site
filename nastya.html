@@ -1,68 +1,46 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>New Code</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #b9dcfa;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* Изображение 34.jpg (фон) */
-        #final-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('34.jpg') no-repeat center top;
-            background-size: cover;
-            opacity: 0;
-            /* Появление через 3 секунды */
-            animation: fadeInBg 1s ease-in forwards;
-            animation-delay: 3s;
-            z-index: 1;
-        }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #b9dcfa;
+      overflow-x: hidden;
+    }
 
-        /* Изображение 38.png (пролет) */
-        #falling-image {
-            position: absolute;
-            width: 1300px;
-            left: 50%;
-            transform: translateX(-50%);
-            top: -900px;
-            z-index: 2;
-            /* Полет сверху вниз за 3 секунды */
-            animation: drop 3s linear forwards;
-        }
+    .flying-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: auto;
+      display: block;
+      animation: flyDown 3s ease-in-out forwards;
+    }
 
-        @keyframes drop {
-            0% {
-                top: -900px;
-                opacity: 1;
-            }
-            100% {
-                top: 100vh;
-                opacity: 0;
-            }
-        }
-
-        @keyframes fadeInBg {
-            to {
-                opacity: 1;
-            }
-        }
-    </style>
+    @keyframes flyDown {
+      from {
+        transform: translateY(-100%);
+      }
+      to {
+        transform: translateY(calc(100vh - 100%));
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <div id="final-bg"></div>
-    <img src="38.png" id="falling-image" alt="">
+  <img class="flying-image" src="38.png" alt="flying image" />
 
 </body>
 </html>
