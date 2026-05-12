@@ -42,7 +42,7 @@
 
     .wrapper-assets {
       position: absolute;
-      top: 40%; /* Подняли весь контейнер чуть выше (было 50%) */
+      top: 40%;
       left: 0;
       width: 100%;
       transform: translateY(-50%);
@@ -63,19 +63,18 @@
       opacity: 0;
     }
 
-    /* Изображение 40: увеличили ширину до 90% и добавили отрицательный margin, чтобы поднять еще выше */
     .asset-40 {
       width: 90%; 
-      margin-bottom: -50px; /* Немного притягиваем нижний ряд к нему */
+      margin-bottom: -50px;
     }
     .asset-40.left { transform: scaleX(-1) translateX(25%); }
     .asset-40.right { transform: translateX(25%); }
 
-    /* Изображение 41 */
+    /* Изображение 41: теперь с зеркальностью (scaleX(-1) для левого) */
     .asset-41 {
       width: 75%;
     }
-    .asset-41.left { transform: translateX(-20%); }
+    .asset-41.left { transform: scaleX(-1) translateX(20%); } /* Зеркально + сдвиг */
     .asset-41.right { transform: translateX(20%); }
 
     .asset-img img {
@@ -83,10 +82,12 @@
       width: 100%;
     }
 
+    /* 36: увеличено до 120% и поднято еще выше через margin-top */
     .section-36 {
       position: relative;
-      width: 100%;
-      margin-top: -350px;
+      width: 120%; /* Увеличили размер */
+      left: -10%; /* Центрируем после увеличения ширины */
+      margin-top: -550px; /* Подняли еще выше (было -350px) */
       opacity: 0;
       z-index: 10;
     }
