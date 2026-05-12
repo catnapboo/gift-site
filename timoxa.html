@@ -18,31 +18,29 @@
             align-items: center;
         }
 
-        .top-image {
-            width: 100%;
-            max-width: 100px; /* Можно настроить под нужный размер */
-            height: auto;
+        .fixed-image {
+            /* Размер изображения 31 установлен в 100px */
+            height: 100px;
+            width: auto;
             display: block;
         }
 
-        .content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-grow: 1;
-            color: white;
-            text-align: center;
+        .stack-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            display: block;
         }
     </style>
 </head>
 <body>
 
-    <!-- Изображение 31.png в самом верху -->
-    <img src="31.png" alt="" class="top-image">
+    <!-- Изображение 31 с высотой 100px -->
+    <img src="31.png" alt="" class="fixed-image">
 
-    <div class="content">
-        <h1>Страница создана</h1>
-    </div>
+    <!-- Изображения 32 и 33 друг за другом -->
+    <img src="32.png" alt="" class="stack-image">
+    <img src="33.png" alt="" class="stack-image">
 
 </body>
 </html>
