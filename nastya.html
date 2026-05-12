@@ -10,11 +10,50 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            /* Установленный цвет фона */
             background-color: #b9dcfa;
+            overflow: hidden; /* Чтобы не появлялись полосы прокрутки при вылете снежинки */
+        }
+
+        .snowflake {
+            position: absolute;
+            width: 100px; /* Можно подправить размер */
+            height: auto;
+            pointer-events: none;
+            /* Начальная позиция: за левым верхним краем */
+            top: -150px;
+            left: -150px;
+            animation: wind-flow 6s linear infinite;
+        }
+
+        @keyframes wind-flow {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            /* Движение к центру и начало "неровного" круга */
+            40% {
+                transform: translate(45vw, 40vh) rotate(140deg);
+            }
+            50% {
+                transform: translate(55vw, 35vh) rotate(280deg);
+            }
+            60% {
+                transform: translate(50vw, 55vh) rotate(420deg);
+            }
+            /* Улет в нижний правый угол */
+            100% {
+                transform: translate(120vw, 120vh) rotate(720deg);
+                opacity: 1;
+            }
         }
     </style>
 </head>
 <body>
+
+    <img src="38.png" alt="" class="snowflake">
+
 </body>
 </html>
