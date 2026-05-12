@@ -37,7 +37,6 @@
       height: 100%;
       pointer-events: none;
       z-index: 100;
-      /* Ограничиваем видимость снега только высотой 100vh (первый экран) */
       clip-path: inset(0 0 0 0); 
       mask-image: linear-gradient(to bottom, black 0%, black 100vh, transparent 100vh);
       -webkit-mask-image: linear-gradient(to bottom, black 0%, black 100vh, transparent 100vh);
@@ -96,13 +95,14 @@
       width: 100%;
     }
 
+    /* Изображение 36 теперь выше снега */
     .section-36 {
       position: relative;
       width: 120%;
       left: -10%;
       margin-top: -550px;
       opacity: 0;
-      z-index: 10;
+      z-index: 110; /* Значение больше, чем у снега (100) */
     }
     .section-36 img {
       width: 100%;
