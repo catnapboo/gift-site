@@ -13,30 +13,31 @@
 
     html, body {
       width: 100%;
-      height: 100%;
       background-color: #b9dcfa;
       overflow-x: hidden;
     }
 
     .bg-section {
       width: 100%;
-      min-height: 100vh;
+      height: 100vh; /* Ограничиваем высоту первым экраном */
       background-image: url('34.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      opacity: 0; /* Изначально скрыт */
+      opacity: 0;
       position: relative;
+      overflow: hidden; /* Снег не выйдет за эти границы */
     }
 
+    /* Холст теперь внутри bg-section */
     #snowCanvas {
-      position: fixed; /* Снег зафиксирован относительно экрана */
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       pointer-events: none;
-      z-index: 100; /* Снег поверх всего */
+      z-index: 1;
     }
 
     .section-35 {
@@ -49,6 +50,7 @@
       background-repeat: repeat-x;
       background-size: contain;
       opacity: 0;
+      z-index: 2;
     }
 
     .wrapper-assets {
@@ -111,11 +113,9 @@
       opacity: 0;
     }
 
-    /* Анимации появления */
     .fade-in {
       animation: fadeIn 1.5s ease-in-out forwards;
     }
-
     #bg34.fade-in {
       animation: fadeIn 0.8s ease-in forwards;
     }
@@ -128,9 +128,10 @@
 </head>
 <body>
 
-  <canvas id="snowCanvas"></canvas>
-
   <div class="bg-section" id="bg34">
+    <!-- Снег заперт внутри этого контейнера -->
+    <canvas id="snowCanvas"></canvas>
+
     <div class="section-35" id="section35"></div>
     
     <div class="wrapper-assets">
@@ -162,15 +163,16 @@
   </div>
 
   <script>
-    // 1. СНЕГ ЗАПУСКАЕТСЯ СРАЗУ (Оптимизированная версия)
     const canvas = document.getElementById('snowCanvas');
     const ctx = canvas.getContext('2d');
+    const parent = document.getElementById('bg34');
 
     let width, height, snowflakes = [];
 
     function initSnow() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      // Берем размеры родительского блока bg-section
+      width = canvas.width = parent.offsetWidth;
+      height = canvas.height = parent.offsetHeight;
       snowflakes = [];
       for (let i = 0; i < 150; i++) {
         snowflakes.push({
@@ -209,32 +211,29 @@
     }
 
     window.addEventListener('resize', initSnow);
+    
+    // Снег стартует сразу
     initSnow();
     drawSnow();
 
-    // 2. ЦЕПОЧКА ПОЯВЛЕНИЯ ПОСЛЕ 3 СЕКУНД
+    // Запуск анимаций через 3 секунды
     setTimeout(() => {
-      // Появление фона 34 и ленты 35 одновременно
-      const bg34 = document.getElementById('bg34');
-      bg34.classList.add('fade-in');
+      document.getElementById('bg34').classList.add('fade-in');
       document.getElementById('section35').classList.add('fade-in');
 
-      // Все последующие анимации отталкиваются от этого момента (+1.5с)
       setTimeout(() => {
         document.getElementById('asset40-left').classList.add('fade-in');
         document.getElementById('asset40-right').classList.add('fade-in');
         document.getElementById('asset41-left').classList.add('fade-in');
         document.getElementById('asset41-right').classList.add('fade-in');
         
-        // Еще через 1.5с
         setTimeout(() => {
           document.querySelector('#section39 img').classList.add('fade-in');
           document.getElementById('section36').classList.add('fade-in');
         }, 1500);
         
       }, 1500);
-
-    }, 3000); // 3 секунды задержки перед началом появления фона 34
+    }, 3000);
   </script>
 
 </body>
