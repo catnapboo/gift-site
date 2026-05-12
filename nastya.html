@@ -74,15 +74,13 @@
       opacity: 0;
     }
 
-    /* Изображения 40: увеличены до 110% */
     .asset-40 {
       width: 110%; 
-      margin-bottom: -80px; /* Сильнее притягиваем нижний ряд из-за размера */
+      margin-bottom: -80px;
     }
     .asset-40.left { transform: scaleX(-1) translateX(30%); }
     .asset-40.right { transform: translateX(30%); }
 
-    /* Изображения 41: увеличены до 95% */
     .asset-41 {
       width: 95%;
     }
@@ -125,31 +123,6 @@
       from { opacity: 0; }
       to   { opacity: 1; }
     }
-
-    .flying-image {
-      position: fixed;
-      top: 0;
-      left: -25vw;
-      width: 150vw;
-      height: 150vw;
-      object-fit: cover;
-      display: block;
-      animation: flyDown 6s ease-in-out forwards;
-    }
-
-    @keyframes flyDown {
-      0% {
-        transform: translateX(0) translateY(-100%);
-        opacity: 1;
-      }
-      70% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateX(0) translateY(110vh);
-        opacity: 0;
-      }
-    }
   </style>
 </head>
 <body>
@@ -186,8 +159,6 @@
   <div class="section-39" id="section39">
     <img src="39.jpg" alt="image 39" />
   </div>
-
-  <img class="flying-image" src="38.png" alt="flying image" />
 
   <script>
     const canvas = document.getElementById('snowCanvas');
@@ -239,9 +210,12 @@
     }
 
     window.addEventListener('resize', initSnow);
+    
+    // Снег запускается сразу
     initSnow();
     drawSnow();
 
+    // Остальные анимации по прежнему графику
     setTimeout(() => {
       document.getElementById('bg34').classList.add('fade-in');
       document.getElementById('section35').classList.add('fade-in');
