@@ -13,13 +13,22 @@
 
     html, body {
       width: 100%;
-      height: 100%;
       background-color: #b9dcfa;
+      overflow-x: hidden;
+    }
+
+    .bg-section {
+      width: 100%;
+      min-height: 100vh;
       background-image: url('34.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      overflow-x: hidden;
+    }
+
+    .section-39 img {
+      width: 100%;
+      display: block;
     }
 
     .flying-image {
@@ -50,6 +59,11 @@
   </style>
 </head>
 <body>
+
+  <div class="bg-section"></div>
+  <div class="section-39">
+    <img src="39.jpg" alt="image 39" />
+  </div>
 
   <img class="flying-image" src="38.png" alt="flying image" />
 
