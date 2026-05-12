@@ -70,11 +70,10 @@
     .asset-40.left { transform: scaleX(-1) translateX(25%); }
     .asset-40.right { transform: translateX(25%); }
 
-    /* Изображение 41: теперь с зеркальностью (scaleX(-1) для левого) */
     .asset-41 {
       width: 75%;
     }
-    .asset-41.left { transform: scaleX(-1) translateX(20%); } /* Зеркально + сдвиг */
+    .asset-41.left { transform: scaleX(-1) translateX(20%); }
     .asset-41.right { transform: translateX(20%); }
 
     .asset-img img {
@@ -82,12 +81,11 @@
       width: 100%;
     }
 
-    /* 36: увеличено до 120% и поднято еще выше через margin-top */
     .section-36 {
       position: relative;
-      width: 120%; /* Увеличили размер */
-      left: -10%; /* Центрируем после увеличения ширины */
-      margin-top: -550px; /* Подняли еще выше (было -350px) */
+      width: 120%;
+      left: -10%;
+      margin-top: -550px;
       opacity: 0;
       z-index: 10;
     }
@@ -115,6 +113,7 @@
       to   { opacity: 1; }
     }
 
+    /* Скорость изменена с 3s до 6s для замедления */
     .flying-image {
       position: fixed;
       top: 0;
@@ -123,7 +122,7 @@
       height: 150vw;
       object-fit: cover;
       display: block;
-      animation: flyDown 3s ease-in-out forwards;
+      animation: flyDown 6s ease-in-out forwards;
     }
 
     @keyframes flyDown {
