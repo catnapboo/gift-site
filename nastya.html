@@ -65,32 +65,30 @@
       flex-direction: column;
       align-items: center;
       pointer-events: none;
-      z-index: 200; /* Выше снега */
+      z-index: 200;
     }
 
     .row {
       display: flex;
       justify-content: space-between;
       width: 100%;
-      max-width: 1200px; /* Ограничитель для удобства позиционирования в px */
+      max-width: 1200px;
     }
 
     .asset-img {
       opacity: 0;
     }
 
-    /* РАЗМЕР В PX ДЛЯ ИЗОБРАЖЕНИЯ 40 */
     .asset-40 {
-      width: 600px; /* Меняй это значение для размера */
+      width: 600px; 
       margin-bottom: -100px;
     }
     .asset-40.left { transform: scaleX(-1) translateX(10%); }
     .asset-40.right { transform: translateX(10%); }
 
-    /* РАЗМЕР В PX ДЛЯ ИЗОБРАЖЕНИЯ 41 И ПОЗИЦИЯ */
     .asset-41 {
-      width: 550px; /* Меняй это значение для размера */
-      margin-top: 50px; /* Уменьшил, чтобы поднять выше */
+      width: 550px; 
+      margin-top: 50px; 
     }
     .asset-41.left { transform: scaleX(-1) translateX(5%); }
     .asset-41.right { transform: translateX(5%); }
@@ -113,8 +111,10 @@
       display: block;
     }
 
+    /* ОБНОВЛЕННОЕ ИЗОБРАЖЕНИЕ 39 */
     .section-39 img {
-      width: 100%;
+      width: 1400px; /* Увеличил размер (был 100%) */
+      margin: 100px auto 0; /* Сместил вниз на 100px и отцентровал */
       display: block;
       opacity: 0;
     }
