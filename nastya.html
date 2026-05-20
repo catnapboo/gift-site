@@ -123,14 +123,14 @@
       opacity: 0;
     }
 
-    /* ИЗМЕНЕНО: Видео уменьшено в 5 раз (100px) и сдвинуто на left: 15% */
+    /* ИЗМЕНЕНО: Видео сделано чуть больше (140px) и смещено на left: 25% */
     .video-player {
       position: absolute;
       top: 50%;
-      left: 15%; 
+      left: 25%; 
       transform: translate(-50%, -50%);
-      width: 100px; 
-      max-width: 15%;
+      width: 140px; 
+      max-width: 20%;
       z-index: 9999; 
       opacity: 0;
     }
@@ -236,8 +236,6 @@
     window.addEventListener('resize', initSnow);
     initSnow();
     drawSnow();
-
-    // ИСПРАВЛЕНО: Скрипт клика по плееру удален, видео теперь запускается только кнопкой Play элементов управления
 
     setTimeout(() => {
       document.getElementById('bg34').classList.add('fade-in');
