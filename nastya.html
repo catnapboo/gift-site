@@ -111,14 +111,10 @@
       display: block;
     }
 
-    /* ИЗМЕНЕНО: РАЗМЕР МЕНЬШЕ И ПОДНЯТ ВЫШЕ */
     .section-39 {
       position: relative;
-      width: 1000px; /* Уменьшил ширину (было 1400px) */
-      margin: 30px auto 0; /* Уменьшил отступ сверху до 30px, чтобы поднять блок */
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      width: 1000px; 
+      margin: 30px auto 0;
     }
 
     .section-39 img {
@@ -127,9 +123,13 @@
       opacity: 0;
     }
 
+    /* ИСПРАВЛЕНО ЦЕНТРИРОВАНИЕ ПЛЕЕРА */
     .video-player {
       position: absolute;
-      width: 500px; /* Немного уменьшил сам плеер под новые размеры картинки */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Жесткая посадка по центру */
+      width: 500px; 
       max-width: 90%;
       z-index: 250; 
       opacity: 0;
@@ -182,7 +182,6 @@
 
   <div class="section-39" id="section39">
     <img src="39.jpg" alt="image 39" />
-    <!-- ИЗМЕНЕНО: ССЫЛКА НА 3b.mp4 -->
     <video class="video-player" id="video3b" controls playsinline>
       <source src="3b.mp4" type="video/mp4">
     </video>
