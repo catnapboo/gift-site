@@ -105,6 +105,7 @@
       margin-top: -550px;
       opacity: 0;
       z-index: 210;
+      pointer-events: none; /* Чтобы не мешать кликам по тексту ниже */
     }
     .section-36 img {
       width: 100%;
@@ -123,7 +124,6 @@
       opacity: 0;
     }
 
-    /* ИЗМЕНЕНО: Видео смещено на 1% вправо (left: 23%) */
     .video-player {
       position: absolute;
       top: 50%;
@@ -133,6 +133,33 @@
       max-width: 30%;
       z-index: 9999; 
       opacity: 0;
+    }
+
+    /* НОВОЕ: Секция под изображением 39 с зацикленным фоном 42.jpg */
+    .section-text-container {
+      position: relative;
+      width: 100%;
+      min-height: 200px; /* Минимальная высота, увеличится сама вместе с текстом */
+      background-image: url('42.jpg');
+      background-repeat: repeat-y; /* Цикличное повторение только по вертикали */
+      background-position: top center;
+      background-size: 100% auto; /* Растягиваем по ширине экрана */
+      z-index: 205; /* Находится под рамкой 36.png, но над основным фоном */
+      padding: 40px 20px; /* Внутренние отступы для текста */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Стили для будущего текста (можете менять под себя) */
+    .custom-text-content {
+      max-width: 800px;
+      width: 100%;
+      color: #000000;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      text-align: center;
     }
 
     .fade-in {
@@ -185,6 +212,14 @@
     <video class="video-player" id="video3b" controls playsinline>
       <source src="3b.mp4" type="video/mp4">
     </video>
+  </div>
+
+  <!-- НОВОЕ: Контейнер для текста и бесконечного фона 42.jpg -->
+  <div class="section-text-container">
+    <div class="custom-text-content">
+      <h2>Место для вашего будущего текста</h2>
+      <!-- Сюда вы вставите свой длинный текст. Фон автоматически растянется вслед за ним. -->
+    </div>
   </div>
 
   <script>
