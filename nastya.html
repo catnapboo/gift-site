@@ -123,17 +123,16 @@
       opacity: 0;
     }
 
-    /* ИЗМЕНЕНО: Положение left скорректировано на 45% */
+    /* ИЗМЕНЕНО: Видео уменьшено в 5 раз (100px) и сдвинуто на left: 15% */
     .video-player {
       position: absolute;
       top: 50%;
-      left: 45%; 
+      left: 15%; 
       transform: translate(-50%, -50%);
-      width: 500px; 
-      max-width: 90%;
+      width: 100px; 
+      max-width: 15%;
       z-index: 9999; 
       opacity: 0;
-      cursor: pointer;
     }
 
     .fade-in {
@@ -238,17 +237,7 @@
     initSnow();
     drawSnow();
 
-    // ИСПРАВЛЕНО: Безотказный триггер старта видео
-    const video = document.getElementById('video3b');
-    video.addEventListener('pointerdown', function(e) {
-      if (video.paused) {
-        video.play().catch(function(err) {
-          console.error("Ошибка воспроизведения:", err);
-        });
-      } else {
-        video.pause();
-      }
-    });
+    // ИСПРАВЛЕНО: Скрипт клика по плееру удален, видео теперь запускается только кнопкой Play элементов управления
 
     setTimeout(() => {
       document.getElementById('bg34').classList.add('fade-in');
