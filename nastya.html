@@ -111,7 +111,6 @@
       display: block;
     }
 
-    /* ИЗМЕНЕНО: Ширина уменьшена с 1000px до 700px (картинка 39 стала меньше) */
     .section-39 {
       position: relative;
       width: 700px; 
@@ -124,11 +123,11 @@
       opacity: 0;
     }
 
-    /* ИЗМЕНЕНО: Значение left уменьшено до 20%, чтобы сдвинуть плеер еще левее */
+    /* ИЗМЕНЕНО: Значение left увеличено до 75%, чтобы сдвинуть плеер правее */
     .video-player {
       position: absolute;
       top: 50%;
-      left: 20%; 
+      left: 75%; 
       transform: translate(-50%, -50%);
       width: 500px; 
       max-width: 90%;
@@ -239,10 +238,14 @@
     initSnow();
     drawSnow();
 
+    // ИСПРАВЛЕНО: Безопасный запуск видео без конфликтов со встроенным UI браузеров
     const video = document.getElementById('video3b');
-    video.addEventListener('click', function() {
+    video.addEventListener('click', function(e) {
+      // Запускаем воспроизведение только если видео стоит на паузе
       if (video.paused) {
-        video.play();
+        video.play().catch(function(error) {
+          console.log("Браузер заблокировал автовоспроизведение: ", error);
+        });
       }
     });
 
