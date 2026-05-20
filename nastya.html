@@ -111,11 +111,28 @@
       display: block;
     }
 
-    /* ОБНОВЛЕННОЕ ИЗОБРАЖЕНИЕ 39 */
+    /* КОНТЕЙНЕР ДЛЯ КАРТИНКИ И ПЛЕЕРА 39 */
+    .section-39 {
+      position: relative;
+      width: 1400px;
+      margin: 100px auto 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
     .section-39 img {
-      width: 700px; /* Увеличил размер (был 100%) */
-      margin: 50px auto 0; /* Сместил вниз на 100px и отцентровал */
+      width: 100%;
       display: block;
+      opacity: 0;
+    }
+
+    /* РУЧНОЙ ПЛЕЕР ПО ЦЕНТРУ КАРТИНКИ И ВЫШЕ СНЕГА */
+    .video-player {
+      position: absolute;
+      width: 640px; /* Задай нужную ширину плеера */
+      max-width: 90%;
+      z-index: 250; /* Поверх снега (100) */
       opacity: 0;
     }
 
@@ -164,8 +181,13 @@
     <img src="36.png" alt="image 36" />
   </div>
 
+  <!-- БЛОК С ОБЫЧНЫМ ПЛЕЕРОМ ПО ЦЕНТРУ -->
   <div class="section-39" id="section39">
     <img src="39.jpg" alt="image 39" />
+    <video class="video-player" id="video3b" controls playsinline>
+      <source src="3b.MOV" type="video/quicktime">
+      <source src="3b.MOV" type="video/mp4">
+    </video>
   </div>
 
   <script>
@@ -230,6 +252,7 @@
         
         setTimeout(() => {
           document.querySelector('#section39 img').classList.add('fade-in');
+          document.getElementById('video3b').classList.add('fade-in'); /* Проявляем плеер */
           document.getElementById('section36').classList.add('fade-in');
         }, 1500);
         
