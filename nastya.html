@@ -123,11 +123,11 @@
       opacity: 0;
     }
 
-    /* ИЗМЕНЕНО: Значение left увеличено до 75%, чтобы сдвинуть плеер правее */
+    /* ИЗМЕНЕНО: Положение left скорректировано на 45% */
     .video-player {
       position: absolute;
       top: 50%;
-      left: 75%; 
+      left: 45%; 
       transform: translate(-50%, -50%);
       width: 500px; 
       max-width: 90%;
@@ -238,14 +238,15 @@
     initSnow();
     drawSnow();
 
-    // ИСПРАВЛЕНО: Безопасный запуск видео без конфликтов со встроенным UI браузеров
+    // ИСПРАВЛЕНО: Безотказный триггер старта видео
     const video = document.getElementById('video3b');
-    video.addEventListener('click', function(e) {
-      // Запускаем воспроизведение только если видео стоит на паузе
+    video.addEventListener('pointerdown', function(e) {
       if (video.paused) {
-        video.play().catch(function(error) {
-          console.log("Браузер заблокировал автовоспроизведение: ", error);
+        video.play().catch(function(err) {
+          console.error("Ошибка воспроизведения:", err);
         });
+      } else {
+        video.pause();
       }
     });
 
