@@ -204,7 +204,7 @@
             position: absolute;
             left: 25%;
             width: 50%;
-            top: 760px;
+            top: 860px; /* Опустили видео чуть ниже */
             height: auto;
             z-index: 5;
         }
@@ -348,7 +348,8 @@
         <img src="21.png" id="img21" class="hand-img">
         <img src="19.png" id="img19">
         <img src="26.png" id="img26">
-        <video id="video-overlay" src="4b.mp4" autoplay loop muted playsinline></video>
+        <!-- Добавлены controls для паузы/звука, убран muted -->
+        <video id="video-overlay" src="4b.mp4" controls loop playsinline></video>
         
         <div id="natal-label">Natal chart</div>
 
