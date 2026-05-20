@@ -111,11 +111,11 @@
       display: block;
     }
 
-    /* КОНТЕЙНЕР ДЛЯ КАРТИНКИ И ПЛЕЕРА 39 */
+    /* ИЗМЕНЕНО: РАЗМЕР МЕНЬШЕ И ПОДНЯТ ВЫШЕ */
     .section-39 {
       position: relative;
-      width: 1400px;
-      margin: 100px auto 0;
+      width: 1000px; /* Уменьшил ширину (было 1400px) */
+      margin: 30px auto 0; /* Уменьшил отступ сверху до 30px, чтобы поднять блок */
       display: flex;
       justify-content: center;
       align-items: center;
@@ -127,12 +127,11 @@
       opacity: 0;
     }
 
-    /* РУЧНОЙ ПЛЕЕР ПО ЦЕНТРУ КАРТИНКИ И ВЫШЕ СНЕГА */
     .video-player {
       position: absolute;
-      width: 640px; /* Задай нужную ширину плеера */
+      width: 500px; /* Немного уменьшил сам плеер под новые размеры картинки */
       max-width: 90%;
-      z-index: 250; /* Поверх снега (100) */
+      z-index: 250; 
       opacity: 0;
     }
 
@@ -181,12 +180,11 @@
     <img src="36.png" alt="image 36" />
   </div>
 
-  <!-- БЛОК С ОБЫЧНЫМ ПЛЕЕРОМ ПО ЦЕНТРУ -->
   <div class="section-39" id="section39">
     <img src="39.jpg" alt="image 39" />
+    <!-- ИЗМЕНЕНО: ССЫЛКА НА 3b.mp4 -->
     <video class="video-player" id="video3b" controls playsinline>
-      <source src="3b.MOV" type="video/quicktime">
-      <source src="3b.MOV" type="video/mp4">
+      <source src="3b.mp4" type="video/mp4">
     </video>
   </div>
 
@@ -252,7 +250,7 @@
         
         setTimeout(() => {
           document.querySelector('#section39 img').classList.add('fade-in');
-          document.getElementById('video3b').classList.add('fade-in'); /* Проявляем плеер */
+          document.getElementById('video3b').classList.add('fade-in');
           document.getElementById('section36').classList.add('fade-in');
         }, 1500);
         
