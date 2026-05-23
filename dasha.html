@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мой проект на GitHub</title>
     <style>
-        /* Сброс базовых отступов и установка фонового цвета */
         * {
             margin: 0;
             padding: 0;
@@ -16,13 +15,48 @@
             background-color: #180f2b;
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #ffffff; /* Белый цвет текста по умолчанию для контраста */
+            color: #ffffff;
+            /* Центрируем контент по вертикали и горизонтали */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Скрываем полосы прокрутки при сильном увеличении */
+        }
+
+        /* Контейнер и стили для анимации изображения */
+        .zoom-image {
+            max-width: 90vw; /* Ограничим по ширине экрана, чтобы не ломать верстку */
+            max-height: 90vh; /* Ограничим по высоте */
+            object-fit: contain;
+            
+            /* Подключаем анимацию: имя | время (3с) | функция плавности | сохранять финальное состояние */
+            animation: zoomInIntro 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            
+            /* Начальное состояние до старта анимации (на случай задержек) */
+            transform: scale(0.01);
+            opacity: 0;
+        }
+
+        /* Описание ключевых кадров анимации */
+        @keyframes zoomInIntro {
+            0% {
+                transform: scale(0.01); /* Почти невидимая точка */
+                opacity: 0;             /* Полностью прозрачная */
+            }
+            15% {
+                opacity: 1;             /* Быстро проявляется в самом начале влета */
+            }
+            100% {
+                transform: scale(1.8);  /* Сильное увеличение (1.8 от оригинального размера) */
+                opacity: 1;             /* Остается видимой */
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Здесь будет весь основной контент страницы -->
+    <!-- Наше изображение, которое эффектно приближается при старте -->
+    <img src="45.png" alt="Приближающееся изображение" class="zoom-image">
 
 </body>
 </html>
