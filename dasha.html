@@ -16,43 +16,51 @@
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #ffffff;
-            /* Идеальное центрирование в видимой части браузера */
+            /* Идеальное центрирование содержимого */
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Прячем полосы прокрутки, так как картинка будет огромной */
+            overflow: hidden; /* Скрываем полосы прокрутки */
         }
 
+        /* Восстанавливаем аккуратный стиль с ограничениями размера */
         .zoom-image {
-            /* Убираем жесткие рамки, чтобы картинка могла расти без ограничений */
+            max-width: 90vw; /* Картинка не шире 90% экрана */
+            max-height: 90vh; /* Картинка не выше 90% экрана */
+            object-fit: contain;
             display: block;
+
+            /* Подключаем новую анимацию, которая исчезнет в конце */
+            animation: zoomAndFadeOutIntro 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             
-            /* Анимация: 3 секунды, кастомная плавность, фиксация в финальной точке */
-            animation: megaZoom 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            
-            /* Стартовая точка */
-            transform: scale(0);
+            /* Стартовое состояние (скрыто) */
+            transform: scale(0.01);
             opacity: 0;
         }
 
-        @keyframes megaZoom {
+        /* Новое описание анимации: влет, задержка и исчезновение */
+        @keyframes zoomAndFadeOutIntro {
             0% {
-                transform: scale(0); /* Начинаем с абсолютного нуля */
-                opacity: 0;
+                transform: scale(0.01); /* Почти невидимая точка */
+                opacity: 0;             /* Полностью прозрачная */
             }
-            10% {
-                opacity: 1; /* Картинка мгновенно становится видимой при старте движения */
+            15% {
+                opacity: 1;             /* Быстро проявляется в начале влета */
+            }
+            80% {
+                transform: scale(1.8);  /* Достигает крупного размера (как в 1-й раз) */
+                opacity: 1;             /* Все еще полностью видна */
             }
             100% {
-                transform: scale(5); /* Итоговое увеличение ровно в 5 раз */
-                opacity: 1;
+                transform: scale(1.8);  /* Сохраняет финальный размер */
+                opacity: 0;             /* Плавно исчезает (fade out) к 3-й секунде */
             }
         }
     </style>
 </head>
 <body>
 
-    <img src="45.png" alt="Приближающееся изображение" class="zoom-image">
+    <img src="45.png" alt="Приближающееся и исчезающее изображение" class="zoom-image">
 
 </body>
 </html>
