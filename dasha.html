@@ -128,20 +128,18 @@
         /* 5. МУЗЫКАЛЬНЫЙ ПЛЕЕР (Появление на 9.5 секунде) */
         .audio-player-container {
             position: absolute;
-            top: 60%; /* Располагаем ниже уровня гифок (у них top: 15%) */
-            z-index: 3; /* Поверх фона */
+            top: 42%; /* Подняли плеер заметно выше (было 60%) */
+            z-index: 3; 
             opacity: 0;
             
-            /* Плеер появляется одновременно с гифками */
             animation: fadeInPlayer 1s ease-in-out 9.5s forwards;
         }
 
-        /* Небольшая кастомизация внешнего вида встроенного плеера */
         audio {
             width: 300px;
             height: 45px;
             border-radius: 30px;
-            background: rgba(241, 243, 244, 0.2); /* Легкое размытие под стиль страницы */
+            background: rgba(241, 243, 244, 0.2); 
             box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.5);
         }
 
