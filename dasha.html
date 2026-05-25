@@ -81,6 +81,17 @@
             100% { opacity: 0; }
         }
 
+        /* СЛОЙ 0: НОВОЕ ИЗОБРАЖЕНИЕ 50.jpg (Находится НА САМОМ ДНЕ, под фоном 46) */
+        .deep-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0; /* Самый низкий приоритет слоя, строго под фоном 46 */
+        }
+
         /* 3. ФИНАЛЬНЫЙ ФОН 46.jpg (Проявляется на 7-й секунде) */
         .full-screen-bg {
             position: absolute;
@@ -89,7 +100,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: 1;
+            z-index: 1; /* На один уровень выше, чем 50.jpg */
             animation: fadeInBackground 1.5s ease-in-out 7s forwards;
             opacity: 0;
         }
@@ -121,11 +132,11 @@
             right: 2%;
         }
 
-        /* КЛАСС ДЛЯ НОВЫХ НИЖНИХ ЭЛЕМЕНТОВ 49.gif */
+        /* КЛАСС ДЛЯ НИЖНИХ ЭЛЕМЕНТОВ 49.gif */
         .bottom-element {
             position: absolute;
             bottom: 10%; 
-            width: 70vw; /* Увеличили в 2 раза (было 35vw) */
+            width: 70vw; 
             height: auto;
             z-index: 2;
             opacity: 0;
@@ -135,15 +146,14 @@
         }
 
         .bottom-element.left {
-            left: -15%; /* Отодвинули дальше влево за край экрана (было 2%) */
+            left: -15%; 
             transform: scaleX(-1); 
         }
 
         .bottom-element.right {
-            right: -15%; /* Отодвинули дальше вправо за край экрана (было 2%) */
+            right: -15%; 
         }
 
-        /* Общая анимация появления для всех гифок и элементов сцены */
         @keyframes fadeInElements {
             0% { opacity: 0; }
             100% { opacity: 1; }
@@ -182,6 +192,8 @@
         <img src="47.png" alt="Полоса 3">
         <img src="47.png" alt="Полоса 2">
     </div>
+
+    <img src="50.jpg" alt="Самый нижний фон" class="deep-background">
 
     <img src="46.jpg" alt="Фон страницы" class="full-screen-bg">
 
