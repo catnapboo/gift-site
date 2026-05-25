@@ -11,7 +11,7 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden; /* Полностью блокирует появление любых полос прокрутки */
+            overflow: hidden; 
             background-color: #180f2b;
         }
 
@@ -30,7 +30,7 @@
             max-height: 90vh;
             object-fit: contain;
             display: block;
-            z-index: 4;
+            z-index: 5;
             position: absolute;
 
             animation: zoomAndFadeOutIntro 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
@@ -54,7 +54,7 @@
             height: 100%;
             display: flex;
             flex-direction: column;
-            z-index: 3;
+            z-index: 4;
             animation: fadeOutContainer 1s ease-in-out 6s forwards;
             opacity: 1;
         }
@@ -111,13 +111,11 @@
             animation: fadeInSides 1s ease-in-out 9.5s forwards;
         }
 
-        /* Левый элемент (зеркальный) */
         .side-element.left {
             left: 2%;
             transform: scaleX(-1);
         }
 
-        /* Правый элемент (обычный) */
         .side-element.right {
             right: 2%;
         }
@@ -125,6 +123,31 @@
         @keyframes fadeInSides {
             0% { opacity: 0; }
             100% { opacity: 1; }
+        }
+
+        /* 5. МУЗЫКАЛЬНЫЙ ПЛЕЕР (Появление на 9.5 секунде) */
+        .audio-player-container {
+            position: absolute;
+            top: 60%; /* Располагаем ниже уровня гифок (у них top: 15%) */
+            z-index: 3; /* Поверх фона */
+            opacity: 0;
+            
+            /* Плеер появляется одновременно с гифками */
+            animation: fadeInPlayer 1s ease-in-out 9.5s forwards;
+        }
+
+        /* Небольшая кастомизация внешнего вида встроенного плеера */
+        audio {
+            width: 300px;
+            height: 45px;
+            border-radius: 30px;
+            background: rgba(241, 243, 244, 0.2); /* Легкое размытие под стиль страницы */
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes fadeInPlayer {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
@@ -142,6 +165,10 @@
 
     <img src="48.gif" alt="Левый анимированный элемент" class="side-element left">
     <img src="48.gif" alt="Правый анимированный элемент" class="side-element right">
+
+    <div class="audio-player-container">
+        <audio controls src="music.mp3"></audio>
+    </div>
 
 </body>
 </html>
