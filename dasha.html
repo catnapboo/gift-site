@@ -85,19 +85,16 @@
         .scroll-content {
             display: flex;
             flex-direction: column;
+            align-items: center; /* Центрируем уменьшенную картинку 50 */
             width: 100%;
         }
 
-        /* Общие стили для экранов-фонов */
-        .page-bg {
+        /* Финальный фон 46.jpg занимает весь экран */
+        .full-screen-bg {
             width: 100%;
-            height: 100vh; /* Каждый фон занимает ровно один экран */
+            height: 100vh;
             object-fit: cover;
             display: block;
-        }
-
-        /* 3. ФИНАЛЬНЫЙ ФОН 46.jpg (Проявляется на 7-й секунде) */
-        .full-screen-bg {
             z-index: 1;
             animation: fadeInBackground 1.5s ease-in-out 7s forwards;
             opacity: 0;
@@ -108,14 +105,18 @@
             100% { opacity: 1; }
         }
 
-        /* ИЗОБРАЖЕНИЕ 50.jpg (Идет следом, открывается при прокрутке) */
+        /* ИЗОБРАЖЕНИЕ 50.jpg (Уменьшено в 4 раза и идет следом) */
         .next-bg {
+            width: 100%;
+            height: 25vh; /* Сделали в 4 раза меньше по высоте (было 100vh) */
+            object-fit: contain; /* Картинка сжимается аккуратно без обрезки */
+            display: block;
             z-index: 1;
         }
 
-        /* 4. БОКОВЫЕ ЭЛЕМЕНТЫ ВВЕРХУ 48.gif (Появление на 9.5 секунде) */
+        /* 4. БОКОВЫЕ ЭЛЕМЕНТЫ ВВЕРХУ 48.gif (Намертво зафиксированы) */
         .side-element {
-            position: fixed; /* Привязаны к экрану, чтобы не улетали при скролле */
+            position: fixed; 
             top: 15%;
             width: 35vw; 
             height: auto;
@@ -135,9 +136,9 @@
             right: 2%;
         }
 
-        /* КЛАСС ДЛЯ НИЖНИХ ЭЛЕМЕНТОВ 49.gif */
+        /* КЛАСС ДЛЯ НИЖНИХ ЭЛЕМЕНТОВ 49.gif (Намертво зафиксированы) */
         .bottom-element {
-            position: fixed; /* Привязаны к экрану */
+            position: fixed; 
             bottom: 10%; 
             width: 70vw; 
             height: auto;
@@ -162,9 +163,9 @@
             100% { opacity: 1; }
         }
 
-        /* 5. МУЗЫКАЛЬНЫЙ ПЛЕЕР (Появление на 9.5 секунде) */
+        /* 5. МУЗЫКАЛЬНЫЙ ПЛЕЕР (Намертво зафиксирован по центру) */
         .audio-player-container {
-            position: fixed; /* Зафиксирован по центру экрана */
+            position: fixed; 
             top: 31%; 
             left: 50%;
             transform: translateX(-50%) scale(0.9);
@@ -199,8 +200,8 @@
     </div>
 
     <div class="scroll-content">
-        <img src="46.jpg" alt="Фон страницы" class="page-bg full-screen-bg">
-        <img src="50.jpg" alt="Следующее изображение ниже" class="page-bg next-bg">
+        <img src="46.jpg" alt="Фон страницы" class="full-screen-bg">
+        <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
     </div>
 
     <img src="48.gif" alt="Левый верхний элемент" class="side-element left">
