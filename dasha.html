@@ -5,21 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мой проект на GitHub</title>
     <style>
-        /* Честный вертикальный скролл всей страницы */
+        /* Главный скролл всей страницы */
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
             min-height: 100vh;
             overflow-x: hidden; 
-            overflow-y: auto; /* Скролл активен, страница может быть бесконечно длинной */
+            overflow-y: auto; /* Страница свободно листается вниз */
             background-color: #180f2b;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #ffffff;
-            position: relative;
         }
 
         /* 1. ПЕРВАЯ КАРТИНКА (Влетает и исчезает с 0с до 3с) */
@@ -29,7 +28,7 @@
             object-fit: contain;
             display: block;
             z-index: 5;
-            position: fixed; /* Зафиксирована по центру экрана во время анимации */
+            position: fixed; /* Оставляем fixed только для интро, чтобы оно было по центру */
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.01);
@@ -47,7 +46,7 @@
 
         /* 2. КОНТЕЙНЕР ДЛЯ ТРЕХ ИЗОБРАЖЕНИЙ 47.png */
         .triple-container {
-            position: fixed; /* Зафиксирован на экране во время анимации */
+            position: fixed; 
             top: 0;
             left: 0;
             width: 100%;
@@ -82,13 +81,20 @@
             100% { opacity: 0; }
         }
 
-        /* 3. ФИНАЛЬНЫЙ ФОН 46.jpg (Занимает ровно один первый экран) */
+        /* ГЛАВНЫЙ РОДИТЕЛЬСКИЙ КОНТЕЙНЕР ДЛЯ ПЕРВОГО ЭКРАНА */
+        .first-screen-container {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Занимает ровно один экран */
+            z-index: 1;
+        }
+
+        /* 3. ФИНАЛЬНЫЙ ФОН 46.jpg (Теперь лежит внутри контейнера) */
         .full-screen-bg {
             width: 100%;
-            height: 100vh;
+            height: 100%;
             object-fit: cover;
             display: block;
-            z-index: 1;
             animation: fadeInBackground 1.5s ease-in-out 7s forwards;
             opacity: 0;
         }
@@ -98,19 +104,9 @@
             100% { opacity: 1; }
         }
 
-        /* ИЗОБРАЖЕНИЕ 50.jpg (Идет строго ПОД 46-й картинкой, высота увеличена в 1.5 раза) */
-        .next-bg {
-            width: 100%;
-            height: 37.5vh; /* Заданный тобой размер */
-            object-fit: contain; 
-            display: block;
-            margin: 0 auto;
-            z-index: 1;
-        }
-
-        /* 4. БОКОВЫЕ ЭЛЕМЕНТЫ ВВЕРХУ 48.gif (Намертво привязаны к экрану через FIXED) */
+        /* 4. БОКОВЫЕ ЭЛЕМЕНТЫ ВВЕРХУ 48.gif (Привязаны К КОНТЕЙНЕРУ 46 и будут уезжать вверх) */
         .side-element {
-            position: fixed; 
+            position: absolute; 
             top: 15%;
             width: 35vw; 
             height: auto;
@@ -130,9 +126,9 @@
             right: 2%;
         }
 
-        /* КЛАСС ДЛЯ НИЖНИХ ЭЛЕМЕНТОВ 49.gif (Намертво привязаны к экрану через FIXED) */
+        /* КЛАСС ДЛЯ НИЖНИХ ЭЛЕМЕНТОВ 49.gif (Привязаны К КОНТЕЙНЕРУ 46 и будут уезжать вверх) */
         .bottom-element {
-            position: fixed; 
+            position: absolute; 
             bottom: 10%; 
             width: 70vw; 
             height: auto;
@@ -157,9 +153,9 @@
             100% { opacity: 1; }
         }
 
-        /* 5. МУЗЫКАЛЬНЫЙ ПЛЕЕР (Намертво привязан по центру экрана через FIXED) */
+        /* 5. МУЗЫКАЛЬНЫЙ ПЛЕЕР (Привязан К КОНТЕЙНЕРУ 46 и будет уезжать вверх) */
         .audio-player-container {
-            position: fixed; 
+            position: absolute; 
             top: 31%; 
             left: 50%;
             transform: translateX(-50%) scale(0.9);
@@ -181,6 +177,17 @@
             0% { opacity: 0; transform: translateX(-50%) scale(0.9); }
             100% { opacity: 1; transform: translateX(-50%) scale(1); }
         }
+
+        /* ИЗОБРАЖЕНИЕ 50.jpg (Идет на скролле строго ПОСЛЕ контейнера с 46-й картинкой) */
+        .next-bg {
+            width: 100%;
+            height: 37.5vh; 
+            object-fit: contain; 
+            display: block;
+            margin: 0 auto;
+            z-index: 1;
+            position: relative;
+        }
     </style>
 </head>
 <body>
@@ -193,18 +200,21 @@
         <img src="47.png" alt="Полоса 2">
     </div>
 
-    <img src="46.jpg" alt="Фон страницы" class="full-screen-bg">
-    <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
+    <div class="first-screen-container">
+        <img src="46.jpg" alt="Фон страницы" class="full-screen-bg">
 
-    <img src="48.gif" alt="Левый верхний элемент" class="side-element left">
-    <img src="48.gif" alt="Правый верхний элемент" class="side-element right">
+        <img src="48.gif" alt="Левый верхний элемент" class="side-element left">
+        <img src="48.gif" alt="Правый верхний элемент" class="side-element right">
 
-    <img src="49.gif" alt="Левый нижний элемент" class="bottom-element left">
-    <img src="49.gif" alt="Правый нижний элемент" class="bottom-element right">
+        <img src="49.gif" alt="Левый нижний элемент" class="bottom-element left">
+        <img src="49.gif" alt="Правый нижний элемент" class="bottom-element right">
 
-    <div class="audio-player-container">
-        <audio controls src="music.mp3" type="audio/mpeg"></audio>
+        <div class="audio-player-container">
+            <audio controls src="music.mp3" type="audio/mpeg"></audio>
+        </div>
     </div>
+
+    <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
 
 </body>
 </html>
