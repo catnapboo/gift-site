@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мой проект на GitHub</title>
     <style>
-        /* Разрешаем вертикальный скролл, но запрещаем горизонтальный */
+        /* БЛОКИРУЕМ СКРОЛЛ СТРАНИЦЫ: теперь body абсолютно неподвижен */
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
-            overflow-x: hidden; 
-            overflow-y: auto; /* Включаем прокрутку вниз */
+            height: 100%;
+            overflow: hidden; 
             background-color: #180f2b;
         }
 
@@ -28,7 +28,7 @@
             object-fit: contain;
             display: block;
             z-index: 5;
-            position: fixed; /* Закреплена на экране во время полета */
+            position: absolute; 
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.01);
@@ -46,7 +46,7 @@
 
         /* 2. КОНТЕЙНЕР ДЛЯ ТРЕХ ИЗОБРАЖЕНИЙ 47.png */
         .triple-container {
-            position: fixed; /* Закреплен на экране во время анимации */
+            position: absolute; 
             top: 0;
             left: 0;
             width: 100%;
@@ -81,21 +81,28 @@
             100% { opacity: 0; }
         }
 
-        /* БЛОК ДЛЯ СЛЕДУЮЩИХ ДРУГ ЗА ДРУГОМ ФОНОВ */
+        /* ИЗОЛИРОВАННЫЙ КОНТЕЙНЕР ДЛЯ СКРОЛЛА ФОНОВ */
         .scroll-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto; /* Скроллиться будут ТОЛЬКО фоны внутри этого блока */
             display: flex;
             flex-direction: column;
-            align-items: center; /* Центрируем уменьшенную картинку 50 */
-            width: 100%;
+            align-items: center;
+            z-index: 1; /* Находится под гифками и плеером */
         }
 
-        /* Финальный фон 46.jpg занимает весь экран */
+        /* Финальный фон 46.jpg */
         .full-screen-bg {
             width: 100%;
             height: 100vh;
+            min-height: 100vh;
             object-fit: cover;
             display: block;
-            z-index: 1;
             animation: fadeInBackground 1.5s ease-in-out 7s forwards;
             opacity: 0;
         }
@@ -105,22 +112,23 @@
             100% { opacity: 1; }
         }
 
-        /* ИЗОБРАЖЕНИЕ 50.jpg (Уменьшено в 4 раза и идет следом) */
+        /* ИЗОБРАЖЕНИЕ 50.jpg (Увеличено в 1.5 раза: было 25vh, стало 37.5vh) */
         .next-bg {
             width: 100%;
-            height: 25vh; /* Сделали в 4 раза меньше по высоте (было 100vh) */
-            object-fit: contain; /* Картинка сжимается аккуратно без обрезки */
+            height: 37.5vh; 
+            min-height: 37.5vh;
+            object-fit: contain; 
             display: block;
-            z-index: 1;
+            background-color: #180f2b; /* Чтобы под картинкой был аккуратный фон */
         }
 
-        /* 4. БОКОВЫЕ ЭЛЕМЕНТЫ ВВЕРХУ 48.gif (Намертво зафиксированы) */
+        /* 4. БОКОВЫЕ ЭЛЕМЕНТЫ ВВЕРХУ 48.gif (Теперь они гарантированно железно закреплены) */
         .side-element {
-            position: fixed; 
+            position: absolute; 
             top: 15%;
             width: 35vw; 
             height: auto;
-            z-index: 2;
+            z-index: 2; /* Выше скролл-контейнера */
             opacity: 0;
             pointer-events: none; 
             
@@ -136,13 +144,13 @@
             right: 2%;
         }
 
-        /* КЛАСС ДЛЯ НИЖНИХ ЭЛЕМЕНТОВ 49.gif (Намертво зафиксированы) */
+        /* КЛАСС ДЛЯ НИЖНИХ ЭЛЕМЕНТОВ 49.gif */
         .bottom-element {
-            position: fixed; 
+            position: absolute; 
             bottom: 10%; 
             width: 70vw; 
             height: auto;
-            z-index: 2;
+            z-index: 2; /* Выше скролл-контейнера */
             opacity: 0;
             pointer-events: none;
 
@@ -163,13 +171,13 @@
             100% { opacity: 1; }
         }
 
-        /* 5. МУЗЫКАЛЬНЫЙ ПЛЕЕР (Намертво зафиксирован по центру) */
+        /* 5. МУЗЫКАЛЬНЫЙ ПЛЕЕР (Абсолютно неподвижен над фоном) */
         .audio-player-container {
-            position: fixed; 
+            position: absolute; 
             top: 31%; 
             left: 50%;
             transform: translateX(-50%) scale(0.9);
-            z-index: 10; 
+            z-index: 10; /* Самый верхний слой для кликов */
             opacity: 0;
             
             animation: fadeInPlayer 1s ease-in-out 9.5s forwards;
