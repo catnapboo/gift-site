@@ -20,16 +20,17 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            position: relative; /* Нужно для правильного позиционирования нового фона */
+            position: relative;
         }
 
-        /* 1. ПЕРВАЯ КАРТИНКА (Влетающая и исчезающая) */
+        /* 1. ПЕРВАЯ КАРТИНКА (Влетает и исчезает с 0с до 3с) */
         .zoom-image {
             max-width: 90vw;
             max-height: 90vh;
             object-fit: contain;
             display: block;
-            z-index: 2; /* Оставляем её поверх будущего фона во время анимации */
+            z-index: 3;
+            position: absolute; /* Чтобы не мешать позиционированию других элементов */
 
             animation: zoomAndFadeOutIntro 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             transform: scale(0.01);
@@ -37,51 +38,92 @@
         }
 
         @keyframes zoomAndFadeOutIntro {
-            0% {
-                transform: scale(0.01);
-                opacity: 0;
-            }
-            15% {
-                opacity: 1;
-            }
-            80% {
-                transform: scale(1.8);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1.8);
-                opacity: 0;
-            }
+            0% { transform: scale(0.01); opacity: 0; }
+            15% { opacity: 1; }
+            80% { transform: scale(1.8); opacity: 1; }
+            100% { transform: scale(1.8); opacity: 0; }
         }
 
-        /* 2. ВТОРАЯ КАРТИНКА (Новый фон на весь экран) */
+        /* 2. КОНТЕЙНЕР ДЛЯ ТРЕХ ИЗОБРАЖЕНИЙ 47.png */
+        .triple-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column; /* Выстраиваем элементы строго друг под другом */
+            z-index: 2;
+            
+            /* Сам контейнер плавно исчезает на 6-й секунде (длится 1с) */
+            animation: fadeOutContainer 1s ease-in-out 6s forwards;
+            opacity: 1;
+        }
+
+        /* Каждая из трех картинок занимает треть высоты экрана и всю ширину */
+        .triple-container img {
+            width: 100%;
+            height: 33.33vh; 
+            object-fit: cover; /* Растягивает изображение по ширине без искажения */
+            opacity: 0;        /* Изначально они скрыты */
+            
+            /* Общая анимация появления длительностью 1 секунда */
+            animation: fadeInRow 1s ease-in-out forwards;
+        }
+
+        /* Устанавливаем очередность появления (задержки) */
+        .triple-container img:nth-child(1) {
+            animation-delay: 3s; /* Появляется сразу после картинки 45 */
+        }
+        .triple-container img:nth-child(2) {
+            animation-delay: 4s; /* Появляется следом через секунду */
+        }
+        .triple-container img:nth-child(3) {
+            animation-delay: 5s; /* Появляется последней */
+        }
+
+        /* Анимация проявления для каждой строки */
+        @keyframes fadeInRow {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* Анимация исчезновения всего контейнера целиком */
+        @keyframes fadeOutContainer {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        /* 3. ФИНАЛЬНЫЙ ФОН 46.jpg (Проявляется на 7-й секунде) */
         .full-screen-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Растягивает картинку без искажения пропорций */
-            z-index: 1;        /* Находится под первой картинкой */
+            object-fit: cover;
+            z-index: 1;
             
-            /* Анимация: длится 1.5 секунды, но НАЧИНАЕТСЯ с задержкой в 3 секунды */
-            animation: fadeInBackground 1.5s ease-in-out 3s forwards;
-            opacity: 0; /* Изначально полностью скрыта */
+            /* Начинает проявляться ровно тогда, когда исчезли полосы 47.png */
+            animation: fadeInBackground 1.5s ease-in-out 7s forwards;
+            opacity: 0;
         }
 
         @keyframes fadeInBackground {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1; /* Плавно становится видимой */
-            }
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
     <img src="45.png" alt="Приближающееся изображение" class="zoom-image">
+
+    <div class="triple-container">
+        <img src="47.png" alt="Полоса 1">
+        <img src="47.png" alt="Полоса 2">
+        <img src="47.png" alt="Полоса 3">
+    </div>
 
     <img src="46.jpg" alt="Фон страницы" class="full-screen-bg">
 
