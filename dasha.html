@@ -99,12 +99,10 @@
             100% { opacity: 1; }
         }
 
-        /* 4. БОКОВЫЕ ЭЛЕМЕНТЫ 48.png (Появление на 9.5 секунде) */
+        /* 4. БОКОВЫЕ ЭЛЕМЕНТЫ 48.gif (Появление на 9.5 секунде) */
         .side-element {
             position: absolute;
             top: 15%;
-            /* Ограничиваем до 35% ширины экрана, чтобы левая и правая картинки 
-               гарантированно не выталкивали границы браузера */
             width: 35vw; 
             height: auto;
             z-index: 2;
@@ -115,13 +113,13 @@
 
         /* Левый элемент (зеркальный) */
         .side-element.left {
-            left: 2%; /* Чуть прижали ближе к краю для экономии места */
+            left: 2%;
             transform: scaleX(-1);
         }
 
         /* Правый элемент (обычный) */
         .side-element.right {
-            right: 2%; /* Чуть прижали ближе к краю */
+            right: 2%;
         }
 
         @keyframes fadeInSides {
@@ -142,8 +140,8 @@
 
     <img src="46.jpg" alt="Фон страницы" class="full-screen-bg">
 
-    <img src="48.png" alt="Левый элемент" class="side-element left">
-    <img src="48.png" alt="Правый элемент" class="side-element right">
+    <img src="48.gif" alt="Левый анимированный элемент" class="side-element left">
+    <img src="48.gif" alt="Правый анимированный элемент" class="side-element right">
 
 </body>
 </html>
