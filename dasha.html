@@ -29,8 +29,8 @@
             max-height: 90vh;
             object-fit: contain;
             display: block;
-            z-index: 3;
-            position: absolute; /* Чтобы не мешать позиционированию других элементов */
+            z-index: 4;
+            position: absolute;
 
             animation: zoomAndFadeOutIntro 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             transform: scale(0.01);
@@ -52,43 +52,29 @@
             width: 100%;
             height: 100%;
             display: flex;
-            flex-direction: column; /* Выстраиваем элементы строго друг под другом */
-            z-index: 2;
-            
-            /* Сам контейнер плавно исчезает на 6-й секунде (длится 1с) */
+            flex-direction: column;
+            z-index: 3;
             animation: fadeOutContainer 1s ease-in-out 6s forwards;
             opacity: 1;
         }
 
-        /* Каждая из трех картинок занимает треть высоты экрана и всю ширину */
         .triple-container img {
             width: 100%;
             height: 33.33vh; 
-            object-fit: cover; /* Растягивает изображение по ширине без искажения */
-            opacity: 0;        /* Изначально они скрыты */
-            
-            /* Общая анимация появления длительностью 1 секунда */
+            object-fit: cover;
+            opacity: 0;
             animation: fadeInRow 1s ease-in-out forwards;
         }
 
-        /* Устанавливаем очередность появления (задержки) */
-        .triple-container img:nth-child(1) {
-            animation-delay: 3s; /* Появляется сразу после картинки 45 */
-        }
-        .triple-container img:nth-child(2) {
-            animation-delay: 4s; /* Появляется следом через секунду */
-        }
-        .triple-container img:nth-child(3) {
-            animation-delay: 5s; /* Появляется последней */
-        }
+        .triple-container img:nth-child(1) { animation-delay: 3s; }
+        .triple-container img:nth-child(2) { animation-delay: 4s; }
+        .triple-container img:nth-child(3) { animation-delay: 5s; }
 
-        /* Анимация проявления для каждой строки */
         @keyframes fadeInRow {
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
 
-        /* Анимация исчезновения всего контейнера целиком */
         @keyframes fadeOutContainer {
             0% { opacity: 1; }
             100% { opacity: 0; }
@@ -103,13 +89,40 @@
             height: 100%;
             object-fit: cover;
             z-index: 1;
-            
-            /* Начинает проявляться ровно тогда, когда исчезли полосы 47.png */
             animation: fadeInBackground 1.5s ease-in-out 7s forwards;
             opacity: 0;
         }
 
         @keyframes fadeInBackground {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        /* 4. ЗЕРКАЛЬНЫЕ ИЗОБРАЖЕНИЯ 48.png (Появление на 9.5 секунде) */
+        .side-element {
+            position: absolute;
+            top: 35%;             /* Расположение чуть выше середины экрана */
+            max-width: 20vw;      /* Ограничиваем размер, чтобы они гармонично смотрелись по бокам */
+            height: auto;
+            z-index: 2;           /* Находятся поверх фона 46 */
+            opacity: 0;           /* Изначально скрыты */
+            
+            /* Анимация проявления: начинается на 9.5 секунде */
+            animation: fadeInSides 1s ease-in-out 9.5s forwards;
+        }
+
+        /* Левый элемент */
+        .side-element.left {
+            left: 5%;             /* Небольшой отступ от левого края */
+        }
+
+        /* Правый элемент + зеркальное отражение */
+        .side-element.right {
+            right: 5%;            /* Небольшой отступ от правого края */
+            transform: scaleX(-1); /* Отражаем по горизонтали */
+        }
+
+        @keyframes fadeInSides {
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
@@ -126,6 +139,9 @@
     </div>
 
     <img src="46.jpg" alt="Фон страницы" class="full-screen-bg">
+
+    <img src="48.png" alt="Левый элемент" class="side-element left">
+    <img src="48.png" alt="Правый элемент" class="side-element right">
 
 </body>
 </html>
