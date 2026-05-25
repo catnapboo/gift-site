@@ -16,51 +16,74 @@
             min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #ffffff;
-            /* Идеальное центрирование содержимого */
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Скрываем полосы прокрутки */
+            overflow: hidden;
+            position: relative; /* Нужно для правильного позиционирования нового фона */
         }
 
-        /* Восстанавливаем аккуратный стиль с ограничениями размера */
+        /* 1. ПЕРВАЯ КАРТИНКА (Влетающая и исчезающая) */
         .zoom-image {
-            max-width: 90vw; /* Картинка не шире 90% экрана */
-            max-height: 90vh; /* Картинка не выше 90% экрана */
+            max-width: 90vw;
+            max-height: 90vh;
             object-fit: contain;
             display: block;
+            z-index: 2; /* Оставляем её поверх будущего фона во время анимации */
 
-            /* Подключаем новую анимацию, которая исчезнет в конце */
             animation: zoomAndFadeOutIntro 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            
-            /* Стартовое состояние (скрыто) */
             transform: scale(0.01);
             opacity: 0;
         }
 
-        /* Новое описание анимации: влет, задержка и исчезновение */
         @keyframes zoomAndFadeOutIntro {
             0% {
-                transform: scale(0.01); /* Почти невидимая точка */
-                opacity: 0;             /* Полностью прозрачная */
+                transform: scale(0.01);
+                opacity: 0;
             }
             15% {
-                opacity: 1;             /* Быстро проявляется в начале влета */
+                opacity: 1;
             }
             80% {
-                transform: scale(1.8);  /* Достигает крупного размера (как в 1-й раз) */
-                opacity: 1;             /* Все еще полностью видна */
+                transform: scale(1.8);
+                opacity: 1;
             }
             100% {
-                transform: scale(1.8);  /* Сохраняет финальный размер */
-                opacity: 0;             /* Плавно исчезает (fade out) к 3-й секунде */
+                transform: scale(1.8);
+                opacity: 0;
+            }
+        }
+
+        /* 2. ВТОРАЯ КАРТИНКА (Новый фон на весь экран) */
+        .full-screen-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Растягивает картинку без искажения пропорций */
+            z-index: 1;        /* Находится под первой картинкой */
+            
+            /* Анимация: длится 1.5 секунды, но НАЧИНАЕТСЯ с задержкой в 3 секунды */
+            animation: fadeInBackground 1.5s ease-in-out 3s forwards;
+            opacity: 0; /* Изначально полностью скрыта */
+        }
+
+        @keyframes fadeInBackground {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1; /* Плавно становится видимой */
             }
         }
     </style>
 </head>
 <body>
 
-    <img src="45.png" alt="Приближающееся и исчезающее изображение" class="zoom-image">
+    <img src="45.png" alt="Приближающееся изображение" class="zoom-image">
+
+    <img src="46.jpg" alt="Фон страницы" class="full-screen-bg">
 
 </body>
 </html>
