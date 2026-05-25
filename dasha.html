@@ -5,21 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мой проект на GitHub</title>
     <style>
-        * {
+        /* Жесткий сброс и фиксация границ экрана */
+        html, body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Полностью блокирует появление любых полос прокрутки */
+            background-color: #180f2b;
         }
 
         body {
-            background-color: #180f2b;
-            min-height: 100vh;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #ffffff;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
             position: relative;
         }
 
@@ -98,29 +99,29 @@
             100% { opacity: 1; }
         }
 
-        /* 4. ЗЕРКАЛЬНЫЕ ИЗОБРАЖЕНИЯ 48.png (Появление на 9.5 секунде) */
+        /* 4. БОКОВЫЕ ЭЛЕМЕНТЫ 48.png (Появление на 9.5 секунде) */
         .side-element {
             position: absolute;
-            top: 15%;             /* Подняли выше (было 35%) */
-            max-width: 40vw;      /* Увеличили в 2 раза (было 20vw) */
+            top: 15%;
+            /* Ограничиваем до 35% ширины экрана, чтобы левая и правая картинки 
+               гарантированно не выталкивали границы браузера */
+            width: 35vw; 
             height: auto;
             z-index: 2;
             opacity: 0;
             
-            /* Анимация проявления осталась без изменений */
             animation: fadeInSides 1s ease-in-out 9.5s forwards;
         }
 
-        /* Левый элемент теперь зеркальный */
+        /* Левый элемент (зеркальный) */
         .side-element.left {
-            left: 5%;
-            transform: scaleX(-1); /* Отражаем по горизонтали */
+            left: 2%; /* Чуть прижали ближе к краю для экономии места */
+            transform: scaleX(-1);
         }
 
-        /* Правый элемент теперь в обычном виде */
+        /* Правый элемент (обычный) */
         .side-element.right {
-            right: 5%;
-            transform: /* Без scaleX, картинка смотрит в стандартную сторону */
+            right: 2%; /* Чуть прижали ближе к краю */
         }
 
         @keyframes fadeInSides {
@@ -135,8 +136,8 @@
 
     <div class="triple-container">
         <img src="47.png" alt="Полоса 1">
-        <img src="47.png" alt="Полоса 2">
         <img src="47.png" alt="Полоса 3">
+        <img src="47.png" alt="Полоса 2">
     </div>
 
     <img src="46.jpg" alt="Фон страницы" class="full-screen-bg">
