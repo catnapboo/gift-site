@@ -5,22 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мой проект на GitHub</title>
     <style>
-        /* Жесткий сброс и фиксация границ экрана */
+        /* Разрешаем вертикальный скролл, но запрещаем горизонтальный */
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
-            height: 100%;
-            overflow: hidden; 
+            overflow-x: hidden; 
+            overflow-y: auto; /* Включаем прокрутку вниз */
             background-color: #180f2b;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             position: relative;
         }
 
@@ -31,23 +28,25 @@
             object-fit: contain;
             display: block;
             z-index: 5;
-            position: absolute;
+            position: fixed; /* Закреплена на экране во время полета */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.01);
+            opacity: 0;
 
             animation: zoomAndFadeOutIntro 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            transform: scale(0.01);
-            opacity: 0;
         }
 
         @keyframes zoomAndFadeOutIntro {
-            0% { transform: scale(0.01); opacity: 0; }
+            0% { transform: translate(-50%, -50%) scale(0.01); opacity: 0; }
             15% { opacity: 1; }
-            80% { transform: scale(1.8); opacity: 1; }
-            100% { transform: scale(1.8); opacity: 0; }
+            80% { transform: translate(-50%, -50%) scale(1.8); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1.8); opacity: 0; }
         }
 
         /* 2. КОНТЕЙНЕР ДЛЯ ТРЕХ ИЗОБРАЖЕНИЙ 47.png */
         .triple-container {
-            position: absolute;
+            position: fixed; /* Закреплен на экране во время анимации */
             top: 0;
             left: 0;
             width: 100%;
@@ -57,6 +56,7 @@
             z-index: 4;
             animation: fadeOutContainer 1s ease-in-out 6s forwards;
             opacity: 1;
+            pointer-events: none;
         }
 
         .triple-container img {
@@ -81,26 +81,24 @@
             100% { opacity: 0; }
         }
 
-        /* СЛОЙ 0: НОВОЕ ИЗОБРАЖЕНИЕ 50.jpg (Находится НА САМОМ ДНЕ, под фоном 46) */
-        .deep-background {
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* БЛОК ДЛЯ СЛЕДУЮЩИХ ДРУГ ЗА ДРУГОМ ФОНОВ */
+        .scroll-content {
+            display: flex;
+            flex-direction: column;
             width: 100%;
-            height: 100%;
+        }
+
+        /* Общие стили для экранов-фонов */
+        .page-bg {
+            width: 100%;
+            height: 100vh; /* Каждый фон занимает ровно один экран */
             object-fit: cover;
-            z-index: 0; /* Самый низкий приоритет слоя, строго под фоном 46 */
+            display: block;
         }
 
         /* 3. ФИНАЛЬНЫЙ ФОН 46.jpg (Проявляется на 7-й секунде) */
         .full-screen-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1; /* На один уровень выше, чем 50.jpg */
+            z-index: 1;
             animation: fadeInBackground 1.5s ease-in-out 7s forwards;
             opacity: 0;
         }
@@ -110,9 +108,14 @@
             100% { opacity: 1; }
         }
 
+        /* ИЗОБРАЖЕНИЕ 50.jpg (Идет следом, открывается при прокрутке) */
+        .next-bg {
+            z-index: 1;
+        }
+
         /* 4. БОКОВЫЕ ЭЛЕМЕНТЫ ВВЕРХУ 48.gif (Появление на 9.5 секунде) */
         .side-element {
-            position: absolute;
+            position: fixed; /* Привязаны к экрану, чтобы не улетали при скролле */
             top: 15%;
             width: 35vw; 
             height: auto;
@@ -134,7 +137,7 @@
 
         /* КЛАСС ДЛЯ НИЖНИХ ЭЛЕМЕНТОВ 49.gif */
         .bottom-element {
-            position: absolute;
+            position: fixed; /* Привязаны к экрану */
             bottom: 10%; 
             width: 70vw; 
             height: auto;
@@ -161,8 +164,10 @@
 
         /* 5. МУЗЫКАЛЬНЫЙ ПЛЕЕР (Появление на 9.5 секунде) */
         .audio-player-container {
-            position: absolute;
+            position: fixed; /* Зафиксирован по центру экрана */
             top: 31%; 
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
             z-index: 10; 
             opacity: 0;
             
@@ -178,8 +183,8 @@
         }
 
         @keyframes fadeInPlayer {
-            0% { opacity: 0; transform: scale(0.9); }
-            100% { opacity: 1; transform: scale(1); }
+            0% { opacity: 0; transform: translateX(-50%) scale(0.9); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1); }
         }
     </style>
 </head>
@@ -193,9 +198,10 @@
         <img src="47.png" alt="Полоса 2">
     </div>
 
-    <img src="50.jpg" alt="Самый нижний фон" class="deep-background">
-
-    <img src="46.jpg" alt="Фон страницы" class="full-screen-bg">
+    <div class="scroll-content">
+        <img src="46.jpg" alt="Фон страницы" class="page-bg full-screen-bg">
+        <img src="50.jpg" alt="Следующее изображение ниже" class="page-bg next-bg">
+    </div>
 
     <img src="48.gif" alt="Левый верхний элемент" class="side-element left">
     <img src="48.gif" alt="Правый верхний элемент" class="side-element right">
