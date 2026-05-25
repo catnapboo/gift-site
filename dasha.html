@@ -108,6 +108,9 @@
             z-index: 2;
             opacity: 0;
             
+            /* Важно: заставляем клики проходить СКВОЗЬ картинки, чтобы они не блокировали плеер */
+            pointer-events: none; 
+            
             animation: fadeInSides 1s ease-in-out 9.5s forwards;
         }
 
@@ -128,8 +131,8 @@
         /* 5. МУЗЫКАЛЬНЫЙ ПЛЕЕР (Появление на 9.5 секунде) */
         .audio-player-container {
             position: absolute;
-            top: 35%; /* Слегка опустили плеер (было 28%) */
-            z-index: 3; 
+            top: 31%; /* Подняли чуть-чуть выше (было 35%) */
+            z-index: 10; /* Максимальный приоритет. Теперь он точно ПОВЕРХ всех картинок */
             opacity: 0;
             
             animation: fadeInPlayer 1s ease-in-out 9.5s forwards;
