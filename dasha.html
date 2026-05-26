@@ -153,14 +153,15 @@
             100% { opacity: 1; }
         }
 
-        /* 5. МУЗЫКАЛЬНЫЙ ПЛЕЕР (Слой поднят на самый верх) */
+        /* 5. МУЗЫКАЛЬНЫЙ ПЛЕЕР (Слой на самом верху) */
         .audio-player-container {
             position: absolute; 
             top: 31%; 
             left: 50%;
             transform: translateX(-50%) scale(0.9);
-            z-index: 999; /* Переместили плеер выше всех по слоям (было 10) */
+            z-index: 999; 
             opacity: 0;
+            cursor: pointer; /* Показывает, что блок кликабелен */
             
             animation: fadeInPlayer 1s ease-in-out 9.5s forwards;
         }
@@ -209,12 +210,29 @@
         <img src="49.gif" alt="Левый нижний элемент" class="bottom-element left">
         <img src="49.gif" alt="Правый нижний элемент" class="bottom-element right">
 
-        <div class="audio-player-container">
-            <audio controls src="music.mp3" type="audio/mpeg"></audio>
+        <div class="audio-player-container" id="playerContainer">
+            <audio id="myAudio" controls src="music.mp3" type="audio/mpeg"></audio>
         </div>
     </div>
 
     <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
+
+    <script>
+        const container = document.getElementById('playerContainer');
+        const audio = document.getElementById('myAudio');
+
+        container.addEventListener('click', function(e) {
+            // Если кликнули по самому контейнеру, а не по кнопкам нативного плеера,
+            // принудительно переключаем проигрывание
+            if (e.target === container) {
+                if (audio.paused) {
+                    audio.play();
+                } else {
+                    audio.pause();
+                }
+            }
+        });
+    </script>
 
 </body>
 </html>
