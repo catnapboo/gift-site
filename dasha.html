@@ -28,7 +28,7 @@
             object-fit: contain;
             display: block;
             z-index: 5;
-            position: fixed; /* Оставляем fixed только для интро, чтобы оно было по центру */
+            position: fixed; 
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.01);
@@ -89,7 +89,7 @@
             z-index: 1;
         }
 
-        /* 3. ФИНАЛЬНЫЙ ФОН 46.jpg (Теперь лежит внутри контейнера) */
+        /* 3. ФИНАЛЬНЫЙ ФОН 46.jpg */
         .full-screen-bg {
             width: 100%;
             height: 100%;
@@ -104,7 +104,7 @@
             100% { opacity: 1; }
         }
 
-        /* 4. БОКОВЫЕ ЭЛЕМЕНТЫ ВВЕРХУ 48.gif (Привязаны К КОНТЕЙНЕРУ 46 и будут уезжать вверх) */
+        /* 4. БОКОВЫЕ ЭЛЕМЕНТЫ ВВЕРХУ 48.gif */
         .side-element {
             position: absolute; 
             top: 15%;
@@ -126,7 +126,7 @@
             right: 2%;
         }
 
-        /* КЛАСС ДЛЯ НИЖНИХ ЭЛЕМЕНТОВ 49.gif (Привязаны К КОНТЕЙНЕРУ 46 и будут уезжать вверх) */
+        /* КЛАСС ДЛЯ НИЖНИХ ЭЛЕМЕНТОВ 49.gif */
         .bottom-element {
             position: absolute; 
             bottom: 10%; 
@@ -153,13 +153,13 @@
             100% { opacity: 1; }
         }
 
-        /* 5. МУЗЫКАЛЬНЫЙ ПЛЕЕР (Привязан К КОНТЕЙНЕРУ 46 и будет уезжать вверх) */
+        /* 5. МУЗЫКАЛЬНЫЙ ПЛЕЕР (Слой поднят на самый верх) */
         .audio-player-container {
             position: absolute; 
             top: 31%; 
             left: 50%;
             transform: translateX(-50%) scale(0.9);
-            z-index: 10; 
+            z-index: 999; /* Переместили плеер выше всех по слоям (было 10) */
             opacity: 0;
             
             animation: fadeInPlayer 1s ease-in-out 9.5s forwards;
@@ -178,7 +178,7 @@
             100% { opacity: 1; transform: translateX(-50%) scale(1); }
         }
 
-        /* ИЗОБРАЖЕНИЕ 50.jpg (Идет на скролле строго ПОСЛЕ контейнера с 46-й картинкой) */
+        /* ИЗОБРАЖЕНИЕ 50.jpg */
         .next-bg {
             width: 100%;
             height: 37.5vh; 
