@@ -112,7 +112,7 @@
             height: auto;
             z-index: 2;
             opacity: 0;
-            pointer-events: none; 
+            pointer-events: none; /* Пропускают клики сквозь себя */
             
             animation: fadeInElements 1s ease-in-out 9.5s forwards;
         }
@@ -134,7 +134,7 @@
             height: auto;
             z-index: 2;
             opacity: 0;
-            pointer-events: none;
+            pointer-events: none; /* Пропускают клики сквозь себя */
 
             animation: fadeInElements 1s ease-in-out 9.5s forwards;
         }
@@ -153,70 +153,69 @@
             100% { opacity: 1; }
         }
 
-        /* 5. ПОЛНОСТЬЮ ОБНОВЛЕННЫЙ КАСТОМНЫЙ ПЛЕЕР */
+        /* 5. НОВЫЙ КАСТОМНЫЙ КРУГЛЫЙ ПРОИГРЫВАТЕЛЬ (#f5cef5) */
         .audio-player-container {
             position: absolute; 
-            top: 31%; 
+            top: 31%; /* Высота расположения над картинкой 46 */
             left: 50%;
             transform: translateX(-50%) scale(0.9);
-            z-index: 999; 
+            z-index: 99999; /* Абсолютный приоритет по высоте слоев */
             opacity: 0;
             
             animation: fadeInPlayer 1s ease-in-out 9.5s forwards;
         }
 
-        /* Стильная кнопка вместо старого плеера */
-        .custom-play-btn {
-            width: 65px;
-            height: 65px;
+        /* Круглая кнопка */
+        .pink-play-btn {
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
-            background: rgba(241, 243, 244, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2), inset 0px 0px 10px rgba(0,0,0,0.3);
+            background: rgba(245, 206, 245, 0.3); /* Цвет #f5cef5 с прозрачностью */
+            border: 3px solid #f5cef5; /* Плотный контур цвета #f5cef5 */
+            box-shadow: 0px 0px 20px rgba(245, 206, 245, 0.6), inset 0px 0px 10px rgba(0,0,0,0.2);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease-in-out;
         }
 
-        .custom-play-btn:hover {
+        .pink-play-btn:hover {
             transform: scale(1.05);
-            background: rgba(241, 243, 244, 0.3);
-            border-color: #ffffff;
-            box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.4);
+            background: rgba(245, 206, 245, 0.5);
+            box-shadow: 0px 0px 25px #f5cef5;
         }
 
-        /* Иконка PLAY (треугольник) */
-        .icon-play {
+        /* Иконка треугольника (PLAY) */
+        .pink-icon-play {
             width: 0;
             height: 0;
             border-style: solid;
             border-width: 12px 0 12px 20px;
-            border-color: transparent transparent transparent #ffffff;
-            margin-left: 5px; /* Смещение для идеального центра */
+            border-color: transparent transparent transparent #f5cef5; /* Треугольник цвета #f5cef5 */
+            margin-left: 6px; /* Визуальное выравнивание в круге */
             display: block;
         }
 
-        /* Иконка PAUSE (две полоски) */
-        .icon-pause {
+        /* Иконка двух полосок (PAUSE) */
+        .pink-icon-pause {
             width: 16px;
             height: 22px;
             display: none;
             justify-content: space-between;
         }
 
-        .icon-pause::before, .icon-pause::after {
+        .pink-icon-pause::before, .pink-icon-pause::after {
             content: '';
             width: 5px;
             height: 100%;
-            background-color: #ffffff;
+            background-color: #f5cef5; /* Полоски цвета #f5cef5 */
             border-radius: 2px;
         }
 
-        /* Класс состояния "играет" */
-        .custom-play-btn.playing .icon-play { display: none; }
-        .custom-play-btn.playing .icon-pause { display: flex; }
+        /* Переключение состояния при проигрывании */
+        .pink-play-btn.playing .pink-icon-play { display: none; }
+        .pink-play-btn.playing .pink-icon-pause { display: flex; }
 
         @keyframes fadeInPlayer {
             0% { opacity: 0; transform: translateX(-50%) scale(0.9); }
@@ -255,38 +254,38 @@
         <img src="49.gif" alt="Правый нижний элемент" class="bottom-element right">
 
         <div class="audio-player-container">
-            <div class="custom-play-btn" id="playBtn">
-                <div class="icon-play"></div>
-                <div class="icon-pause"></div>
+            <div class="pink-play-btn" id="musicBtn">
+                <div class="pink-icon-play"></div>
+                <div class="pink-icon-pause"></div>
             </div>
-            <audio id="bgMusic" src="music.mp3" type="audio/mpeg"></audio>
+            <audio id="audioTrack" src="music.mp3" type="audio/mpeg"></audio>
         </div>
     </div>
 
     <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
 
     <script>
-        const playBtn = document.getElementById('playBtn');
-        const bgMusic = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        const audioTrack = document.getElementById('audioTrack');
 
-        playBtn.addEventListener('click', function() {
-            if (bgMusic.paused) {
-                bgMusic.play()
+        musicBtn.addEventListener('click', function(e) {
+            e.stopPropagation(); // Изолируем клик от фона
+            if (audioTrack.paused) {
+                audioTrack.play()
                     .then(() => {
-                        playBtn.classList.add('playing');
+                        musicBtn.classList.add('playing');
                     })
-                    .catch(error => {
-                        console.log("Ошибка воспроизведения:", error);
+                    .catch(err => {
+                        console.log("Браузер заблокировал старт:", err);
                     });
             } else {
-                bgMusic.pause();
-                playBtn.classList.remove('playing');
+                audioTrack.pause();
+                musicBtn.classList.remove('playing');
             }
         });
 
-        // Если музыка закончится, кнопка сама вернется в режим Play
-        bgMusic.addEventListener('ended', function() {
-            playBtn.classList.remove('playing');
+        audioTrack.addEventListener('ended', function() {
+            musicBtn.classList.remove('playing');
         });
     </script>
 
