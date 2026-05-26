@@ -153,7 +153,7 @@
             100% { opacity: 1; }
         }
 
-        /* 5. МУЗЫКАЛЬНЫЙ ПЛЕЕР (Слой на самом верху) */
+        /* 5. ПОЛНОСТЬЮ ОБНОВЛЕННЫЙ КАСТОМНЫЙ ПЛЕЕР */
         .audio-player-container {
             position: absolute; 
             top: 31%; 
@@ -161,18 +161,62 @@
             transform: translateX(-50%) scale(0.9);
             z-index: 999; 
             opacity: 0;
-            cursor: pointer; /* Показывает, что блок кликабелен */
             
             animation: fadeInPlayer 1s ease-in-out 9.5s forwards;
         }
 
-        audio {
-            width: 300px;
-            height: 45px;
-            border-radius: 30px;
-            background: rgba(241, 243, 244, 0.2); 
-            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.5);
+        /* Стильная кнопка вместо старого плеера */
+        .custom-play-btn {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: rgba(241, 243, 244, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2), inset 0px 0px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
+
+        .custom-play-btn:hover {
+            transform: scale(1.05);
+            background: rgba(241, 243, 244, 0.3);
+            border-color: #ffffff;
+            box-shadow: 0px 0px 25px rgba(255, 255, 255, 0.4);
+        }
+
+        /* Иконка PLAY (треугольник) */
+        .icon-play {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 12px 0 12px 20px;
+            border-color: transparent transparent transparent #ffffff;
+            margin-left: 5px; /* Смещение для идеального центра */
+            display: block;
+        }
+
+        /* Иконка PAUSE (две полоски) */
+        .icon-pause {
+            width: 16px;
+            height: 22px;
+            display: none;
+            justify-content: space-between;
+        }
+
+        .icon-pause::before, .icon-pause::after {
+            content: '';
+            width: 5px;
+            height: 100%;
+            background-color: #ffffff;
+            border-radius: 2px;
+        }
+
+        /* Класс состояния "играет" */
+        .custom-play-btn.playing .icon-play { display: none; }
+        .custom-play-btn.playing .icon-pause { display: flex; }
 
         @keyframes fadeInPlayer {
             0% { opacity: 0; transform: translateX(-50%) scale(0.9); }
@@ -210,27 +254,39 @@
         <img src="49.gif" alt="Левый нижний элемент" class="bottom-element left">
         <img src="49.gif" alt="Правый нижний элемент" class="bottom-element right">
 
-        <div class="audio-player-container" id="playerContainer">
-            <audio id="myAudio" controls src="music.mp3" type="audio/mpeg"></audio>
+        <div class="audio-player-container">
+            <div class="custom-play-btn" id="playBtn">
+                <div class="icon-play"></div>
+                <div class="icon-pause"></div>
+            </div>
+            <audio id="bgMusic" src="music.mp3" type="audio/mpeg"></audio>
         </div>
     </div>
 
     <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
 
     <script>
-        const container = document.getElementById('playerContainer');
-        const audio = document.getElementById('myAudio');
+        const playBtn = document.getElementById('playBtn');
+        const bgMusic = document.getElementById('bgMusic');
 
-        container.addEventListener('click', function(e) {
-            // Если кликнули по самому контейнеру, а не по кнопкам нативного плеера,
-            // принудительно переключаем проигрывание
-            if (e.target === container) {
-                if (audio.paused) {
-                    audio.play();
-                } else {
-                    audio.pause();
-                }
+        playBtn.addEventListener('click', function() {
+            if (bgMusic.paused) {
+                bgMusic.play()
+                    .then(() => {
+                        playBtn.classList.add('playing');
+                    })
+                    .catch(error => {
+                        console.log("Ошибка воспроизведения:", error);
+                    });
+            } else {
+                bgMusic.pause();
+                playBtn.classList.remove('playing');
             }
+        });
+
+        // Если музыка закончится, кнопка сама вернется в режим Play
+        bgMusic.addEventListener('ended', function() {
+            playBtn.classList.remove('playing');
         });
     </script>
 
