@@ -112,7 +112,7 @@
             height: auto;
             z-index: 2;
             opacity: 0;
-            pointer-events: none; /* Пропускают клики сквозь себя */
+            pointer-events: none; 
             
             animation: fadeInElements 1s ease-in-out 9.5s forwards;
         }
@@ -134,7 +134,7 @@
             height: auto;
             z-index: 2;
             opacity: 0;
-            pointer-events: none; /* Пропускают клики сквозь себя */
+            pointer-events: none; 
 
             animation: fadeInElements 1s ease-in-out 9.5s forwards;
         }
@@ -153,26 +153,26 @@
             100% { opacity: 1; }
         }
 
-        /* 5. НОВЫЙ КАСТОМНЫЙ КРУГЛЫЙ ПРОИГРЫВАТЕЛЬ (#f5cef5) */
+        /* 5. УВЕЛИЧЕННЫЙ КАСТОМНЫЙ КРУГЛЫЙ ПРОИГРЫВАТЕЛЬ (#f5cef5) */
         .audio-player-container {
             position: absolute; 
-            top: 31%; /* Высота расположения над картинкой 46 */
+            top: 31%; 
             left: 50%;
             transform: translateX(-50%) scale(0.9);
-            z-index: 99999; /* Абсолютный приоритет по высоте слоев */
+            z-index: 9999; 
             opacity: 0;
             
             animation: fadeInPlayer 1s ease-in-out 9.5s forwards;
         }
 
-        /* Круглая кнопка */
+        /* Кнопка увеличена до 100px */
         .pink-play-btn {
-            width: 70px;
-            height: 70px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            background: rgba(245, 206, 245, 0.3); /* Цвет #f5cef5 с прозрачностью */
-            border: 3px solid #f5cef5; /* Плотный контур цвета #f5cef5 */
-            box-shadow: 0px 0px 20px rgba(245, 206, 245, 0.6), inset 0px 0px 10px rgba(0,0,0,0.2);
+            background: rgba(245, 206, 245, 0.25); /* Оттенок #f5cef5 */
+            border: 4px solid #f5cef5; 
+            box-shadow: 0px 0px 25px rgba(245, 206, 245, 0.7), inset 0px 0px 15px rgba(0,0,0,0.3);
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -182,38 +182,38 @@
 
         .pink-play-btn:hover {
             transform: scale(1.05);
-            background: rgba(245, 206, 245, 0.5);
-            box-shadow: 0px 0px 25px #f5cef5;
+            background: rgba(245, 206, 245, 0.45);
+            box-shadow: 0px 0px 35px #f5cef5;
         }
 
-        /* Иконка треугольника (PLAY) */
+        /* Иконка треугольника (Тоже увеличена для баланса) */
         .pink-icon-play {
             width: 0;
             height: 0;
             border-style: solid;
-            border-width: 12px 0 12px 20px;
-            border-color: transparent transparent transparent #f5cef5; /* Треугольник цвета #f5cef5 */
-            margin-left: 6px; /* Визуальное выравнивание в круге */
+            border-width: 18px 0 18px 28px;
+            border-color: transparent transparent transparent #f5cef5; 
+            margin-left: 8px; 
             display: block;
         }
 
         /* Иконка двух полосок (PAUSE) */
         .pink-icon-pause {
-            width: 16px;
-            height: 22px;
+            width: 24px;
+            height: 32px;
             display: none;
             justify-content: space-between;
         }
 
         .pink-icon-pause::before, .pink-icon-pause::after {
             content: '';
-            width: 5px;
+            width: 7px;
             height: 100%;
-            background-color: #f5cef5; /* Полоски цвета #f5cef5 */
-            border-radius: 2px;
+            background-color: #f5cef5; 
+            border-radius: 3px;
         }
 
-        /* Переключение состояния при проигрывании */
+        /* Состояние проигрывания */
         .pink-play-btn.playing .pink-icon-play { display: none; }
         .pink-play-btn.playing .pink-icon-pause { display: flex; }
 
@@ -236,6 +236,8 @@
 </head>
 <body>
 
+    <audio id="audioTrack" src="music.mp3" type="audio/mpeg" preload="auto"></audio>
+
     <img src="45.png" alt="Приближающееся изображение" class="zoom-image">
 
     <div class="triple-container">
@@ -254,11 +256,10 @@
         <img src="49.gif" alt="Правый нижний элемент" class="bottom-element right">
 
         <div class="audio-player-container">
-            <div class="pink-play-btn" id="musicBtn">
+            <button class="pink-play-btn" id="musicBtn" aria-label="Play/Pause">
                 <div class="pink-icon-play"></div>
                 <div class="pink-icon-pause"></div>
-            </div>
-            <audio id="audioTrack" src="music.mp3" type="audio/mpeg"></audio>
+            </button>
         </div>
     </div>
 
@@ -268,15 +269,20 @@
         const musicBtn = document.getElementById('musicBtn');
         const audioTrack = document.getElementById('audioTrack');
 
-        musicBtn.addEventListener('click', function(e) {
-            e.stopPropagation(); // Изолируем клик от фона
+        // Прямой обработчик без посредников
+        musicBtn.addEventListener('click', function() {
             if (audioTrack.paused) {
                 audioTrack.play()
                     .then(() => {
                         musicBtn.classList.add('playing');
                     })
                     .catch(err => {
-                        console.log("Браузер заблокировал старт:", err);
+                        console.error("Критическая ошибка запуска звука:", err);
+                        // Экстренный перезапуск аудиопотока в случае жесткого запрета браузера
+                        audioTrack.load();
+                        audioTrack.play().then(() => {
+                            musicBtn.classList.add('playing');
+                        });
                     });
             } else {
                 audioTrack.pause();
