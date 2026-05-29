@@ -19,6 +19,7 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #ffffff;
+            position: relative;
         }
 
         /* 1. ПЕРВАЯ КАРТИНКА (Влетает и исчезает с 0с до 3с) */
@@ -153,24 +154,24 @@
             100% { opacity: 1; }
         }
 
-        /* 5. УВЕЛИЧЕННЫЙ КАСТОМНЫЙ КРУГЛЫЙ ПРОИГРЫВАТЕЛЬ (#f5cef5) */
+        /* 5. ПОДНЯТАЯ ВЫШЕ В КОДЕ КНОПКА ПЛЕЕРА (#f5cef5) */
         .audio-player-container {
             position: absolute; 
-            top: 31%; 
+            top: 31%; /* Изначальное точное положение над 46.jpg */
             left: 50%;
             transform: translateX(-50%) scale(0.9);
-            z-index: 9999; 
+            z-index: 99999; /* Максимальный приоритет */
             opacity: 0;
             
             animation: fadeInPlayer 1s ease-in-out 9.5s forwards;
         }
 
-        /* Кнопка увеличена до 100px */
+        /* Крупная круглая розовая кнопка */
         .pink-play-btn {
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background: rgba(245, 206, 245, 0.25); /* Оттенок #f5cef5 */
+            background: rgba(245, 206, 245, 0.25); 
             border: 4px solid #f5cef5; 
             box-shadow: 0px 0px 25px rgba(245, 206, 245, 0.7), inset 0px 0px 15px rgba(0,0,0,0.3);
             cursor: pointer;
@@ -178,6 +179,8 @@
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease-in-out;
+            padding: 0;
+            outline: none;
         }
 
         .pink-play-btn:hover {
@@ -186,7 +189,7 @@
             box-shadow: 0px 0px 35px #f5cef5;
         }
 
-        /* Иконка треугольника (Тоже увеличена для баланса) */
+        /* Иконка треугольника */
         .pink-icon-play {
             width: 0;
             height: 0;
@@ -246,6 +249,13 @@
         <img src="47.png" alt="Полоса 2">
     </div>
 
+    <div class="audio-player-container">
+        <button class="pink-play-btn" id="musicBtn" aria-label="Play/Pause">
+            <div class="pink-icon-play"></div>
+            <div class="pink-icon-pause"></div>
+        </button>
+    </div>
+
     <div class="first-screen-container">
         <img src="46.jpg" alt="Фон страницы" class="full-screen-bg">
 
@@ -254,13 +264,6 @@
 
         <img src="49.gif" alt="Левый нижний элемент" class="bottom-element left">
         <img src="49.gif" alt="Правый нижний элемент" class="bottom-element right">
-
-        <div class="audio-player-container">
-            <button class="pink-play-btn" id="musicBtn" aria-label="Play/Pause">
-                <div class="pink-icon-play"></div>
-                <div class="pink-icon-pause"></div>
-            </button>
-        </div>
     </div>
 
     <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
@@ -269,20 +272,24 @@
         const musicBtn = document.getElementById('musicBtn');
         const audioTrack = document.getElementById('audioTrack');
 
-        // Прямой обработчик без посредников
-        musicBtn.addEventListener('click', function() {
+        musicBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Жесткое переключение состояний аудио
             if (audioTrack.paused) {
                 audioTrack.play()
                     .then(() => {
                         musicBtn.classList.add('playing');
                     })
                     .catch(err => {
-                        console.error("Критическая ошибка запуска звука:", err);
-                        // Экстренный перезапуск аудиопотока в случае жесткого запрета браузера
+                        console.error("Ошибка автоигры, пробуем перезапуск:", err);
+                        // Резервный перезапуск трека в обход блокировок политик браузера
                         audioTrack.load();
-                        audioTrack.play().then(() => {
-                            musicBtn.classList.add('playing');
-                        });
+                        setTimeout(() => {
+                            audioTrack.play().then(() => {
+                                musicBtn.classList.add('playing');
+                            });
+                        }, 50);
                     });
             } else {
                 audioTrack.pause();
