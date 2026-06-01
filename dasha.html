@@ -225,15 +225,36 @@
             100% { opacity: 1; transform: translateX(-50%) scale(1); }
         }
 
+        /* КОНТЕЙНЕР ДЛЯ 50.jpg И ВИДЕО 5b.mp4 */
+        .next-bg-container {
+            position: relative;
+            width: 100%;
+            height: 37.5vh;
+            z-index: 1;
+        }
+
         /* ИЗОБРАЖЕНИЕ 50.jpg */
         .next-bg {
             width: 100%;
-            height: 37.5vh; 
+            height: 100%; 
             object-fit: contain; 
             display: block;
             margin: 0 auto;
             z-index: 1;
-            position: relative;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        /* ВИДЕО 5b.mp4 поверх 50.jpg */
+        .overlay-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            object-fit: contain;
         }
     </style>
 </head>
@@ -266,7 +287,10 @@
         <img src="49.gif" alt="Правый нижний элемент" class="bottom-element right">
     </div>
 
-    <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
+    <div class="next-bg-container">
+        <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
+        <video src="5b.mp4" class="overlay-video" autoplay muted loop></video>
+    </div>
 
     <script>
         const musicBtn = document.getElementById('musicBtn');
