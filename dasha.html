@@ -231,6 +231,13 @@
             width: 100%;
             height: 37.5vh;
             z-index: 1;
+            opacity: 0;
+            animation: fadeInNextBg 1s ease-in-out 10.5s forwards;
+        }
+
+        @keyframes fadeInNextBg {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         /* ИЗОБРАЖЕНИЕ 50.jpg */
@@ -246,14 +253,15 @@
             left: 0;
         }
 
-        /* ВИДЕО 5b.mp4 поверх 50.jpg */
+        /* ВИДЕО 5b.mp4 поверх 50.jpg - 30% меньше */
         .overlay-video {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 70%;
+            z-index: 999999;
             object-fit: contain;
         }
     </style>
@@ -289,12 +297,13 @@
 
     <div class="next-bg-container">
         <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
-        <video src="5b.mp4" class="overlay-video" autoplay muted loop></video>
+        <video src="5b.mp4" class="overlay-video" autoplay muted playsinline></video>
     </div>
 
     <script>
         const musicBtn = document.getElementById('musicBtn');
         const audioTrack = document.getElementById('audioTrack');
+        const overlayVideo = document.querySelector('.overlay-video');
 
         musicBtn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -323,6 +332,16 @@
 
         audioTrack.addEventListener('ended', function() {
             musicBtn.classList.remove('playing');
+        });
+
+        // Обработчик для видео
+        overlayVideo.addEventListener('error', function() {
+            console.error('Ошибка загрузки видео');
+        });
+
+        // Попытка воспроизведения видео
+        overlayVideo.play().catch(function(error) {
+            console.error('Ошибка воспроизведения видео:', error);
         });
     </script>
 
