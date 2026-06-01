@@ -253,7 +253,7 @@
             left: 0;
         }
 
-        /* ВИДЕО 5b.mp4 поверх 50.jpg - 30% меньше */
+        /* ВИДЕО 5b.mp4 с нативным плеером - прозрачное до плея */
         .overlay-video {
             position: absolute;
             top: 50%;
@@ -263,6 +263,12 @@
             height: 70%;
             z-index: 999999;
             object-fit: contain;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .overlay-video.playing {
+            opacity: 1;
         }
     </style>
 </head>
@@ -297,7 +303,7 @@
 
     <div class="next-bg-container">
         <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
-        <video src="5b.mp4" class="overlay-video" autoplay muted playsinline></video>
+        <video src="5b.mp4" class="overlay-video" controls crossorigin="anonymous"></video>
     </div>
 
     <script>
@@ -334,14 +340,17 @@
             musicBtn.classList.remove('playing');
         });
 
-        // Обработчик для видео
-        overlayVideo.addEventListener('error', function() {
-            console.error('Ошибка загрузки видео');
+        // Обработчики для видео
+        overlayVideo.addEventListener('play', function() {
+            overlayVideo.classList.add('playing');
         });
 
-        // Попытка воспроизведения видео
-        overlayVideo.play().catch(function(error) {
-            console.error('Ошибка воспроизведения видео:', error);
+        overlayVideo.addEventListener('pause', function() {
+            overlayVideo.classList.remove('playing');
+        });
+
+        overlayVideo.addEventListener('ended', function() {
+            overlayVideo.classList.remove('playing');
         });
     </script>
 
