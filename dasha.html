@@ -14,7 +14,6 @@
             overflow-x: hidden; 
             overflow-y: auto; /* Страница свободно листается вниз */
             background-color: #180f2b;
-            scroll-behavior: auto;
         }
 
         body {
@@ -89,7 +88,6 @@
             width: 100%;
             height: 100vh; /* Занимает ровно один экран */
             z-index: 1;
-            flex-shrink: 0;
         }
 
         /* 3. ФИНАЛЬНЫЙ ФОН 46.jpg */
@@ -235,7 +233,6 @@
             z-index: 1;
             opacity: 0;
             animation: fadeInNextBg 1s ease-in-out 10.5s forwards;
-            flex-shrink: 0;
         }
 
         @keyframes fadeInNextBg {
@@ -256,8 +253,8 @@
             left: 0;
         }
 
-        /* ВИДЕО 5b.mp4 контейнер */
-        .video-wrapper {
+        /* ВИДЕО 5b.mp4 - обычный сафари плеер */
+        .overlay-video {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -266,67 +263,6 @@
             height: 70%;
             z-index: 999999;
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            background: rgba(0, 0, 0, 0.5);
-            opacity: 0.15;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        .video-wrapper.playing {
-            opacity: 1;
-            background: transparent;
-        }
-
-        .overlay-video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 8px;
-            background: #000;
-        }
-
-        /* Видимая кнопка плей */
-        .video-play-button {
-            position: absolute;
-            width: 120px;
-            height: 120px;
-            background: rgba(245, 206, 245, 0.9);
-            border: 3px solid rgba(245, 206, 245, 1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1000001;
-            transition: all 0.2s ease-in-out;
-            box-shadow: 0px 0px 30px rgba(245, 206, 245, 0.8);
-            padding: 0;
-        }
-
-        .video-play-button:active {
-            transform: scale(0.95);
-        }
-
-        .video-play-button:hover {
-            background: rgba(245, 206, 245, 1);
-            transform: scale(1.15);
-            box-shadow: 0px 0px 40px rgba(245, 206, 245, 1);
-        }
-
-        .video-play-button span {
-            width: 0;
-            height: 0;
-            border-style: solid;
-            border-width: 24px 0 24px 40px;
-            border-color: transparent transparent transparent #180f2b;
-            margin-left: 10px;
-        }
-
-        .video-wrapper.playing .video-play-button {
-            display: none;
         }
     </style>
 </head>
@@ -361,58 +297,20 @@
 
     <div class="next-bg-container">
         <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
-        <div class="video-wrapper" id="videoWrapper">
-            <video id="overlayVideo" class="overlay-video" playsinline webkit-playsinline muted></video>
-            <button class="video-play-button" id="videoPlayBtn" type="button"><span></span></button>
-        </div>
+        <video class="overlay-video" controls playsinline>
+            <source src="5b.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
     </div>
 
     <script>
         const musicBtn = document.getElementById('musicBtn');
         const audioTrack = document.getElementById('audioTrack');
-        const overlayVideo = document.getElementById('overlayVideo');
-        const videoWrapper = document.getElementById('videoWrapper');
-        const videoPlayBtn = document.getElementById('videoPlayBtn');
-
-        // Установка источника видео с абсолютным путём
-        const videoSource = document.createElement('source');
-        videoSource.src = './5b.mp4';
-        videoSource.type = 'video/mp4';
-        overlayVideo.appendChild(videoSource);
-
-        console.log('Видео инициализировано:', overlayVideo.src);
-
-        // Клик по кнопке плей - отключаем muted для запуска
-        videoPlayBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('Клик на кнопку плей видео');
-            
-            overlayVideo.muted = false;
-            overlayVideo.play().then(() => {
-                console.log('Видео успешно запущено');
-            }).catch(err => {
-                console.error('Ошибка при воспроизведении:', err);
-                // Пробуем ещё раз
-                setTimeout(() => {
-                    overlayVideo.play().catch(e => console.error('Повторная ошибка:', e));
-                }, 100);
-            });
-        });
-
-        // Клик по самому видео для паузы/плея
-        overlayVideo.addEventListener('click', function(e) {
-            e.stopPropagation();
-            if (overlayVideo.paused) {
-                overlayVideo.play();
-            } else {
-                overlayVideo.pause();
-            }
-        });
 
         musicBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
+            // Жесткое переключение состояний аудио
             if (audioTrack.paused) {
                 audioTrack.play()
                     .then(() => {
@@ -420,6 +318,7 @@
                     })
                     .catch(err => {
                         console.error("Ошибка автоигры, пробуем перезапуск:", err);
+                        // Резервный перезапуск трека в обход блокировок политик браузера
                         audioTrack.load();
                         setTimeout(() => {
                             audioTrack.play().then(() => {
@@ -435,46 +334,6 @@
 
         audioTrack.addEventListener('ended', function() {
             musicBtn.classList.remove('playing');
-        });
-
-        // Обработчики для видео
-        overlayVideo.addEventListener('play', function() {
-            console.log('Видео воспроизводится');
-            videoWrapper.classList.add('playing');
-        });
-
-        overlayVideo.addEventListener('pause', function() {
-            console.log('Видео на паузе');
-            videoWrapper.classList.remove('playing');
-        });
-
-        overlayVideo.addEventListener('ended', function() {
-            console.log('Видео закончилось');
-            videoWrapper.classList.remove('playing');
-        });
-
-        overlayVideo.addEventListener('error', function(e) {
-            console.error('Ошибка загрузки видео:', e);
-            if (overlayVideo.error) {
-                console.error('Код ошибки:', overlayVideo.error.code);
-                console.error('Сообщение:', overlayVideo.error.message);
-            }
-        });
-
-        overlayVideo.addEventListener('loadstart', function() {
-            console.log('Начало загрузки видео');
-        });
-
-        overlayVideo.addEventListener('canplay', function() {
-            console.log('Видео готово к воспроизведению');
-        });
-
-        overlayVideo.addEventListener('loadedmetadata', function() {
-            console.log('Метаданные видео загружены:', {
-                duration: overlayVideo.duration,
-                width: overlayVideo.videoWidth,
-                height: overlayVideo.videoHeight
-            });
         });
     </script>
 
