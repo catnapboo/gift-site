@@ -251,10 +251,12 @@
             display: block;
             margin: 0 auto;
             z-index: 1;
-            position: relative;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
-        /* ВИДЕО 5b.mp4 с нативным плеером - прозрачное до плея */
+        /* ВИДЕО 5b.mp4 контейнер */
         .video-wrapper {
             position: absolute;
             top: 50%;
@@ -263,20 +265,66 @@
             width: 70%;
             height: 70%;
             z-index: 999999;
-            opacity: 0;
+            opacity: 0.15;
             transition: opacity 0.3s ease-in-out;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
         .video-wrapper.playing {
             opacity: 1;
+            background: transparent;
         }
 
         .overlay-video {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            background-color: rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            background: #000;
+            display: block;
+        }
+
+        /* Видимая кнопка плей */
+        .video-play-button {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: rgba(245, 206, 245, 0.85);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000001;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0px 0px 20px rgba(245, 206, 245, 0.6);
+        }
+
+        .video-play-button:hover {
+            background: rgba(245, 206, 245, 1);
+            transform: scale(1.1);
+            box-shadow: 0px 0px 30px rgba(245, 206, 245, 1);
+        }
+
+        .video-play-button::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 20px 0 20px 32px;
+            border-color: transparent transparent transparent #180f2b;
+            margin-left: 8px;
+        }
+
+        .video-wrapper.playing .video-play-button {
+            opacity: 0;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -312,7 +360,8 @@
     <div class="next-bg-container">
         <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
         <div class="video-wrapper" id="videoWrapper">
-            <video class="overlay-video" id="overlayVideo" controls playsinline></video>
+            <video id="overlayVideo" class="overlay-video" playsinline webkit-playsinline></video>
+            <button class="video-play-button" id="videoPlayBtn"></button>
         </div>
     </div>
 
@@ -321,9 +370,32 @@
         const audioTrack = document.getElementById('audioTrack');
         const overlayVideo = document.getElementById('overlayVideo');
         const videoWrapper = document.getElementById('videoWrapper');
+        const videoPlayBtn = document.getElementById('videoPlayBtn');
 
         // Установка источника видео
         overlayVideo.src = '5b.mp4';
+        overlayVideo.type = 'video/mp4';
+        
+        console.log('Видео элемент создан:', overlayVideo);
+        console.log('Источник видео:', overlayVideo.src);
+
+        // Клик по кнопке плей
+        videoPlayBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Клик на кнопку плей');
+            overlayVideo.play().catch(err => console.error('Ошибка при воспроизведении:', err));
+        });
+
+        // Клик по самому видео
+        overlayVideo.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (overlayVideo.paused) {
+                overlayVideo.play();
+            } else {
+                overlayVideo.pause();
+            }
+        });
 
         musicBtn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -356,19 +428,31 @@
 
         // Обработчики для видео
         overlayVideo.addEventListener('play', function() {
+            console.log('Видео начало воспроизведение');
             videoWrapper.classList.add('playing');
         });
 
         overlayVideo.addEventListener('pause', function() {
+            console.log('Видео поставлено на паузу');
             videoWrapper.classList.remove('playing');
         });
 
         overlayVideo.addEventListener('ended', function() {
+            console.log('Видео закончилось');
             videoWrapper.classList.remove('playing');
         });
 
         overlayVideo.addEventListener('error', function(e) {
-            console.error('Ошибка загрузки видео:', e);
+            console.error('Ошибка видео:', e);
+            console.error('Код ошибки:', overlayVideo.error?.code);
+        });
+
+        overlayVideo.addEventListener('loadstart', function() {
+            console.log('Начало загрузки видео');
+        });
+
+        overlayVideo.addEventListener('canplay', function() {
+            console.log('Видео готово к воспроизведению');
         });
     </script>
 
