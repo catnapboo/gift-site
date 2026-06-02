@@ -233,6 +233,10 @@
             z-index: 1;
             opacity: 0;
             animation: fadeInNextBg 1s ease-in-out 10.5s forwards;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
         }
 
         @keyframes fadeInNextBg {
@@ -246,23 +250,17 @@
             height: 100%; 
             object-fit: contain; 
             display: block;
-            margin: 0 auto;
-            z-index: 1;
             position: absolute;
             top: 0;
             left: 0;
         }
 
-        /* ВИДЕО 5b.mp4 - обычный сафари плеер */
+        /* ВИДЕО 5b.mp4 - ПРОСТО И ПОНЯТНО */
         .overlay-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             width: 70%;
             height: 70%;
-            z-index: 999999;
-            border-radius: 8px;
+            max-width: 100%;
+            max-height: 100%;
         }
     </style>
 </head>
@@ -310,15 +308,13 @@
         musicBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Жесткое переключение состояний аудио
             if (audioTrack.paused) {
                 audioTrack.play()
                     .then(() => {
                         musicBtn.classList.add('playing');
                     })
                     .catch(err => {
-                        console.error("Ошибка автоигры, пробуем перезапуск:", err);
-                        // Резервный перезапуск трека в обход блокировок политик браузера
+                        console.error("Ошибка автоигры:", err);
                         audioTrack.load();
                         setTimeout(() => {
                             audioTrack.play().then(() => {
