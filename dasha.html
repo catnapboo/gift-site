@@ -14,6 +14,7 @@
             overflow-x: hidden; 
             overflow-y: auto; /* Страница свободно листается вниз */
             background-color: #180f2b;
+            scroll-behavior: auto;
         }
 
         body {
@@ -88,6 +89,7 @@
             width: 100%;
             height: 100vh; /* Занимает ровно один экран */
             z-index: 1;
+            flex-shrink: 0;
         }
 
         /* 3. ФИНАЛЬНЫЙ ФОН 46.jpg */
@@ -233,6 +235,7 @@
             z-index: 1;
             opacity: 0;
             animation: fadeInNextBg 1s ease-in-out 10.5s forwards;
+            flex-shrink: 0;
         }
 
         @keyframes fadeInNextBg {
@@ -248,13 +251,11 @@
             display: block;
             margin: 0 auto;
             z-index: 1;
-            position: absolute;
-            top: 0;
-            left: 0;
+            position: relative;
         }
 
         /* ВИДЕО 5b.mp4 с нативным плеером - прозрачное до плея */
-        .overlay-video {
+        .video-wrapper {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -262,13 +263,20 @@
             width: 70%;
             height: 70%;
             z-index: 999999;
-            object-fit: contain;
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
         }
 
-        .overlay-video.playing {
+        .video-wrapper.playing {
             opacity: 1;
+        }
+
+        .overlay-video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -303,13 +311,19 @@
 
     <div class="next-bg-container">
         <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
-        <video src="5b.mp4" class="overlay-video" controls crossorigin="anonymous"></video>
+        <div class="video-wrapper" id="videoWrapper">
+            <video class="overlay-video" id="overlayVideo" controls playsinline></video>
+        </div>
     </div>
 
     <script>
         const musicBtn = document.getElementById('musicBtn');
         const audioTrack = document.getElementById('audioTrack');
-        const overlayVideo = document.querySelector('.overlay-video');
+        const overlayVideo = document.getElementById('overlayVideo');
+        const videoWrapper = document.getElementById('videoWrapper');
+
+        // Установка источника видео
+        overlayVideo.src = '5b.mp4';
 
         musicBtn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -342,15 +356,19 @@
 
         // Обработчики для видео
         overlayVideo.addEventListener('play', function() {
-            overlayVideo.classList.add('playing');
+            videoWrapper.classList.add('playing');
         });
 
         overlayVideo.addEventListener('pause', function() {
-            overlayVideo.classList.remove('playing');
+            videoWrapper.classList.remove('playing');
         });
 
         overlayVideo.addEventListener('ended', function() {
-            overlayVideo.classList.remove('playing');
+            videoWrapper.classList.remove('playing');
+        });
+
+        overlayVideo.addEventListener('error', function(e) {
+            console.error('Ошибка загрузки видео:', e);
         });
     </script>
 
