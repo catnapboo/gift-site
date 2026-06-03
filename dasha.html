@@ -225,4 +225,98 @@
         .video-container {
             position: relative;
             width: 100%;
-            height: 37.5vh; /* Высота как
+            height: 37.5vh; /* Высота как у 50.jpg */
+            margin: 0 auto;
+            z-index: 1;
+        }
+
+        /* ИЗОБРАЖЕНИЕ 50.jpg (Служит подложкой) */
+        .next-bg {
+            width: 100%;
+            height: 100%; 
+            object-fit: contain; 
+            display: block;
+        }
+
+        /* ВИДЕО 5b.mp4 (Накладывается поверх слоями) */
+        .overlay-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Чтобы видео ложилось ровно по размерам картинки */
+            z-index: 2; /* Слой выше, чем у картинки */
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="audioTrack" src="music.mp3" type="audio/mpeg" preload="auto"></audio>
+
+    <img src="45.png" alt="Приближающееся изображение" class="zoom-image">
+
+    <div class="triple-container">
+        <img src="47.png" alt="Полоса 1">
+        <img src="47.png" alt="Полоса 3">
+        <img src="47.png" alt="Полоса 2">
+    </div>
+
+    <div class="audio-player-container">
+        <button class="pink-play-btn" id="musicBtn" aria-label="Play/Pause">
+            <div class="pink-icon-play"></div>
+            <div class="pink-icon-pause"></div>
+        </button>
+    </div>
+
+    <div class="first-screen-container">
+        <img src="46.jpg" alt="Фон страницы" class="full-screen-bg">
+
+        <img src="48.gif" alt="Левый верхний элемент" class="side-element left">
+        <img src="48.gif" alt="Правый верхний элемент" class="side-element right">
+
+        <img src="49.gif" alt="Левый нижний элемент" class="bottom-element left">
+        <img src="49.gif" alt="Правый нижний элемент" class="bottom-element right">
+    </div>
+
+    <div class="video-container">
+        <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
+        <video class="overlay-video" autoplay loop muted playsinline>
+            <source src="5b.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <script>
+        const musicBtn = document.getElementById('musicBtn');
+        const audioTrack = document.getElementById('audioTrack');
+
+        musicBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            if (audioTrack.paused) {
+                audioTrack.play()
+                    .then(() => {
+                        musicBtn.classList.add('playing');
+                    })
+                    .catch(err => {
+                        console.error("Ошибка автоигры, пробуем перезапуск:", err);
+                        audioTrack.load();
+                        setTimeout(() => {
+                            audioTrack.play().then(() => {
+                                musicBtn.classList.add('playing');
+                            });
+                        }, 50);
+                    });
+            } else {
+                audioTrack.pause();
+                musicBtn.classList.remove('playing');
+            }
+        });
+
+        audioTrack.addEventListener('ended', function() {
+            musicBtn.classList.remove('playing');
+        });
+    </script>
+
+</body>
+</html>
