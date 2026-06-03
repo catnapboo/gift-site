@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мой проект на GitHub</title>
     <style>
+        /* Главный скролл всей страницы */
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
             min-height: 100vh;
-            overflow-x: hidden;
-            overflow-y: auto;
+            overflow-x: hidden; 
+            overflow-y: auto; /* Страница свободно листается вниз */
             background-color: #180f2b;
         }
 
@@ -21,18 +22,19 @@
             position: relative;
         }
 
-        /* 1. ПЕРВАЯ КАРТИНКА */
+        /* 1. ПЕРВАЯ КАРТИНКА (Влетает и исчезает с 0с до 3с) */
         .zoom-image {
             max-width: 90vw;
             max-height: 90vh;
             object-fit: contain;
             display: block;
             z-index: 5;
-            position: fixed;
+            position: fixed; 
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0.01);
             opacity: 0;
+
             animation: zoomAndFadeOutIntro 3s cubic-bezier(0.25, 1, 0.5, 1) forwards;
         }
 
@@ -43,9 +45,9 @@
             100% { transform: translate(-50%, -50%) scale(1.8); opacity: 0; }
         }
 
-        /* 2. ТРОЙНОЙ КОНТЕЙНЕР */
+        /* 2. КОНТЕЙНЕР ДЛЯ ТРЕХ ИЗОБРАЖЕНИЙ 47.png */
         .triple-container {
-            position: fixed;
+            position: fixed; 
             top: 0;
             left: 0;
             width: 100%;
@@ -60,7 +62,7 @@
 
         .triple-container img {
             width: 100%;
-            height: 33.33vh;
+            height: 33.33vh; 
             object-fit: cover;
             opacity: 0;
             animation: fadeInRow 1s ease-in-out forwards;
@@ -80,15 +82,15 @@
             100% { opacity: 0; }
         }
 
-        /* ГЛАВНЫЙ КОНТЕЙНЕР ПЕРВОГО ЭКРАНА */
+        /* ГЛАВНЫЙ РОДИТЕЛЬСКИЙ КОНТЕЙНЕР ДЛЯ ПЕРВОГО ЭКРАНА */
         .first-screen-container {
             position: relative;
             width: 100%;
-            height: 100vh;
+            height: 100vh; /* Занимает ровно один экран */
             z-index: 1;
         }
 
-        /* 3. ФОН 46.jpg */
+        /* 3. ФИНАЛЬНЫЙ ФОН 46.jpg */
         .full-screen-bg {
             width: 100%;
             height: 100%;
@@ -103,15 +105,16 @@
             100% { opacity: 1; }
         }
 
-        /* 4. БОКОВЫЕ ЭЛЕМЕНТЫ */
+        /* 4. БОКОВЫЕ ЭЛЕМЕНТЫ ВВЕРХУ 48.gif */
         .side-element {
-            position: absolute;
+            position: absolute; 
             top: 15%;
-            width: 35vw;
+            width: 35vw; 
             height: auto;
             z-index: 2;
             opacity: 0;
-            pointer-events: none;
+            pointer-events: none; 
+            
             animation: fadeInElements 1s ease-in-out 9.5s forwards;
         }
 
@@ -124,24 +127,26 @@
             right: 2%;
         }
 
+        /* КЛАСС ДЛЯ НИЖНИХ ЭЛЕМЕНТОВ 49.gif */
         .bottom-element {
-            position: absolute;
-            bottom: 10%;
-            width: 70vw;
+            position: absolute; 
+            bottom: 10%; 
+            width: 70vw; 
             height: auto;
             z-index: 2;
             opacity: 0;
-            pointer-events: none;
+            pointer-events: none; 
+
             animation: fadeInElements 1s ease-in-out 9.5s forwards;
         }
 
         .bottom-element.left {
-            left: -15%;
-            transform: scaleX(-1);
+            left: -15%; 
+            transform: scaleX(-1); 
         }
 
         .bottom-element.right {
-            right: -15%;
+            right: -15%; 
         }
 
         @keyframes fadeInElements {
@@ -149,14 +154,15 @@
             100% { opacity: 1; }
         }
 
-        /* 5. АУДИО ПЛЕЕР */
+        /* 5. КНОПКА ПЛЕЕРА (Высота изменена на 20%) */
         .audio-player-container {
-            position: absolute;
-            top: 20%;
+            position: absolute; 
+            top: 20%; /* Твоё новое значение */
             left: 50%;
             transform: translateX(-50%) scale(0.9);
-            z-index: 99999;
+            z-index: 99999; 
             opacity: 0;
+            
             animation: fadeInPlayer 1s ease-in-out 9.5s forwards;
         }
 
@@ -164,8 +170,8 @@
             width: 100px;
             height: 100px;
             border-radius: 50%;
-            background: rgba(245, 206, 245, 0.25);
-            border: 4px solid #f5cef5;
+            background: rgba(245, 206, 245, 0.25); 
+            border: 4px solid #f5cef5; 
             box-shadow: 0px 0px 25px rgba(245, 206, 245, 0.7), inset 0px 0px 15px rgba(0,0,0,0.3);
             cursor: pointer;
             display: flex;
@@ -187,8 +193,8 @@
             height: 0;
             border-style: solid;
             border-width: 18px 0 18px 28px;
-            border-color: transparent transparent transparent #f5cef5;
-            margin-left: 8px;
+            border-color: transparent transparent transparent #f5cef5; 
+            margin-left: 8px; 
             display: block;
         }
 
@@ -203,7 +209,7 @@
             content: '';
             width: 7px;
             height: 100%;
-            background-color: #f5cef5;
+            background-color: #f5cef5; 
             border-radius: 3px;
         }
 
@@ -215,131 +221,8 @@
             100% { opacity: 1; transform: translateX(-50%) scale(1); }
         }
 
-        /* ======================================
-           БЛОК: 50.jpg + ВИДЕО ПОВЕРХ
-        ====================================== */
-
-        /* Обёртка — позиционирующий контейнер */
-        .media-block {
+        /* КОНТЕЙНЕР ДЛЯ КАРТИНКИ 50 И ВИДЕО */
+        .video-container {
             position: relative;
             width: 100%;
-            /* Высота подстраивается под 50.jpg (contain) */
-        }
-
-        /* 50.jpg — базовый слой */
-        .next-bg {
-            width: 100%;
-            height: 37.5vh;
-            object-fit: contain;
-            display: block;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Видео — поверх 50.jpg */
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 2;
-
-            /* Стандартный Safari-плеер: просто video без обёрток */
-            display: block;
-
-            /* Обязательно для Safari на iOS — иначе открывает fullscreen */
-            -webkit-playsinline: true;
-        }
-    </style>
-</head>
-<body>
-
-    <!--
-        АУДИО: preload="metadata" вместо "auto" —
-        меньше конфликтов с видео за медиа-ресурсы в Safari
-    -->
-    <audio id="audioTrack" src="music.mp3" preload="metadata"></audio>
-
-    <img src="45.png" alt="Приближающееся изображение" class="zoom-image">
-
-    <div class="triple-container">
-        <img src="47.png" alt="Полоса 1">
-        <img src="47.png" alt="Полоса 2">
-        <img src="47.png" alt="Полоса 3">
-    </div>
-
-    <div class="audio-player-container">
-        <button class="pink-play-btn" id="musicBtn" aria-label="Play/Pause">
-            <div class="pink-icon-play"></div>
-            <div class="pink-icon-pause"></div>
-        </button>
-    </div>
-
-    <div class="first-screen-container">
-        <img src="46.jpg" alt="Фон страницы" class="full-screen-bg">
-        <img src="48.gif" alt="Левый верхний элемент" class="side-element left">
-        <img src="48.gif" alt="Правый верхний элемент" class="side-element right">
-        <img src="49.gif" alt="Левый нижний элемент" class="bottom-element left">
-        <img src="49.gif" alt="Правый нижний элемент" class="bottom-element right">
-    </div>
-
-    <!-- БЛОК: изображение 50.jpg + видео 5b.mp4 поверх него -->
-    <div class="media-block">
-        <img src="50.jpg" alt="Следующее изображение" class="next-bg">
-
-        <!--
-            КЛЮЧЕВЫЕ АТРИБУТЫ ДЛЯ SAFARI:
-            - playsinline: видео остаётся на странице, не открывает fullscreen
-            - controls: стандартный нативный плеер браузера
-            - preload="metadata": не грузит всё сразу, не конфликтует с аудио
-            - webkit-playsinline: старый Safari (iOS < 10)
-            БЕЗ autoplay и БЕЗ muted — пусть пользователь запускает сам
-        -->
-        <video
-            class="video-overlay"
-            src="5b.mp4"
-            controls
-            playsinline
-            webkit-playsinline
-            preload="metadata"
-            type="video/mp4">
-            Ваш браузер не поддерживает видео.
-        </video>
-    </div>
-
-    <script>
-        const musicBtn = document.getElementById('musicBtn');
-        const audioTrack = document.getElementById('audioTrack');
-
-        musicBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            if (audioTrack.paused) {
-                audioTrack.play()
-                    .then(() => {
-                        musicBtn.classList.add('playing');
-                    })
-                    .catch(err => {
-                        console.error("Ошибка воспроизведения:", err);
-                        audioTrack.load();
-                        setTimeout(() => {
-                            audioTrack.play().then(() => {
-                                musicBtn.classList.add('playing');
-                            });
-                        }, 50);
-                    });
-            } else {
-                audioTrack.pause();
-                musicBtn.classList.remove('playing');
-            }
-        });
-
-        audioTrack.addEventListener('ended', function() {
-            musicBtn.classList.remove('playing');
-        });
-    </script>
-
-</body>
-</html>
+            height: 37.5vh; /* Высота как
