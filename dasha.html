@@ -225,14 +225,15 @@
             100% { opacity: 1; transform: translateX(-50%) scale(1); }
         }
 
-        /* КОНТЕЙНЕР ДЛЯ 50.jpg И ВИДЕО 5b.mp4 */
+        /* КОНТЕЙНЕР ДЛЯ 50.jpg И ВИДЕО 5b.mp4 - БОЛЬШОЙ, БЕЗ ОБРЕЗКИ */
         .next-bg-container {
             position: relative;
             width: 100%;
-            height: 37.5vh;
+            min-height: 100vh;
             z-index: 1;
             opacity: 0;
             animation: fadeInNextBg 1s ease-in-out 10.5s forwards;
+            overflow: visible;
         }
 
         @keyframes fadeInNextBg {
@@ -243,18 +244,19 @@
         /* ИЗОБРАЖЕНИЕ 50.jpg */
         .next-bg {
             width: 100%;
-            display: block;
             height: auto;
+            display: block;
         }
 
-        /* ВИДЕО 5b.mp4 - КАК В nastya.html */
+        /* ВИДЕО 5b.mp4 - МАЛЕНЬКОЕ, В ПРЕДЕЛАХ РАМОК */
         .video-player {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 70%;
-            max-width: 70%;
+            width: 50%;
+            height: 50%;
+            max-width: 50%;
             z-index: 9999;
             opacity: 0;
         }
