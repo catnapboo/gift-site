@@ -225,49 +225,15 @@
             100% { opacity: 1; transform: translateX(-50%) scale(1); }
         }
 
-        /* КОНТЕЙНЕР ДЛЯ 50.jpg И ВИДЕО 5b.mp4 - БОЛЬШОЙ, БЕЗ ОБРЕЗКИ */
-        .next-bg-container {
-            position: relative;
-            width: 100%;
-            min-height: 100vh;
-            z-index: 1;
-            opacity: 0;
-            animation: fadeInNextBg 1s ease-in-out 10.5s forwards;
-            overflow: visible;
-        }
-
-        @keyframes fadeInNextBg {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
         /* ИЗОБРАЖЕНИЕ 50.jpg */
         .next-bg {
             width: 100%;
-            height: auto;
+            height: 37.5vh; 
+            object-fit: contain; 
             display: block;
-        }
-
-        /* ВИДЕО 5b.mp4 - МАЛЕНЬКОЕ, В ПРЕДЕЛАХ РАМОК */
-        .video-player {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 50%;
-            height: 50%;
-            max-width: 50%;
-            z-index: 9999;
-            opacity: 0;
-        }
-
-        .video-player.fade-in {
-            animation: fadeIn 1.5s ease-in-out forwards;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            margin: 0 auto;
+            z-index: 1;
+            position: relative;
         }
     </style>
 </head>
@@ -300,12 +266,7 @@
         <img src="49.gif" alt="Правый нижний элемент" class="bottom-element right">
     </div>
 
-    <div class="next-bg-container">
-        <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
-        <video class="video-player" id="video5b" controls playsinline>
-            <source src="5b.mp4" type="video/mp4">
-        </video>
-    </div>
+    <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
 
     <script>
         const musicBtn = document.getElementById('musicBtn');
@@ -314,13 +275,15 @@
         musicBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
+            // Жесткое переключение состояний аудио
             if (audioTrack.paused) {
                 audioTrack.play()
                     .then(() => {
                         musicBtn.classList.add('playing');
                     })
                     .catch(err => {
-                        console.error("Ошибка автоигры:", err);
+                        console.error("Ошибка автоигры, пробуем перезапуск:", err);
+                        // Резервный перезапуск трека в обход блокировок политик браузера
                         audioTrack.load();
                         setTimeout(() => {
                             audioTrack.play().then(() => {
@@ -337,10 +300,6 @@
         audioTrack.addEventListener('ended', function() {
             musicBtn.classList.remove('playing');
         });
-
-        setTimeout(() => {
-            document.getElementById('video5b').classList.add('fade-in');
-        }, 10500);
     </script>
 
 </body>
