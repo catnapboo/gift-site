@@ -233,10 +233,6 @@
             z-index: 1;
             opacity: 0;
             animation: fadeInNextBg 1s ease-in-out 10.5s forwards;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #000;
         }
 
         @keyframes fadeInNextBg {
@@ -247,20 +243,29 @@
         /* ИЗОБРАЖЕНИЕ 50.jpg */
         .next-bg {
             width: 100%;
-            height: 100%; 
-            object-fit: contain; 
             display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
+            height: auto;
         }
 
-        /* ВИДЕО 5b.mp4 - ПРОСТО И ПОНЯТНО */
-        .overlay-video {
+        /* ВИДЕО 5b.mp4 - КАК В nastya.html */
+        .video-player {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 70%;
-            height: 70%;
-            max-width: 100%;
-            max-height: 100%;
+            max-width: 70%;
+            z-index: 9999;
+            opacity: 0;
+        }
+
+        .video-player.fade-in {
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
@@ -295,9 +300,8 @@
 
     <div class="next-bg-container">
         <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
-        <video class="overlay-video" controls playsinline>
-            <source src="https://raw.githubusercontent.com/catnapboo/gift-site/main/5b.mp4" type="video/mp4">
-            Ваш браузер не поддерживает видео.
+        <video class="video-player" id="video5b" controls playsinline>
+            <source src="5b.mp4" type="video/mp4">
         </video>
     </div>
 
@@ -331,6 +335,10 @@
         audioTrack.addEventListener('ended', function() {
             musicBtn.classList.remove('playing');
         });
+
+        setTimeout(() => {
+            document.getElementById('video5b').classList.add('fade-in');
+        }, 10500);
     </script>
 
 </body>
