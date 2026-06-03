@@ -154,10 +154,10 @@
             100% { opacity: 1; }
         }
 
-        /* 5. КНОПКА ПЛЕЕРА (Высота изменена на 20%) */
+        /* 5. КНОПКА ПЛЕЕРА (Высота 20%) */
         .audio-player-container {
             position: absolute; 
-            top: 20%; /* Твоё новое значение */
+            top: 20%; 
             left: 50%;
             transform: translateX(-50%) scale(0.9);
             z-index: 99999; 
@@ -221,31 +221,34 @@
             100% { opacity: 1; transform: translateX(-50%) scale(1); }
         }
 
-        /* КОНТЕЙНЕР ДЛЯ КАРТИНКИ 50 И ВИДЕО */
+        /* ОБНОВЛЕННЫЙ КОНТЕЙНЕР: Сдвинут чуть ниже от первого экрана */
         .video-container {
             position: relative;
             width: 100%;
-            height: 37.5vh; /* Высота как у 50.jpg */
-            margin: 0 auto;
+            margin-top: 10vh; /* Опускаем весь блок ниже */
+            display: flex;
+            justify-content: center;
+            align-items: center;
             z-index: 1;
         }
 
-        /* ИЗОБРАЖЕНИЕ 50.jpg (Служит подложкой) */
+        /* ИЗОБРАЖЕНИЕ 50.jpg (Сделано больше и отцентрировано) */
         .next-bg {
-            width: 100%;
-            height: 100%; 
+            width: 120%; /* Сделали шире */
+            height: 55vh; /* Сделали выше */
             object-fit: contain; 
             display: block;
         }
 
-        /* ВИДЕО 5b.mp4 (Накладывается поверх слоями) */
+        /* ВИДЕО 5b.mp4 (Сдвинуто чуть ниже относительно картинки 50) */
         .overlay-video {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Чтобы видео ложилось ровно по размерам картинки */
+            top: 10%; /* Опустили видео чуть ниже по вертикали */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            height: 80%;
+            object-fit: contain;
             z-index: 2; /* Слой выше, чем у картинки */
         }
     </style>
@@ -281,7 +284,7 @@
 
     <div class="video-container">
         <img src="50.jpg" alt="Следующее изображение ниже" class="next-bg">
-        <video class="overlay-video" autoplay loop muted playsinline>
+        <video class="overlay-video" controls preload="metadata">
             <source src="5b.mp4" type="video/mp4">
         </video>
     </div>
