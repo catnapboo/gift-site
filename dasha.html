@@ -225,7 +225,7 @@
         .video-section-wrapper {
             position: relative;
             width: 100%;
-            margin-top: 10vh; /* Отступ вниз от первого экрана */
+            margin-top: -10vh; /* Подняли весь блок с видео и 50.jpg ровно на 20% выше (было +10vh) */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -245,11 +245,11 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%); /* Идеальное центрирование внутри контейнера */
-            width: 80%; /* Сделали видео меньше (было 100%) */
-            height: 80%; /* Сделали видео меньше (было 100%) */
+            transform: translate(-50%, -50%); 
+            width: 80%; 
+            height: 80%; 
             object-fit: contain; 
-            border-radius: 8px; /* Легкое аккуратное скругление краев видео */
+            border-radius: 8px; 
             z-index: 20; 
         }
     </style>
