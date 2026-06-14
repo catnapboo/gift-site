@@ -26,44 +26,46 @@
             position: relative;
         }
 
-        /* === БЕЛЫЕ БЛИКИ ОТ ДИСКО-ШАРА (ФИКСИРОВАННЫЕ ПОВЕРХ ВСЕГО) === */
+        /* === КВАДРАТНЫЕ БЛИКИ ОТ ДИСКО-ШАРА (ФИКСИРОВАННЫЕ ПОВЕРХ ВСЕГО) === */
         .disco-dots {
-            position: fixed; /* Закреплены на экране при скролле */
+            position: fixed; 
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
-            z-index: 99999; /* Поверх прожекторов, а затем поверх 54.jpg */
-            pointer-events: none; /* Пропускают клики */
+            z-index: 99999; 
+            pointer-events: none; 
         }
 
         .dot {
             position: absolute;
-            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 30%, transparent 70%);
-            border-radius: 50%;
+            background: radial-gradient(shadow, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 50%, transparent 100%);
+            background-color: #ffffff;
+            border-radius: 2px; /* Квадратная форма кусочков зеркала */
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.6);
             opacity: 0;
             animation: discoGlimmer 3s ease-in-out infinite alternate;
         }
 
         /* Индивидуальное расположение, размеры и задержки бликов шара */
-        .dot-1 { top: 12%; left: 15%; width: 12px; height: 12px; animation-delay: 0.2s; }
-        .dot-2 { top: 28%; left: 45%; width: 16px; height: 16px; animation-delay: 0.8s; }
-        .dot-3 { top: 18%; left: 78%; width: 14px; height: 14px; animation-delay: 1.4s; }
-        .dot-4 { top: 42%; left: 23%; width: 18px; height: 18px; animation-delay: 0.5s; }
-        .dot-5 { top: 32%; left: 68%; width: 15px; height: 15px; animation-delay: 1.1s; }
-        .dot-6 { top: 55%; left: 85%; width: 20px; height: 20px; animation-delay: 0.3s; }
-        .dot-7 { top: 62%; left: 12%; width: 14px; height: 14px; animation-delay: 1.7s; }
-        .dot-8 { top: 68%; left: 38%; width: 18px; height: 18px; animation-delay: 0.9s; }
-        .dot-9 { top: 49%; left: 52%; width: 12px; height: 12px; animation-delay: 2.1s; }
-        .dot-10 { top: 72%; left: 74%; width: 16px; height: 16px; animation-delay: 1.3s; }
-        .dot-11 { top: 84%; left: 25%; width: 15px; height: 15px; animation-delay: 0.6s; }
-        .dot-12 { top: 88%; left: 58%; width: 22px; height: 22px; animation-delay: 1.5s; }
-        .dot-13 { top: 79%; left: 91%; width: 14px; height: 14px; animation-delay: 0.1s; }
+        .dot-1 { top: 12%; left: 15%; width: 10px; height: 10px; animation-delay: 0.2s; }
+        .dot-2 { top: 28%; left: 45%; width: 14px; height: 14px; animation-delay: 0.8s; }
+        .dot-3 { top: 18%; left: 78%; width: 12px; height: 12px; animation-delay: 1.4s; }
+        .dot-4 { top: 42%; left: 23%; width: 15px; height: 15px; animation-delay: 0.5s; }
+        .dot-5 { top: 32%; left: 68%; width: 11px; height: 11px; animation-delay: 1.1s; }
+        .dot-6 { top: 55%; left: 85%; width: 16px; height: 16px; animation-delay: 0.3s; }
+        .dot-7 { top: 62%; left: 12%; width: 12px; height: 12px; animation-delay: 1.7s; }
+        .dot-8 { top: 68%; left: 38%; width: 14px; height: 14px; animation-delay: 0.9s; }
+        .dot-9 { top: 49%; left: 52%; width: 10px; height: 10px; animation-delay: 2.1s; }
+        .dot-10 { top: 72%; left: 74%; width: 15px; height: 15px; animation-delay: 1.3s; }
+        .dot-11 { top: 84%; left: 25%; width: 11px; height: 11px; animation-delay: 0.6s; }
+        .dot-12 { top: 88%; left: 58%; width: 16px; height: 16px; animation-delay: 1.5s; }
+        .dot-13 { top: 79%; left: 91%; width: 12px; height: 12px; animation-delay: 0.1s; }
 
         @keyframes discoGlimmer {
-            0% { opacity: 0; transform: translateY(0) scale(0.7); }
-            50% { opacity: 0.9; }
-            100% { opacity: 0; transform: translateY(-20px) scale(1.3); }
+            0% { opacity: 0; transform: translateY(0) scale(0.8) rotate(0deg); }
+            50% { opacity: 0.85; }
+            100% { opacity: 0; transform: translateY(-20px) scale(1.2) rotate(15deg); }
         }
 
 
@@ -168,6 +170,73 @@
         }
 
 
+        /* === КНОПКА АУДИОПЛЕЕРА (ВОЗВРАЩЕНА) === */
+        .audio-player-container {
+            position: absolute; 
+            top: 1%; 
+            left: 50%;
+            transform: translateX(-50%) scale(0.9);
+            z-index: 99999; 
+            opacity: 0;
+            animation: fadeInPlayer 1s ease-in-out 5.5s forwards;
+        }
+
+        .pink-play-btn {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(245, 206, 245, 0.25); 
+            border: 4px solid #f5cef5; 
+            box-shadow: 0px 0px 25px rgba(245, 206, 245, 0.7), inset 0px 0px 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease-in-out;
+            padding: 0;
+            outline: none;
+        }
+
+        .pink-play-btn:hover {
+            transform: scale(1.05);
+            background: rgba(245, 206, 245, 0.45);
+            box-shadow: 0px 0px 35px #f5cef5;
+        }
+
+        .pink-icon-play {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 18px 0 18px 28px;
+            border-color: transparent transparent transparent #f5cef5; 
+            margin-left: 8px; 
+            display: block;
+        }
+
+        .pink-icon-pause {
+            width: 24px;
+            height: 32px;
+            display: none;
+            justify-content: space-between;
+        }
+
+        .pink-icon-pause::before, .pink-icon-pause::after {
+            content: '';
+            width: 7px;
+            height: 100%;
+            background-color: #f5cef5; 
+            border-radius: 3px;
+        }
+
+        .pink-play-btn.playing .pink-icon-play { display: none; }
+        .pink-play-btn.playing .pink-icon-pause { display: flex; }
+
+        @keyframes fadeInPlayer {
+            0% { opacity: 0; transform: translateX(-50%) scale(0.9); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1); }
+        }
+
+
         /* === ОСНОВНОЙ КОНТЕНТ === */
 
         .first-screen-container {
@@ -191,19 +260,61 @@
             100% { opacity: 1; }
         }
 
-        /* ОДНОДНОРОДНАЯ ЦЕНТРАЛЬНАЯ ГИФКА 55.gif ВНИЗУ ЭКРАНА */
-        .centered-bottom-gif {
+        /* ИЗОБРАЖЕНИЕ 56.png В САМОМ ВЕРХУ ПО ЦЕНТРУ */
+        .top-header-img {
             position: absolute;
-            bottom: 5%;
+            top: 1%;
             left: 50%;
             transform: translateX(-50%);
-            width: 65vw;
-            max-width: 600px;
+            width: 40vw;
+            max-width: 450px;
+            height: auto;
+            z-index: 3;
+            opacity: 0;
+            pointer-events: none;
+            animation: fadeInElements 1s ease-in-out 5.5s forwards;
+        }
+
+        /* ИЗМЕНЕННАЯ ГИФКА 55.gif (УМЕНЬШЕНА В 2 РАЗА, ВЫШЕ И ЛЕВЕЕ) */
+        .centered-bottom-gif {
+            position: absolute;
+            bottom: 25%; /* Поднята выше */
+            left: 30%;   /* Сдвинута левее */
+            width: 32.5vw; /* В 2 раза меньше от изначальных 65vw */
+            max-width: 300px;
             height: auto;
             z-index: 2;
             opacity: 0;
             pointer-events: none;
             animation: fadeInElements 1s ease-in-out 5.5s forwards;
+        }
+
+        /* === ЗЕРКАЛЬНЫЕ И СКОМПОНОВАННЫЕ ГИФКИ 57 И 58 ВНИЗУ 54 === */
+        .side-gif-wrapper {
+            position: absolute;
+            width: 28vw;
+            max-width: 260px;
+            height: auto;
+            z-index: 2;
+            opacity: 0;
+            pointer-events: none;
+            animation: fadeInElements 1s ease-in-out 5.5s forwards;
+        }
+
+        /* Прижатие к краям */
+        .side-gif-wrapper.left { left: 0; }
+        .side-gif-wrapper.right { right: 0; transform: scaleX(-1); } /* Эффект зеркала для правой стороны */
+
+        /* 58.gif выше и ближе к центру при загрузке */
+        .gif-58-pos {
+            bottom: 42%;
+        }
+
+        /* 57.gif ниже и больше по размеру */
+        .gif-57-pos {
+            bottom: 8%;
+            width: 38vw;
+            max-width: 350px;
         }
 
         @keyframes fadeInElements {
@@ -240,14 +351,14 @@
             z-index: 20; 
         }
 
-        /* СЕКЦИЯ С ТЕКСТОМ (Имеет высший z-index, чтобы двигаться над фиксированными бликами) */
+        /* СЕКЦИЯ С ТЕКСТОМ */
         .astrology-section {
             width: 100%;
             background-image: url('51.jpg');
             background-repeat: repeat-y; 
             background-size: 100% auto;
             position: relative;
-            z-index: 100000; /* Перекрывает фиксированные блики при скролле */
+            z-index: 100000; 
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -362,9 +473,27 @@
         </div>
     </div>
 
+    <audio id="audioTrack" src="music.mp3" type="audio/mpeg" preload="auto"></audio>
+
+    <div class="audio-player-container">
+        <button class="pink-play-btn" id="musicBtn" aria-label="Play/Pause">
+            <div class="pink-icon-play"></div>
+            <div class="pink-icon-pause"></div>
+        </button>
+    </div>
+
     <div class="first-screen-container">
         <img src="54.jpg" alt="Фон страницы" class="full-screen-bg">
+        
+        <img src="56.png" alt="Верхний элемент" class="top-header-img">
+
         <img src="55.gif" alt="Элемент оформления" class="centered-bottom-gif">
+
+        <img src="58.gif" alt="Элемент 58 левый" class="side-wrapper side-gif-wrapper left gif-58-pos">
+        <img src="57.gif" alt="Элемент 57 левый" class="side-wrapper side-gif-wrapper left gif-57-pos">
+
+        <img src="58.gif" alt="Элемент 58 правый" class="side-wrapper side-gif-wrapper right gif-58-pos">
+        <img src="57.gif" alt="Элемент 57 правый" class="side-wrapper side-gif-wrapper right gif-57-pos">
     </div>
 
     <div class="video-section-wrapper">
@@ -418,7 +547,7 @@
 
                 <h3>Оппозиция Марс — Юпитер</h3>
                 <p>Этот аспект показывает различия в подходе к действиям и принятию решений. Одна из вас может стремиться действовать быстро, полагаясь на энтузиазм и уверенность, а другая склонна смотреть на ситуацию шире и оценивать последствия. В результате периодически возникают споры о том, стоит ли рисковать, насколько реалистичны планы и как правильно распределять силы.</p>
-                <p>В позитивном варианте вы способны взаимно уравновешивать друг друга. Подруга помогает вам видеть более широкую перспективу, а вы помогаете ей переходить от размышлений к конкретным действиям. Однако если каждая будет считать свою позицию единственно правильной, возможны конфликты из-за поспешных решений, завышенных ожиданий или несогласованности действий.</p>
+                <p>В позитивном варианте вы способны взаимно уравновешивать друг друга. Подруга помогает вам видеть более широкую перспективу, а вы помогает ей переходить от размышлений к конкретным действиям. Однако если каждая будет считать свою позицию единственно правильной, возможны конфликты из-за поспешных решений, завышенных ожиданий или несогласованности действий.</p>
 
                 <h3>Соединение Марс — Нептун</h3>
                 <p>Это один из самых загадочных аспектов вашей совместимости. Он создает сильную эмоциональную и интуитивную связь, благодаря которой вы можете чувствовать настроение друг друга практически без слов. Между вами часто возникает интерес к психологии, духовным темам, творчеству или всему, что связано с внутренним миром человека.</p>
@@ -454,7 +583,7 @@
 
                 <h3>Общий вывод по совместимости</h3>
                 <p>У этой дружбы довольно интересный контраст. С одной стороны, здесь много сильных гармоничных аспектов: Солнце–Венера, Солнце–Марс, соединение Меркуриев, Венера–Сатурн, Венера–Уран, соединение Юпитеров, тригон Сатурн–Уран. Они дают взаимную симпатию, интеллектуальную близость, поддержку, общие интересы и способность вдохновлять друг друга на развитие.</p>
-                <p>С другой стороны, напряженные аспекты Меркурия к Юпитеру и Нептуну, Венеры к Марсу, Марса к Юпитеру и Юпитера к Нептуну показывают, что периодически между вами могут возникать недопонимания, разные ожидания и споры из-за взглядов на жизнь. Основная зона риска — не отсутствие чувств или дружеской привязанности, а склонность по-разному воспринимать одну и ту же ситуацию.</p>
+                <p>С другой стороны, напряженные аспекты Меркурия к Юпитеру и Непнуну, Венеры к Марсу, Марса к Юпитеру и Юпитера к Нептуну показывают, что периодически между вами могут возникать недопонимания, разные ожидания и споры из-за взглядов на жизнь. Основная зона риска — не отсутствие чувств или дружеской привязанности, а склонность по-разному воспринимать одну и ту же ситуацию.</p>
                 <p>В целом карта выглядит как совместимость выше средней для дружбы. Здесь есть хороший фундамент для долгих отношений, много взаимного интереса и эмоционального тепла. Но гармония будет сохраняться при условии, что вы не станете идеализировать друг друга и научитесь спокойно относиться к различиям во взглядах. Тогда сильные стороны этой связи будут заметно перевешивать ее слабые места.</p>
             </div>
 
@@ -463,6 +592,36 @@
         <div class="footer-quote-text">Спокойно - мне похуй</div>
          
     </div>
+
+    <script>
+        (function() {
+            const btn = document.getElementById('musicBtn');
+            const audio = document.getElementById('audioTrack');
+
+            if (!btn || !audio) return;
+
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation(); 
+                
+                if (audio.paused) {
+                    audio.play()
+                        .then(() => { btn.classList.add('playing'); })
+                        .catch(() => {
+                            audio.load();
+                            setTimeout(() => { audio.play().then(() => { btn.classList.add('playing'); }); }, 50);
+                        });
+                } else {
+                    audio.pause();
+                    btn.classList.remove('playing');
+                }
+            });
+
+            audio.addEventListener('ended', function() {
+                btn.classList.remove('playing');
+            });
+        })();
+    </script>
 
 </body>
 </html>
