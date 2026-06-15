@@ -316,12 +316,12 @@
         .gif-57-pos.right { right: -5vw; transform: scaleX(-1); }
 
 
-        /* === ВИНИЛОВЫЕ ПЛАСТИНКИ С ПОСТОЯННЫМ ВРАЩЕНИЕМ (САМЫЙ ВЕРХНИЙ СЛОЙ) === */
+        /* === ВИНИЛОВЫЕ ПЛАСТИНКИ ЧУТЬ БОЛЬШЕ (Ширина увеличена до 30vw, max-width до 340px) === */
         .vinyl-plate {
             position: fixed;
             top: 25%; 
-            width: 25vw; 
-            max-width: 270px; 
+            width: 30vw; 
+            max-width: 340px; 
             height: auto;
             z-index: 200001; 
             pointer-events: none;
@@ -391,7 +391,6 @@
             padding-bottom: 80px; 
         }
 
-        /* ЦВЕТ ЗАГОЛОВКА ИЗМЕНЕН НА #ebcbbc */
         .natal-chart-title {
             font-family: 'Climate Crisis', sans-serif;
             font-size: clamp(2.2rem, 6vw, 4.5rem); 
@@ -401,7 +400,6 @@
             text-shadow: 0 0 15px rgba(235, 203, 188, 0.3);
         }
 
-        /* ПОДЛОЖКА ИЗМЕНЕНА НА ЦВЕТ #cc9585 С СОХРАНЕНИЕМ ПРОЗРАЧНОСТИ 0.6 */
         .text-overlay-card {
             width: 88%;
             max-width: 900px;
@@ -426,9 +424,10 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
+        /* ЦВЕТ ОСНОВНОГО БЛОКА ИЗМЕНЕН НА #8c3777 */
         .astro-content-text {
             font-family: 'Marck Script', cursive;
-            color: #bcc0eb; 
+            color: #8c3777; 
             font-size: clamp(1.2rem, 3.5vw, 1.6rem);
             line-height: 1.6;
             text-align: justify;
@@ -437,14 +436,15 @@
             word-spacing: -1px; 
         }
 
+        /* ЦВЕТ ВНУТРЕННИХ ЗАГOЛОВКОВ ТАКЖЕ ПОДСТРОЕН ПОД #8c3777 */
         .astro-content-text h3 {
             font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             margin: 35px 0 15px 0;
             text-align: center;
-            border-bottom: 1px dashed rgba(188, 192, 235, 0.4); 
+            border-bottom: 1px dashed rgba(140, 55, 119, 0.4); 
             padding-bottom: 8px;
             font-weight: normal;
-            color: #bcc0eb;
+            color: #8c3777;
         }
         
         .astro-content-text h3:first-of-type {
@@ -456,21 +456,22 @@
             text-indent: 20px; 
         }
 
-        /* ЦВЕТ ЦИТАТЫ ТАКЖЕ ИЗМЕНЕН НА #ebcbbc */
+        /* НАДПИСЬ МЕНЬШЕ, ШРИФТ CLIMATE CRISIS, ЦВЕТ #5602b0 */
         .footer-quote-text {
-            font-family: 'Great Vibes', cursive;
-            font-size: clamp(2.5rem, 5.5vw, 4rem); 
-            color: #ebcbbc; 
+            font-family: 'Climate Crisis', sans-serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.8rem); 
+            color: #5602b0; 
             margin-top: 40px; 
             text-align: center;
-            text-shadow: 0 0 15px rgba(235, 203, 188, 0.3);
+            text-shadow: 0 0 10px rgba(86, 2, 176, 0.2);
             width: 90%;
-            line-height: 1.3;
+            line-height: 1.4;
         }
     </style>
 </head>
 <body>
 
+    <!-- СЛОЙ С КВАДРАТНЫМИ РАЗМЫТЫМИ БЛИКАМИ ОТ ДИСКО-ШАРА -->
     <div class="disco-dots">
         <div class="dot dot-1"></div>
         <div class="dot dot-2"></div>
@@ -487,6 +488,7 @@
         <div class="dot dot-13"></div>
     </div>
     
+    <!-- ЗАСТАВКА С ЦВЕТНЫМИ ЛУЧАМИ -->
     <div class="spotlight-intro">
         <div class="spotlight-group spotlight-red">
             <div class="ray"></div>
@@ -502,6 +504,7 @@
         </div>
     </div>
 
+    <!-- ТЕГ АУДИО И КНОПКА ПЛЕЕРА -->
     <audio id="audioTrack" src="music2.mp3" type="audio/mpeg" preload="auto"></audio>
 
     <div class="audio-player-container">
@@ -511,21 +514,26 @@
         </button>
     </div>
 
+    <!-- УВЕЛИЧЕННЫЕ ВИНИЛОВЫЕ ПЛАСТИНКИ НА САМОМ ВЕРХНЕМ СЛОЕ -->
     <img src="59.png" alt="Пластинка левая" class="vinyl-plate vinyl-left">
     <img src="60.png" alt="Пластинка правая" class="vinyl-plate vinyl-right">
 
+    <!-- ПЕРВЫЙ ЭКРАН -->
     <div class="first-screen-container">
         <img src="54.jpg" alt="Фон страницы" class="full-screen-bg">
         <img src="56.png" alt="Верхний элемент" class="top-header-img">
         <img src="55.gif" alt="Элемент оформления" class="centered-bottom-gif">
 
+        <!-- Левая сторона -->
         <img src="58.gif" alt="Элемент 58 левый" class="side-gif-wrapper left gif-58-pos">
         <img src="57.gif" alt="Элемент 57 левый" class="side-gif-wrapper left gif-57-pos">
 
+        <!-- Правая сторона (Зеркальное отображение) -->
         <img src="58.gif" alt="Элемент 58 правый" class="side-gif-wrapper right gif-58-pos">
         <img src="57.gif" alt="Элемент 57 правый" class="side-gif-wrapper right gif-57-pos">
     </div>
 
+    <!-- ВТОРОЙ ЭКРАН С ВИДЕО -->
     <div class="video-section-wrapper">
         <img src="61.jpg" alt="Следующее изображение ниже" class="next-bg">
         <video class="overlay-video-player" controls preload="metadata" playsinline>
@@ -533,6 +541,7 @@
         </video>
     </div>
 
+    <!-- ТЕКСТОВАЯ СЕКЦИЯ С АСТРОЛОГИЕЙ -->
     <div class="astrology-section">
         
         <h2 class="natal-chart-title">Natal chart</h2>
@@ -564,7 +573,7 @@
                 <p>Такая комбинация помогает отношениям выдерживать испытание временем. Даже если возникают периоды дистанции или временного охлаждения, между вами сохраняется фундамент доверия. Это один из аспектов, который часто встречается у людей, остающихся друзьями на протяжении многих лет.</p>
 
                 <h3>Секстиль Венера — Уран</h3>
-                <p>Этот аспект приносит в отношения легкость, свобову и ощущение новизны. Вам интересно друг с другом именно как с личностями. Подруга может открывать для вас новые идеи, необычные взгляды на жизнь или нестандартные увлечения, а вы помогаете ей чувствовать себя принятой и понятой.</p>
+                <p>Этот аспект приносит в отношения легкость, свободу и ощущение новизны. Вам интересно друг с другом именно как с личностями. Подруга может открывать для вас новые идеи, необычные взгляды на жизнь или нестандартные увлечения, а вы помогаете ей чувствовать себя принятой и понятой.</p>
                 <p>Важная особенность этого аспекта — отсутствие желания ограничивать друг друга. Даже при близкой дружбе сохраняется пространство для индивидуальности. Благодаря этому отношения не превращаются в зависимость и остаются живыми. Очень часто такой аспект дает ощущение, что подруга одновременно близкий человек и источник вдохновения.</p>
 
                 <h3>Оппозиция Марс — Юпитер</h3>
@@ -627,6 +636,7 @@
          
     </div>
 
+    <!-- КОД УПРАВЛЕНИЯ ПЛЕЕРОМ -->
     <script>
         (function() {
             const btn = document.getElementById('musicBtn');
