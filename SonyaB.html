@@ -316,14 +316,14 @@
         .gif-57-pos.right { right: -5vw; transform: scaleX(-1); }
 
 
-        /* === ВИНИЛОВЫЕ ПЛАСТИНКИ ЧУТЬ БОЛЬШЕ (Ширина увеличена до 30vw, max-width до 340px) === */
+        /* === ВИНИЛОВЫЕ ПЛАСТИНКИ === */
         .vinyl-plate {
             position: fixed;
             top: 25%; 
             width: 30vw; 
             max-width: 340px; 
             height: auto;
-            z-index: 200001; 
+            z-index: 20001; 
             pointer-events: none;
             opacity: 0;
             animation: fadeInElements 1s ease-in-out 5.5s forwards, spinVinyl 12s linear infinite;
@@ -424,10 +424,10 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
 
-        /* ЦВЕТ ОСНОВНОГО БЛОКА ИЗМЕНЕН НА #8c3777 */
+        /* ЦВЕТ ОСНОВНОГО ТЕКСТА ИЗМЕНЕН НА #230130 */
         .astro-content-text {
             font-family: 'Marck Script', cursive;
-            color: #8c3777; 
+            color: #230130; 
             font-size: clamp(1.2rem, 3.5vw, 1.6rem);
             line-height: 1.6;
             text-align: justify;
@@ -436,15 +436,15 @@
             word-spacing: -1px; 
         }
 
-        /* ЦВЕТ ВНУТРЕННИХ ЗАГOЛОВКОВ ТАКЖЕ ПОДСТРОЕН ПОД #8c3777 */
+        /* ЦВЕТ ЗАГОЛОВКОВ ТАКЖЕ ИЗМЕНЕН НА #230130 */
         .astro-content-text h3 {
             font-size: clamp(1.6rem, 4.5vw, 2.2rem);
             margin: 35px 0 15px 0;
             text-align: center;
-            border-bottom: 1px dashed rgba(140, 55, 119, 0.4); 
+            border-bottom: 1px dashed rgba(35, 1, 48, 0.4); 
             padding-bottom: 8px;
             font-weight: normal;
-            color: #8c3777;
+            color: #230130;
         }
         
         .astro-content-text h3:first-of-type {
@@ -456,14 +456,14 @@
             text-indent: 20px; 
         }
 
-        /* НАДПИСЬ МЕНЬШЕ, ШРИФТ CLIMATE CRISIS, ЦВЕТ #5602b0 */
+        /* НАДПИСЬ МЕНЬШЕ, ЦВЕТ ИЗМЕНЕН НА #f5c9c1 */
         .footer-quote-text {
             font-family: 'Climate Crisis', sans-serif;
-            font-size: clamp(1.1rem, 2.5vw, 1.8rem); 
-            color: #5602b0; 
+            font-size: clamp(0.9rem, 2vw, 1.5rem); 
+            color: #f5c9c1; 
             margin-top: 40px; 
             text-align: center;
-            text-shadow: 0 0 10px rgba(86, 2, 176, 0.2);
+            text-shadow: 0 0 10px rgba(245, 201, 193, 0.2);
             width: 90%;
             line-height: 1.4;
         }
@@ -514,7 +514,7 @@
         </button>
     </div>
 
-    <!-- УВЕЛИЧЕННЫЕ ВИНИЛОВЫЕ ПЛАСТИНКИ НА САМОМ ВЕРХНЕМ СЛОЕ -->
+    <!-- ВИНИЛОВЫЕ ПЛАСТИНКИ -->
     <img src="59.png" alt="Пластинка левая" class="vinyl-plate vinyl-left">
     <img src="60.png" alt="Пластинка правая" class="vinyl-plate vinyl-right">
 
