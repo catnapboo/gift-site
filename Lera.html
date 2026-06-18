@@ -26,58 +26,82 @@
             position: relative;
         }
 
-        /* НОВОЕ ИНТРО (3 СЕКУНДЫ) */
+        /* ИНТРО (3 СЕКУНДЫ) */
         .intro-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at top, #fffae0 0%, #c4b14f 70%);
+            background: radial-gradient(circle at top center, #fffae0 0%, #c4b14f 80%);
             z-index: 9999;
             overflow: hidden;
             animation: intro-fade-out 3s forwards;
             pointer-events: none;
         }
 
-        /* Солнечные лучи */
+        /* Солнечные лучи, светящие сверху вниз */
         .sun-rays {
             position: absolute;
-            top: -50vh;
-            left: -50vw;
-            width: 200vw;
-            height: 200vh;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300vw;
+            height: 300vh;
             background: repeating-conic-gradient(
-                from 0deg,
-                rgba(255, 255, 255, 0.15) 0deg 15deg,
-                transparent 15deg 30deg
+                from 180deg at top center,
+                rgba(255, 255, 255, 0.18) 0deg 12deg,
+                transparent 12deg 24deg
             );
-            animation: rays-rotate 20s linear infinite;
+            animation: rays-glowing 3s ease-in-out infinite alternate;
         }
 
-        @keyframes rays-rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes rays-glowing {
+            0% { transform: translateX(-50%) rotate(-3deg); }
+            100% { transform: translateX(-50%) rotate(3deg); }
         }
 
-        /* Декоративные завитушки снизу (SVG) */
-        .intro-flourishes {
+        /* Овечки в интро (78.png) — полет по дуге */
+        .intro-sheep {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 30vh;
-            display: block;
+            width: auto;
+            pointer-events: none;
+            z-index: 10000;
         }
 
-        .flourish-path {
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-            animation: draw-flourish 2.5s ease-out forwards;
+        .sheep-1 {
+            height: 90px;
+            animation: sheep-arc-1 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
 
-        @keyframes draw-flourish {
-            to { stroke-dashoffset: 0; }
+        .sheep-2 {
+            height: 65px;
+            animation: sheep-arc-2 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.15s;
+        }
+
+        .sheep-3 {
+            height: 45px;
+            animation: sheep-arc-3 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            animation-delay: 0.3s;
+        }
+
+        @keyframes sheep-arc-1 {
+            0% { bottom: -100px; left: -15%; transform: rotate(15deg); }
+            50% { bottom: 45vh; left: 40%; transform: rotate(0deg); }
+            100% { bottom: -100px; left: 110%; transform: rotate(-15deg); }
+        }
+
+        @keyframes sheep-arc-2 {
+            0% { bottom: -100px; left: -15%; transform: rotate(20deg); }
+            50% { bottom: 55vh; left: 45%; transform: rotate(5deg); }
+            100% { bottom: -100px; left: 110%; transform: rotate(-10deg); }
+        }
+
+        @keyframes sheep-arc-3 {
+            0% { bottom: -100px; left: -15%; transform: rotate(25deg); }
+            50% { bottom: 35vh; left: 35%; transform: rotate(-5deg); }
+            100% { bottom: -100px; left: 110%; transform: rotate(-20deg); }
         }
 
         @keyframes intro-fade-out {
@@ -116,15 +140,15 @@
             position: relative;
         }
 
-        /* ВРАЩАЮЩЕЕСЯ ИЗОБРАЖЕНИЕ 76.png */
+        /* УВЕЛИЧЕННОЕ И СМЕЩЕННОЕ ИЗОБРАЖЕНИЕ 76.png */
         .rotating-asset {
             position: absolute;
-            top: 5%;
-            right: 5%;
-            width: 12vw;
-            max-width: 120px;
+            top: 22%; /* Опустили ниже */
+            left: 28%; /* Переместили левее */
+            width: 26vw; /* Сделали намного больше */
+            max-width: 320px;
             z-index: 5;
-            animation: continuous-rotation 12s linear infinite;
+            animation: continuous-rotation 16s linear infinite;
             pointer-events: none;
         }
 
@@ -133,10 +157,10 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* АНИМАЦИЯ ДВУХ ПЧЕЛ 77.png В ПРЕДЕЛАХ ЭКРАНА */
+        /* АНИМАЦИЯ УВЕЛИЧЕННЫХ ПЧЕЛ 77.png В ПРЕДЕЛАХ ЭКРАНА */
         .bee-asset {
             position: absolute;
-            width: 50px;
+            width: 95px; /* Сделали больше */
             height: auto;
             z-index: 6;
             pointer-events: none;
@@ -151,32 +175,31 @@
             animation: bee-flight-path-2 26s ease-in-out infinite alternate;
         }
 
-        /* Траектории полета с завитками, дугами и остановками */
         @keyframes bee-flight-path-1 {
-            0% { top: 20%; left: -10%; transform: scaleX(1) rotate(20deg); }
+            0% { top: 20%; left: -15%; transform: scaleX(1) rotate(20deg); }
             15% { top: 40%; left: 25%; transform: scaleX(1) rotate(-10deg); }
-            25% { top: 35%; left: 40%; transform: scaleX(1) rotate(0deg); } /* Короткая остановка / зависание */
+            25% { top: 35%; left: 40%; transform: scaleX(1) rotate(0deg); } 
             28% { top: 35%; left: 40%; transform: scaleX(1) rotate(5deg); }
             40% { top: 60%; left: 70%; transform: scaleX(1) rotate(45deg); }
-            50% { top: 50%; left: 85%; transform: scaleX(-1) rotate(10deg); } /* Смена направления */
+            50% { top: 50%; left: 85%; transform: scaleX(-1) rotate(10deg); } 
             65% { top: 25%; left: 60%; transform: scaleX(-1) rotate(-20deg); }
-            75% { top: 30%; left: 30%; transform: scaleX(-1) rotate(0deg); } /* Вторая остановка */
+            75% { top: 30%; left: 30%; transform: scaleX(-1) rotate(0deg); } 
             78% { top: 30%; left: 30%; transform: scaleX(-1) rotate(-5deg); }
             90% { top: 75%; left: 15%; transform: scaleX(-1) rotate(30deg); }
-            100% { top: 85%; left: -10%; transform: scaleX(-1) rotate(15deg); }
+            100% { top: 85%; left: -15%; transform: scaleX(-1) rotate(15deg); }
         }
 
         @keyframes bee-flight-path-2 {
-            0% { top: 80%; left: 110%; transform: scaleX(-1) rotate(-15deg); }
+            0% { top: 80%; left: 115%; transform: scaleX(-1) rotate(-15deg); }
             20% { top: 55%; left: 75%; transform: scaleX(-1) rotate(10deg); }
-            30% { top: 45%; left: 55%; transform: scaleX(-1) rotate(0deg); } /* Остановка */
+            30% { top: 45%; left: 55%; transform: scaleX(-1) rotate(0deg); } 
             34% { top: 45%; left: 55%; transform: scaleX(-1) rotate(5deg); }
             50% { top: 15%; left: 20%; transform: scaleX(-1) rotate(-35deg); }
-            60% { top: 25%; left: 10%; transform: scaleX(1) rotate(20deg); } /* Разворот */
+            60% { top: 25%; left: 10%; transform: scaleX(1) rotate(20deg); } 
             75% { top: 50%; left: 45%; transform: scaleX(1) rotate(15deg); }
-            85% { top: 55%; left: 45%; transform: scaleX(1) rotate(0deg); } /* Остановка */
+            85% { top: 55%; left: 45%; transform: scaleX(1) rotate(0deg); } 
             88% { top: 55%; left: 45%; transform: scaleX(1) rotate(-10deg); }
-            100% { top: 30%; left: 110%; transform: scaleX(1) rotate(-25deg); }
+            100% { top: 30%; left: 115%; transform: scaleX(1) rotate(-25deg); }
         }
 
         /* БЛОК ДЛЯ ВТОРОГО ЭКРАНА (ВИДЕО + 70.jpg) */
@@ -308,10 +331,10 @@
 
     <div class="intro-screen">
         <div class="sun-rays"></div>
-        <svg class="intro-flourishes" viewBox="0 0 1440 320" preserveAspectRatio="none">
-            <path class="flourish-path" fill="none" stroke="#ffaa00" stroke-width="4" d="M0,224 C120,288 240,320 360,256 C480,192 600,64 720,96 C840,128 960,320 1080,288 C1200,256 1320,128 1440,160"></path>
-            <path class="flourish-path" fill="none" stroke="#ffdd00" stroke-width="2" d="M0,160 C150,96 300,320 450,288 C600,256 750,64 900,128 C1050,192 1200,96 1440,224" style="animation-delay: 0.3s;"></path>
-        </svg>
+        
+        <img src="78.png" alt="Овечка 1" class="intro-sheep sheep-1">
+        <img src="78.png" alt="Овечка 2" class="intro-sheep sheep-2">
+        <img src="78.png" alt="Овечка 3" class="intro-sheep sheep-3">
     </div>
 
     <div class="main-content-wrapper">
@@ -374,7 +397,7 @@
                     <p>В дружбе этот аспект часто проявляется через практическую поддержку. Один человек помогает советом, организацией или опытом, а другой создаёт комфортную и доброжелательную атмосферу. Такие отношения обычно выдерживают проверки временем, расстоянием и жизненными трудностями. Это не самая эмоциональная связь, зато одна из самых надёжных.</p>
 
                     <h3>Секстиль Венера — Уран</h3>
-                    <p>Этот аспект приносит в дружбу лёгкость, свободу и ощущение новизны. Вам интересно вместе, потому что каждый расширяет горизонты другого: появляются новые идеи, знакомства, увлечения и unexpected темы для общения. Часто именно такие друзья вдохновляют на перемены и помогают выйти за рамки привычного образа жизни.</p>
+                    <p>Этот аспект приносит в дружбу лёгкость, свободу и ощущение новизны. Вам интересно вместе, потому что каждый расширяет горизонты другого: появляются новые идеи, знакомства, увлечения и темы для общения. Часто именно такие друзья вдохновляют на перемены и помогают выйти за рамки привычного образа жизни.</p>
                     <p>При этом между вами отсутствует чувство давления или обязательств. Каждый сохраняет свою независимость, но связь от этого не становится слабее. Наоборот, дружба держится на взаимном уважении к индивидуальности. Даже после долгих перерывов общение обычно возобновляется так, словно расставания не было.</p>
 
                     <h3>Соединение Mars — Mars</h3>
