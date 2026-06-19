@@ -61,60 +61,50 @@
             100% { transform: translateX(-50%) rotate(3deg); }
         }
 
-        /* Овечки в интро (78.png) — ДВИЖЕНИЕ ПО ИДЕАЛЬНОМУ ПОЛУКРУГУ */
+        /* Овечки в интро (78.png) — ИДЕАЛЬНОЕ ПЛАВНОЕ ВРАЩЕНИЕ НА 180 ГРАДУСОВ */
         .intro-sheep {
             position: absolute;
-            width: auto;
+            bottom: 0;
+            left: 0;
             pointer-events: none;
             z-index: 10000;
+            /* Смещаем центр трансформации в нижний центр экрана, чтобы получить чистую орбиту-дугу */
+            transform-origin: 50vw 100vh; 
         }
 
         .sheep-1 {
             height: 140px; 
-            animation: sheep-semi-circle-1 3s ease-in-out forwards;
+            animation: sheep-perfect-arc 3s ease-in-out forwards;
         }
 
         .sheep-2 {
             height: 100px; 
-            animation: sheep-semi-circle-2 3s ease-in-out forwards;
-            animation-delay: 0.12s;
+            animation: sheep-perfect-arc 3s ease-in-out forwards;
+            animation-delay: 0.15s;
         }
 
         .sheep-3 {
             height: 70px; 
-            animation: sheep-semi-circle-3 3s ease-in-out forwards;
-            animation-delay: 0.25s;
+            animation: sheep-perfect-arc 3s ease-in-out forwards;
+            animation-delay: 0.3s;
         }
 
-        /* Идеальные полукруглые траектории */
-        @keyframes sheep-semi-circle-1 {
-            0% { bottom: -150px; left: -20%; transform: rotate(30deg); }
-            15% { bottom: 12vh; left: -2%; transform: rotate(22deg); }
-            35% { bottom: 36vh; left: 22%; transform: rotate(10deg); }
-            50% { bottom: 44vh; left: 50%; transform: rotate(0deg); }
-            65% { bottom: 36vh; left: 78%; transform: rotate(-10deg); }
-            85% { bottom: 12vh; left: 102%; transform: rotate(-22deg); }
-            100% { bottom: -150px; left: 120%; transform: rotate(-30deg); }
-        }
-
-        @keyframes sheep-semi-circle-2 {
-            0% { bottom: -150px; left: -20%; transform: rotate(35deg); }
-            15% { bottom: 18vh; left: 2%; transform: rotate(25deg); }
-            35% { bottom: 44vh; left: 26%; transform: rotate(12deg); }
-            50% { bottom: 53vh; left: 55%; transform: rotate(0deg); }
-            65% { bottom: 44vh; left: 84%; transform: rotate(-12deg); }
-            85% { bottom: 18vh; left: 108%; transform: rotate(-25deg); }
-            100% { bottom: -150px; left: 120%; transform: rotate(-35deg); }
-        }
-
-        @keyframes sheep-semi-circle-3 {
-            0% { bottom: -150px; left: -20%; transform: rotate(40deg); }
-            15% { bottom: 8vh; left: -5%; transform: rotate(28deg); }
-            35% { bottom: 26vh; left: 18%; transform: rotate(15deg); }
-            50% { bottom: 33vh; left: 45%; transform: rotate(0deg); }
-            65% { bottom: 26vh; left: 72%; transform: rotate(-15deg); }
-            85% { bottom: 8vh; left: 95%; transform: rotate(-28deg); }
-            100% { bottom: -150px; left: 120%; transform: rotate(-40deg); }
+        /* Анимация идет по дуге окружности от -90 до +90 градусов (всего 180) */
+        @keyframes sheep-perfect-arc {
+            0% {
+                transform: rotate(-90deg) translate(0, 0) rotate(90deg);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(90deg) translate(0, 0) rotate(-90deg);
+                opacity: 0;
+            }
         }
 
         @keyframes intro-fade-out {
@@ -305,10 +295,10 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.15);
         }
 
-        /* Текст натальной карты (Caveat, цвет #c99995) */
+        /* Текст натальной карты — ИЗМЕНЕН ЦВЕТ ШРИФТА НА #cc4339 */
         .astro-content-text {
             font-family: 'Caveat', cursive, sans-serif; 
-            color: #c99995; 
+            color: #cc4339; 
             font-size: clamp(1.4rem, 2.5vw, 1.9rem); 
             line-height: 1.4;
             text-align: left;
@@ -319,10 +309,10 @@
 
         .astro-content-text h3 {
             font-size: clamp(1.7rem, 3.2vw, 2.4rem); 
-            color: #c99995; 
+            color: #cc4339; 
             margin: 45px 0 25px 0;
             text-align: center;
-            border-bottom: 2px dashed rgba(201, 153, 149, 0.4); 
+            border-bottom: 2px dashed rgba(204, 67, 57, 0.4); 
             padding-bottom: 12px;
             font-weight: bold;
             line-height: 1.3;
@@ -336,19 +326,19 @@
             margin: 0 0 25px 0;
         }
 
-        /* ФИНАЛЬНАЯ НАДПИСЬ С АУРОЙ СВЕЧЕНИЯ */
+        /* ФИНАЛЬНАЯ НАДПИСЬ — ИЗМЕНЕН ЦВЕТ НА #eb8b1e */
         .footer-quote-text {
             font-family: 'Great Vibes', cursive, Georgia, serif; 
             font-size: clamp(2.2rem, 5vw, 4rem); 
-            color: #e65545; 
+            color: #eb8b1e; 
             margin-top: 60px; 
             text-align: center;
             font-weight: normal;
             text-shadow: 
                 0 0 10px rgba(255, 255, 255, 0.9),
                 0 0 20px rgba(255, 255, 255, 0.7),
-                0 0 30px rgba(239, 230, 190, 0.5),
-                0 2px 4px rgba(0, 0, 0, 0.25); 
+                0 0 30px rgba(255, 255, 255, 0.5),
+                0 2px 4px rgba(0, 0, 0, 0.2); 
             width: 85%;
             letter-spacing: 1px;
             line-height: 1.3;
@@ -357,7 +347,6 @@
 </head>
 <body>
 
-    <!-- ИНТРО С ЛУЧАМИ И ОВЕЧКАМИ ПО ПОЛУКРУГУ -->
     <div class="intro-screen">
         <div class="sun-rays"></div>
         
@@ -371,10 +360,8 @@
         <div class="first-screen-container">
             <img src="75.jpg" alt="Фон страницы" class="full-screen-bg">
 
-            <!-- Вращающийся элемент 76.png -->
             <img src="76.png" alt="Вращающийся элемент" class="rotating-asset">
 
-            <!-- Летающие пчелы 77.png -->
             <img src="77.png" alt="Пчела 1" class="bee-asset bee-1">
             <img src="77.png" alt="Пчела 2" class="bee-asset bee-2">
         </div>
@@ -424,7 +411,7 @@
                     <p>При этом дружба не становится поверхностной. Наоборот, вы можете одновременно быть очень близкими людьми и сохранять уважение к личному пространству друг друга. Часто именно такой аспект создаёт ощущение, что подруга является не только близким человеком, но и настоящим единомышленником.</p>
 
                     <h3>Тригон Марс — Марс</h3>
-                    <p>У вас очень похожий уровень энергии и активности. Когда нужно что-то организовать, решить проблему или просто собраться на какое-то мероприятие, вы обычно быстро находить общий ритм. Вам легко действовать вместе, потому что ваши способы добиваться целей во многом совпадают.</p>
+                    <p>У вас очень похожий уровень энергии и активности. Когда нужно что-то организовать, решить проблему или просто собраться на какое-то мероприятие, вы обычно быстро находите общий ритм. Вам легко действовать вместе, потому что ваши способы добиваться целей во многом совпадают.</p>
                     <p>Этот аспект также показывает хорошую взаимную поддержку. Когда одна из вас теряет мотивацию, другая может помочь собраться и двигаться дальше. Вместе вы способны вдохновлять друг друга на развитие, новые достижения и просто более насыщенную жизнь.</p>
 
                     <h3>Оппозиция Марс — Юпитер</h3>
@@ -445,10 +432,10 @@
 
                     <h3>Тригон Сатурн – Уран</h3>
                     <p>Очень интересное сочетание стабильности и новизны. Одна из вас может чаще предлагать необычные идеи, новые направления или нестандартные решения, а другая помогает сделать эти идеи реалистичными и осуществимыми. Благодаря этому вы хорошо дополняете друг друга.</p>
-                    <p>В дружбе это проявляется так: вместе вы можете решиться на что-то, на что по отдельности не отважились бы. При этом ваши планы не превращаются в хаос, потому что всегда находится человек, который помогает структурировать происходящее. Такой аспект часто создаёт ощущение, что дружба помогает обеим развиваться и не стоять на месте.</p>
+                    <p>В дружбе это проявляется так: вместе вы можете решиться на что-то, на что по отдельности не отважились бы. При этом ваши планы не превращаются в хаос, потому что всегда находится человек, который помогает структурурировать происходящее. Такой аспект часто создаёт ощущение, что дружба помогает обеим развиваться и не стоять на месте.</p>
 
                     <h3>Соединение Нептун – Нептун</h3>
-                    <p>Поскольку вы принадлежите примерно к одному поколению, у вас схожие мечты, культурные ориентиры, интерес к определённым темам и похожее восприятие многих глобаческих процессов. Вам бывает легко понимать эмоциональный фон друг друга даже без слов.</p>
+                    <p>Поскольку вы принадлежите примерно к одному поколению, у вас схожие мечты, культурные ориентиры, интерес к определённым темам и похожее восприятие многих глобальных процессов. Вам бывает легко понимать эмоциональный фон друг друга даже без слов.</p>
                     <p>Этот аспект редко создаёт яркие события сам по себе, но он даёт ощущение внутренней близости. Иногда вы можете обнаружить, что переживаете похожие кризисы, вдохновляетесь одними и теми же вещами или одновременно проходите через схожие этапы жизни. Это создаёт дополнительное чувство родства.</p>
 
                     <h3>Соединение Плутон – Плутон</h3>
@@ -461,7 +448,6 @@
                 </div>
             </div>
 
-            <!-- Финальная надпись с аурой -->
             <div class="footer-quote-text">Твой дом там, где о тебе думают</div>
         </div>
 
