@@ -61,7 +61,7 @@
             100% { transform: translateX(-50%) rotate(3deg); }
         }
 
-        /* Овечки в интро (78.png) — полет строго УГЛОМ (без плавных дуг) */
+        /* Овечки в интро (78.png) — ДВИЖЕНИЕ ПО ИДЕАЛЬНОМУ ПОЛУКРУГУ */
         .intro-sheep {
             position: absolute;
             width: auto;
@@ -71,38 +71,50 @@
 
         .sheep-1 {
             height: 140px; 
-            animation: sheep-corner-1 3s linear forwards;
+            animation: sheep-semi-circle-1 3s ease-in-out forwards;
         }
 
         .sheep-2 {
             height: 100px; 
-            animation: sheep-corner-2 3s linear forwards;
+            animation: sheep-semi-circle-2 3s ease-in-out forwards;
             animation-delay: 0.12s;
         }
 
         .sheep-3 {
             height: 70px; 
-            animation: sheep-corner-3 3s linear forwards;
+            animation: sheep-semi-circle-3 3s ease-in-out forwards;
             animation-delay: 0.25s;
         }
 
-        /* Траектории движения углом (линейный подъем в пиковую точку, затем спуск) */
-        @keyframes sheep-corner-1 {
-            0% { bottom: -150px; left: -20%; transform: rotate(15deg); }
-            50% { bottom: 42vh; left: 50%; transform: rotate(0deg); }
-            100% { bottom: -150px; left: 120%; transform: rotate(-15deg); }
+        /* Идеальные полукруглые траектории */
+        @keyframes sheep-semi-circle-1 {
+            0% { bottom: -150px; left: -20%; transform: rotate(30deg); }
+            15% { bottom: 12vh; left: -2%; transform: rotate(22deg); }
+            35% { bottom: 36vh; left: 22%; transform: rotate(10deg); }
+            50% { bottom: 44vh; left: 50%; transform: rotate(0deg); }
+            65% { bottom: 36vh; left: 78%; transform: rotate(-10deg); }
+            85% { bottom: 12vh; left: 102%; transform: rotate(-22deg); }
+            100% { bottom: -150px; left: 120%; transform: rotate(-30deg); }
         }
 
-        @keyframes sheep-corner-2 {
-            0% { bottom: -150px; left: -20%; transform: rotate(20deg); }
-            50% { bottom: 52vh; left: 55%; transform: rotate(5deg); }
-            100% { bottom: -150px; left: 120%; transform: rotate(-10deg); }
+        @keyframes sheep-semi-circle-2 {
+            0% { bottom: -150px; left: -20%; transform: rotate(35deg); }
+            15% { bottom: 18vh; left: 2%; transform: rotate(25deg); }
+            35% { bottom: 44vh; left: 26%; transform: rotate(12deg); }
+            50% { bottom: 53vh; left: 55%; transform: rotate(0deg); }
+            65% { bottom: 44vh; left: 84%; transform: rotate(-12deg); }
+            85% { bottom: 18vh; left: 108%; transform: rotate(-25deg); }
+            100% { bottom: -150px; left: 120%; transform: rotate(-35deg); }
         }
 
-        @keyframes sheep-corner-3 {
-            0% { bottom: -150px; left: -20%; transform: rotate(25deg); }
-            50% { bottom: 32vh; left: 45%; transform: rotate(-5deg); }
-            100% { bottom: -150px; left: 120%; transform: rotate(-20deg); }
+        @keyframes sheep-semi-circle-3 {
+            0% { bottom: -150px; left: -20%; transform: rotate(40deg); }
+            15% { bottom: 8vh; left: -5%; transform: rotate(28deg); }
+            35% { bottom: 26vh; left: 18%; transform: rotate(15deg); }
+            50% { bottom: 33vh; left: 45%; transform: rotate(0deg); }
+            65% { bottom: 26vh; left: 72%; transform: rotate(-15deg); }
+            85% { bottom: 8vh; left: 95%; transform: rotate(-28deg); }
+            100% { bottom: -150px; left: 120%; transform: rotate(-40deg); }
         }
 
         @keyframes intro-fade-out {
@@ -113,7 +125,7 @@
         /* БОЛЕЕ ПЛАВНОЕ ПОЯВЛЕНИЕ ОСНОВНОЙ СТРАНИЦЫ */
         .main-content-wrapper {
             opacity: 0;
-            animation: show-main-content 0.8s ease-out forwards; /* Увеличено время анимации для мягкости */
+            animation: show-main-content 0.8s ease-out forwards; 
             animation-delay: 2.6s; 
         }
 
@@ -141,7 +153,7 @@
             position: relative;
         }
 
-        /* ИЗОБРАЖЕНИЕ 76.png — появление с задержкой после интро */
+        /* ИЗОБРАЖЕНИЕ 76.png */
         .rotating-asset {
             position: absolute;
             top: 14%; 
@@ -151,7 +163,7 @@
             z-index: 5;
             opacity: 0;
             animation: continuous-rotation 16s linear infinite, fade-in-delayed 0.8s ease-out forwards;
-            animation-delay: 0s, 3.2s; /* Начинает проявляться через 0.4с после старта основного контента */
+            animation-delay: 0s, 3.2s; 
             pointer-events: none;
         }
 
@@ -160,7 +172,7 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* ПЧЕЛЫ 77.png — появление с задержкой после интро */
+        /* ПЧЕЛЫ 77.png */
         .bee-asset {
             position: absolute;
             width: 95px; 
@@ -181,7 +193,6 @@
             animation-delay: 0s, 3.5s;
         }
 
-        /* Анимация проявления для отложенных элементов */
         @keyframes fade-in-delayed {
             0% { opacity: 0; }
             100% { opacity: 1; }
@@ -269,16 +280,16 @@
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
         }
 
-        /* Изменен цвет подложки прямоугольника на hex #cdebca */
+        /* Подложка #cdebca сделана БОЛЕЕ ПРОЗРАЧНОЙ (0.7) */
         .text-overlay-card {
             width: 88%;
             max-width: 900px;
-            background-color: rgba(205, 235, 202, 0.95); /* #cdebca с высокой плотностью */
+            background-color: rgba(205, 235, 202, 0.7); 
             border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.4);
             padding: 35px;
             box-sizing: border-box;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -325,7 +336,7 @@
             margin: 0 0 25px 0;
         }
 
-        /* ИЗМЕНЕННАЯ ФИНАЛЬНАЯ НАДПИСЬ (Шрифт Great Vibes, цвет #e65545) */
+        /* ФИНАЛЬНАЯ НАДПИСЬ С АУРОЙ СВЕЧЕНИЯ */
         .footer-quote-text {
             font-family: 'Great Vibes', cursive, Georgia, serif; 
             font-size: clamp(2.2rem, 5vw, 4rem); 
@@ -333,7 +344,12 @@
             margin-top: 60px; 
             text-align: center;
             font-weight: normal;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); 
+            /* Добавлена выраженная мягкая аура вокруг текста для легкой читаемости на любом фоне */
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.9),
+                0 0 20px rgba(255, 255, 255, 0.7),
+                0 0 30px rgba(239, 230, 190, 0.5),
+                0 2px 4px rgba(0, 0, 0, 0.25); 
             width: 85%;
             letter-spacing: 1px;
             line-height: 1.3;
@@ -342,6 +358,7 @@
 </head>
 <body>
 
+    <!-- ИНТРО С ЛУЧАМИ И ОВЕЧКАМИ, ЛЕТЯЩИМИ ПО ИДЕАЛЬНОМУ ПОЛУКРУГУ -->
     <div class="intro-screen">
         <div class="sun-rays"></div>
         
@@ -355,8 +372,10 @@
         <div class="first-screen-container">
             <img src="75.jpg" alt="Фон страницы" class="full-screen-bg">
 
+            <!-- Вращающийся элемент 76.png -->
             <img src="76.png" alt="Вращающийся элемент" class="rotating-asset">
 
+            <!-- Летающие пчелы 77.png -->
             <img src="77.png" alt="Пчела 1" class="bee-asset bee-1">
             <img src="77.png" alt="Пчела 2" class="bee-asset bee-2">
         </div>
@@ -451,6 +470,7 @@
                 </div>
             </div>
 
+            <!-- Финальная надпись с аурой -->
             <div class="footer-quote-text">Твой дом там, где о тебе думают</div>
         </div>
 
