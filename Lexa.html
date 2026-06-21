@@ -6,7 +6,7 @@
     <title>Мой проект на GitHub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Great+Vibes&family=Marck+Script&family=Press+Start+2P&family=Rubik+Glitch&family=Seymour+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Great+Vibes&family=Marck+Script&family=Press+Start+2P&family=Rubik+Glitch&family=Rubik+Spray+Paint&family=Seymour+One&display=swap" rel="stylesheet">
     
     <style>
         /* Главный скролл всей страницы */
@@ -33,7 +33,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: radial-gradient(circle at top center, #fffae0 0%, #c4b14f 80%);
+            background-color: #8a1b13; /* Исключительно красный цвет */
             z-index: 9999;
             overflow: hidden;
             cursor: pointer;
@@ -58,27 +58,6 @@
             opacity: 1;
         }
 
-        /* Солнечные лучи */
-        .sun-rays {
-            position: absolute;
-            top: -150px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300vw;
-            height: 300vh;
-            background: repeating-conic-gradient(
-                from 180deg at top center,
-                rgba(255, 255, 255, 0.18) 0deg 12deg,
-                transparent 12deg 24deg
-            );
-            animation: rays-glowing 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes rays-glowing {
-            0% { transform: translateX(-50%) rotate(-3deg); }
-            100% { transform: translateX(-50%) rotate(3deg); }
-        }
-
         /* ВОЗДУШНЫЙ ШАРИК (84.png) */
         .balloon-container {
             position: absolute;
@@ -100,8 +79,8 @@
 
         .balloon-img {
             width: auto;
-            height: 45vh; /* Оптимальный базовый размер */
-            max-height: 400px;
+            height: 35vh; /* Изображение сделано чуть меньше */
+            max-height: 300px; /* Ограничение максимальной высоты */
             object-fit: contain;
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -109,10 +88,10 @@
         /* Текстовая надпись ЖМИ! */
         .click-prompt {
             position: absolute;
-            top: -60px;
-            font-family: 'Seymour One', sans-serif;
-            font-size: 2.5rem;
-            color: #ff3b30;
+            top: -90px; /* Сделано выше */
+            font-family: 'Rubik Spray Paint', system-ui; /* Изменен шрифт */
+            font-size: 2.8rem;
+            color: #853477; /* Изменен цвет */
             text-shadow: 2px 2px 0px #ffffff, -2px -2px 0px #ffffff, 2px -2px 0px #ffffff, -2px 2px 0px #ffffff, 0px 4px 10px rgba(0,0,0,0.3);
             white-space: nowrap;
             opacity: 0;
@@ -135,7 +114,7 @@
         }
         .stage-1 .click-prompt {
             transform: rotate(8deg);
-            font-size: 3rem;
+            font-size: 3.3rem;
         }
 
         /* Тряска уровень 2 */
@@ -145,7 +124,7 @@
         }
         .stage-2 .click-prompt {
             transform: rotate(-10deg);
-            font-size: 3.6rem;
+            font-size: 3.9rem;
         }
 
         /* Тряска уровень 3 (перед взрывом) */
@@ -155,7 +134,7 @@
         }
         .stage-3 .click-prompt {
             transform: rotate(12deg);
-            font-size: 4.3rem;
+            font-size: 4.6rem;
         }
 
         /* АНИМАЦИИ ТРЯСКИ */
@@ -260,7 +239,7 @@
             z-index: 5;
             opacity: 0;
             animation: continuous-rotation 16s linear infinite, fade-in-delayed 0.8s ease-out forwards;
-            animation-delay: 0s, 0.5s; /* Изменено, чтобы появлялось сразу после интро */
+            animation-delay: 0s, 0.5s; 
             pointer-events: none;
         }
 
@@ -454,9 +433,8 @@
 </head>
 <body>
 
+    <!-- ИНТЕРАКТИВНОЕ ИНТРО -->
     <div class="intro-screen" id="introScreen">
-        <div class="sun-rays"></div>
-        
         <div class="balloon-container" id="balloonContainer">
             <span class="click-prompt">ЖМИ!</span>
             <img src="84.png" alt="Воздушный шарик" class="balloon-img">
@@ -464,6 +442,7 @@
         </div>
     </div>
 
+    <!-- ОСНОВНОЙ КОНТЕНТ СТРАНИЦЫ -->
     <div class="main-content-wrapper" id="mainContent">
         
         <div class="first-screen-container">
@@ -559,6 +538,7 @@
 
     </div>
 
+    <!-- СКРИПТ УПРАВЛЕНИЯ КЛИКАМИ -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const introScreen = document.getElementById('introScreen');
@@ -568,7 +548,6 @@
             let clickCount = 0;
             let isExploding = false;
 
-            // Блокируем клики во время анимации взрыва
             introScreen.addEventListener('click', () => {
                 if (isExploding) return;
 
@@ -600,13 +579,12 @@
                     // Полное исчезновение интро и открытие основной сцены
                     setTimeout(() => {
                         introScreen.style.opacity = '0';
-                        // Открываем контент страницы (убираем прозрачность)
                         mainContent.classList.add('main-content-ready');
                         
                         setTimeout(() => {
                             introScreen.style.visibility = 'hidden';
                         }, 500);
-                    }, 550); // Согласовано с завершением вспышки и взрыва
+                    }, 550);
                 }
             });
         });
