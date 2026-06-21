@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой проект на GitHub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Great+Vibes&family=Marck+Script&family=Press+Start+2P&family=Rubik+Glitch&family=Seymour+One&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Главный скролл всей страницы */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden; 
+            overflow-y: auto; 
+            background-color: #8a1b13; 
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            position: relative;
+        }
+
+        /* ИНТРО (ИНТЕРАКТИВНОЕ) */
+        .intro-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at top center, #fffae0 0%, #c4b14f 80%);
+            z-index: 9999;
+            overflow: hidden;
+            cursor: pointer;
+            transition: opacity 0.5s ease-out, visibility 0.5s;
+        }
+
+        /* Белая вспышка при взрыве */
+        .intro-screen::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #ffffff;
+            opacity: 0;
+            z-index: 10005;
+            pointer-events: none;
+            transition: opacity 0.4s ease-in;
+        }
+        .intro-screen.white-out::after {
+            opacity: 1;
+        }
+
+        /* Солнечные лучи */
+        .sun-rays {
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300vw;
+            height: 300vh;
+            background: repeating-conic-gradient(
+                from 180deg at top center,
+                rgba(255, 255, 255, 0.18) 0deg 12deg,
+                transparent 12deg 24deg
+            );
+            animation: rays-glowing 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes rays-glowing {
+            0% { transform: translateX(-50%) rotate(-3deg); }
+            100% { transform: translateX(-50%) rotate(3deg); }
+        }
+
+        /* ВОЗДУШНЫЙ ШАРИК (84.png) */
+        .balloon-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 100vh); /* Изначально глубоко внизу */
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: balloon-fly-up 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            pointer-events: none;
+        }
+
+        @keyframes balloon-fly-up {
+            0% { transform: translate(-50%, 100vh); }
+            100% { transform: translate(-50%, -50%); }
+        }
+
+        .balloon-img {
+            width: auto;
+            height: 45vh; /* Оптимальный базовый размер */
+            max-height: 400px;
+            object-fit: contain;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Текстовая надпись ЖМИ! */
+        .click-prompt {
+            position: absolute;
+            top: -60px;
+            font-family: 'Seymour One', sans-serif;
+            font-size: 2.5rem;
+            color: #ff3b30;
+            text-shadow: 2px 2px 0px #ffffff, -2px -2px 0px #ffffff, 2px -2px 0px #ffffff, -2px 2px 0px #ffffff, 0px 4px 10px rgba(0,0,0,0.3);
+            white-space: nowrap;
+            opacity: 0;
+            transform: rotate(-8deg) scale(0.8);
+            animation: prompt-appear 0.5s ease-out 1.5s forwards;
+            transition: transform 0.2s ease-out, font-size 0.2s ease-out;
+        }
+
+        @keyframes prompt-appear {
+            0% { opacity: 0; transform: rotate(-8deg) scale(0.8); }
+            100% { opacity: 1; transform: rotate(-8deg) scale(1); }
+        }
+
+        /* СТАДИИ НАЖАТИЯ НА ШАРИК */
+        
+        /* Тряска уровень 1 */
+        .stage-1 .balloon-img {
+            transform: scale(1.2);
+            animation: shake-mild 0.15s infinite linear;
+        }
+        .stage-1 .click-prompt {
+            transform: rotate(8deg);
+            font-size: 3rem;
+        }
+
+        /* Тряска уровень 2 */
+        .stage-2 .balloon-img {
+            transform: scale(1.45);
+            animation: shake-medium 0.12s infinite linear;
+        }
+        .stage-2 .click-prompt {
+            transform: rotate(-10deg);
+            font-size: 3.6rem;
+        }
+
+        /* Тряска уровень 3 (перед взрывом) */
+        .stage-3 .balloon-img {
+            transform: scale(1.75);
+            animation: shake-intense 0.09s infinite linear;
+        }
+        .stage-3 .click-prompt {
+            transform: rotate(12deg);
+            font-size: 4.3rem;
+        }
+
+        /* АНИМАЦИИ ТРЯСКИ */
+        @keyframes shake-mild {
+            0% { translate: 0px 0px; }
+            50% { translate: 2px -1px; }
+            100% { translate: -1px 1px; }
+        }
+        @keyframes shake-medium {
+            0% { translate: -2px 1px; rotate: -0.5deg; }
+            50% { translate: 3px -2px; rotate: 1deg; }
+            100% { translate: -1px 2px; rotate: -1deg; }
+        }
+        @keyframes shake-intense {
+            0% { translate: -4px -2px; rotate: -1.5deg; }
+            25% { translate: 4px 3px; rotate: 2deg; }
+            50% { translate: -3px 4px; rotate: -2deg; }
+            75% { translate: 5px -3px; rotate: 1.5deg; }
+            100% { translate: -2px -2px; rotate: 0deg; }
+        }
+
+        /* ЭФФЕКТ ВЗРЫВА (85.png) */
+        .explosion-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 90vw;
+            max-width: 700px;
+            height: auto;
+            z-index: 10003;
+            pointer-events: none;
+            display: none;
+        }
+
+        /* Первый импульс взрыва */
+        .stage-explosion .explosion-overlay {
+            display: block;
+            animation: explode-step-1 0.15s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+        }
+
+        /* Второй импульс взрыва (наклоняется и увеличивается) */
+        .stage-explosion-final .explosion-overlay {
+            display: block;
+            animation: explode-step-2 0.35s ease-out forwards;
+        }
+
+        @keyframes explode-step-1 {
+            0% { transform: translate(-50%, -50%) scale(0.2); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+        }
+
+        @keyframes explode-step-2 {
+            0% { transform: translate(-50%, -50%) scale(1.1) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) scale(1.4) rotate(15deg); opacity: 1; }
+        }
+
+        /* Скрытие шарика и надписи при взрыве */
+        .stage-explosion .balloon-img, .stage-explosion-final .balloon-img,
+        .stage-explosion .click-prompt, .stage-explosion-final .click-prompt {
+            opacity: 0 !important;
+            transition: opacity 0.05s ease-out;
+        }
+
+
+        /* ПЛАВНОЕ ПОЯВЛЕНИЕ ОСНОВНОЙ СТРАНИЦЫ */
+        .main-content-wrapper {
+            opacity: 0;
+            transition: opacity 0.8s ease-out;
+        }
+        /* Класс для отображения контента после скрытия интро */
+        .main-content-ready {
+            opacity: 1;
+        }
+
+        /* ГЛАВНЫЙ РОДИТЕЛЬСКИЙ КОНТЕЙНЕР ДЛЯ ПЕРВОГО ЭКРАНА */
+        .first-screen-container {
+            position: relative;
+            width: 100%;
+            height: 100vh; 
+            z-index: 1;
+            overflow: hidden; 
+        }
+
+        /* ФОН 75.jpg */
+        .full-screen-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            z-index: 1;
+            position: relative;
+        }
+
+        /* ИЗОБРАЖЕНИЕ 76.png */
+        .rotating-asset {
+            position: absolute;
+            top: 14%; 
+            left: 42%; 
+            width: 52vw; 
+            max-width: 640px; 
+            z-index: 5;
+            opacity: 0;
+            animation: continuous-rotation 16s linear infinite, fade-in-delayed 0.8s ease-out forwards;
+            animation-delay: 0s, 0.5s; /* Изменено, чтобы появлялось сразу после интро */
+            pointer-events: none;
+        }
+
+        @keyframes continuous-rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* ПЧЕЛЫ 77.png */
+        .bee-asset {
+            position: absolute;
+            width: 95px; 
+            height: auto;
+            z-index: 6;
+            opacity: 0;
+            pointer-events: none;
+            offset-rotate: auto;
+        }
+
+        .bee-1 {
+            animation: bee-flight-path-1 22s ease-in-out infinite alternate, fade-in-delayed 0.8s ease-out forwards;
+            animation-delay: 0s, 0.7s;
+        }
+
+        .bee-2 {
+            animation: bee-flight-path-2 26s ease-in-out infinite alternate, fade-in-delayed 0.8s ease-out forwards;
+            animation-delay: 0s, 0.8s;
+        }
+
+        @keyframes fade-in-delayed {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes bee-flight-path-1 {
+            0% { top: 20%; left: -15%; transform: scaleX(1) rotate(20deg); }
+            15% { top: 40%; left: 25%; transform: scaleX(1) rotate(-10deg); }
+            25% { top: 35%; left: 40%; transform: scaleX(1) rotate(0deg); } 
+            28% { top: 35%; left: 40%; transform: scaleX(1) rotate(5deg); }
+            40% { top: 60%; left: 70%; transform: scaleX(1) rotate(45deg); }
+            50% { top: 50%; left: 85%; transform: scaleX(-1) rotate(10deg); } 
+            65% { top: 25%; left: 60%; transform: scaleX(-1) rotate(-20deg); }
+            75% { top: 30%; left: 30%; transform: scaleX(-1) rotate(0deg); } 
+            78% { top: 30%; left: 30%; transform: scaleX(-1) rotate(-5deg); }
+            90% { top: 75%; left: 15%; transform: scaleX(-1) rotate(30deg); }
+            100% { top: 85%; left: -15%; transform: scaleX(-1) rotate(15deg); }
+        }
+
+        @keyframes bee-flight-path-2 {
+            0% { top: 80%; left: 115%; transform: scaleX(-1) rotate(-15deg); }
+            20% { top: 55%; left: 75%; transform: scaleX(-1) rotate(10deg); }
+            30% { top: 45%; left: 55%; transform: scaleX(-1) rotate(0deg); } 
+            34% { top: 45%; left: 55%; transform: scaleX(-1) rotate(5deg); }
+            50% { top: 15%; left: 20%; transform: scaleX(-1) rotate(-35deg); }
+            60% { top: 25%; left: 10%; transform: scaleX(1) rotate(20deg); } 
+            75% { top: 50%; left: 45%; transform: scaleX(1) rotate(15deg); }
+            85% { top: 55%; left: 45%; transform: scaleX(1) rotate(0deg); } 
+            88% { top: 55%; left: 45%; transform: scaleX(1) rotate(-10deg); }
+            100% { top: 30%; left: 115%; transform: scaleX(1) rotate(-25deg); }
+        }
+
+        /* БЛОК ДЛЯ ВТОРОГО ЭКРАНА */
+        .video-section-wrapper {
+            position: relative;
+            width: 100%;
+            margin-top: 0vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10; 
+        }
+
+        .next-bg {
+            width: 100%;
+            max-width: 100vw;
+            height: auto; 
+            display: block;
+        }
+
+        .overlay-static-image {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); 
+            width: 80%; 
+            height: 80%; 
+            object-fit: contain; 
+            border-radius: 8px; 
+            z-index: 20; 
+        }
+
+        /* СЕКЦИЯ С ЦИКЛИЧНЫМ ЗАМЕНЕННЫМ ФОНОМ 80.jpg */
+        .astrology-section {
+            width: 100%;
+            background-image: url('80.jpg'); 
+            background-repeat: repeat-y; 
+            background-size: 100% auto;
+            position: relative;
+            z-index: 15;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-bottom: 80px; 
+        }
+
+        /* Заголовок Natal chart */
+        .natal-chart-title {
+            font-family: 'Great Vibes', cursive, Georgia, serif; 
+            font-size: clamp(3.5rem, 9vw, 6.5rem); 
+            color: #e65545; 
+            margin: 40px 0 20px 0;
+            text-align: center;
+            font-weight: normal;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Прозрачная подложка */
+        .text-overlay-card {
+            width: 88%;
+            max-width: 900px;
+            background-color: rgba(205, 235, 202, 0.7); 
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 35px;
+            box-sizing: border-box;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .astro-card-img {
+            width: 100%;
+            max-width: 650px;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            margin-bottom: 25px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+        }
+
+        /* Текст натальной карты */
+        .astro-content-text {
+            font-family: 'Caveat', cursive, sans-serif; 
+            color: #cc4339; 
+            font-size: clamp(1.4rem, 2.5vw, 1.9rem); 
+            line-height: 1.4;
+            text-align: left;
+            width: 100%;
+            margin-top: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .astro-content-text h3 {
+            font-size: clamp(1.7rem, 3.2vw, 2.4rem); 
+            color: #cc4339; 
+            margin: 45px 0 25px 0;
+            text-align: center;
+            border-bottom: 2px dashed rgba(204, 67, 57, 0.4); 
+            padding-bottom: 12px;
+            font-weight: bold;
+            line-height: 1.3;
+        }
+        
+        .astro-content-text h3:first-of-type {
+            margin-top: 10px;
+        }
+
+        .astro-content-text p {
+            margin: 0 0 25px 0;
+        }
+
+        /* ФИНАЛЬНАЯ НАДПИСЬ */
+        .footer-quote-text {
+            font-family: 'Great Vibes', cursive, Georgia, serif; 
+            font-size: clamp(2.2rem, 5vw, 4rem); 
+            color: #3eaded; 
+            margin-top: 60px; 
+            text-align: center;
+            font-weight: normal;
+            text-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.9),
+                0 0 20px rgba(255, 255, 255, 0.7),
+                0 0 30px rgba(255, 255, 255, 0.5),
+                0 2px 4px rgba(0, 0, 0, 0.15); 
+            width: 85%;
+            letter-spacing: 1px;
+            line-height: 1.3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="intro-screen" id="introScreen">
+        <div class="sun-rays"></div>
+        
+        <div class="balloon-container" id="balloonContainer">
+            <span class="click-prompt">ЖМИ!</span>
+            <img src="84.png" alt="Воздушный шарик" class="balloon-img">
+            <img src="85.png" alt="Взрыв" class="explosion-overlay">
+        </div>
+    </div>
+
+    <div class="main-content-wrapper" id="mainContent">
+        
+        <div class="first-screen-container">
+            <img src="75.jpg" alt="Фон страницы" class="full-screen-bg">
+
+            <img src="76.png" alt="Вращающийся элемент" class="rotating-asset">
+
+            <img src="77.png" alt="Пчела 1" class="bee-asset bee-1">
+            <img src="77.png" alt="Пчела 2" class="bee-asset bee-2">
+        </div>
+
+        <div class="video-section-wrapper">
+            <img src="79.jpg" alt="Следующее изображение ниже" class="next-bg">
+            <img src="83.jpg" alt="Изображение 83" class="overlay-static-image">
+        </div>
+
+        <div class="astrology-section">
+            <h2 class="natal-chart-title">Natal chart</h2>
+
+            <div class="text-overlay-card">
+                <img src="81.png" alt="Карта 81" class="astro-card-img">
+                <img src="82.png" alt="Карта 82" class="astro-card-img">
+
+                <div class="astro-content-text">
+                    <h3>Квадрат Солнце — Юпитер</h3>
+                    <p>У вас с этой подругой довольно разные взгляды на то, как нужно жить, к чему стремиться и что вообще считать правильным. При этом вы обе достаточно уверены в своей позиции, поэтому разговоры на темы ценностей, жизненных принципов или серьёзных решений легко превращаются в долгие дискуссии. Не обязательно конфликтные, но каждая остаётся при своём мнении.</p>
+                    <p>При этом именно благодаря этой разнице дружба может быть интересной. Вы расширяете горизонты друг друга, заставляете посмотреть на ситуацию под другим углом. Да, иногда одна может казаться другой слишком легкомысленной, а другая — слишком серьёзной или категоричной. Но поскольку дружба уже проверена временем, скорее всего вы давно научились принимать эти различия как часть характера друг друга.</p>
+
+                    <h3>Квадрат Солнце — Уран</h3>
+                    <p>Этот аспект часто встречается между людьми, которые одновременно очень привязаны друг к другу и периодически друг друга удивляют. Подруга может делать вещи, которые ты совершенно не ожидаешь, а ты, в свою очередь, можешь казаться ей слишком настойчивой в своих убеждениях или привычках.</p>
+                    <p>Из-за этого в дружбе бывают периоды, когда хочется сказать: «Ну почему ты опять всё делаешь по-своему?» Но именно эта непохожесть не даёт отношениям стать скучными. Вы постоянно подталкивают друг друга к новым взглядам, новым идеям и выходу из зоны комфорта. Иногда это раздражает, но одновременно и помогает расти.</p>
+
+                    <h3>Оппозиция Меркурий — Меркурий</h3>
+                    <p>Вы можете бесконечно обсуждать одну и ту же тему и при этом приходить к совершенно разным выводам. Ваши способы мышления отличаются настолько, что порой кажется, будто вы смотрите на одну ситуацию из разных миров. То, что для одной очевидно, для другой требует долгих объяснений.</p>
+                    <p>Но для давних подруг это не обязательно минус. Наоборот, у вас редко заканчиваются темы для разговоров. Вы можете спорить о фильмах, людях, жизненных решениях или планах на будущее и при этом сохранять интерес к мнению друг друга. Скорее всего, ваши лучшие беседы рождаются именно из различий, а не из полного согласия.</p>
+
+                    <h3>Квадрат Меркурий — Юпитер</h3>
+                    <p>Этот аспект добавляет в общение много споров о том, как «правильно» смотреть на жизнь. Одна из вас может мыслить более глобально и философски, другая — более практично и детально. Поэтому периодически возникают ситуации, когда одна говорит: «Думай шире», а другая отвечает: «Сначала разберёмся с реальностью».</p>
+                    <p>У вас есть способность вдохновлять друг друга на новые идеи и планы. Проблема лишь в том, что иногда разговоров оказывается больше, чем действий. Вы можете вместе придумать грандиозный проект, поездку или мечту, а потом долго обсуждать детали вместо того, чтобы начать что-то делать.</p>
+
+                    <h3>Квадрат Меркурий — Нептун</h3>
+                    <p>Иногда между вами возникают недопонимания буквально на пустом месте. Одна что-то имела в виду одно, другая услышала совершенно другое, а потом обе удивляются, откуда вообще взялась обида или путаница. Особенно это касается тем, связанных с эмоциями и ожиданиями.</p>
+                    <p>Зато этот аспект часто встречается у подруг, которые любят долгие разговоры о чувствах, психологии, мечтах и внутренних переживаниях. Вам может быть интересно обсуждать то, что другим людям кажется слишком абстрактным. Главное — не додумывать за друг друга, а иногда просто прямо спрашивать, что человек имел в виду. Тогда большинство недоразумений исчезает само собой.</p>
+
+                    <h3>Секстиль Венера — Сатурн</h3>
+                    <p>Это один из аспектов, который часто помогает дружбе проходить проверку временем. Между вами есть не только симпатия и приятное общение, но и ощущение надёжности. Даже если вы какое-то время не общаетесь каждый день, остаётся уверенность, что в сложной ситуации можно обратиться друг к другу за поддержкой.</p>
+                    <p>Ваша дружба строится не только на эмоциях, но и на уважении. Вы умеете ценить сильные стороны друг друга, выполнять обещания и сохранять доверие. Именно такие аспекты часто встречаются у подруг, которые остаются рядом много лет, несмотря на изменения в жизни, работе или личных обстоятельствах.</p>
+
+                    <h3>Секстиль Венера — Уран</h3>
+                    <p>Этот аспект делает дружбу лёгкой и живой. Вам интересно вместе пробовать что-то новое, обсуждать необычные идеи, открывать новые места, увлечения или темы для разговоров. Рядом друг с другом появляется ощущение свободы — нет необходимости постоянно соответствовать каким-то ожиданиям.</p>
+                    <p>При этом дружба не становится поверхностной. Наоборот, вы можете одновременно быть очень близкими людьми и сохранять уважение к личному пространству друг друга. Часто именно такой аспект создаёт ощущение, что подруга является не только близким человеком, но и настоящим единомышленником.</p>
+
+                    <h3>Тригон Марс — Марс</h3>
+                    <p>У вас очень похожий уровень энергии и активности. Когда нужно что-то организовать, решить проблему или просто собраться на какое-то мероприятие, вы обычно быстро находите общий ритм. Вам легко действовать вместе, потому что ваши способы добиваться целей во многом совпадают.</p>
+                    <p>Этот аспект также показывает хорошую взаимную поддержку. Когда одна из вас теряет мотивацию, другая может помочь собраться и двигаться дальше. Вместе вы способны вдохновлять друг друга на развитие, новые достижения и просто более насыщенную жизнь.</p>
+
+                    <h3>Оппозиция Марс — Юпитер</h3>
+                    <p>Иногда в вашей дружбе возникает классическая ситуация: одна предлагает грандиозную идею, а другая сразу готова броситься её реализовывать, не особо задумываясь о последствиях. Из-за этого могут появляться спонтанные решения, которые потом приходится пересматривать.</p>
+                    <p>Также бывают споры из-за разных подходов к риску и ответственности. Одна может считать другую слишком осторожной, а другая — слишком импульсивной. Но поскольку дружба уже давно существует, скорее всего вы постепенно научились компенсировать эти различия и даже извлекать из них пользу.</p>
+
+                    <h3>Соединение Марс — Нептун</h3>
+                    <p>Между вами может быть довольно сильное эмоциональное понимание, которое не всегда объясняется словами. Иногда вы чувствуете настроение друг друга ещё до того, как кто-то начинает о нём рассказывать. Благодаря этого в дружбе появляется особая глубина и доверительность.</p>
+                    <p>Однако иногда этот аспект создаёт путаницу. Кто-то может ожидать понимания без объяснений или обижаться на то, что его чувства неправильно поняли. Поэтому самые важные разговоры между вами обычно становятся наиболее полезными именно тогда, когда вы открыто говорите о своих переживаниях, а не пытаетесь догадаться о них самостоятельно.</p>
+
+                    <h3>Оппозиция Юпитер – Нептун</h3>
+                    <p>Это один из тех аспектов, который в дружбе часто проявляется не как открытый конфликт, а как разница в мировоззрении. Вы можете смотреть на одну и ту же ситуацию совершенно по-разному: одна склонна верить в мечты, интуицию и ощущения, а другая старается искать логику, реальные возможности и практическую пользу. Из-за этого иногда возникают разговоры в духе: «Ну это же очевидно!» — хотя для второй стороны это совсем не очевидно.</p>
+                    <p>Но поскольку вы уже давно дружите, этот аспект скорее учит вас расширять взгляды друг друга. Да, временами одна может считать другую слишком идеалистичной, а другая — слишком приземлённой. Зато именно благодаря этому вы способны видеть ситуацию с разных сторон. Главное — не пытаться доказать, кто из вас «правильно» воспринимает мир, а принимать, что ваши способы мышления просто отличаются.</p>
+
+                    <h3>Соединение Сатурн – Сатурн</h3>
+                    <p>Очень сильный показатель долгой дружбы. Обычно он встречается у людей одного поколения и создаёт ощущение, что вы проходите похожие жизненные этапы одновременно. У вас схожее понимание ответственности, обязанностей, серьёзных жизненных вопросов и того, что считается правильным или неправильным.</p>
+                    <p>Этот аспект часто даёт надёжность. Даже если вы долго не общаетесь или у каждой начинается свой жизненный период, фундамент дружбы никуда не исчезает. Вы понимаете проблемы друг друга без лишних объяснений и можете поддержать именно тогда, когда это действительно нужно. Такая связь редко бывает поверхностной.</p>
+
+                    <h3>Тригон Сатурн – Уран</h3>
+                    <p>Очень интересное сочетание стабильности и новизны. Одна из вас может чаще предлагать необычные идеи, новые направления или нестандартные решения, а другая помогает сделать эти идеи реалистичными и осуществимыми. Благодаря этому вы хорошо дополняете друг друга.</p>
+                    <p>В дружбе это проявляется так: вместе вы можете решиться на что-то, на что по отдельности не отважились бы. При этом ваши планы не превращаются в хаос, потому что всегда находится человек, который помогает структурировать происходящее. Такой аспект часто создаёт ощущение, что дружба помогает обеим развиваться и не стоять на месте.</p>
+
+                    <h3>Соединение Нептун – Нептун</h3>
+                    <p>Поскольку вы принадлежите примерно к одному поколению, у вас схожие мечты, культурные ориентиры, интерес к определённым темам и похожее восприятие многих глобальных процессов. Вам бывает легко понимать эмоциональный фон друг друга даже без слов.</p>
+                    <p>Этот аспект редко создаёт яркие события сам по себе, но он даёт ощущение внутренней близости. Иногда вы можете обнаружить, что переживаете похожие кризисы, вдохновляетесь одними и теми же вещами или одновременно проходите через схожие этапы жизни. Это создаёт дополнительное чувство родства.</p>
+
+                    <h3>Соединение Плутон – Плутон</h3>
+                    <p>Ещё один поколенческий аспект, который говорит о схожем жизненном опыте и похожих внутренних трансформациях. Вы обе реагируете на серьёзные жизненные перемены примерно одинаковым образом и часто понимаете мотивы друг друга даже тогда, когда окружающим они кажутся странными.</p>
+                    <p>В дружбе это создаёт ощущение, что вы выросли в похожей среде и прошли через похожие уроки. Вам легче обсуждать глубокие темы, серьёзные переживания и вопросы личностного роста. Именно поэтому даже спустя годы такая дружба может сохранять ощущение значимости и глубины.</p>
+
+                    <h3>Общий вывод по совместимости</h3>
+                    <p>Эта дружба выглядит довольно интересной: с одной стороны, между вами есть несколько напряжённых аспектов, связанных с общением и взглядами на жизнь (Солнце–Юпитер, Солнце–Уран, Меркурий–Меркурий, Меркурий–Юпитер, Меркурий–Нептун). Из-за них вы действительно можете часто спорить, по-разному оценивать ситуации и иногда удивляться логике друг друга.</p>
+                    <p>Но при этом у вас очень много аспектов, которые удерживают дружбу на плаву: Венера–Сатурн, Венера–Уран, Mars–Mars, Mars–Pluto, Jupiter–Pluto, Сатурн–Уран и поколенческие соединения. Поэтому создаётся впечатление, что это не дружба «без конфликтов», а дружба, которая прошла через время и научилась принимать различия. Вы можете не всегда соглашаться друг с другом, но при этом оставаться важными людьми в жизни друг друга. Именно такие связи часто оказываются гораздо крепче, чем кажется со стороны.</p>
+                </div>
+            </div>
+
+            <div class="footer-quote-text">Твой дом там, где о тебе думают</div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const introScreen = document.getElementById('introScreen');
+            const balloonContainer = document.getElementById('balloonContainer');
+            const mainContent = document.getElementById('mainContent');
+            
+            let clickCount = 0;
+            let isExploding = false;
+
+            // Блокируем клики во время анимации взрыва
+            introScreen.addEventListener('click', () => {
+                if (isExploding) return;
+
+                clickCount++;
+
+                if (clickCount === 1) {
+                    balloonContainer.className = 'balloon-container stage-1';
+                } 
+                else if (clickCount === 2) {
+                    balloonContainer.className = 'balloon-container stage-2';
+                } 
+                else if (clickCount === 3) {
+                    balloonContainer.className = 'balloon-container stage-3';
+                } 
+                else if (clickCount === 4) {
+                    isExploding = true;
+                    
+                    // 1-я фаза взрыва: резкое появление 85.png по центру
+                    balloonContainer.className = 'balloon-container stage-explosion';
+                    
+                    // Ровно в момент взрыва запускаем побеление экрана
+                    introScreen.classList.add('white-out');
+
+                    // 2-я фаза взрыва: изображение становится чуть больше и наклоняется
+                    setTimeout(() => {
+                        balloonContainer.className = 'balloon-container stage-explosion-final';
+                    }, 150);
+
+                    // Полное исчезновение интро и открытие основной сцены
+                    setTimeout(() => {
+                        introScreen.style.opacity = '0';
+                        // Открываем контент страницы (убираем прозрачность)
+                        mainContent.classList.add('main-content-ready');
+                        
+                        setTimeout(() => {
+                            introScreen.style.visibility = 'hidden';
+                        }, 500);
+                    }, 550); // Согласовано с завершением вспышки и взрыва
+                }
+            });
+        });
+    </script>
+</body>
+</html>
