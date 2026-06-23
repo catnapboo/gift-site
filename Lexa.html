@@ -219,7 +219,7 @@
             overflow: hidden; 
         }
 
-        /* ФОН 75.jpg */
+        /* ФОН 86.jpg */
         .full-screen-bg {
             width: 100%;
             height: 100%;
@@ -229,77 +229,75 @@
             position: relative;
         }
 
-        /* ИЗОБРАЖЕНИЕ 76.png */
-        .rotating-asset {
+        /* ИЗОБРАЖЕНИЕ 87.png в левом нижнем углу */
+        .asset-rotating-87 {
             position: absolute;
-            top: 14%; 
-            left: 42%; 
-            width: 52vw; 
-            max-width: 640px; 
+            bottom: 4%;
+            left: 4%;
+            width: 25vw;
+            max-width: 320px;
             z-index: 5;
-            opacity: 0;
-            animation: continuous-rotation 16s linear infinite, fade-in-delayed 0.8s ease-out forwards;
-            animation-delay: 0s, 0.5s; 
             pointer-events: none;
+            animation: infinite-rotation-self 20s linear infinite;
         }
 
-        @keyframes continuous-rotation {
+        @keyframes infinite-rotation-self {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
 
-        /* ПЧЕЛЫ 77.png */
-        .bee-asset {
+        /* ИЗОБРАЖЕНИЕ 88.png ниже правого верхнего угла */
+        .asset-diagonal-88 {
             position: absolute;
-            width: 95px; 
-            height: auto;
-            z-index: 6;
-            opacity: 0;
+            top: 15%;
+            right: 6%;
+            width: 18vw;
+            max-width: 220px;
+            z-index: 5;
             pointer-events: none;
-            offset-rotate: auto;
+            /* Наклонено на 30 градусов влево и плавно движется по этой оси */
+            animation: slide-diagonal-axis 4s ease-in-out infinite alternate;
         }
 
-        .bee-1 {
-            animation: bee-flight-path-1 22s ease-in-out infinite alternate, fade-in-delayed 0.8s ease-out forwards;
-            animation-delay: 0s, 0.7s;
+        @keyframes slide-diagonal-axis {
+            0% { transform: rotate(-30deg) translateY(-30px); }
+            100% { transform: rotate(-30deg) translateY(30px); }
         }
 
-        .bee-2 {
-            animation: bee-flight-path-2 26s ease-in-out infinite alternate, fade-in-delayed 0.8s ease-out forwards;
-            animation-delay: 0s, 0.8s;
+        /* ИЗОБРАЖЕНИЕ 89.png ниже левого верхнего угла (Движение по кругу против часовой) */
+        .orbit-container-89 {
+            position: absolute;
+            top: 5%;
+            left: 5%;
+            width: 300px;  /* Диаметр воображаемого круга */
+            height: 300px;
+            z-index: 5;
+            pointer-events: none;
+            /* Вращаем сам контейнер против часовой стрелки */
+            animation: orbit-reverse 12s linear infinite;
         }
 
-        @keyframes fade-in-delayed {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        .asset-circular-89 {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 80px;
+            height: auto;
+            transform: translateX(-50%);
+            /* Компенсируем вращение контейнера, чтобы картинка не переворачивалась */
+            animation: orbit-fix-rotation 12s linear infinite;
         }
 
-        @keyframes bee-flight-path-1 {
-            0% { top: 20%; left: -15%; transform: scaleX(1) rotate(20deg); }
-            15% { top: 40%; left: 25%; transform: scaleX(1) rotate(-10deg); }
-            25% { top: 35%; left: 40%; transform: scaleX(1) rotate(0deg); } 
-            28% { top: 35%; left: 40%; transform: scaleX(1) rotate(5deg); }
-            40% { top: 60%; left: 70%; transform: scaleX(1) rotate(45deg); }
-            50% { top: 50%; left: 85%; transform: scaleX(-1) rotate(10deg); } 
-            65% { top: 25%; left: 60%; transform: scaleX(-1) rotate(-20deg); }
-            75% { top: 30%; left: 30%; transform: scaleX(-1) rotate(0deg); } 
-            78% { top: 30%; left: 30%; transform: scaleX(-1) rotate(-5deg); }
-            90% { top: 75%; left: 15%; transform: scaleX(-1) rotate(30deg); }
-            100% { top: 85%; left: -15%; transform: scaleX(-1) rotate(15deg); }
+        @keyframes orbit-reverse {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
         }
 
-        @keyframes bee-flight-path-2 {
-            0% { top: 80%; left: 115%; transform: scaleX(-1) rotate(-15deg); }
-            20% { top: 55%; left: 75%; transform: scaleX(-1) rotate(10deg); }
-            30% { top: 45%; left: 55%; transform: scaleX(-1) rotate(0deg); } 
-            34% { top: 45%; left: 55%; transform: scaleX(-1) rotate(5deg); }
-            50% { top: 15%; left: 20%; transform: scaleX(-1) rotate(-35deg); }
-            60% { top: 25%; left: 10%; transform: scaleX(1) rotate(20deg); } 
-            75% { top: 50%; left: 45%; transform: scaleX(1) rotate(15deg); }
-            85% { top: 55%; left: 45%; transform: scaleX(1) rotate(0deg); } 
-            88% { top: 55%; left: 45%; transform: scaleX(1) rotate(-10deg); }
-            100% { top: 30%; left: 115%; transform: scaleX(1) rotate(-25deg); }
+        @keyframes orbit-fix-rotation {
+            from { transform: translateX(-50%) rotate(-360deg); }
+            to { transform: translateX(-50%) rotate(0deg); }
         }
+
 
         /* БЛОК ДЛЯ ВТОРОГО ЭКРАНА */
         .video-section-wrapper {
@@ -433,7 +431,6 @@
 </head>
 <body>
 
-    <!-- ИНТЕРАКТИВНОЕ ИНТРО -->
     <div class="intro-screen" id="introScreen">
         <div class="balloon-container" id="balloonContainer">
             <span class="click-prompt">ЖМИ!</span>
@@ -442,16 +439,18 @@
         </div>
     </div>
 
-    <!-- ОСНОВНОЙ КОНТЕНТ СТРАНИЦЫ -->
     <div class="main-content-wrapper" id="mainContent">
         
         <div class="first-screen-container">
-            <img src="75.jpg" alt="Фон страницы" class="full-screen-bg">
+            <img src="86.jpg" alt="Фон страницы" class="full-screen-bg">
 
-            <img src="76.png" alt="Вращающийся элемент" class="rotating-asset">
+            <img src="87.png" alt="Элемент 87" class="asset-rotating-87">
 
-            <img src="77.png" alt="Пчела 1" class="bee-asset bee-1">
-            <img src="77.png" alt="Пчела 2" class="bee-asset bee-2">
+            <img src="88.png" alt="Элемент 88" class="asset-diagonal-88">
+
+            <div class="orbit-container-89">
+                <img src="89.png" alt="Элемент 89" class="asset-circular-89">
+            </div>
         </div>
 
         <div class="video-section-wrapper">
@@ -516,8 +515,8 @@
                     <p>Этот аспект часто даёт надёжность. Даже если вы долго не общаетесь или у каждой начинается свой жизненный период, фундамент дружбы никуда не исчезает. Вы понимаете проблемы друг друга без лишних объяснений и можете поддержать именно тогда, когда это действительно нужно. Такая связь редко бывает поверхностной.</p>
 
                     <h3>Тригон Сатурн – Уран</h3>
-                    <p>Очень интересное сочетание стабильности и новизны. Одна из вас может чаще предлагать необычные идеи, новые направления или нестандартные решения, а другая помогает сделать эти идеи реалистичными и осуществимыми. Благодаря этому вы хорошо дополняете друг друга.</p>
-                    <p>В дружбе это проявляется так: вместе вы можете решиться на что-то, на что по отдельности не отважились бы. При этом ваши планы не превращаются в хаос, потому что всегда находится человек, который помогает структурировать происходящее. Такой аспект часто создаёт ощущение, что дружба помогает обеим развиваться и не стоять на месте.</p>
+                    <p>Очень интересное сочетание стабильности и новизны. Одна из вас может чаще предлагать необычные идеи, новые направления или нестандартные решения, а другая помогает сделать эти идеи реалистичными и осуществимыми. Благодаря этого вы хорошо дополняете друг друга.</p>
+                    <p>В дружбе это проявляется так: вместе вы можете решиться на что-то, на что по отдельности не отважились бы. При этом ваши планы не превращаются в хаос, потому что всегда находится человек, который помогает структурувать происходящее. Такой аспект часто создаёт ощущение, что дружба помогает обеим развиваться и не стоять на месте.</p>
 
                     <h3>Соединение Нептун – Нептун</h3>
                     <p>Поскольку вы принадлежите примерно к одному поколению, у вас схожие мечты, культурные ориентиры, интерес к определённым темам и похожее восприятие многих глобальных процессов. Вам бывает легко понимать эмоциональный фон друг друга даже без слов.</p>
@@ -538,7 +537,6 @@
 
     </div>
 
-    <!-- СКРИПТ УПРАВЛЕНИЯ КЛИКАМИ -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const introScreen = document.getElementById('introScreen');
