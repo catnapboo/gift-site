@@ -6,7 +6,6 @@
     <title>Мой проект на GitHub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Подключение шрифтов Stick, Ruslan Display и Dela Gothic -->
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Great+Vibes&family=Marck+Script&family=Press+Start+2P&family=Rubik+Glitch&family=Rubik+Spray+Paint&family=Seymour+One&family=Stick&family=Dela+Gothic+One&family=Ruslan+Display&display=swap" rel="stylesheet">
     
     <style>
@@ -224,8 +223,8 @@
         /* ИЗОБРАЖЕНИЕ 87.png опустили ниже и сдвинули левее */
         .asset-rotating-87 {
             position: absolute;
-            bottom: -12%; /* Опущено ниже (было -5%) */
-            left: -22%; /* Сдвинуто левее (было -15%) */
+            bottom: -15%; /* Опущено ниже (было -12%) */
+            left: -22%; 
             width: 90vw; 
             max-width: 1100px;
             z-index: 5;
@@ -238,11 +237,11 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* ИЗОБРАЖЕНИЕ 88.png сделано еще правее и отзеркалено */
+        /* ИЗОБРАЖЕНИЕ 88.png сделано еще правее */
         .asset-diagonal-88 {
             position: absolute;
             top: 10%;
-            right: -12%; /* Сдвинуто еще правее (было -5%) */
+            right: -12%; 
             width: 55vw; 
             max-width: 750px;
             z-index: 5;
@@ -251,17 +250,17 @@
         }
 
         @keyframes slide-diagonal-axis {
-            0% { transform: scaleX(-1) rotate(-30deg) translateY(-30px); }
-            100% { transform: scaleX(-1) rotate(-30deg) translateY(30px); }
+            0% { transform: rotate(-30deg) translateY(-30px); } /* Убрано scaleX(-1) */
+            100% { transform: rotate(-30deg) translateY(30px); } /* Убрано scaleX(-1) */
         }
 
-        /* ИЗОБРАЖЕНИЕ 89.png ось по которой оно вращается (Сделано больше и ниже) */
+        /* ИЗОБРАЖЕНИЕ 89.png ось по которой оно вращается (Поднято выше) */
         .orbit-container-89 {
             position: absolute;
-            top: 15%; /* Опущено ниже (было 2%) */
+            top: 10%; /* Поднято выше (было 15%) */
             left: 2%;
-            width: 250px;  /* Увеличено (было 150px) */
-            height: 250px; /* Увеличено (было 150px) */
+            width: 250px; 
+            height: 250px; 
             z-index: 5;
             pointer-events: none;
             animation: orbit-reverse 12s linear infinite;
@@ -271,9 +270,8 @@
             position: absolute;
             top: 0;
             left: 50%;
-            width: 280px; /* Увеличено (было 180px) */
+            width: 280px; 
             height: auto;
-            /* Изменено чтобы правый нижний угол (100% 100%) смотрел в центр */
             transform-origin: 100% 100%;
             transform: translateX(-100%) rotate(45deg); 
         }
@@ -438,7 +436,10 @@
 
         <div class="video-section-wrapper">
             <img src="90.jpg" alt="Следующее изображение ниже" class="next-bg">
-            <img src="83.jpg" alt="Изображение 83" class="overlay-static-image">
+            <video autoplay loop muted class="overlay-static-image">
+                <source src="8b.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео в формате MP4.
+            </video>
         </div>
 
         <div class="astrology-section">
@@ -478,7 +479,7 @@
                     <p>Вы способны поддерживать друг друга в сложные периоды, обсуждать довольно личные темы и помогать друг другу меняться к лучшему. Часто такая дружба переживает множество жизненных этапов и становится только крепче. Вы можете замечать, что рядом друг с другом становитесь более уверенными в себе или начинаете смотреть на некоторые вещи глубже.</p>
 
                     <h3>Соединение Марс – Нептун</h3>
-                    <p>Очень интересный аспект, потому что он одновременно даёт вдохновение и периодические недопонимания. Друг может помогать тебе смотреть на вещи менее прямолинейно, замечать детали, которые обычно ускользают от внимания. А ты, в свою очередь, можете помогать ему воплощать идеи в реальность и не застревать только в размышлениях.</p>
+                    <p>Очень интересный аспект, потому che он одновременно даёт вдохновение и периодические недопонимания. Друг может помогать тебе смотреть на вещи менее прямолинейно, замечать детали, которые обычно ускользают от внимания. А ты, в свою очередь, можете помогать ему воплощать идеи в реальность и не застревать только в размышлениях.</p>
                     <p>Иногда, правда, этот аспект может создавать путаницу. Бывают ситуации, когда кто-то что-то подразумевал, а другой понял совершенно иначе. Но если дружба уже проверена временем, такие моменты обычно быстро проходят. Скорее всего, вы уже давно изучили особенности характера друг друга и умеете сглаживать подобные недоразумения.</p>
 
                     <h3>Оппозиция Юпитер – Нептун</h3>
