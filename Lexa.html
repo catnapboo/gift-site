@@ -211,7 +211,7 @@
             overflow: hidden; 
         }
 
-        /* ФОН Изменен с 86.jpg на 90.jpg */
+        /* ФОН Изменен верхний фон обратно на 86.jpg */
         .full-screen-bg {
             width: 100%;
             height: 100%;
@@ -221,13 +221,13 @@
             position: relative;
         }
 
-        /* ИЗОБРАЖЕНИЕ 87.png сдвинуто левее и в 3 раза больше */
+        /* ИЗОБРАЖЕНИЕ 87.png сделано еще чуть больше и сдвинуто ниже и левее */
         .asset-rotating-87 {
             position: absolute;
-            bottom: 2%;
-            left: -10%; /* Сдвинуто левее */
-            width: 75vw; /* В 3 раза больше предыдущего значения 25vw */
-            max-width: 960px;
+            bottom: -5%; /* Сдвинуто ниже */
+            left: -15%; /* Сдвинуто левее */
+            width: 90vw; /* Сделано еще чуть больше */
+            max-width: 1100px;
             z-index: 5;
             pointer-events: none;
             animation: infinite-rotation-self 20s linear infinite;
@@ -238,13 +238,13 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* ИЗОБРАЖЕНИЕ 88.png сделано значительно больше */
+        /* ИЗОБРАЖЕНИЕ 88.png сделано еще больше и сдвинуто вправо */
         .asset-diagonal-88 {
             position: absolute;
             top: 10%;
-            right: 2%;
-            width: 40vw; /* Значительно больше предыдущего 18vw */
-            max-width: 550px;
+            right: -5%; /* Сдвинуто еще больше вправо за пределы экрана */
+            width: 55vw; /* Изменено с 40vw (еще больше) */
+            max-width: 750px;
             z-index: 5;
             pointer-events: none;
             animation: slide-diagonal-axis 4s ease-in-out infinite alternate;
@@ -255,13 +255,13 @@
             100% { transform: rotate(-30deg) translateY(30px); }
         }
 
-        /* ИЗОБРАЖЕНИЕ 89.png сделано больше и закреплено правым верхним углом к центру оси */
+        /* ИЗОБРАЖЕНИЕ 89.png ось по которой оно вращается уменьшена намного */
         .orbit-container-89 {
             position: absolute;
             top: 2%;
             left: 2%;
-            width: 450px;  /* Увеличен диаметр воображаемого круга */
-            height: 450px;
+            width: 150px;  /* Намного уменьшен диаметр оси вращения */
+            height: 150px;
             z-index: 5;
             pointer-events: none;
             animation: orbit-reverse 12s linear infinite;
@@ -271,10 +271,10 @@
             position: absolute;
             top: 0;
             left: 50%;
-            width: 180px; /* Изображение сделано значительно больше */
+            width: 180px; 
             height: auto;
             /* transform-origin задает точку привязки в правый верхний угол (100% 0%). 
-               Дополнительный поворот на 135 градусов ориентирует картинку углом к центру оси */
+                Дополнительный поворот на 135 градусов ориентирует картинку углом к центру оси */
             transform-origin: 100% 0%;
             transform: translateX(-100%) rotate(135deg); 
         }
@@ -296,7 +296,7 @@
             z-index: 10; 
         }
 
-        /* Изменено изображение 79.jpg на 90.jpg */
+        /* Оставлено изображение 90.jpg под верхним блоком */
         .next-bg {
             width: 100%;
             max-width: 100vw;
@@ -341,11 +341,11 @@
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
-        /* Цвет подложки-прямоугольника изменен на hex #ab7115 */
+        /* Прозрачность подложки под основной текст сделана 20% (rgba) */
         .text-overlay-card {
             width: 88%;
             max-width: 900px;
-            background-color: #ab7115; 
+            background-color: rgba(171, 113, 21, 0.2); 
             border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 35px;
@@ -397,10 +397,10 @@
             margin: 0 0 25px 0;
         }
 
-        /* ФИНАЛЬНАЯ НАДПИСЬ: текст изменен, применены параметры заголовка Natal Chart */
+        /* Надпись в самом низу сделана меньше */
         .footer-quote-text {
             font-family: 'Stick', sans-serif; 
-            font-size: clamp(1.8rem, 4vw, 3.2rem); 
+            font-size: clamp(1.2rem, 2.5vw, 2.2rem); /* Уменьшен размер */
             color: #3b3b8a; 
             margin-top: 60px; 
             text-align: center;
@@ -425,8 +425,8 @@
     <div class="main-content-wrapper" id="mainContent">
         
         <div class="first-screen-container">
-            <!-- Заменено на 90.jpg -->
-            <img src="90.jpg" alt="Фон страницы" class="full-screen-bg">
+            <!-- Верхнее изображение поменяли обратно на 86.jpg -->
+            <img src="86.jpg" alt="Фон страницы" class="full-screen-bg">
 
             <img src="87.png" alt="Элемент 87" class="asset-rotating-87">
 
@@ -438,7 +438,7 @@
         </div>
 
         <div class="video-section-wrapper">
-            <!-- Заменено на 90.jpg -->
+            <!-- Под ним изображение 90.jpg осталось без изменений -->
             <img src="90.jpg" alt="Следующее изображение ниже" class="next-bg">
             <img src="83.jpg" alt="Изображение 83" class="overlay-static-image">
         </div>
