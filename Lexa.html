@@ -6,7 +6,8 @@
     <title>Мой проект на GitHub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Great+Vibes&family=Marck+Script&family=Press+Start+2P&family=Rubik+Glitch&family=Rubik+Spray+Paint&family=Seymour+One&display=swap" rel="stylesheet">
+    <!-- Подключение шрифтов Stick и LXGW Marker Gothic (используем Dela Gothic / аналоги для Marker Gothic) -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Great+Vibes&family=Marck+Script&family=Press+Start+2P&family=Rubik+Glitch&family=Rubik+Spray+Paint&family=Seymour+One&family=Stick&family=Dela+Gothic+One&display=swap" rel="stylesheet">
     
     <style>
         /* Главный скролл всей страницы */
@@ -33,7 +34,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #8a1b13; /* Исключительно красный цвет */
+            background-color: #8a1b13; 
             z-index: 9999;
             overflow: hidden;
             cursor: pointer;
@@ -63,7 +64,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, 100vh); /* Изначально глубоко внизу */
+            transform: translate(-50%, 100vh); 
             z-index: 10000;
             display: flex;
             justify-content: center;
@@ -79,8 +80,8 @@
 
         .balloon-img {
             width: auto;
-            height: 35vh; /* Изображение сделано чуть меньше */
-            max-height: 300px; /* Ограничение максимальной высоты */
+            height: 35vh; 
+            max-height: 300px; 
             object-fit: contain;
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -88,10 +89,10 @@
         /* Текстовая надпись ЖМИ! */
         .click-prompt {
             position: absolute;
-            top: -125px; /* Поднята еще выше */
+            top: -125px; 
             font-family: 'Rubik Spray Paint', system-ui;
             font-size: 2.8rem;
-            color: #6ba340; /* Изменен цвет на зеленый */
+            color: #6ba340; 
             text-shadow: 2px 2px 0px #ffffff, -2px -2px 0px #ffffff, 2px -2px 0px #ffffff, -2px 2px 0px #ffffff, 0px 4px 10px rgba(0,0,0,0.3);
             white-space: nowrap;
             opacity: 0;
@@ -106,8 +107,6 @@
         }
 
         /* СТАДИИ НАЖАТИЯ НА ШАРИК */
-        
-        /* Тряска уровень 1 */
         .stage-1 .balloon-img {
             transform: scale(1.2);
             animation: shake-mild 0.15s infinite linear;
@@ -117,7 +116,6 @@
             font-size: 3.3rem;
         }
 
-        /* Тряска уровень 2 */
         .stage-2 .balloon-img {
             transform: scale(1.45);
             animation: shake-medium 0.12s infinite linear;
@@ -127,7 +125,6 @@
             font-size: 3.9rem;
         }
 
-        /* Тряска уровень 3 (перед взрывом) */
         .stage-3 .balloon-img {
             transform: scale(1.75);
             animation: shake-intense 0.09s infinite linear;
@@ -170,13 +167,11 @@
             display: none;
         }
 
-        /* Первый импульс взрыва */
         .stage-explosion .explosion-overlay {
             display: block;
             animation: explode-step-1 0.15s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
         }
 
-        /* Второй импульс взрыва (наклоняется и увеличивается) */
         .stage-explosion-final .explosion-overlay {
             display: block;
             animation: explode-step-2 0.35s ease-out forwards;
@@ -192,20 +187,17 @@
             100% { transform: translate(-50%, -50%) scale(1.4) rotate(15deg); opacity: 1; }
         }
 
-        /* Скрытие шарика и надписи при взрыве */
         .stage-explosion .balloon-img, .stage-explosion-final .balloon-img,
         .stage-explosion .click-prompt, .stage-explosion-final .click-prompt {
             opacity: 0 !important;
             transition: opacity 0.05s ease-out;
         }
 
-
         /* ПЛАВНОЕ ПОЯВЛЕНИЕ ОСНОВНОЙ СТРАНИЦЫ */
         .main-content-wrapper {
             opacity: 0;
             transition: opacity 0.8s ease-out;
         }
-        /* Класс для отображения контента после скрытия интро */
         .main-content-ready {
             opacity: 1;
         }
@@ -219,7 +211,7 @@
             overflow: hidden; 
         }
 
-        /* ФОН 86.jpg */
+        /* ФОН Изменен с 86.jpg на 90.jpg */
         .full-screen-bg {
             width: 100%;
             height: 100%;
@@ -229,13 +221,13 @@
             position: relative;
         }
 
-        /* ИЗОБРАЖЕНИЕ 87.png в левом нижнем углу */
+        /* ИЗОБРАЖЕНИЕ 87.png сдвинуто левее и в 3 раза больше */
         .asset-rotating-87 {
             position: absolute;
-            bottom: 4%;
-            left: 4%;
-            width: 25vw;
-            max-width: 320px;
+            bottom: 2%;
+            left: -10%; /* Сдвинуто левее */
+            width: 75vw; /* В 3 раза больше предыдущего значения 25vw */
+            max-width: 960px;
             z-index: 5;
             pointer-events: none;
             animation: infinite-rotation-self 20s linear infinite;
@@ -246,16 +238,15 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* ИЗОБРАЖЕНИЕ 88.png ниже правого верхнего угла */
+        /* ИЗОБРАЖЕНИЕ 88.png сделано значительно больше */
         .asset-diagonal-88 {
             position: absolute;
-            top: 15%;
-            right: 6%;
-            width: 18vw;
-            max-width: 220px;
+            top: 10%;
+            right: 2%;
+            width: 40vw; /* Значительно больше предыдущего 18vw */
+            max-width: 550px;
             z-index: 5;
             pointer-events: none;
-            /* Наклонено на 30 градусов влево и плавно движется по этой оси */
             animation: slide-diagonal-axis 4s ease-in-out infinite alternate;
         }
 
@@ -264,16 +255,15 @@
             100% { transform: rotate(-30deg) translateY(30px); }
         }
 
-        /* ИЗОБРАЖЕНИЕ 89.png ниже левого верхнего угла (Движение по кругу против часовой) */
+        /* ИЗОБРАЖЕНИЕ 89.png сделано больше и закреплено правым верхним углом к центру оси */
         .orbit-container-89 {
             position: absolute;
-            top: 5%;
-            left: 5%;
-            width: 300px;  /* Диаметр воображаемого круга */
-            height: 300px;
+            top: 2%;
+            left: 2%;
+            width: 450px;  /* Увеличен диаметр воображаемого круга */
+            height: 450px;
             z-index: 5;
             pointer-events: none;
-            /* Вращаем сам контейнер против часовой стрелки */
             animation: orbit-reverse 12s linear infinite;
         }
 
@@ -281,21 +271,17 @@
             position: absolute;
             top: 0;
             left: 50%;
-            width: 80px;
+            width: 180px; /* Изображение сделано значительно больше */
             height: auto;
-            transform: translateX(-50%);
-            /* Компенсируем вращение контейнера, чтобы картинка не переворачивалась */
-            animation: orbit-fix-rotation 12s linear infinite;
+            /* transform-origin задает точку привязки в правый верхний угол (100% 0%). 
+               Дополнительный поворот на 135 градусов ориентирует картинку углом к центру оси */
+            transform-origin: 100% 0%;
+            transform: translateX(-100%) rotate(135deg); 
         }
 
         @keyframes orbit-reverse {
             from { transform: rotate(360deg); }
             to { transform: rotate(0deg); }
-        }
-
-        @keyframes orbit-fix-rotation {
-            from { transform: translateX(-50%) rotate(-360deg); }
-            to { transform: translateX(-50%) rotate(0deg); }
         }
 
 
@@ -310,6 +296,7 @@
             z-index: 10; 
         }
 
+        /* Изменено изображение 79.jpg на 90.jpg */
         .next-bg {
             width: 100%;
             max-width: 100vw;
@@ -329,10 +316,10 @@
             z-index: 20; 
         }
 
-        /* СЕКЦИЯ С ЦИКЛИЧНЫМ ЗАМЕНЕННЫМ ФОНОМ 80.jpg */
+        /* СЕКЦИЯ С ЦИКЛИЧНЫМ ЗАМЕНЕННЫМ ФОНОМ С 80.jpg НА 91.jpg (repeat-y сохранен) */
         .astrology-section {
             width: 100%;
-            background-image: url('80.jpg'); 
+            background-image: url('91.jpg'); 
             background-repeat: repeat-y; 
             background-size: 100% auto;
             position: relative;
@@ -343,27 +330,27 @@
             padding-bottom: 80px; 
         }
 
-        /* Заголовок Natal chart */
+        /* Заголовок Natal chart изменен на шрифт Stick и цвет #3b3b8a */
         .natal-chart-title {
-            font-family: 'Great Vibes', cursive, Georgia, serif; 
-            font-size: clamp(3.5rem, 9vw, 6.5rem); 
-            color: #e65545; 
+            font-family: 'Stick', sans-serif; 
+            font-size: clamp(2.5rem, 7vw, 5rem); 
+            color: #3b3b8a; 
             margin: 40px 0 20px 0;
             text-align: center;
             font-weight: normal;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
-        /* Прозрачная подложка */
+        /* Цвет подложки-прямоугольника изменен на hex #ab7115 */
         .text-overlay-card {
             width: 88%;
             max-width: 900px;
-            background-color: rgba(205, 235, 202, 0.7); 
+            background-color: #ab7115; 
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 35px;
             box-sizing: border-box;
-            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -379,12 +366,12 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.15);
         }
 
-        /* Текст натальной карты */
+        /* Шрифт основного текста изменен на LXGW Marker Gothic (Dela Gothic One), цвет #451185 */
         .astro-content-text {
-            font-family: 'Caveat', cursive, sans-serif; 
-            color: #cc4339; 
-            font-size: clamp(1.4rem, 2.5vw, 1.9rem); 
-            line-height: 1.4;
+            font-family: 'Dela Gothic One', 'LXGW Marker Gothic', sans-serif; 
+            color: #451185; 
+            font-size: clamp(1.1rem, 2vw, 1.5rem); 
+            line-height: 1.5;
             text-align: left;
             width: 100%;
             margin-top: 15px;
@@ -392,11 +379,11 @@
         }
 
         .astro-content-text h3 {
-            font-size: clamp(1.7rem, 3.2vw, 2.4rem); 
-            color: #cc4339; 
+            font-size: clamp(1.4rem, 2.8vw, 2rem); 
+            color: #451185; 
             margin: 45px 0 25px 0;
             text-align: center;
-            border-bottom: 2px dashed rgba(204, 67, 57, 0.4); 
+            border-bottom: 2px dashed rgba(69, 17, 133, 0.4); 
             padding-bottom: 12px;
             font-weight: bold;
             line-height: 1.3;
@@ -410,22 +397,18 @@
             margin: 0 0 25px 0;
         }
 
-        /* ФИНАЛЬНАЯ НАДПИСЬ */
+        /* ФИНАЛЬНАЯ НАДПИСЬ: текст изменен, применены параметры заголовка Natal Chart */
         .footer-quote-text {
-            font-family: 'Great Vibes', cursive, Georgia, serif; 
-            font-size: clamp(2.2rem, 5vw, 4rem); 
-            color: #3eaded; 
+            font-family: 'Stick', sans-serif; 
+            font-size: clamp(1.8rem, 4vw, 3.2rem); 
+            color: #3b3b8a; 
             margin-top: 60px; 
             text-align: center;
             font-weight: normal;
-            text-shadow: 
-                0 0 10px rgba(255, 255, 255, 0.9),
-                0 0 20px rgba(255, 255, 255, 0.7),
-                0 0 30px rgba(255, 255, 255, 0.5),
-                0 2px 4px rgba(0, 0, 0, 0.15); 
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
             width: 85%;
             letter-spacing: 1px;
-            line-height: 1.3;
+            line-height: 1.4;
         }
     </style>
 </head>
@@ -442,7 +425,8 @@
     <div class="main-content-wrapper" id="mainContent">
         
         <div class="first-screen-container">
-            <img src="86.jpg" alt="Фон страницы" class="full-screen-bg">
+            <!-- Заменено на 90.jpg -->
+            <img src="90.jpg" alt="Фон страницы" class="full-screen-bg">
 
             <img src="87.png" alt="Элемент 87" class="asset-rotating-87">
 
@@ -454,7 +438,8 @@
         </div>
 
         <div class="video-section-wrapper">
-            <img src="79.jpg" alt="Следующее изображение ниже" class="next-bg">
+            <!-- Заменено на 90.jpg -->
+            <img src="90.jpg" alt="Следующее изображение ниже" class="next-bg">
             <img src="83.jpg" alt="Изображение 83" class="overlay-static-image">
         </div>
 
@@ -503,7 +488,7 @@
                     <p>Также бывают споры из-за разных подходов к риску и ответственности. Одна может считать другую слишком осторожной, а другая — слишком импульсивной. Но поскольку дружба уже давно существует, скорее всего вы постепенно научились компенсировать эти различия и даже извлекать из них пользу.</p>
 
                     <h3>Соединение Марс — Нептун</h3>
-                    <p>Между вами может быть довольно сильное эмоциональное понимание, которое не всегда объясняется словами. Иногда вы чувствуете настроение друг друга ещё до того, как кто-то начинает о нём рассказывать. Благодаря этого в дружбе появляется особая глубина и доверительность.</p>
+                    <p>Между вами может быть довольно сильное эмоциональное понимание, которое не всегда объясняется словами. Иногда вы чувствуете настроение друг друга ещё до того, как кто-то начинает о нём расскавать. Благодаря этого в дружбе появляется особая глубина и доверительность.</p>
                     <p>Однако иногда этот аспект создаёт путаницу. Кто-то может ожидать понимания без объяснений или обижаться на то, что его чувства неправильно поняли. Поэтому самые важные разговоры между вами обычно становятся наиболее полезными именно тогда, когда вы открыто говорите о своих переживаниях, а не пытаетесь догадаться о них самостоятельно.</p>
 
                     <h3>Оппозиция Юпитер – Нептун</h3>
@@ -532,7 +517,8 @@
                 </div>
             </div>
 
-            <div class="footer-quote-text">Твой дом там, где о тебе думают</div>
+            <!-- Текст изменен, параметры соответствуют natal-chart-title -->
+            <div class="footer-quote-text">Под каждой маской свой цирк или театр драмы</div>
         </div>
 
     </div>
@@ -563,13 +549,13 @@
                 else if (clickCount === 4) {
                     isExploding = true;
                     
-                    // 1-я фаза взрыва: резкое появление 85.png по центру
+                    // 1-я фаза взрыва
                     balloonContainer.className = 'balloon-container stage-explosion';
                     
                     // Ровно в момент взрыва запускаем побеление экрана
                     introScreen.classList.add('white-out');
 
-                    // 2-я фаза взрыва: изображение становится чуть больше и наклоняется
+                    // 2-я фаза взрыва
                     setTimeout(() => {
                         balloonContainer.className = 'balloon-container stage-explosion-final';
                     }, 150);
