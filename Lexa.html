@@ -221,12 +221,12 @@
             position: relative;
         }
 
-        /* ИЗОБРАЖЕНИЕ 87.png сделано еще чуть больше и сдвинуто ниже и левее */
+        /* ИЗОБРАЖЕНИЕ 87.png опустили ниже и сдвинули левее */
         .asset-rotating-87 {
             position: absolute;
-            bottom: -5%; /* Сдвинуто ниже */
-            left: -15%; /* Сдвинуто левее */
-            width: 90vw; /* Сделано еще чуть больше */
+            bottom: -12%; /* Опущено ниже (было -5%) */
+            left: -22%; /* Сдвинуто левее (было -15%) */
+            width: 90vw; 
             max-width: 1100px;
             z-index: 5;
             pointer-events: none;
@@ -238,12 +238,12 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* ИЗОБРАЖЕНИЕ 88.png сделано еще больше и сдвинуто вправо */
+        /* ИЗОБРАЖЕНИЕ 88.png сделано еще правее */
         .asset-diagonal-88 {
             position: absolute;
             top: 10%;
-            right: -5%; /* Сдвинуто еще больше вправо за пределы экрана */
-            width: 55vw; /* Изменено с 40vw (еще больше) */
+            right: -12%; /* Сдвинуто еще правее (было -5%) */
+            width: 55vw; 
             max-width: 750px;
             z-index: 5;
             pointer-events: none;
@@ -255,12 +255,12 @@
             100% { transform: rotate(-30deg) translateY(30px); }
         }
 
-        /* ИЗОБРАЖЕНИЕ 89.png ось по которой оно вращается уменьшена намного */
+        /* ИЗОБРАЖЕНИЕ 89.png ось по которой оно вращается */
         .orbit-container-89 {
             position: absolute;
             top: 2%;
             left: 2%;
-            width: 150px;  /* Намного уменьшен диаметр оси вращения */
+            width: 150px;  
             height: 150px;
             z-index: 5;
             pointer-events: none;
@@ -273,10 +273,9 @@
             left: 50%;
             width: 180px; 
             height: auto;
-            /* transform-origin задает точку привязки в правый верхний угол (100% 0%). 
-                Дополнительный поворот на 135 градусов ориентирует картинку углом к центру оси */
-            transform-origin: 100% 0%;
-            transform: translateX(-100%) rotate(135deg); 
+            /* Изменено чтобы правый нижний угол (100% 100%) смотрел в центр */
+            transform-origin: 100% 100%;
+            transform: translateX(-100%) rotate(45deg); 
         }
 
         @keyframes orbit-reverse {
@@ -366,10 +365,10 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.15);
         }
 
-        /* Шрифт основного текста изменен на LXGW Marker Gothic (Dela Gothic One), цвет #451185 */
+        /* Задан цвет для основного текста hex #deb96a */
         .astro-content-text {
             font-family: 'Dela Gothic One', 'LXGW Marker Gothic', sans-serif; 
-            color: #451185; 
+            color: #deb96a; /* Изменено на #deb96a */
             font-size: clamp(1.1rem, 2vw, 1.5rem); 
             line-height: 1.5;
             text-align: left;
@@ -380,10 +379,10 @@
 
         .astro-content-text h3 {
             font-size: clamp(1.4rem, 2.8vw, 2rem); 
-            color: #451185; 
+            color: #deb96a; /* Изменено на #deb96a */
             margin: 45px 0 25px 0;
             text-align: center;
-            border-bottom: 2px dashed rgba(69, 17, 133, 0.4); 
+            border-bottom: 2px dashed rgba(222, 185, 106, 0.4); /* Обновлен цвет под цвет заголовков */
             padding-bottom: 12px;
             font-weight: bold;
             line-height: 1.3;
@@ -400,7 +399,7 @@
         /* Надпись в самом низу сделана меньше */
         .footer-quote-text {
             font-family: 'Stick', sans-serif; 
-            font-size: clamp(1.2rem, 2.5vw, 2.2rem); /* Уменьшен размер */
+            font-size: clamp(1.2rem, 2.5vw, 2.2rem); 
             color: #3b3b8a; 
             margin-top: 60px; 
             text-align: center;
