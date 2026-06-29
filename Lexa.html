@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Лёша</title>
+    <title>Мой проект на GitHub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Great+Vibes&family=Marck+Script&family=Press+Start+2P&family=Rubik+Glitch&family=Rubik+Spray+Paint&family=Seymour+One&family=Stick&family=Dela+Gothic+One&family=Ruslan+Display&display=swap" rel="stylesheet">
@@ -250,8 +250,8 @@
         }
 
         @keyframes slide-diagonal-axis {
-            0% { transform: rotate(-30deg) translateY(-30px); } /* Убрано scaleX(-1) */
-            100% { transform: rotate(-30deg) translateY(30px); } /* Убрано scaleX(-1) */
+            0% { transform: rotate(-30deg) translateY(-30px); } 
+            100% { transform: rotate(-30deg) translateY(30px); } 
         }
 
         /* ИЗОБРАЖЕНИЕ 89.png ось по которой оно вращается (Поднято выше, Сделано меньше) */
@@ -281,7 +281,6 @@
             to { transform: rotate(0deg); }
         }
 
-
         /* БЛОК ДЛЯ ВТОРОГО ЭКРАНА */
         .video-section-wrapper {
             position: relative;
@@ -301,7 +300,7 @@
             display: block;
         }
 
-        /* Видео изначально прозрачное и не открывается на весь экран */
+        /* Видео изначально прозрачное */
         .overlay-static-image {
             position: absolute;
             top: 50%;
@@ -439,9 +438,9 @@
 
         <div class="video-section-wrapper">
             <img src="90.jpg" alt="Следующее изображение ниже" class="next-bg">
-            <video autoplay loop muted playsinline class="overlay-static-image" id="promoVideo">
+            <video controls playsinline class="overlay-static-image" id="promoVideo">
                 <source src="8b.mp4" type="video/mp4">
-                Ваш браузер не поддерживает видео в формате MP4.
+                Ваш браузер не поддерживает video в формате MP4.
             </video>
         </div>
 
@@ -557,15 +556,17 @@
                         
                         setTimeout(() => {
                             introScreen.style.visibility = 'hidden';
-                            
-                            // Видео становится видимым после завершения интро
-                            if(video) {
-                                video.style.opacity = '1';
-                            }
                         }, 500);
                     }, 550);
                 }
             });
+
+            // Видео плавно проявляется только при старте воспроизведения
+            if (video) {
+                video.addEventListener('play', () => {
+                    video.style.opacity = '1';
+                });
+            }
         });
     </script>
 </body>
