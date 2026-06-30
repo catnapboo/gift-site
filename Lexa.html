@@ -300,7 +300,7 @@
             display: block;
         }
 
-        /* Видео изначально прозрачное */
+        /* Плеер виден сразу, но само тело видео прозрачное до старта */
         .overlay-static-image {
             position: absolute;
             top: 50%;
@@ -311,8 +311,18 @@
             object-fit: contain; 
             border-radius: 8px; 
             z-index: 20; 
-            opacity: 0; /* Изначально прозрачное */
-            transition: opacity 0.5s ease-in-out; /* Плавное появление */
+            opacity: 1; /* Плеер полностью виден сразу */
+            background-color: transparent;
+        }
+
+        /* Стилизация прозрачности медиа-контента до момента воспроизведения */
+        .overlay-static-image:not(.video-playing) {
+            color: transparent;
+        }
+        
+        /* Класс, убирающий прозрачность контента при проигрывании */
+        .overlay-static-image.video-playing {
+            background-color: black; /* Или любой желаемый фон позади видео */
         }
 
         /* СЕКЦИЯ С ЦИКЛИЧНЫМ ЗАМЕНЕННЫМ ФОНОМ С 80.jpg НА 91.jpg (repeat-y сохранен) */
@@ -561,10 +571,13 @@
                 }
             });
 
-            // Видео плавно проявляется только при старте воспроизведения
+            // Добавляем класс активности контента при запуске воспроизведения
             if (video) {
                 video.addEventListener('play', () => {
-                    video.style.opacity = '1';
+                    video.classList.add('video-playing');
+                });
+                video.addEventListener('pause', () => {
+                    // Опционально: если на паузе видео должно оставаться видимым, не удаляем класс.
                 });
             }
         });
